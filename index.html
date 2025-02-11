@@ -85,6 +85,10 @@
         <h3>Сбірка: (Дім Євангелія" м Суми, Украина © 2025 р.)</h3>
     </header>
     <div class="container">
+         <div class="shortcut-container">
+            <button class="shortcut-button" onclick="showShortcutInstructions()">+</button>
+            <span>Добавити на головний екран</span>
+        </div> 
         <ul>
            <li><a href="#" onclick="playAudio('https://www.dropbox.com/scl/fi/0poaeh1lakeaapbqnlwcg/R_20250209-..mp3?rlkey=p98jci5bqva6u3q4lujjnbpth&st=qlwgwvnt&dl=1', 'Проповідь 1', event)">1. "Диявол в кайданах, два воскресіння і останній суд" (Одкр. 20). Віктор Лаба, 09.02.2025</a></li>
             <li><a href="#" onclick="playAudio('https://www.dropbox.com/scl/fi/rw2yfg5ewsbmor2j2kw3u/R_20250209-..mp3?rlkey=7kn06c3f5xut4twam1ym3izdj&st=pvwpzx5x&dl=1', 'Проповідь 2', event)">2. "Великий експеримент" (Мал. 3:10). Андрій Булигін, 09.02.2025</a></li>
@@ -102,10 +106,7 @@
         <audio id="audioPlayer" controls>
             Ваш браузер не підтримує аудіо елемент.
         </audio>
-        <div class="shortcut-container">
-            <button class="shortcut-button" onclick="showShortcutInstructions()">+</button>
-            <span>Добавити на головний екран</span>
-        </div>
+
     </div>
     <script>
         let currentAudio = null;
