@@ -6,6 +6,7 @@
     <title>Аудіо Плеєр</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Ваші стилі залишаються незмінними */
         :root {
             --primary-color: #007bff;
             --hover-color: #0056b3;
@@ -13,7 +14,7 @@
             --track-hover-color: #e9f5ff;
             --playing-color: #d0ebff;
             --icon-size: 24px;
-            --header-text-color: #ffffff; /* Цвет текста в заголовке */
+            --header-text-color: #ffffff;
         }
 
         body {
@@ -25,10 +26,10 @@
         }
 
         header {
-            background: linear-gradient(135deg, #007bff, #0056b3); /* Градиентный фон */
-            color: var(--header-text-color); /* Цвет текста в заголовке */
-            padding: 20px 0; /* Отступы сверху и снизу */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень для заголовка */
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: var(--header-text-color);
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         header h1 {
@@ -127,51 +128,108 @@
                 font-size: 1em;
             }
         }
+
+        .social-icons {
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 24px;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            opacity: 0.8;
+        }
+
+        .social-icons .fa-youtube {
+            color: #ff0000;
+        }
+
+        .social-icons .fa-facebook {
+            color: #1877f2;
+        }
+
+        .social-icons .fa-instagram {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Християнське онлайн аудіо</h1>
-        <h3>Збірка (церква ЄХБ "Дім Євангелія")
+        <h3>Збірка (церква ЄХБ "Дім Євангелія")</h3>
         <h3>Аудіо Плеер</h3>
-
     </header>
-  
+
     <div class="container">
         <h2>Музичне служіння</h2>
-       
-        <div id="playlist">
-            <div class="track">
-                <i class="fas fa-music"></i>
-                <a href="#" data-src="https://www.dropbox.com/scl/fi/uhzeotnzloffqmp8ry6hk/.-15.12.2024.mp3?rlkey=26vivklt1tek3aqobt68cjm2n&st=oy0g5kpk&dl=1">1.  "Відлітають роки, мов птахи восени." Влад та Тимофій Охріменки, 15.12.2024</a>
-            </div>
-            <div class="track">
-                <i class="fas fa-music"></i>
-                <a href="#" data-src="https://www.dropbox.com/scl/fi/oqau1x3jzm5osbju4s99m/.mp3?rlkey=gtmwhlbz0jbkuc669y10h681g&st=taqwxgb3&dl=1">2.  "Темное небо, багровый закат". Тимофей и Влад Охрименки, 26.01.2025</a>
-            </div>
-            <div class="track">
-                <i class="fas fa-music"></i>
-                <a href="#" data-src="https://www.dropbox.com/scl/fi/qos40o8lt9bp4r0dz0jf1/.mp3?rlkey=0tm7p87lt4qk45qmq4ahsr71w&st=ni7975u9&dl=1">3.  "Люби Людей" Тимофей Охрименко</a>
-            </div>
-        </div>
-
+        <div id="playlist"></div>
         <audio id="audioPlayer" controls></audio>
     </div>
-   <footer style="background-color: #f4f4f4; padding: 20px; text-align: center; border-top: 1px solid #ccc; margin-top: 50px;">
-        <!-- Ссылка на главное меню в футере -->
+
+    <footer style="background-color: #f4f4f4; padding: 20px; text-align: center; border-top: 1px solid #ccc; margin-top: 50px;">
         <a href="index.html" style="color: var(--primary-color); text-decoration: none; font-size: 1em;">
             <i class="fas fa-home"></i> Головне меню
         </a>
         <p>м. Суми, версія збірки 1.0 : © 2025 р.</p>
+
+        <div class="social-icons">
+            <a href="https://www.youtube.com" target="_blank">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <a href="https://www.facebook.com" target="_blank">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
     </footer>
 
     <script>
         let audioPlayer = document.getElementById("audioPlayer");
-        let tracks = document.querySelectorAll("#playlist .track");
-        let icons = document.querySelectorAll("#playlist i");
+        let playlistElement = document.getElementById("playlist");
         let currentTrack = 0;
 
+        // Функція для завантаження плейлиста з текстового файлу
+        async function loadPlaylist() {
+            try {
+                const response = await fetch('playlist.txt');
+                const text = await response.text();
+                const lines = text.split('\n');
+
+                lines.forEach((line, index) => {
+                    const [title, url] = line.split(';');
+                    if (title && url) {
+                        const trackDiv = document.createElement('div');
+                        trackDiv.className = 'track';
+                        trackDiv.innerHTML = `
+                            <i class="fas fa-music"></i>
+                            <a href="#" data-src="${url.trim()}">${title.trim()}</a>
+                        `;
+                        trackDiv.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            playTrack(index);
+                        });
+                        playlistElement.appendChild(trackDiv);
+                    }
+                });
+            } catch (error) {
+                console.error('Помилка завантаження плейлиста:', error);
+            }
+        }
+
+        // Функція для відтворення треку
         function playTrack(index) {
+            const tracks = document.querySelectorAll("#playlist .track");
+            const icons = document.querySelectorAll("#playlist i");
+
             if (index >= tracks.length) index = 0;
             currentTrack = index;
 
@@ -191,45 +249,17 @@
             audioPlayer.play();
         }
 
-        function stopTrack() {
-            audioPlayer.pause();
-            audioPlayer.currentTime = 0;
-            tracks[currentTrack].classList.remove("playing");
-            icons[currentTrack].classList.remove("fa-pause");
-            icons[currentTrack].classList.add("fa-music");
-        }
-
-        audioPlayer.addEventListener("pause", function () {
-            tracks[currentTrack].classList.remove("playing");
-            icons[currentTrack].classList.remove("fa-pause");
-            icons[currentTrack].classList.add("fa-music");
-        });
-
-        audioPlayer.addEventListener("play", function () {
-            tracks[currentTrack].classList.add("playing");
-            icons[currentTrack].classList.remove("fa-music");
-            icons[currentTrack].classList.add("fa-pause");
-        });
-
-        tracks.forEach((track, index) => {
-            track.addEventListener("click", function (e) {
-                e.preventDefault();
-
-                if (currentTrack === index && !audioPlayer.paused) {
-                    stopTrack();
-                } else {
-                    playTrack(index);
-                }
-            });
-        });
-
-        audioPlayer.addEventListener("ended", function () {
+        // Обробники подій для аудіоплеєра
+        audioPlayer.addEventListener("ended", () => {
             playTrack(currentTrack + 1);
         });
 
-        audioPlayer.addEventListener("error", function () {
+        audioPlayer.addEventListener("error", () => {
             alert("Не вдалося завантажити аудіофайл. Спробуйте ще раз.");
         });
+
+        // Завантажуємо плейлист при завантаженні сторінки
+        window.onload = loadPlaylist;
     </script>
 </body>
 </html>
