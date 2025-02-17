@@ -198,33 +198,33 @@
         let currentTrack = 0;
 
         // Функція для завантаження плейлиста з текстового файлу
-        async function loadPlaylist() {
-            try {
-                const response = await fetch('playlist.txt');
-                const text = await response.text();
-                const lines = text.split('\n');
+async function loadPlaylist() {
+    try {
+        const response = await fetch('playlist.txt');
+        const blob = await response.blob(); // Отримуємо файл як блоб
+        const text = await blob.text(); // Читаємо блоб як текст у UTF-8
+        const lines = text.split('\n');
 
-                lines.forEach((line, index) => {
-                    const [title, url] = line.split(';');
-                    if (title && url) {
-                        const trackDiv = document.createElement('div');
-                        trackDiv.className = 'track';
-                        trackDiv.innerHTML = `
-                            <i class="fas fa-music"></i>
-                            <a href="#" data-src="${url.trim()}">${title.trim()}</a>
-                        `;
-                        trackDiv.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            playTrack(index);
-                        });
-                        playlistElement.appendChild(trackDiv);
-                    }
+        lines.forEach((line, index) => {
+            const [title, url] = line.split(';');
+            if (title && url) {
+                const trackDiv = document.createElement('div');
+                trackDiv.className = 'track';
+                trackDiv.innerHTML = `
+                    <i class="fas fa-music"></i>
+                    <a href="#" data-src="${url.trim()}">${title.trim()}</a>
+                `;
+                trackDiv.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    playTrack(index);
                 });
-            } catch (error) {
-                console.error('Помилка завантаження плейлиста:', error);
+                playlistElement.appendChild(trackDiv);
             }
-        }
-
+        });
+    } catch (error) {
+        console.error('Помилка завантаження плейлиста:', error);
+    }
+}
         // Функція для відтворення треку
         function playTrack(index) {
             const tracks = document.querySelectorAll("#playlist .track");
