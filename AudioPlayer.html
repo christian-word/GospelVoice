@@ -5,21 +5,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Аудіо Плеєр</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* Ваші стилі */
-        #loading {
-            text-align: center;
-            font-size: 18px;
-            color: var(--primary-color);
-            margin: 20px 0;
+<style>
+    :root {
+        --primary-color: #007bff;
+        --hover-color: #0056b3;
+        --background-color: #f4f4f4;
+        --track-hover-color: #e9f5ff;
+        --playing-color: #d0ebff;
+        --icon-size: 24px;
+        --header-text-color: #ffffff;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: var(--background-color);
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        color: var(--header-text-color);
+        padding: 20px 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 2.5em;
+    }
+
+    header h3 {
+        margin: 5px 0;
+        font-size: 1.2em;
+    }
+
+    .container {
+        max-width: 800px;
+        width: 100%;
+        margin: 20px auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+    }
+
+    .track {
+        display: flex;
+        align-items: center;
+        margin: 5px 0;
+        padding: 8px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .track:hover {
+        background-color: var(--track-hover-color);
+    }
+
+    .track a {
+        text-decoration: none;
+        color: var(--primary-color);
+        font-size: 18px;
+        margin-left: 8px;
+        transition: color 0.3s ease;
+    }
+
+    .track a:hover {
+        color: var(--hover-color);
+    }
+
+    .track i {
+        font-size: 14px;
+        color: var(--primary-color);
+        transition: color 0.3s ease;
+    }
+
+    .playing {
+        background-color: var(--playing-color);
+        font-weight: bold;
+    }
+
+    .playing a {
+        color: var(--hover-color);
+    }
+
+    .playing i {
+        color: var(--hover-color);
+    }
+
+    #audioPlayer {
+        width: 100%;
+        margin-top: 20px;
+        box-sizing: border-box;
+    }
+
+    @media (max-width: 600px) {
+        .container {
+            max-width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 0;
         }
 
-        .fa-spinner {
-            margin-right: 10px;
-            font-size: 24px;
-            color: var(--primary-color);
+        .track {
+            padding: 8px;
         }
-    </style>
+
+        .track a {
+            font-size: 16px;
+        }
+
+        header h1 {
+            font-size: 2em;
+        }
+
+        header h3 {
+            font-size: 1em;
+        }
+    }
+
+    #loading {
+        text-align: center;
+        font-size: 18px;
+        color: var(--primary-color);
+        margin: 20px 0;
+    }
+
+    .fa-spinner {
+        margin-right: 10px;
+        font-size: 24px;
+        color: var(--primary-color);
+    }
+</style>
 </head>
 <body>
     <header>
