@@ -6,6 +6,7 @@
     <title>Аудіо Плеєр</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Ваши стили остаются без изменений */
         :root {
             --primary-color: #007bff;
             --hover-color: #0056b3;
@@ -60,7 +61,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            text-align: left; /* Выравнивание текста по левому краю */
+            text-align: left;
         }
 
         .track:hover {
@@ -73,7 +74,7 @@
             font-size: 18px;
             margin-left: 8px;
             transition: color 0.3s ease;
-            flex-grow: 1; /* Растягиваем ссылку на всю доступную ширину */
+            flex-grow: 1;
         }
 
         .track a:hover {
@@ -198,14 +199,21 @@
         let playlistElement = document.getElementById("playlist");
         let currentTrack = 0;
 
+        // Функция для получения имени плейлиста из URL
+        function getPlaylistNameFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('playlist') || 'playlist.txt'; // По умолчанию, если параметр не указан
+        }
+
         // Показываем индикатор загрузки перед загрузкой плейлиста
         document.addEventListener("DOMContentLoaded", () => {
             playlistElement.innerHTML = '<div id="loading" style="text-align:center; padding: 20px;"><i class="fas fa-spinner fa-spin" style="font-size: 24px; color: var(--primary-color);"></i></div>';
         });
 
         async function loadPlaylist() {
+            const playlistName = getPlaylistNameFromURL();
             try {
-                const response = await fetch('playlist.txt');
+                const response = await fetch(playlistName);
                 const text = await response.text();
                 const lines = text.split('\n');
 
