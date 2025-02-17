@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
@@ -6,157 +6,18 @@
     <title>Аудіо Плеєр</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Ваші стилі залишаються незмінними */
-        :root {
-            --primary-color: #007bff;
-            --hover-color: #0056b3;
-            --background-color: #f4f4f4;
-            --track-hover-color: #e9f5ff;
-            --playing-color: #d0ebff;
-            --icon-size: 24px;
-            --header-text-color: #ffffff;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
+        /* Ваші стилі */
+        #loading {
             text-align: center;
-            background-color: var(--background-color);
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background: linear-gradient(135deg, #007bff, #0056b3);
-            color: var(--header-text-color);
-            padding: 20px 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
-
-        header h3 {
-            margin: 5px 0;
-            font-size: 1.2em;
-        }
-
-        .container {
-            max-width: 800px;
-            width: 100%;
-            margin: 20px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
-        }
-
-        .track {
-            display: flex;
-            align-items: center;
-            margin: 5px 0;
-            padding: 8px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .track:hover {
-            background-color: var(--track-hover-color);
-        }
-
-        .track a {
-            text-decoration: none;
-            color: var(--primary-color);
             font-size: 18px;
-            margin-left: 8px;
-            transition: color 0.3s ease;
-        }
-
-        .track a:hover {
-            color: var(--hover-color);
-        }
-
-        .track i {
-            font-size: 14px;
             color: var(--primary-color);
-            transition: color 0.3s ease;
+            margin: 20px 0;
         }
 
-        .playing {
-            background-color: var(--playing-color);
-            font-weight: bold;
-        }
-
-        .playing a {
-            color: var(--hover-color);
-        }
-
-        .playing i {
-            color: var(--hover-color);
-        }
-
-        #audioPlayer {
-            width: 100%;
-            margin-top: 20px;
-            box-sizing: border-box;
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                max-width: 100%;
-                padding: 10px;
-                margin: 10px 0;
-                border-radius: 0;
-            }
-
-            .track {
-                padding: 8px;
-            }
-
-            .track a {
-                font-size: 16px;
-            }
-
-            header h1 {
-                font-size: 2em;
-            }
-
-            header h3 {
-                font-size: 1em;
-            }
-        }
-
-        .social-icons {
-            margin-top: 10px;
-        }
-
-        .social-icons a {
-            text-decoration: none;
-            margin: 0 10px;
+        .fa-spinner {
+            margin-right: 10px;
             font-size: 24px;
-            transition: opacity 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            opacity: 0.8;
-        }
-
-        .social-icons .fa-youtube {
-            color: #ff0000;
-        }
-
-        .social-icons .fa-facebook {
-            color: #1877f2;
-        }
-
-        .social-icons .fa-instagram {
-            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: var(--primary-color);
         }
     </style>
 </head>
@@ -169,98 +30,59 @@
 
     <div class="container">
         <h2>Музичне служіння</h2>
+        <!-- Індикатор завантаження -->
+        <div id="loading" style="display: none;">
+            <i class="fas fa-spinner fa-spin"></i> Завантаження плейлиста...
+        </div>
+        <!-- Плейлист -->
         <div id="playlist"></div>
         <audio id="audioPlayer" controls></audio>
     </div>
 
-    <footer style="background-color: #f4f4f4; padding: 20px; text-align: center; border-top: 1px solid #ccc; margin-top: 50px;">
-        <a href="index.html" style="color: var(--primary-color); text-decoration: none; font-size: 1em;">
-            <i class="fas fa-home"></i> Головне меню
-        </a>
-        <p>м. Суми, версія збірки 1.0 : © 2025 р.</p>
-
-        <div class="social-icons">
-            <a href="https://www.youtube.com" target="_blank">
-                <i class="fab fa-youtube"></i>
-            </a>
-            <a href="https://www.facebook.com" target="_blank">
-                <i class="fab fa-facebook"></i>
-            </a>
-            <a href="https://www.instagram.com" target="_blank">
-                <i class="fab fa-instagram"></i>
-            </a>
-        </div>
-    </footer>
-
     <script>
-        let audioPlayer = document.getElementById("audioPlayer");
-        let playlistElement = document.getElementById("playlist");
-        let currentTrack = 0;
+        // Оновлений код з індикатором завантаження
+        async function loadPlaylist() {
+            const loadingElement = document.getElementById('loading');
+            const playlistElement = document.getElementById('playlist');
 
-        // Функція для завантаження плейлиста з текстового файлу
-async function loadPlaylist() {
-    try {
-        // Додаємо унікальний параметр (timestamp) до URL
-        const timestamp = new Date().getTime();
-        const response = await fetch(`playlist.txt?${timestamp}`);
-        const blob = await response.blob();
-        const text = await blob.text();
-        const lines = text.split('\n');
+            loadingElement.style.display = 'block';
 
-        lines.forEach((line, index) => {
-            const [title, url] = line.split(';');
-            if (title && url) {
-                const trackDiv = document.createElement('div');
-                trackDiv.className = 'track';
-                trackDiv.innerHTML = `
-                    <i class="fas fa-music"></i>
-                    <a href="#" data-src="${url.trim()}">${title.trim()}</a>
-                `;
-                trackDiv.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    playTrack(index);
+            try {
+                const timestamp = new Date().getTime();
+                const response = await fetch(`playlist.txt?${timestamp}`);
+                const blob = await response.blob();
+                const text = await blob.text();
+                const lines = text.split('\n');
+
+                playlistElement.innerHTML = '';
+
+                lines.forEach((line, index) => {
+                    const [title, url] = line.split(';');
+                    if (title && url) {
+                        const trackDiv = document.createElement('div');
+                        trackDiv.className = 'track';
+                        trackDiv.innerHTML = `
+                            <i class="fas fa-music"></i>
+                            <a href="#" data-src="${url.trim()}">${title.trim()}</a>
+                        `;
+                        trackDiv.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            playTrack(index);
+                        });
+                        playlistElement.appendChild(trackDiv);
+                    }
                 });
-                playlistElement.appendChild(trackDiv);
+            } catch (error) {
+                console.error('Помилка завантаження плейлиста:', error);
+                playlistElement.innerHTML = '<div style="color: red;">Не вдалося завантажити плейлист. Спробуйте ще раз.</div>';
+            } finally {
+                loadingElement.style.display = 'none';
             }
-        });
-    } catch (error) {
-        console.error('Помилка завантаження плейлиста:', error);
-    }
-}
-        // Функція для відтворення треку
-        function playTrack(index) {
-            const tracks = document.querySelectorAll("#playlist .track");
-            const icons = document.querySelectorAll("#playlist i");
-
-            if (index >= tracks.length) index = 0;
-            currentTrack = index;
-
-            tracks.forEach((track, i) => {
-                if (i === index) {
-                    track.classList.add("playing");
-                    icons[i].classList.remove("fa-music");
-                    icons[i].classList.add("fa-pause");
-                } else {
-                    track.classList.remove("playing");
-                    icons[i].classList.remove("fa-pause");
-                    icons[i].classList.add("fa-music");
-                }
-            });
-
-            audioPlayer.src = tracks[index].querySelector("a").getAttribute("data-src");
-            audioPlayer.play();
         }
 
-        // Обробники подій для аудіоплеєра
-        audioPlayer.addEventListener("ended", () => {
-            playTrack(currentTrack + 1);
-        });
+        // Інші функції (playTrack, stopTrack тощо)
+        // ...
 
-        audioPlayer.addEventListener("error", () => {
-            alert("Не вдалося завантажити аудіофайл. Спробуйте ще раз.");
-        });
-
-        // Завантажуємо плейлист при завантаженні сторінки
         window.onload = loadPlaylist;
     </script>
 </body>
