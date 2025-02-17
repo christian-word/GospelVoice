@@ -200,9 +200,11 @@
         // Функція для завантаження плейлиста з текстового файлу
 async function loadPlaylist() {
     try {
-        const response = await fetch('playlist.txt');
-        const blob = await response.blob(); // Отримуємо файл як блоб
-        const text = await blob.text(); // Читаємо блоб як текст у UTF-8
+        // Додаємо унікальний параметр (timestamp) до URL
+        const timestamp = new Date().getTime();
+        const response = await fetch(`playlist.txt?${timestamp}`);
+        const blob = await response.blob();
+        const text = await blob.text();
         const lines = text.split('\n');
 
         lines.forEach((line, index) => {
