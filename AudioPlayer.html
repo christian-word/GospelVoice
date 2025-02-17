@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +6,6 @@
     <title>Аудіо Плеєр</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Ваші стилі залишаються незмінними */
         :root {
             --primary-color: #007bff;
             --hover-color: #0056b3;
@@ -19,7 +18,6 @@
 
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
             background-color: var(--background-color);
             margin: 0;
             padding: 0;
@@ -29,6 +27,7 @@
             background: linear-gradient(135deg, #007bff, #0056b3);
             color: var(--header-text-color);
             padding: 20px 0;
+            text-align: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
@@ -53,6 +52,10 @@
             box-sizing: border-box;
         }
 
+        #playlist {
+            padding: 10px;
+        }
+
         .track {
             display: flex;
             align-items: center;
@@ -61,28 +64,23 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            text-align: left; /* Убрано центрирование */
         }
 
         .track:hover {
             background-color: var(--track-hover-color);
         }
 
-        .track {
-    display: flex;
-    align-items: center;
-    margin: 5px 0;
-    padding: 8px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-align: left; /* Убрал центровку */
+        .track a {
+            flex-grow: 1;
+            text-decoration: none;
+            color: var(--primary-color);
+            font-size: 18px;
+            margin-left: 8px;
+            transition: color 0.3s ease;
+            text-align: left;
         }
 
-        .track a {
-        flex-grow: 1;
-        text-align: left;
-        }
-    
         .track a:hover {
             color: var(--hover-color);
         }
@@ -112,33 +110,9 @@
             box-sizing: border-box;
         }
 
-        @media (max-width: 600px) {
-            .container {
-                max-width: 100%;
-                padding: 10px;
-                margin: 10px 0;
-                border-radius: 0;
-            }
-
-            .track {
-                padding: 8px;
-            }
-
-            .track a {
-                font-size: 16px;
-            }
-
-            header h1 {
-                font-size: 2em;
-            }
-
-            header h3 {
-                font-size: 1em;
-            }
-        }
-
         .social-icons {
             margin-top: 10px;
+            text-align: center;
         }
 
         .social-icons a {
@@ -172,12 +146,16 @@
     <header>
         <h1>Християнське онлайн аудіо</h1>
         <h3>Збірка (церква ЄХБ "Дім Євангелія")</h3>
-        <h3>Аудіо Плеер</h3>
+        <h3>Аудіо Плеєр</h3>
     </header>
 
     <div class="container">
         <h2>Музичне служіння</h2>
-        <div id="playlist"></div>
+        <div id="playlist">
+            <div id="loading" style="text-align:center; padding: 20px;">
+                <i class="fas fa-spinner fa-spin" style="font-size: 24px; color: var(--primary-color);"></i>
+            </div>
+        </div>
         <audio id="audioPlayer" controls></audio>
     </div>
 
@@ -203,77 +181,41 @@
     <script>
         let audioPlayer = document.getElementById("audioPlayer");
         let playlistElement = document.getElementById("playlist");
-        let currentTrack = 0;
 
-// Показываем индикатор загрузки перед загрузкой плейлиста
-document.addEventListener("DOMContentLoaded", () => {
-    playlistElement.innerHTML = '<div id="loading" style="text-align:center; padding: 20px;"><i class="fas fa-spinner fa-spin" style="font-size: 24px; color: var(--primary-color);"></i></div>';
-});
-
-async function loadPlaylist() {
-    try {
-        const response = await fetch('playlist.txt');
-        const text = await response.text();
-        const lines = text.split('\n');
-
-        playlistElement.innerHTML = ''; // Убираем индикатор загрузки
-
-        lines.forEach((line, index) => {
-            const [title, url] = line.split(';');
-            if (title && url) {
-                const trackDiv = document.createElement('div');
-                trackDiv.className = 'track';
-                trackDiv.innerHTML = `
-                    <i class="fas fa-music"></i>
-                    <a href="#" data-src="${url.trim()}">${title.trim()}</a>
-                `;
-                trackDiv.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    playTrack(index);
-                });
-                playlistElement.appendChild(trackDiv);
-            }
+        document.addEventListener("DOMContentLoaded", () => {
+            playlistElement.innerHTML = '<div id="loading" style="text-align:center; padding: 20px;"><i class="fas fa-spinner fa-spin" style="font-size: 24px; color: var(--primary-color);"></i></div>';
         });
-    } catch (error) {
-        console.error('Помилка завантаження плейлиста:', error);
-        playlistElement.innerHTML = '<p style="color: red; text-align: center;">Не вдалося завантажити плейлист</p>';
-    }
-}
 
-        // Функція для відтворення треку
-        function playTrack(index) {
-            const tracks = document.querySelectorAll("#playlist .track");
-            const icons = document.querySelectorAll("#playlist i");
+        async function loadPlaylist() {
+            try {
+                const response = await fetch('playlist.txt');
+                const text = await response.text();
+                const lines = text.split('\n');
 
-            if (index >= tracks.length) index = 0;
-            currentTrack = index;
+                playlistElement.innerHTML = ''; 
 
-            tracks.forEach((track, i) => {
-                if (i === index) {
-                    track.classList.add("playing");
-                    icons[i].classList.remove("fa-music");
-                    icons[i].classList.add("fa-pause");
-                } else {
-                    track.classList.remove("playing");
-                    icons[i].classList.remove("fa-pause");
-                    icons[i].classList.add("fa-music");
-                }
-            });
-
-            audioPlayer.src = tracks[index].querySelector("a").getAttribute("data-src");
-            audioPlayer.play();
+                lines.forEach((line, index) => {
+                    const [title, url] = line.split(';');
+                    if (title && url) {
+                        const trackDiv = document.createElement('div');
+                        trackDiv.className = 'track';
+                        trackDiv.innerHTML = `
+                            <i class="fas fa-music"></i>
+                            <a href="#" data-src="${url.trim()}">${title.trim()}</a>
+                        `;
+                        trackDiv.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            playTrack(index);
+                        });
+                        playlistElement.appendChild(trackDiv);
+                    }
+                });
+            } catch (error) {
+                console.error('Помилка завантаження плейлиста:', error);
+                playlistElement.innerHTML = '<p style="color: red; text-align: center;">Не вдалося завантажити плейлист</p>';
+            }
         }
 
-        // Обробники подій для аудіоплеєра
-        audioPlayer.addEventListener("ended", () => {
-            playTrack(currentTrack + 1);
-        });
-
-        audioPlayer.addEventListener("error", () => {
-            alert("Не вдалося завантажити аудіофайл. Спробуйте ще раз.");
-        });
-
-        // Завантажуємо плейлист при завантаженні сторінки
         window.onload = loadPlaylist;
     </script>
 </body>
