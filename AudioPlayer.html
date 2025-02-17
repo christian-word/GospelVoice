@@ -197,33 +197,40 @@
         let playlistElement = document.getElementById("playlist");
         let currentTrack = 0;
 
-        // Функція для завантаження плейлиста з текстового файлу
-        async function loadPlaylist() {
-            try {
-                const response = await fetch('playlist.txt');
-                const text = await response.text();
-                const lines = text.split('\n');
+// Показываем индикатор загрузки перед загрузкой плейлиста
+document.addEventListener("DOMContentLoaded", () => {
+    playlistElement.innerHTML = '<div id="loading" style="text-align:center; padding: 20px;"><i class="fas fa-spinner fa-spin" style="font-size: 24px; color: var(--primary-color);"></i></div>';
+});
 
-                lines.forEach((line, index) => {
-                    const [title, url] = line.split(';');
-                    if (title && url) {
-                        const trackDiv = document.createElement('div');
-                        trackDiv.className = 'track';
-                        trackDiv.innerHTML = `
-                            <i class="fas fa-music"></i>
-                            <a href="#" data-src="${url.trim()}">${title.trim()}</a>
-                        `;
-                        trackDiv.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            playTrack(index);
-                        });
-                        playlistElement.appendChild(trackDiv);
-                    }
+async function loadPlaylist() {
+    try {
+        const response = await fetch('playlist.txt');
+        const text = await response.text();
+        const lines = text.split('\n');
+
+        playlistElement.innerHTML = ''; // Убираем индикатор загрузки
+
+        lines.forEach((line, index) => {
+            const [title, url] = line.split(';');
+            if (title && url) {
+                const trackDiv = document.createElement('div');
+                trackDiv.className = 'track';
+                trackDiv.innerHTML = `
+                    <i class="fas fa-music"></i>
+                    <a href="#" data-src="${url.trim()}">${title.trim()}</a>
+                `;
+                trackDiv.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    playTrack(index);
                 });
-            } catch (error) {
-                console.error('Помилка завантаження плейлиста:', error);
+                playlistElement.appendChild(trackDiv);
             }
-        }
+        });
+    } catch (error) {
+        console.error('Помилка завантаження плейлиста:', error);
+        playlistElement.innerHTML = '<p style="color: red; text-align: center;">Не вдалося завантажити плейлист</p>';
+    }
+}
 
         // Функція для відтворення треку
         function playTrack(index) {
