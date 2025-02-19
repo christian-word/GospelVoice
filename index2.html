@@ -313,6 +313,24 @@ background: linear-gradient(45deg, #ffcc00, #ff6600, #8000ff);
             document.documentElement.scrollTop = 0;
         }
     </script>
+
+<script>
+    document.addEventListener("click", function() {
+        let audio = document.getElementById("bg-music");
+        audio.volume = 0;
+        audio.play();
+        
+        let fadeIn = setInterval(function() {
+            if (audio.volume < 1) {
+                audio.volume += 0.02; // Плавно увеличиваем громкость
+            } else {
+                clearInterval(fadeIn);
+            }
+        }, 200);
+    }, { once: true });
+</script>
+
+
 </head>
 <body>
     <header>
@@ -322,6 +340,11 @@ background: linear-gradient(45deg, #ffcc00, #ff6600, #8000ff);
 
 <div class="container">
     <ul>
+
+     <audio id="bg-music" loop>
+          <source src="https://ruyriy.github.io/Audio-christ/Светлана_М.mp3" type="audio/mpeg">
+     </audio>
+
         <!-- Категория 1 -->
         <li class="category" onclick="toggleSubMenu('category1')" title="Слухайте духовну музику, яка надихає та збагачує вашу віру">
             Духовна музика
@@ -347,12 +370,12 @@ background: linear-gradient(45deg, #ffcc00, #ff6600, #8000ff);
         </li>
         <ul id="category2" class="sub-menu">
             <li>
-                <a href="AudioPlayer11.html" title="Проповіді, які звучать у нашій церкві під час недільних служінь">
+                <a href="index.html" title="Проповіді, які звучать у нашій церкві під час недільних служінь">
                     <i class="fas fa-book-open"></i> Проповіді нашої церкви
                 </a>
             </li>
             <li>
-                <a href="AudioPlayer12.html" title="Проповіді, присвячені служінню та практичним аспектам християнського життя">
+                <a href="index.html" title="Проповіді, присвячені служінню та практичним аспектам християнського життя">
                     <i class="fas fa-book-open"></i> Служіння через слово
                 </a>
             </li>
@@ -360,12 +383,12 @@ background: linear-gradient(45deg, #ffcc00, #ff6600, #8000ff);
 
         <!-- Дополнительные ссылки -->
         <li>
-            <a href="https://example.com/radio" target="_blank" title="Слухайте християнське радіо онлайн">
+            <a href="https://ruyriy.github.io/Radio-online/index.html" target="_blank" title="Слухайте християнське радіо онлайн">
                 Християнське радіо
             </a>
         </li>
         <li>
-            <a href="archive.html" title="Переглядайте відеозаписи наших служінь та подій">
+            <a href="https://ruyriy.github.io/VideoYouTube/video_max.html" title="Переглядайте відеозаписи наших служінь та подій">
                 Відеозаписи служінь
             </a>
         </li>
@@ -377,9 +400,9 @@ background: linear-gradient(45deg, #ffcc00, #ff6600, #8000ff);
         <p>м. Суми, версія збірки 1.0 : © 2025 р.</p>
 
         <div class="social-icons">
-            <a href="https://www.youtube.com" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
-            <a href="https://www.instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/@pravdachurch" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com/pravdachurch" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/pravda.church" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
     </footer>
 
