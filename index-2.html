@@ -1,0 +1,366 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Християнське онлайн аудіо</title>
+    <meta name="description" content="Християнське онлайн аудіо - збірка духовних пісень та проповідей для збагачення віри. Церква ЄХБ 'Дім Євангелія', м. Суми, Україна.">
+    <meta name="keywords" content="християнське аудіо, духовні пісні, проповіді, церква ЄХБ, Суми, Україна">
+    <meta name="author" content="Церква ЄХБ 'Дім Євангелія'">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --hover-color: #0056b3;
+            --background-color: #f4f4f4;
+            --menu-bg: #ffffff;
+            --track-hover-color: #e9f5ff;
+            --playing-color: #d0ebff;
+            --icon-size: 20px;
+            --header-text-color: #ffffff;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.8), rgba(0, 86, 179, 0.8)), url('header-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            color: var(--header-text-color);
+            padding: 25px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        header h3 {
+            margin: 10px 0;
+            font-size: 1.3em;
+            font-weight: normal;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 20px auto;
+            background: var(--menu-bg);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            flex-grow: 1;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin: 15px 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 6px;
+        }
+
+        a:hover {
+            color: var(--hover-color);
+            background-color: var(--track-hover-color);
+            transform: translateX(8px);
+        }
+
+        .category {
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.4rem;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            background: var(--track-hover-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.3s ease;
+        }
+
+        .category:hover {
+            background: var(--playing-color);
+        }
+
+        .category i {
+            transition: transform 0.3s ease;
+        }
+
+        .sub-menu {
+            max-height: 0;
+            overflow: hidden;
+            padding-left: 25px;
+            margin-top: 10px;
+            transition: max-height 0.5s ease-out;
+        }
+
+        .sub-menu.open {
+            max-height: 500px;
+        }
+
+        .sub-menu li {
+            margin: 10px 0;
+        }
+
+        .sub-menu a {
+            font-size: 1.1rem;
+            display: block;
+            text-align: left;
+        }
+
+        footer {
+            background-color: white;
+            padding: 15px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            margin-top: auto;
+            box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+            margin-bottom: 50px; /* Отступ для футера */
+        }
+
+        footer p {
+            margin: 0;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .social-icons {
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            margin: 0 10px;
+            font-size: 1.5em;
+            display: inline-block;
+        }
+
+        .social-icons a .fab {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-icons a:hover .fab {
+            transform: scale(1.2);
+            color: var(--hover-color);
+        }
+
+        .fa-youtube { color: #FF0000; }
+        .fa-facebook { color: #1877F2; }
+        .fa-instagram { color: #C13584; }
+
+        #scrollToTop {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99;
+            font-size: 22px;
+            border: none;
+            outline: none;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        #scrollToTop:hover {
+            background-color: var(--hover-color);
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem; /* Вернул размер шрифта */
+            }
+
+            header h3 {
+                font-size: 1.1rem; /* Вернул размер шрифта */
+            }
+
+            a {
+                font-size: 1.1rem; /* Вернул размер шрифта */
+            }
+
+            .category {
+                font-size: 1.3rem; /* Вернул размер шрифта */
+            }
+
+            .container {
+                padding: 20px; /* Вернул отступы */
+            }
+
+            footer {
+                padding: 15px; /* Вернул отступы */
+                margin-bottom: 70px; /* Увеличил отступ для мобильных устройств */
+            }
+
+            .social-icons a {
+                font-size: 1.5em; /* Вернул размер иконок */
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2.0rem; /* Вернул размер шрифта */
+            }
+
+            header h3 {
+                font-size: 1.0rem; /* Вернул размер шрифта */
+            }
+
+            a {
+                font-size: 1.0rem; /* Вернул размер шрифта */
+            }
+
+            .category {
+                font-size: 1.2rem; /* Вернул размер шрифта */
+                padding: 12px 15px; /* Вернул отступы */
+            }
+
+            .container {
+                padding: 15px; /* Вернул отступы */
+            }
+
+            footer {
+                padding: 10px; /* Вернул отступы */
+                margin-bottom: 80px; /* Увеличил отступ для мобильных устройств */
+            }
+
+            .social-icons a {
+                font-size: 1.5em; /* Вернул размер иконок */
+            }
+
+            #scrollToTop {
+                font-size: 18px; /* Вернул размер кнопки */
+                padding: 12px; /* Вернул отступы */
+            }
+        }
+    </style>
+    <script>
+        function toggleSubMenu(category) {
+            const subMenu = document.getElementById(category);
+            const icon = document.querySelector(`#${category}-icon`);
+            subMenu.classList.toggle('open');
+            icon.style.transform = subMenu.classList.contains('open') ? "rotate(90deg)" : "rotate(0deg)";
+        }
+
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("scrollToTop").style.display = "block";
+            } else {
+                document.getElementById("scrollToTop").style.display = "none";
+            }
+        }
+
+        document.getElementById("scrollToTop").onclick = function() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Християнське онлайн аудіо</h1>
+        <h3>Збірка (церква ЄХБ "Дім Євангелія", м.Суми, Україна 2025 р.)</h3>
+    </header>
+
+<div class="container">
+    <ul>
+        <!-- Категория 1 -->
+        <li class="category" onclick="toggleSubMenu('category1')" title="Слухайте духовну музику, яка надихає та збагачує вашу віру">
+            Духовна музика
+            <i id="category1-icon" class="fas fa-chevron-right"></i>
+        </li>
+        <ul id="category1" class="sub-menu">
+            <li>
+                <a href="https://ruyriy.github.io/Audio-christ/AudioPlayer.html?playlist=playlist.txt" title="Плейлист із піснями, які виконуються під час наших служінь">
+                    <i class="fas fa-music"></i> Пісні наших служінь
+                </a>
+            </li>
+            <li>
+                <a href="https://ruyriy.github.io/Audio-christ/AudioPlayer.html?playlist=playlist1.txt" title="Улюблені пісні нашої церкви, які виконуються під час особливих подій">
+                    <i class="fas fa-music"></i> Улюблені пісні церкви
+                </a>
+            </li>
+        </ul>
+
+        <!-- Категория 2 -->
+        <li class="category" onclick="toggleSubMenu('category2')" title="Проповіді, які допоможуть вам зростати у вірі та розумінні Божого Слова">
+            Духовні проповіді
+            <i id="category2-icon" class="fas fa-chevron-right"></i>
+        </li>
+        <ul id="category2" class="sub-menu">
+            <li>
+                <a href="AudioPlayer11.html" title="Проповіді, які звучать у нашій церкві під час недільних служінь">
+                    <i class="fas fa-book-open"></i> Проповіді нашої церкви
+                </a>
+            </li>
+            <li>
+                <a href="AudioPlayer12.html" title="Проповіді, присвячені служінню та практичним аспектам християнського життя">
+                    <i class="fas fa-book-open"></i> Служіння через слово
+                </a>
+            </li>
+        </ul>
+
+        <!-- Дополнительные ссылки -->
+        <li>
+            <a href="https://example.com/radio" target="_blank" title="Слухайте християнське радіо онлайн">
+                Християнське радіо
+            </a>
+        </li>
+        <li>
+            <a href="archive.html" title="Переглядайте відеозаписи наших служінь та подій">
+                Відеозаписи служінь
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <footer>
+        <p><strong>Християнське онлайн аудіо</strong> – збірка духовних пісень та проповідей.</p>
+        <p>м. Суми, версія збірки 1.0 : © 2025 р.</p>
+
+        <div class="social-icons">
+            <a href="https://www.youtube.com" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+
+    <button id="scrollToTop" title="Наверх"><i class="fas fa-arrow-up"></i></button>
+</body>
+</html>
