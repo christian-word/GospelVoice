@@ -10,46 +10,45 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        :root {
-            --primary-color: #007bff;
-            --hover-color: #0056b3;
-            --background-color: #f4f4f4;
-            --menu-bg: #ffffff;
-            --track-hover-color: #e9f5ff;
-            --playing-color: #d0ebff;
-            --icon-size: 20px;
-            --header-text-color: #ffffff;
-            --border-radius: 12px;
-        }
+:root {
+    --primary-color: #007bff;
+    --hover-color: #0056b3;
+    --background-color: #f4f4f4;
+    --menu-bg: #ffffff;
+    --track-hover-color: #e9f5ff;
+    --playing-color: #d0ebff;
+    --icon-size: 20px;
+    --header-text-color: #ffffff;
+    --border-radius: 12px;
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: var(--background-color);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
-        header {
-            background: linear-gradient(135deg, rgba(0, 123, 255, 0.8), rgba(0, 86, 179, 0.8)), url('header-bg.jpg');
-            background-size: cover;
-            background-position: center;
-            color: var(--header-text-color);
-            padding: 25px 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+header {
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.8), rgba(0, 86, 179, 0.8)), url('header-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    color: var(--header-text-color);
+    padding: 25px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
 header h1 {
     margin: 0;
     font-size: 2.8em;
     text-transform: uppercase;
     font-weight: bold;
-color: #00BFFF;
-text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-
+    color: #00BFFF;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
     animation: fadeIn 2s ease-in-out;
 }
 
@@ -57,241 +56,238 @@ header h3 {
     margin: 10px 0;
     font-size: 1.5em;
     font-weight: normal;
-    color: #444; /* Чуть светлее, чем h1 */
+    color: #444;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
-h1 {
-    font-size: 48px;
-    font-weight: bold;
-background: linear-gradient(45deg, #ffcc00, #ff6600, #8000ff);
 
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: none;
+.container {
+    max-width: 800px;
+    width: 90%;
+    margin: 20px auto;
+    background: var(--menu-bg);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    flex-grow: 1;
+    background-image: url('https://raw.githubusercontent.com/ruyriy/Audio-christ/main/17545.jpg');
+    background-size: cover;
+    background-position: center;
 }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
 
-        header h3 {
-            margin: 10px 0;
-            font-size: 1.3em;
-            font-weight: normal;
-        }
+li {
+    margin: 15px 0;
+}
 
-        .container {
-            max-width: 800px;
-            width: 90%;
-            margin: 20px auto;
-            background: var(--menu-bg);
-            padding: 25px;
-            border-radius: var(--border-radius);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            flex-grow: 1;
-            background-image: url('https://raw.githubusercontent.com/ruyriy/Audio-christ/main/2025.jpg'); /* Указываем путь к изображению */
-            background-size: cover; /* Чтобы изображение полностью покрывало контейнер */
-            background-position: center; /* Центрируем изображение */
-        }
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: block;
+    padding: 10px 20px;
+    border-radius: 6px;
+}
 
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
+a:hover {
+    color: var(--hover-color);
+    background-color: var(--track-hover-color);
+    transform: translateX(8px);
+}
 
-        li {
-            margin: 15px 0;
-        }
+.category {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.4rem;
+    padding: 15px 20px;
+    border-radius: var(--border-radius);
+    background: var(--track-hover-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.3s ease;
+}
 
-        a {
-            text-decoration: none;
-            color: var(--primary-color);
-            font-size: 1.2rem;
-            transition: color 0.3s ease, transform 0.3s ease;
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 6px;
-        }
+.category:hover {
+    background: var(--playing-color);
+}
 
-        a:hover {
-            color: var(--hover-color);
-            background-color: var(--track-hover-color);
-            transform: translateX(8px);
-        }
+.category i {
+    transition: transform 0.3s ease;
+}
 
-        .category {
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.4rem;
-            padding: 15px 20px;
-            border-radius: var(--border-radius);
-            background: var(--track-hover-color);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: background 0.3s ease;
-        }
+.sub-menu {
+    max-height: 0;
+    overflow: hidden;
+    padding-left: 25px;
+    margin-top: 10px;
+    transition: max-height 0.5s ease-out;
+}
 
-        .category:hover {
-            background: var(--playing-color);
-        }
+.sub-menu.open {
+    max-height: 500px;
+}
 
-        .category i {
-            transition: transform 0.3s ease;
-        }
+.sub-menu li {
+    margin: 10px 0;
+}
 
-        .sub-menu {
-            max-height: 0;
-            overflow: hidden;
-            padding-left: 25px;
-            margin-top: 10px;
-            transition: max-height 0.5s ease-out;
-        }
+.sub-menu a {
+    font-size: 1.1rem;
+    display: block;
+    text-align: left;
+}
 
-        .sub-menu.open {
-            max-height: 500px;
-        }
+footer {
+    background-color: white;
+    padding: 15px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    margin-top: auto;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+    margin-bottom: 50px;
+}
 
-        .sub-menu li {
-            margin: 10px 0;
-        }
+footer p {
+    margin: 0;
+    color: #333;
+    font-size: 1rem;
+}
 
-        .sub-menu a {
-            font-size: 1.1rem;
-            display: block;
-            text-align: left;
-        }
+.social-icons {
+    margin-top: 10px;
+}
 
-        footer {
-            background-color: white;
-            padding: 15px;
-            text-align: center;
-            border-top: 1px solid #ddd;
-            margin-top: auto;
-            box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-            flex-shrink: 0;
-            margin-bottom: 50px; /* Отступ для футера */
-        }
+.social-icons a {
+    margin: 0 10px;
+    font-size: 1.5em;
+    display: inline-block;
+}
 
-        footer p {
-            margin: 0;
-            color: #333;
-            font-size: 1rem;
-        }
+.social-icons a .fab {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
 
-        .social-icons {
-            margin-top: 10px;
-        }
+.social-icons a:hover .fab {
+    transform: scale(1.2);
+    color: var(--hover-color);
+}
 
-        .social-icons a {
-            margin: 0 10px;
-            font-size: 1.5em;
-            display: inline-block;
-        }
+.fa-youtube { color: #FF0000; }
+.fa-facebook { color: #1877F2; }
+.fa-instagram { color: #C13584; }
 
-        .social-icons a .fab {
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
+#scrollToTop {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    font-size: 22px;
+    border: none;
+    outline: none;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
 
-        .social-icons a:hover .fab {
-            transform: scale(1.2);
-            color: var(--hover-color);
-        }
+#scrollToTop:hover {
+    background-color: var(--hover-color);
+}
 
-        .fa-youtube { color: #FF0000; }
-        .fa-facebook { color: #1877F2; }
-        .fa-instagram { color: #C13584; }
+/* Адаптивные стили для мобильных устройств */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.2rem;
+    }
 
-        #scrollToTop {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 99;
-            font-size: 22px;
-            border: none;
-            outline: none;
-            background-color: var(--primary-color);
-            color: white;
-            cursor: pointer;
-            padding: 15px;
-            border-radius: 50%;
-            transition: background-color 0.3s ease;
-        }
+    header h3 {
+        font-size: 1.1rem;
+    }
 
-        #scrollToTop:hover {
-            background-color: var(--hover-color);
-        }
+    .container {
+        padding: 15px;
+    }
 
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2.2rem; /* Вернул размер шрифта */
-            }
+    a {
+        font-size: 1rem;
+        padding: 8px 15px;
+    }
 
-            header h3 {
-                font-size: 1.1rem; /* Вернул размер шрифта */
-            }
+    .category {
+        font-size: 1.2rem;
+        padding: 12px 15px;
+    }
 
-            a {
-                font-size: 1.1rem; /* Вернул размер шрифта */
-            }
+    .sub-menu a {
+        font-size: 1rem;
+    }
 
-            .category {
-                font-size: 1.3rem; /* Вернул размер шрифта */
-            }
+    footer {
+        padding: 10px;
+        margin-bottom: 70px;
+    }
 
-            .container {
-                padding: 20px; /* Вернул отступы */
-            }
+    .social-icons a {
+        font-size: 1.2em;
+    }
 
-            footer {
-                padding: 15px; /* Вернул отступы */
-                margin-bottom: 70px; /* Увеличил отступ для мобильных устройств */
-            }
+    #scrollToTop {
+        font-size: 18px;
+        padding: 12px;
+    }
+}
 
-            .social-icons a {
-                font-size: 1.5em; /* Вернул размер иконок */
-            }
-        }
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
 
-        @media (max-width: 480px) {
-            header h1 {
-                font-size: 2.0rem; /* Вернул размер шрифта */
-            }
+    header h3 {
+        font-size: 1rem;
+    }
 
-            header h3 {
-                font-size: 1.0rem; /* Вернул размер шрифта */
-            }
+    .container {
+        padding: 10px;
+    }
 
-            a {
-                font-size: 1.0rem; /* Вернул размер шрифта */
-            }
+    a {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+    }
 
-            .category {
-                font-size: 1.2rem; /* Вернул размер шрифта */
-                padding: 12px 15px; /* Вернул отступы */
-            }
+    .category {
+        font-size: 1rem;
+        padding: 10px 12px;
+    }
 
-            .container {
-                padding: 15px; /* Вернул отступы */
-            }
+    .sub-menu a {
+        font-size: 0.9rem;
+    }
 
-            footer {
-                padding: 10px; /* Вернул отступы */
-                margin-bottom: 80px; /* Увеличил отступ для мобильных устройств */
-            }
+    footer {
+        padding: 8px;
+        margin-bottom: 80px;
+    }
 
-            .social-icons a {
-                font-size: 1.5em; /* Вернул размер иконок */
-            }
+    .social-icons a {
+        font-size: 1em;
+    }
 
-            #scrollToTop {
-                font-size: 18px; /* Вернул размер кнопки */
-                padding: 12px; /* Вернул отступы */
-            }
-        }
+    #scrollToTop {
+        font-size: 16px;
+        padding: 10px;
+    }
+}
     </style>
     <script>
         function toggleSubMenu(category) {
@@ -318,19 +314,21 @@ background: linear-gradient(45deg, #ffcc00, #ff6600, #8000ff);
     </script>
 
 <script>
-    document.addEventListener("click", function() {
-        let audio = document.getElementById("bg-music");
+document.addEventListener("click", function () {
+    let audio = document.getElementById("bg-music");
+    if (audio.paused) {
         audio.volume = 0;
-        audio.play();
-        
-        let fadeIn = setInterval(function() {
-            if (audio.volume < 1) {
-                audio.volume += 0.02; // Плавно увеличиваем громкость
-            } else {
-                clearInterval(fadeIn);
-            }
-        }, 200);
-    }, { once: true });
+        audio.play().then(() => {
+            let fadeIn = setInterval(function () {
+                if (audio.volume < 1) {
+                    audio.volume += 0.02;
+                } else {
+                    clearInterval(fadeIn);
+                }
+            }, 200);
+        }).catch(err => console.warn("Автозапуск аудио заблокирован", err));
+    }
+}, { once: true });
 </script>
 
 
@@ -342,47 +340,49 @@ background: linear-gradient(45deg, #ffcc00, #ff6600, #8000ff);
     </header>
 
 <div class="container">
+    <!-- Аудио перенесено за пределы списка -->
+    <audio id="bg-music" loop>
+        <source src="https://ruyriy.github.io/Audio-christ/Светлана_М.mp3" type="audio/mpeg">
+    </audio>
+
     <ul>
-
-     <audio id="bg-music" loop>
-          <source src="https://ruyriy.github.io/Audio-christ/Светлана_М.mp3" type="audio/mpeg">
-     </audio>
-
         <!-- Категория 1 -->
         <li class="category" onclick="toggleSubMenu('category1')" title="Слухайте духовну музику, яка надихає та збагачує вашу віру">
-            Духовна музика
+            Пісні віри
             <i id="category1-icon" class="fas fa-chevron-right"></i>
+            <!-- Вложенный список внутри li -->
+            <ul id="category1" class="sub-menu">
+                <li>
+                    <a href="https://ruyriy.github.io/Audio-christ/AudioPlayer.html?playlist=playlist.txt" title="Плейлист із піснями, які виконуються під час наших служінь">
+                        <i class="fas fa-music"></i> Пісні наших служінь
+                    </a>
+                </li>
+                <li>
+                    <a href="https://ruyriy.github.io/Audio-christ/AudioPlayer.html?playlist=playlist1.txt" title="Улюблені пісні нашої церкви, які виконуються під час особливих подій">
+                        <i class="fas fa-music"></i> Улюблені пісні церкви
+                    </a>
+                </li>
+            </ul>
         </li>
-        <ul id="category1" class="sub-menu">
-            <li>
-                <a href="https://ruyriy.github.io/Audio-christ/AudioPlayer.html?playlist=playlist.txt" title="Плейлист із піснями, які виконуються під час наших служінь">
-                    <i class="fas fa-music"></i> Пісні наших служінь
-                </a>
-            </li>
-            <li>
-                <a href="https://ruyriy.github.io/Audio-christ/AudioPlayer.html?playlist=playlist1.txt" title="Улюблені пісні нашої церкви, які виконуються під час особливих подій">
-                    <i class="fas fa-music"></i> Улюблені пісні церкви
-                </a>
-            </li>
-        </ul>
 
         <!-- Категория 2 -->
         <li class="category" onclick="toggleSubMenu('category2')" title="Проповіді, які допоможуть вам зростати у вірі та розумінні Божого Слова">
-            Духовні проповіді
+            Живе слово
             <i id="category2-icon" class="fas fa-chevron-right"></i>
+            <!-- Вложенный список внутри li -->
+            <ul id="category2" class="sub-menu">
+                <li>
+                    <a href="index.html" title="Проповіді, які звучать у нашій церкві під час недільних служінь">
+                        <i class="fas fa-book-open"></i> Проповіді нашої церкви
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html" title="Проповіді, присвячені служінню та практичним аспектам християнського життя">
+                        <i class="fas fa-book-open"></i> Служіння через слово
+                    </a>
+                </li>
+            </ul>
         </li>
-        <ul id="category2" class="sub-menu">
-            <li>
-                <a href="index.html" title="Проповіді, які звучать у нашій церкві під час недільних служінь">
-                    <i class="fas fa-book-open"></i> Проповіді нашої церкви
-                </a>
-            </li>
-            <li>
-                <a href="index.html" title="Проповіді, присвячені служінню та практичним аспектам християнського життя">
-                    <i class="fas fa-book-open"></i> Служіння через слово
-                </a>
-            </li>
-        </ul>
 
         <!-- Дополнительные ссылки -->
         <li>
@@ -397,7 +397,7 @@ background: linear-gradient(45deg, #ffcc00, #ff6600, #8000ff);
         </li>
     </ul>
 </div>
-
+ 
     <footer>
         <p><strong>Християнське онлайн аудіо</strong> – збірка духовних пісень та проповідей.</p>
         <p>м. Суми, версія збірки 1.0 : © 2025 р.</p>
@@ -408,7 +408,6 @@ background: linear-gradient(45deg, #ffcc00, #ff6600, #8000ff);
             <a href="https://www.instagram.com/pravda.church" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
     </footer>
-
-    <button id="scrollToTop" title="Наверх"><i class="fas fa-arrow-up"></i></button>
+   
 </body>
 </html>
