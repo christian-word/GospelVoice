@@ -214,13 +214,20 @@
     </footer>
 
     <script>
-
 let categories = {}; // Объявляем объект для хранения категорий
 
 async function loadPlaylist() {
-    const playlistName = getPlaylistNameFromURL(); // Получаем ссылку на плейлист
+    let playlistName = getPlaylistNameFromURL();
+    if (!playlistName) {
+        playlistName = "playlist.txt"; // Значение по умолчанию
+    }
+
     try {
         const response = await fetch(playlistName);
+        if (!response.ok) {
+            throw new Error(`Помилка завантаження: ${response.status}`);
+        }
+
         const text = await response.text();
         const lines = text.split('\n');
 
@@ -260,7 +267,7 @@ async function loadPlaylist() {
         }
     } catch (error) {
         console.error('Помилка завантаження плейлиста:', error);
-        playlistElement.innerHTML = '<p style="color: red; text-align: center;">Не вдалося завантажити плейлист</p>';
+        playlistElement.innerHTML = `<p style="color: red; text-align: center;">Не вдалося завантажити плейлист (${error.message})</p>`;
     }
 }
 
@@ -325,8 +332,7 @@ audioPlayer.addEventListener("error", () => {
 
 // Загружаем плейлист при загрузке страницы
 window.onload = loadPlaylist;
-       
-        
+      
     </script>
 </body>
 </html>
