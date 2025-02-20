@@ -240,11 +240,10 @@ async function loadPlaylist() {
 
         let currentCategory = null;
 
-        lines.forEach((line, index) => {
+        lines.forEach((line) => {
             if (line.trim() === "") return; // Пропускаємо порожні рядки
 
-            // Якщо це перший рядок, вважаємо його назвою категорії
-            if (index === 0) {
+            if (line.startsWith("Категорія") || line.startsWith("Пісні про")) {
                 currentCategory = line.trim(); // Назва категорії
                 categories[currentCategory] = []; // Створюємо масив для треків
             } else if (currentCategory) {
