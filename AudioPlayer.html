@@ -14,8 +14,8 @@
             --playing-color: #d0ebff;
             --icon-size: 24px;
             --header-text-color: #ffffff;
-            --button-color: #28a745; /* Новий колір для кнопок */
-            --button-hover-color: #218838; /* Колір при наведенні */
+            --button-color: #28a745;
+            --button-hover-color: #218838;
         }
 
         body {
@@ -286,7 +286,7 @@
         // Функція для отримання імені плейлиста з URL
         function getPlaylistNameFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('playlist') || 'playlist.txt'; // За замовчуванням, якщо параметр не вказаний
+            return urlParams.get('playlist') || 'playlist.txt';
         }
 
         // Показуємо індикатор завантаження перед завантаженням плейлиста
@@ -355,7 +355,7 @@
             const tracks = categories[category];
             if (tracks && tracks.length > 0) {
                 playlistElement.innerHTML = tracks.map((track, index) => `
-                    <div class="track" onclick="playTrack(${index}, '${category}')">
+                    <div class="track">
                         <i class="fas fa-music"></i>
                         <a href="#" data-src="${track.url}">${track.title}</a>
                     </div>
@@ -388,6 +388,19 @@
             audioPlayer.src = tracks[index].url;
             audioPlayer.play();
         }
+
+        // Обработчик клика на уровне плейлиста
+        playlistElement.addEventListener("click", (e) => {
+            if (e.target.tagName === "A") {
+                e.preventDefault(); // Отменяем действие по умолчанию
+                const trackElement = e.target.closest(".track");
+                if (trackElement) {
+                    const index = Array.from(trackElement.parentElement.children).indexOf(trackElement);
+                    const category = currentCategory;
+                    playTrack(index, category);
+                }
+            }
+        });
 
         function playNextTrack() {
             const tracks = categories[currentCategory];
