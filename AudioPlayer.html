@@ -1,220 +1,4 @@
-﻿<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Аудіо Плеєр</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #007bff;
-            --hover-color: #0056b3;
-            --background-color: #f4f4f4;
-            --track-hover-color: #e9f5ff;
-            --playing-color: #d0ebff;
-            --icon-size: 24px;
-            --header-text-color: #ffffff;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: var(--background-color);
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background: linear-gradient(135deg, #007bff, #0056b3);
-            color: var(--header-text-color);
-            padding: 20px 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
-
-        header h3 {
-            margin: 5px 0;
-            font-size: 1.2em;
-        }
-
-        .container {
-            max-width: 800px;
-            width: 100%;
-            margin: 20px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
-        }
-
-        .track {
-            display: flex;
-            align-items: center;
-            margin: 5px 0;
-            padding: 8px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            text-align: left;
-        }
-
-        .track:hover {
-            background-color: var(--track-hover-color);
-        }
-
-        .track a {
-            text-decoration: none;
-            color: var(--primary-color);
-            font-size: 18px;
-            margin-left: 8px;
-            transition: color 0.3s ease;
-            flex-grow: 1;
-        }
-
-        .track a:hover {
-            color: var(--hover-color);
-        }
-
-        .track i {
-            font-size: 14px;
-            color: var(--primary-color);
-            transition: color 0.3s ease;
-        }
-
-        .playing {
-            background-color: var(--playing-color);
-            font-weight: bold;
-        }
-
-        .playing a {
-            color: var(--hover-color);
-        }
-
-        .playing i {
-            color: var(--hover-color);
-        }
-
-        #audioPlayer {
-            width: 100%;
-            margin-top: 20px;
-            box-sizing: border-box;
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                max-width: 100%;
-                padding: 10px;
-                margin: 10px 0;
-                border-radius: 0;
-            }
-
-            .track {
-                padding: 8px;
-            }
-
-            .track a {
-                font-size: 16px;
-            }
-
-            header h1 {
-                font-size: 2em;
-            }
-
-            header h3 {
-                font-size: 1em;
-            }
-        }
-
-        .social-icons {
-            margin-top: 10px;
-        }
-
-        .social-icons a {
-            text-decoration: none;
-            margin: 0 10px;
-            font-size: 24px;
-            transition: opacity 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            opacity: 0.8;
-        }
-
-        .social-icons .fa-youtube {
-            color: #ff0000;
-        }
-
-        .social-icons .fa-facebook {
-            color: #1877f2;
-        }
-
-        .social-icons .fa-instagram {
-            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        #categoryMenu {
-            margin-bottom: 20px;
-        }
-
-        #categoryMenu button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 5px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        #categoryMenu button:hover {
-            background-color: var(--hover-color);
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Християнське онлайн аудіо</h1>
-        <h3>Збірка (церква ЄХБ "Дім Євангелія")</h3>
-        <h3>Аудіо Плеєр</h3>
-    </header>
-
-    <div class="container">
-        <h2>Музичне служіння</h2>
-        <div id="categoryMenu"></div>
-        <div id="playlist"></div>
-        <audio id="audioPlayer" controls></audio>
-    </div>
-
-    <footer style="background-color: #f4f4f4; padding: 20px; text-align: center; border-top: 1px solid #ccc; margin-top: 50px;">
-        <a href="index.html" style="color: var(--primary-color); text-decoration: none; font-size: 1em;">
-            <i class="fas fa-home"></i> Головне меню
-        </a>
-        <p>м. Суми, версія збірки 1.0 : © 2025 р.</p>
-
-        <div class="social-icons">
-            <a href="https://www.youtube.com" target="_blank">
-                <i class="fab fa-youtube"></i>
-            </a>
-            <a href="https://www.facebook.com" target="_blank">
-                <i class="fab fa-facebook"></i>
-            </a>
-            <a href="https://www.instagram.com" target="_blank">
-                <i class="fab fa-instagram"></i>
-            </a>
-        </div>
-    </footer>
-
-    <script>
-       <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
@@ -451,19 +235,23 @@
         async function loadPlaylist() {
             const playlistName = getPlaylistNameFromURL();
             try {
+                console.log("Завантаження плейлиста:", playlistName); // Отладочное сообщение
                 const response = await fetch(playlistName);
+                if (!response.ok) {
+                    throw new Error(`Помилка завантаження: ${response.status} ${response.statusText}`);
+                }
                 const text = await response.text();
-                const lines = text.split('\n');
+                console.log("Отриманий плейлист:", text); // Отладочное сообщение
 
+                const lines = text.split('\n');
                 let currentCategory = null;
 
                 lines.forEach((line) => {
-                    if (line.trim() === "") return; // Пропускаємо порожні рядки
+                    if (line.trim() === "") return;
 
-                    // Якщо рядок починається з "Категорія:", це нова категорія
                     if (line.startsWith("Категорія:")) {
-                        currentCategory = line.replace("Категорія:", "").trim(); // Назва категорії (без "Категорія:")
-                        categories[currentCategory] = []; // Створюємо масив для треків
+                        currentCategory = line.replace("Категорія:", "").trim();
+                        categories[currentCategory] = [];
                     } else if (currentCategory) {
                         const [title, url] = line.split(';');
                         if (title && url) {
@@ -472,16 +260,15 @@
                     }
                 });
 
+                console.log("Категорії:", categories); // Отладочное сообщение
+
                 renderCategoryMenu();
 
-                // Якщо категорія одна, відразу показуємо її треки
                 if (Object.keys(categories).length === 1) {
                     renderPlaylist(Object.keys(categories)[0]);
                 } else if (Object.keys(categories).length > 1) {
-                    // Якщо категорій кілька, автоматично вибираємо першу категорію
                     renderPlaylist(Object.keys(categories)[0]);
                 } else {
-                    // Якщо категорій немає, показуємо повідомлення
                     playlistElement.innerHTML = '<p style="color: red; text-align: center;">Плейлист порожній або невірно сформований.</p>';
                 }
             } catch (error) {
@@ -551,10 +338,6 @@
 
         // Завантажуємо плейлист при завантаженні сторінки
         window.onload = loadPlaylist;
-    </script>
-</body>
-</html>
-      
     </script>
 </body>
 </html>
