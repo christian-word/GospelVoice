@@ -112,15 +112,23 @@
             background-color: var(--button-color);
             color: white;
             border: none;
-            padding: 8px 16px;
-            border-radius: 5px;
+            padding: 10px;
+            border-radius: 50%;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            font-size: 14px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .controls button:hover {
             background-color: var(--button-hover-color);
+        }
+
+        .controls button i {
+            font-size: 16px;
         }
 
         .progress-container {
@@ -240,8 +248,9 @@
 
         <!-- Плеер, кнопки и прогресс-бар перемещены вниз -->
         <div class="controls">
-            <button onclick="playPrevTrack()"><i class="fas fa-backward"></i> Назад</button>
-            <button onclick="playNextTrack()"><i class="fas fa-forward"></i> Вперед</button>
+            <button onclick="playPrevTrack()"><i class="fas fa-backward"></i></button>
+            <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+            <button onclick="playNextTrack()"><i class="fas fa-forward"></i></button>
         </div>
         <div class="progress-container">
             <div class="progress-bar" id="progressBar"></div>
@@ -387,6 +396,8 @@
 
             audioPlayer.src = tracks[index].url;
             audioPlayer.play();
+            document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
+            document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
         }
 
         // Обработчик клика на уровне плейлиста
@@ -415,6 +426,18 @@
             if (tracks && tracks.length > 0) {
                 currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
                 playTrack(currentTrack, currentCategory);
+            }
+        }
+
+        function togglePlayPause() {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
+                document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
+            } else {
+                audioPlayer.pause();
+                document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-pause");
+                document.querySelector(".controls button:nth-child(2) i").classList.add("fa-play");
             }
         }
 
