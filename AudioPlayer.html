@@ -14,6 +14,8 @@
             --playing-color: #d0ebff;
             --icon-size: 24px;
             --header-text-color: #ffffff;
+            --button-color: #28a745; /* Новий колір для кнопок */
+            --button-hover-color: #218838; /* Колір при наведенні */
         }
 
         body {
@@ -99,31 +101,26 @@
             color: var(--hover-color);
         }
 
-        #audioPlayer {
-            width: 100%;
-            margin-top: 20px;
-            box-sizing: border-box;
-        }
-
         .controls {
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-top: 10px;
+            margin-top: 20px;
         }
 
         .controls button {
-            background-color: var(--primary-color);
+            background-color: var(--button-color);
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            font-size: 14px;
         }
 
         .controls button:hover {
-            background-color: var(--hover-color);
+            background-color: var(--button-hover-color);
         }
 
         .progress-container {
@@ -240,7 +237,8 @@
         <h2>Музичне служіння</h2>
         <div id="categoryMenu"></div>
         <div id="playlist"></div>
-        <audio id="audioPlayer" controls></audio>
+
+        <!-- Плеер, кнопки и прогресс-бар перемещены вниз -->
         <div class="controls">
             <button onclick="playPrevTrack()"><i class="fas fa-backward"></i> Назад</button>
             <button onclick="playNextTrack()"><i class="fas fa-forward"></i> Вперед</button>
@@ -252,6 +250,7 @@
             <span id="currentTime">0:00</span>
             <span id="duration">0:00</span>
         </div>
+        <audio id="audioPlayer" controls></audio>
     </div>
 
     <footer style="background-color: #f4f4f4; padding: 20px; text-align: center; border-top: 1px solid #ccc; margin-top: 50px;">
