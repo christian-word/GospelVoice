@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
@@ -72,20 +72,21 @@
             line-height: 24px;
             margin-right: 8px;
         }
-        .category-menu {
+        .playlist-menu {
             margin-bottom: 20px;
         }
-        .category-menu button {
-            margin-right: 10px;
+        .playlist-menu a {
+            display: block;
             padding: 8px 12px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            color: #333;
+            text-decoration: none;
+        }
+        .playlist-menu a:hover {
             background-color: #00A8A8;
             color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .category-menu button:hover {
-            background-color: #008080;
         }
     </style>
 </head>
@@ -101,9 +102,11 @@
             <span>Добавити на головний екран</span>
         </div>
 
-        <!-- Меню категорий -->
-        <div class="category-menu" id="categoryMenu">
-            <!-- Кнопки категорий будут добавлены сюда -->
+        <!-- Меню плейлистов -->
+        <div class="playlist-menu" id="playlistMenu">
+            <a href="#" onclick="loadPlaylist('playlist1.txt')">Плейлист 1</a>
+            <a href="#" onclick="loadPlaylist('playlist2.txt')">Плейлист 2</a>
+            <a href="#" onclick="loadPlaylist('playlist3.txt')">Плейлист 3</a>
         </div>
 
         <!-- Список треков -->
@@ -123,13 +126,19 @@
         function playAudio(url, title, event) {
             event.preventDefault();
             if (currentAudio) {
-                currentAudio.pause();
+                currentAudio.pause(); // Останавливаем текущий трек
             }
             const audioPlayer = document.getElementById('audioPlayer');
             audioPlayer.src = url;
             audioPlayer.play();
-            currentAudio = audioPlayer;
+            currentAudio = audioPlayer; // Запоминаем текущий трек
             document.title = title + " | Християнське онлайн аудіо";
+
+            // Обработчик для завершения воспроизведения
+            audioPlayer.addEventListener('ended', () => {
+                audioPlayer.src = ''; // Сбрасываем источник аудио
+                currentAudio = null; // Сбрасываем текущий трек
+            });
         }
 
         // Функция для показа инструкций
@@ -163,51 +172,29 @@
                     }
                 });
 
-                // Создаем кнопки для категорий
-                const categoryMenu = document.getElementById('categoryMenu');
-                categoryMenu.innerHTML = '';
-                Object.keys(categories).forEach((category) => {
-                    const button = document.createElement('button');
-                    button.textContent = category;
-                    button.onclick = () => displayPlaylist(categories[category]);
-                    categoryMenu.appendChild(button);
-                });
+                // Отображаем плейлист
+                const playlistElement = document.getElementById('playlist');
+                playlistElement.innerHTML = ''; // Очищаем текущий плейлист
 
-                // Показываем первую категорию по умолчанию
-                if (Object.keys(categories).length > 0) {
-                    displayPlaylist(categories[Object.keys(categories)[0]]);
-                }
+                Object.keys(categories).forEach((category) => {
+                    const categoryHeader = document.createElement('h3');
+                    categoryHeader.textContent = category;
+                    playlistElement.appendChild(categoryHeader);
+
+                    categories[category].forEach((track, index) => {
+                        const li = document.createElement('li');
+                        const a = document.createElement('a');
+                        a.href = '#';
+                        a.onclick = (event) => playAudio(track.url, track.title, event);
+                        a.innerHTML = `<img src="play-button-5690573.png" alt=" " width="16" height="16" style="vertical-align: middle; margin-right: 8px;">${index + 1}. ${track.title}`;
+                        li.appendChild(a);
+                        playlistElement.appendChild(li);
+                    });
+                });
             } catch (error) {
                 console.error("Помилка завантаження плейлиста:", error);
                 alert("Не вдалося завантажити плейлист.");
             }
-        }
-
-        // Функция для отображения плейлиста
-        function displayPlaylist(tracks) {
-            const playlistElement = document.getElementById('playlist');
-            playlistElement.innerHTML = ''; // Очищаем текущий плейлист
-
-            tracks.forEach((track, index) => {
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                a.href = '#';
-                a.onclick = (event) => playAudio(track.url, track.title, event);
-                a.innerHTML = `<img src="play-button-5690573.png" alt=" " width="16" height="16" style="vertical-align: middle; margin-right: 8px;">${index + 1}. ${track.title}`;
-                li.appendChild(a);
-                playlistElement.appendChild(li);
-            });
-        }
-
-        // Получаем параметр из URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const playlistFile = urlParams.get('playlist'); // Например, playlist1.txt
-
-        // Если параметр передан, загружаем плейлист
-        if (playlistFile) {
-            loadPlaylist(playlistFile);
-        } else {
-            alert("Плейлист не вказано.");
         }
     </script>
 </body>
