@@ -72,19 +72,21 @@
             line-height: 24px;
             margin-right: 8px;
         }
-        .category-menu {
+        .category-list {
             margin-bottom: 20px;
         }
-        .category-menu select {
-            padding: 8px 12px;
-            font-size: 16px;
-            border: 1px solid #00A8A8;
-            border-radius: 4px;
-            background-color: white;
-            color: #00A8A8;
-            cursor: pointer;
+        .category-list ul {
+            list-style-type: decimal; /* Нумерованный список */
+            padding-left: 20px;
         }
-        .category-menu select:hover {
+        .category-list li {
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            margin: 5px 0;
+        }
+        .category-list li:hover {
             background-color: #f0f0f0;
         }
     </style>
@@ -101,12 +103,11 @@
             <span>Добавити на головний екран</span>
         </div>
 
-        <!-- Меню категорий -->
-        <div class="category-menu">
-            <select id="categorySelect">
-                <option value="">Оберіть категорію</option>
-                <!-- Опции категорий будут добавлены сюда -->
-            </select>
+        <!-- Список категорий -->
+        <div class="category-list">
+            <ul id="categoryList">
+                <!-- Категории будут добавлены сюда -->
+            </ul>
         </div>
 
         <!-- Список треков -->
@@ -166,29 +167,18 @@
                     }
                 });
 
-                // Создаем опции для выпадающего меню
-                const categorySelect = document.getElementById('categorySelect');
-                categorySelect.innerHTML = '<option value="">Оберіть категорію</option>';
-                Object.keys(categories).forEach((category) => {
-                    const option = document.createElement('option');
-                    option.value = category;
-                    option.textContent = category;
-                    categorySelect.appendChild(option);
+                // Создаем список категорий
+                const categoryList = document.getElementById('categoryList');
+                categoryList.innerHTML = ''; // Очищаем текущий список
+                Object.keys(categories).forEach((category, index) => {
+                    const li = document.createElement('li');
+                    li.textContent = `${index + 1}. ${category}`; // Нумеруем категории
+                    li.onclick = () => displayPlaylist(categories[category]);
+                    categoryList.appendChild(li);
                 });
-
-                // Обработчик выбора категории
-                categorySelect.onchange = () => {
-                    const selectedCategory = categorySelect.value;
-                    if (selectedCategory) {
-                        displayPlaylist(categories[selectedCategory]);
-                    } else {
-                        document.getElementById('playlist').innerHTML = ''; // Очищаем плейлист, если категория не выбрана
-                    }
-                };
 
                 // Показываем первую категорию по умолчанию
                 if (Object.keys(categories).length > 0) {
-                    categorySelect.value = Object.keys(categories)[0];
                     displayPlaylist(categories[Object.keys(categories)[0]]);
                 }
             } catch (error) {
