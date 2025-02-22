@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Християнська збірка аудіо файлів</title>
+    <link rel="icon" type="image/png" href="from-bible.jpg">
+    <style>
+        /* Ваши стили */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        h3 {
+            margin: 5px 0 0;
+            font-size: 1.2em;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        a {
+            text-decoration: none;
+            color: #00A8A8;
+            font-size: 1.1em;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        audio {
+            width: 100%;
+            margin-top: 20px;
+        }
+        .shortcut-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .shortcut-button {
+            width: 24px;
+            height: 24px;
+            background-color: #00A8A8;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 24px;
+            margin-right: 8px;
+        }
+        .category-menu {
+            margin-bottom: 20px;
+        }
+        .category-menu button {
+            margin-right: 10px;
+            padding: 8px 12px;
+            background-color: #00A8A8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .category-menu button:hover {
+            background-color: #008080;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Християнське онлайн аудіо</h1>
+        <h3 style="font-size: 1.0em;">Збірка (церква ЄХБ "Дім Євангелія",</h3>
+        <h3 style="font-size: 1.0em;">м.Суми, Україна 2025 р.)</h3>
+    </header>
+    <div class="container">
+        <div class="shortcut-container">
+            <button class="shortcut-button" onclick="showShortcutInstructions()">+</button>
+            <span>Добавити на головний екран</span>
+        </div>
+
+        <!-- Меню категорий -->
+        <div class="category-menu" id="categoryMenu">
+            <!-- Кнопки категорий будут добавлены сюда -->
+        </div>
+
+        <!-- Список треков -->
+        <ul id="playlist">
+            <!-- Сюда будут добавляться элементы плейлиста -->
+        </ul>
+
+        <!-- Аудиоплеер -->
+        <audio id="audioPlayer" controls>
+            Ваш браузер не підтримує аудіо елемент.
+        </audio>
+    </div>
+    <script>
+        let currentAudio = null;
+
+        // Функция для воспроизведения аудио
+        function playAudio(url, title, event) {
+            event.preventDefault();
+            if (currentAudio) {
+                currentAudio.pause();
+            }
+            const audioPlayer = document.getElementById('audioPlayer');
+            audioPlayer.src = url;
+            audioPlayer.play();
+            currentAudio = audioPlayer;
+            document.title = title + " | Християнське онлайн аудіо";
+        }
+
+        // Функция для показа инструкций
+        function showShortcutInstructions() {
+            alert("Щоб додати ярлик на головний екран:\n\nДля iPhone (Safari): Натисніть Поділитися -> Додати на головний екран.\n\nДля Android (Chrome): Натисніть меню (три крапки) -> Додати на головний екран.");
+        }
+
+        // Функция для загрузки плейлиста из файла
+        async function loadPlaylist(playlistFile) {
+            try {
+                const response = await fetch(playlistFile); // Загружаем файл плейлиста
+                if (!response.ok) {
+                    throw new Error("Плейлист не знайдено");
+                }
+                const text = await response.text(); // Читаем содержимое файла
+                const lines = text.split('\n'); // Разделяем на строки
+
+                const categories = {};
+                let currentCategory = null;
+
+                // Парсим плейлист
+                lines.forEach((line) => {
+                    if (line.startsWith("Категорія:")) {
+                        currentCategory = line.replace("Категорія:", "").trim();
+                        categories[currentCategory] = [];
+                    } else if (line.trim() && currentCategory) {
+                        const [title, url] = line.split(';');
+                        if (title && url) {
+                            categories[currentCategory].push({ title: title.trim(), url: url.trim() });
+                        }
+                    }
+                });
+
+                // Создаем кнопки для категорий
+                const categoryMenu = document.getElementById('categoryMenu');
+                categoryMenu.innerHTML = '';
+                Object.keys(categories).forEach((category) => {
+                    const button = document.createElement('button');
+                    button.textContent = category;
+                    button.onclick = () => displayPlaylist(categories[category]);
+                    categoryMenu.appendChild(button);
+                });
+
+                // Показываем первую категорию по умолчанию
+                if (Object.keys(categories).length > 0) {
+                    displayPlaylist(categories[Object.keys(categories)[0]]);
+                }
+            } catch (error) {
+                console.error("Помилка завантаження плейлиста:", error);
+                alert("Не вдалося завантажити плейлист.");
+            }
+        }
+
+        // Функция для отображения плейлиста
+        function displayPlaylist(tracks) {
+            const playlistElement = document.getElementById('playlist');
+            playlistElement.innerHTML = ''; // Очищаем текущий плейлист
+
+            tracks.forEach((track, index) => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#';
+                a.onclick = (event) => playAudio(track.url, track.title, event);
+                a.innerHTML = `<img src="play-button-5690573.png" alt=" " width="16" height="16" style="vertical-align: middle; margin-right: 8px;">${index + 1}. ${track.title}`;
+                li.appendChild(a);
+                playlistElement.appendChild(li);
+            });
+        }
+
+        // Получаем параметр из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const playlistFile = urlParams.get('playlist'); // Например, playlist1.txt
+
+        // Если параметр передан, загружаем плейлист
+        if (playlistFile) {
+            loadPlaylist(playlistFile);
+        } else {
+            alert("Плейлист не вказано.");
+        }
+    </script>
+</body>
+</html>
