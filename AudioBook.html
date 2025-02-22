@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Християнська збірка аудіо файлів</title>
     <link rel="icon" type="image/png" href="from-bible.jpg">
+    <!-- Подключаем Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* Ваши стили */
         body {
@@ -102,6 +104,33 @@
         .playlist {
             display: none; /* Скрываем плейлист по умолчанию */
         }
+        /* Стили для футера */
+        footer {
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ccc;
+            margin-top: 50px;
+        }
+        footer a {
+            color: #00A8A8;
+            text-decoration: none;
+            font-size: 1em;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        .social-icons {
+            margin-top: 10px;
+        }
+        .social-icons a {
+            color: #00A8A8;
+            font-size: 24px;
+            margin: 0 10px;
+        }
+        .social-icons a:hover {
+            color: #0072ff;
+        }
     </style>
 </head>
 <body>
@@ -136,12 +165,14 @@
         </audio>
     </div>
 
-        <footer style="background-color: #f4f4f4; padding: 20px; text-align: center; border-top: 1px solid #ccc; margin-top: 50px;">
-        <a href="index.html" style="color: var(--primary-color); text-decoration: none; font-size: 1em;">
+    <!-- Футер -->
+    <footer>
+        <a href="index.html">
             <i class="fas fa-home"></i> Головне меню
         </a>
         <p>м. Суми, версія збірки 1.0 : © 2025 р.</p>
 
+        <!-- Иконки социальных сетей -->
         <div class="social-icons">
             <a href="https://www.youtube.com" target="_blank">
                 <i class="fab fa-youtube"></i>
