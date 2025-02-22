@@ -1,413 +1,221 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Християнське онлайн аудіо</title>
-    <meta name="description" content="Християнське онлайн аудіо - збірка духовних пісень та проповідей для збагачення віри. Церква ЄХБ 'Дім Євангелія', м. Суми, Україна.">
-    <meta name="keywords" content="християнське аудіо, духовні пісні, проповіді, церква ЄХБ, Суми, Україна">
-    <meta name="author" content="Церква ЄХБ 'Дім Євангелія'">
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Християнська збірка аудіо файлів</title>
+    <link rel="icon" type="image/png" href="from-bible.jpg">
     <style>
-:root {
-    --primary-color: #007bff;
-    --hover-color: #0056b3;
-    --background-color: #f4f4f4;
-    --menu-bg: #ffffff;
-    --track-hover-color: #e9f5ff;
-    --playing-color: #d0ebff;
-    --icon-size: 20px;
-    --header-text-color: #ffffff;
-    --border-radius: 12px;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: var(--background-color);
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-header {
-    background: linear-gradient(135deg, rgba(0, 123, 255, 0.8), rgba(0, 86, 179, 0.8)), url('header-bg.jpg');
-    background-size: cover;
-    background-position: center;
-    color: var(--header-text-color);
-    padding: 25px 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-header h1 {
-    margin: 0;
-    font-size: 2.8em;
-    text-transform: uppercase;
-    font-weight: bold;
-    color: #00BFFF;
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-    animation: fadeIn 2s ease-in-out;
-}
-
-header h3 {
-    margin: 10px 0;
-    font-size: 1.5em;
-    font-weight: normal;
-    color: #444;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.container {
-    max-width: 800px;
-    width: 90%;
-    margin: 20px auto;
-    background: var(--menu-bg);
-    padding: 25px;
-    border-radius: var(--border-radius);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    flex-grow: 1;
-    background-image: url('https://raw.githubusercontent.com/ruyriy/Audio-christ/main/rm222.jpg');
-    background-size: cover;
-    background-position: center;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-li {
-    margin: 15px 0;
-}
-
-a {
-    text-decoration: none;
-    color: var(--primary-color);
-    font-size: 1.2rem;
-    transition: color 0.3s ease, transform 0.3s ease;
-    display: block;
-    padding: 10px 20px;
-    border-radius: 6px;
-}
-
-a:hover {
-    color: var(--hover-color);
-    background-color: var(--track-hover-color);
-    transform: translateX(8px);
-}
-
-.category {
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1.4rem;
-    padding: 15px 20px;
-    border-radius: var(--border-radius);
-    background: var(--track-hover-color);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: background 0.3s ease;
-}
-
-.category:hover {
-    background: var(--playing-color);
-}
-
-.category i {
-    transition: transform 0.3s ease;
-}
-
-.sub-menu {
-    max-height: 0;
-    overflow: hidden;
-    padding-left: 25px;
-    margin-top: 10px;
-    transition: max-height 0.5s ease-out;
-}
-
-.sub-menu.open {
-    max-height: 500px;
-}
-
-.sub-menu li {
-    margin: 10px 0;
-}
-
-.sub-menu a {
-    font-size: 1.1rem;
-    display: block;
-    text-align: left;
-}
-
-footer {
-    background-color: white;
-    padding: 15px;
-    text-align: center;
-    border-top: 1px solid #ddd;
-    margin-top: auto;
-    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-    flex-shrink: 0;
-    margin-bottom: 50px;
-}
-
-footer p {
-    margin: 0;
-    color: #333;
-    font-size: 1rem;
-}
-
-.social-icons {
-    margin-top: 10px;
-}
-
-.social-icons a {
-    margin: 0 10px;
-    font-size: 1.5em;
-    display: inline-block;
-}
-
-.social-icons a .fab {
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.social-icons a:hover .fab {
-    transform: scale(1.2);
-    color: var(--hover-color);
-}
-
-.fa-youtube { color: #FF0000; }
-.fa-facebook { color: #1877F2; }
-.fa-instagram { color: #C13584; }
-
-#scrollToTop {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 99;
-    font-size: 22px;
-    border: none;
-    outline: none;
-    background-color: var(--primary-color);
-    color: white;
-    cursor: pointer;
-    padding: 15px;
-    border-radius: 50%;
-    transition: background-color 0.3s ease;
-}
-
-#scrollToTop:hover {
-    background-color: var(--hover-color);
-}
-
-/* Адаптивные стили для мобильных устройств */
-@media (max-width: 768px) {
-    header h1 {
-        font-size: 2.2rem;
-    }
-
-    header h3 {
-        font-size: 1.1rem;
-    }
-
-    .container {
-        padding: 15px;
-    }
-
-    a {
-        font-size: 1rem;
-        padding: 8px 15px;
-    }
-
-    .category {
-        font-size: 1.2rem;
-        padding: 12px 15px;
-    }
-
-    .sub-menu a {
-        font-size: 1rem;
-    }
-
-    footer {
-        padding: 10px;
-        margin-bottom: 70px;
-    }
-
-    .social-icons a {
-        font-size: 1.2em;
-    }
-
-    #scrollToTop {
-        font-size: 18px;
-        padding: 12px;
-    }
-}
-
-@media (max-width: 480px) {
-    header h1 {
-        font-size: 1.8rem;
-    }
-
-    header h3 {
-        font-size: 1rem;
-    }
-
-    .container {
-        padding: 10px;
-    }
-
-    a {
-        font-size: 0.9rem;
-        padding: 6px 12px;
-    }
-
-    .category {
-        font-size: 1rem;
-        padding: 10px 12px;
-    }
-
-    .sub-menu a {
-        font-size: 0.9rem;
-    }
-
-    footer {
-        padding: 8px;
-        margin-bottom: 80px;
-    }
-
-    .social-icons a {
-        font-size: 1em;
-    }
-
-    #scrollToTop {
-        font-size: 16px;
-        padding: 10px;
-    }
-}
+        /* Ваши стили */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        h3 {
+            margin: 5px 0 0;
+            font-size: 1.2em;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        a {
+            text-decoration: none;
+            color: #00A8A8;
+            font-size: 1.1em;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        audio {
+            width: 100%;
+            margin-top: 20px;
+        }
+        .shortcut-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .shortcut-button {
+            width: 24px;
+            height: 24px;
+            background-color: #00A8A8;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 24px;
+            margin-right: 8px;
+        }
+        .category-list {
+            margin-bottom: 20px;
+        }
+        .category-list ul {
+            list-style-type: none; /* Убираем нумерацию */
+            padding-left: 0;
+        }
+        .category-list li {
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            margin: 5px 0;
+        }
+        .category-list li:hover {
+            background-color: #f0f0f0;
+        }
+        .playlist {
+            display: none; /* Скрываем плейлист по умолчанию */
+        }
     </style>
-    <script>
-        function toggleSubMenu(category) {
-            const subMenu = document.getElementById(category);
-            const icon = document.querySelector(`#${category}-icon`);
-            subMenu.classList.toggle('open');
-            icon.style.transform = subMenu.classList.contains('open') ? "rotate(90deg)" : "rotate(0deg)";
-        }
-
-        window.onscroll = function() {scrollFunction()};
-
-        function scrollFunction() {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                document.getElementById("scrollToTop").style.display = "block";
-            } else {
-                document.getElementById("scrollToTop").style.display = "none";
-            }
-        }
-
-        document.getElementById("scrollToTop").onclick = function() {
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-        }
-    </script>
-
-<script>
-document.addEventListener("click", function () {
-    let audio = document.getElementById("bg-music");
-    if (audio.paused) {
-        audio.volume = 0;
-        audio.play().then(() => {
-            let fadeIn = setInterval(function () {
-                if (audio.volume < 1) {
-                    audio.volume += 0.02;
-                } else {
-                    clearInterval(fadeIn);
-                }
-            }, 200);
-        }).catch(err => console.warn("Автозапуск аудио заблокирован", err));
-    }
-}, { once: true });
-</script>
-
-
 </head>
 <body>
     <header>
         <h1>Християнське онлайн аудіо</h1>
-        <h3>Збірка (церква ЄХБ "Дім Євангелія", м.Суми, Україна 2025 р.)</h3>
+        <h3 style="font-size: 1.0em;">Збірка (церква ЄХБ "Дім Євангелія",</h3>
+        <h3 style="font-size: 1.0em;">м.Суми, Україна 2025 р.)</h3>
     </header>
-
-<div class="container">
-    <!-- Аудио перенесено за пределы списка -->
-    <audio id="bg-music" loop>
-        <source src="https://ruyriy.github.io/Audio-christ/Светлана_М.mp3" type="audio/mpeg">
-    </audio>
-
-    <ul>
-        <!-- Категория 1 -->
-        <li class="category" onclick="toggleSubMenu('category1')" title="Слухайте духовну музику, яка надихає та збагачує вашу віру">
-            Пісні віри
-            <i id="category1-icon" class="fas fa-chevron-right"></i>
-            <!-- Вложенный список внутри li -->
-            <ul id="category1" class="sub-menu">
-                <li>
-                    <a href="https://ruyriy.github.io/Audio-christ/AudioPlayer.html?playlist=playlist.txt" title="Плейлист із піснями, які виконуються під час наших служінь">
-                        <i class="fas fa-music"></i> Пісні наших служінь
-                    </a>
-                </li>
-                <li>
-                    <a href="https://ruyriy.github.io/Audio-christ/AudioPlayer.html?playlist=playlist1.txt" title="Улюблені пісні нашої церкви, які виконуються під час особливих подій">
-                        <i class="fas fa-music"></i> Улюблені пісні церкви
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-        <!-- Категория 2 -->
-        <li class="category" onclick="toggleSubMenu('category2')" title="Проповіді, які допоможуть вам зростати у вірі та розумінні Божого Слова">
-            Живе слово
-            <i id="category2-icon" class="fas fa-chevron-right"></i>
-            <!-- Вложенный список внутри li -->
-            <ul id="category2" class="sub-menu">
-                <li>
-                    <a href="https://ruyriy.github.io/Audio-christ/AudioBook.html?playlist=playlist.txt" title="Проповіді, які звучать у нашій церкві під час недільних служінь">
-                        <i class="fas fa-book-open"></i> Проповіді нашої церкви
-                    </a>
-                </li>
-                <li>
-                    <a href="index.html" title="Проповіді, присвячені служінню та практичним аспектам християнського життя">
-                        <i class="fas fa-book-open"></i> Служіння через слово
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-        <!-- Дополнительные ссылки -->
-        <li>
-            <a href="https://ruyriy.github.io/Radio-online/index.html" target="_blank" title="Слухайте християнське радіо онлайн">
-                Християнське радіо
-            </a>
-        </li>
-        <li>
-            <a href="https://ruyriy.github.io/VideoYouTube/video_max.html" title="Переглядайте відеозаписи наших служінь та подій">
-                Відеозаписи служінь
-            </a>
-        </li>
-    </ul>
-</div>
- 
-    <footer>
-        <p><strong>Християнське онлайн аудіо</strong> – збірка духовних пісень та проповідей.</p>
-        <p>м. Суми, версія збірки 1.0 : © 2025 р.</p>
-
-        <div class="social-icons">
-            <a href="https://www.youtube.com/@pravdachurch" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.facebook.com/pravdachurch" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
-            <a href="https://www.instagram.com/pravda.church" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+    <div class="container">
+        <div class="shortcut-container">
+            <button class="shortcut-button" onclick="showShortcutInstructions()">+</button>
+            <span>Добавити на головний екран</span>
         </div>
-    </footer>
-   
+
+        <!-- Список категорий -->
+        <div class="category-list">
+            <ul id="categoryList">
+                <!-- Категории будут добавлены сюда -->
+            </ul>
+        </div>
+
+        <!-- Список треков -->
+        <div class="playlist" id="playlistContainer">
+            <ul id="playlist">
+                <!-- Сюда будут добавляться элементы плейлиста -->
+            </ul>
+        </div>
+
+        <!-- Аудиоплеер -->
+        <audio id="audioPlayer" controls>
+            Ваш браузер не підтримує аудіо елемент.
+        </audio>
+    </div>
+    <script>
+        let currentAudio = null;
+
+        // Функция для воспроизведения аудио
+        function playAudio(url, title, event) {
+            event.preventDefault();
+            if (currentAudio) {
+                currentAudio.pause();
+            }
+            const audioPlayer = document.getElementById('audioPlayer');
+            audioPlayer.src = url;
+            audioPlayer.play();
+            currentAudio = audioPlayer;
+            document.title = title + " | Християнське онлайн аудіо";
+        }
+
+        // Функция для показа инструкций
+        function showShortcutInstructions() {
+            alert("Щоб додати ярлик на головний екран:\n\nДля iPhone (Safari): Натисніть Поділитися -> Додати на головний екран.\n\nДля Android (Chrome): Натисніть меню (три крапки) -> Додати на головний екран.");
+        }
+
+        // Функция для загрузки плейлиста из файла
+        async function loadPlaylist(playlistFile) {
+            try {
+                const response = await fetch(playlistFile); // Загружаем файл плейлиста
+                if (!response.ok) {
+                    throw new Error("Плейлист не знайдено");
+                }
+                const text = await response.text(); // Читаем содержимое файла
+                const lines = text.split('\n'); // Разделяем на строки
+
+                const categories = {};
+                let currentCategory = null;
+
+                // Парсим плейлист
+                lines.forEach((line) => {
+                    if (line.startsWith("Категорія:")) {
+                        currentCategory = line.replace("Категорія:", "").trim();
+                        categories[currentCategory] = [];
+                    } else if (line.trim() && currentCategory) {
+                        const [title, url] = line.split(';');
+                        if (title && url) {
+                            categories[currentCategory].push({ title: title.trim(), url: url.trim() });
+                        }
+                    }
+                });
+
+                // Создаем список категорий
+                const categoryList = document.getElementById('categoryList');
+                categoryList.innerHTML = ''; // Очищаем текущий список
+                Object.keys(categories).forEach((category) => {
+                    const li = document.createElement('li');
+                    li.textContent = category; // Убираем нумерацию
+                    li.onclick = () => {
+                        displayPlaylist(categories[category]);
+                        document.getElementById('playlistContainer').style.display = 'block'; // Показываем плейлист
+                    };
+                    categoryList.appendChild(li);
+                });
+            } catch (error) {
+                console.error("Помилка завантаження плейлиста:", error);
+                alert("Не вдалося завантажити плейлист.");
+            }
+        }
+
+        // Функция для отображения плейлиста
+        function displayPlaylist(tracks) {
+            const playlistElement = document.getElementById('playlist');
+            playlistElement.innerHTML = ''; // Очищаем текущий плейлист
+
+            tracks.forEach((track, index) => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#';
+                a.onclick = (event) => playAudio(track.url, track.title, event);
+                a.innerHTML = `<img src="play-button-5690573.png" alt=" " width="16" height="16" style="vertical-align: middle; margin-right: 8px;">${index + 1}. ${track.title}`;
+                li.appendChild(a);
+                playlistElement.appendChild(li);
+            });
+        }
+
+        // Получаем параметр из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const playlistFile = urlParams.get('playlist'); // Например, playlist1.txt
+
+        // Если параметр передан, загружаем плейлист
+        if (playlistFile) {
+            loadPlaylist(playlistFile);
+        } else {
+            alert("Плейлист не вказано.");
+        }
+    </script>
 </body>
 </html>
