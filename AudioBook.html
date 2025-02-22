@@ -76,8 +76,8 @@
             margin-bottom: 20px;
         }
         .category-list ul {
-            list-style-type: decimal; /* Нумерованный список */
-            padding-left: 20px;
+            list-style-type: none; /* Убираем нумерацию */
+            padding-left: 0;
         }
         .category-list li {
             cursor: pointer;
@@ -88,6 +88,9 @@
         }
         .category-list li:hover {
             background-color: #f0f0f0;
+        }
+        .playlist {
+            display: none; /* Скрываем плейлист по умолчанию */
         }
     </style>
 </head>
@@ -111,9 +114,11 @@
         </div>
 
         <!-- Список треков -->
-        <ul id="playlist">
-            <!-- Сюда будут добавляться элементы плейлиста -->
-        </ul>
+        <div class="playlist" id="playlistContainer">
+            <ul id="playlist">
+                <!-- Сюда будут добавляться элементы плейлиста -->
+            </ul>
+        </div>
 
         <!-- Аудиоплеер -->
         <audio id="audioPlayer" controls>
@@ -170,17 +175,15 @@
                 // Создаем список категорий
                 const categoryList = document.getElementById('categoryList');
                 categoryList.innerHTML = ''; // Очищаем текущий список
-                Object.keys(categories).forEach((category, index) => {
+                Object.keys(categories).forEach((category) => {
                     const li = document.createElement('li');
-                    li.textContent = `${index + 1}. ${category}`; // Нумеруем категории
-                    li.onclick = () => displayPlaylist(categories[category]);
+                    li.textContent = category; // Убираем нумерацию
+                    li.onclick = () => {
+                        displayPlaylist(categories[category]);
+                        document.getElementById('playlistContainer').style.display = 'block'; // Показываем плейлист
+                    };
                     categoryList.appendChild(li);
                 });
-
-                // Показываем первую категорию по умолчанию
-                if (Object.keys(categories).length > 0) {
-                    displayPlaylist(categories[Object.keys(categories)[0]]);
-                }
             } catch (error) {
                 console.error("Помилка завантаження плейлиста:", error);
                 alert("Не вдалося завантажити плейлист.");
