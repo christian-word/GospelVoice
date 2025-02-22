@@ -81,13 +81,23 @@
         }
         .category-list li {
             cursor: pointer;
-            padding: 8px;
+            padding: 10px;
             border-radius: 4px;
             background-color: #f9f9f9;
             margin: 5px 0;
+            border: 1px solid #ddd; /* Рамка, как в выпадающем меню */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         .category-list li:hover {
             background-color: #f0f0f0;
+            border-color: #00A8A8; /* Изменение цвета рамки при наведении */
+        }
+        .category-list li::after {
+            content: "▶"; /* Треугольник в конце */
+            color: #00A8A8;
+            font-size: 14px;
         }
         .playlist {
             display: none; /* Скрываем плейлист по умолчанию */
@@ -177,7 +187,7 @@
                 categoryList.innerHTML = ''; // Очищаем текущий список
                 Object.keys(categories).forEach((category) => {
                     const li = document.createElement('li');
-                    li.textContent = category; // Убираем нумерацию
+                    li.textContent = category; // Название категории
                     li.onclick = () => {
                         displayPlaylist(categories[category]);
                         document.getElementById('playlistContainer').style.display = 'block'; // Показываем плейлист
