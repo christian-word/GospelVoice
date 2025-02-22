@@ -75,24 +75,17 @@
         .category-menu {
             margin-bottom: 20px;
         }
-        .category-menu a {
-            display: inline-block;
+        .category-menu select {
             padding: 8px 12px;
-            background-color: #f0f0f0;
+            font-size: 16px;
+            border: 1px solid #00A8A8;
             border-radius: 4px;
-            margin-right: 5px;
-            color: #333;
-            text-decoration: none;
+            background-color: white;
+            color: #00A8A8;
+            cursor: pointer;
         }
-        .category-menu a:hover {
-            background-color: #00A8A8;
-            color: white;
-        }
-        .playlist-section {
-            display: none; /* Скрываем разделы по умолчанию */
-        }
-        .playlist-section.active {
-            display: block; /* Показываем активный раздел */
+        .category-menu select:hover {
+            background-color: #f0f0f0;
         }
     </style>
 </head>
@@ -109,14 +102,17 @@
         </div>
 
         <!-- Меню категорий -->
-        <div class="category-menu" id="categoryMenu">
-            <!-- Категории будут добавлены сюда динамически -->
+        <div class="category-menu">
+            <select id="categorySelect">
+                <option value="">Оберіть категорію</option>
+                <!-- Опции категорий будут добавлены сюда -->
+            </select>
         </div>
 
         <!-- Список треков -->
-        <div id="playlistContainer">
-            <!-- Разделы с треками будут добавлены сюда динамически -->
-        </div>
+        <ul id="playlist">
+            <!-- Сюда будут добавляться элементы плейлиста -->
+        </ul>
 
         <!-- Аудиоплеер -->
         <audio id="audioPlayer" controls>
@@ -130,19 +126,13 @@
         function playAudio(url, title, event) {
             event.preventDefault();
             if (currentAudio) {
-                currentAudio.pause(); // Останавливаем текущий трек
+                currentAudio.pause();
             }
             const audioPlayer = document.getElementById('audioPlayer');
             audioPlayer.src = url;
             audioPlayer.play();
-            currentAudio = audioPlayer; // Запоминаем текущий трек
+            currentAudio = audioPlayer;
             document.title = title + " | Християнське онлайн аудіо";
-
-            // Обработчик для завершения воспроизведения
-            audioPlayer.addEventListener('ended', () => {
-                audioPlayer.src = ''; // Сбрасываем источник аудио
-                currentAudio = null; // Сбрасываем текущий трек
-            });
         }
 
         // Функция для показа инструкций
@@ -176,47 +166,30 @@
                     }
                 });
 
-                // Очищаем меню и контейнер плейлиста
-                const categoryMenu = document.getElementById('categoryMenu');
-                const playlistContainer = document.getElementById('playlistContainer');
-                categoryMenu.innerHTML = '';
-                playlistContainer.innerHTML = '';
-
-                // Создаем меню и разделы для каждой категории
+                // Создаем опции для выпадающего меню
+                const categorySelect = document.getElementById('categorySelect');
+                categorySelect.innerHTML = '<option value="">Оберіть категорію</option>';
                 Object.keys(categories).forEach((category) => {
-                    // Создаем ссылку в меню
-                    const categoryLink = document.createElement('a');
-                    categoryLink.href = '#';
-                    categoryLink.textContent = category;
-                    categoryLink.onclick = () => showCategory(category);
-                    categoryMenu.appendChild(categoryLink);
-
-                    // Создаем раздел для категории
-                    const categorySection = document.createElement('div');
-                    categorySection.id = `category-${category}`;
-                    categorySection.className = 'playlist-section';
-
-                    const categoryHeader = document.createElement('h3');
-                    categoryHeader.textContent = category;
-                    categorySection.appendChild(categoryHeader);
-
-                    const trackList = document.createElement('ul');
-                    categories[category].forEach((track, index) => {
-                        const li = document.createElement('li');
-                        const a = document.createElement('a');
-                        a.href = '#';
-                        a.onclick = (event) => playAudio(track.url, track.title, event);
-                        a.innerHTML = `<img src="play-button-5690573.png" alt=" " width="16" height="16" style="vertical-align: middle; margin-right: 8px;">${index + 1}. ${track.title}`;
-                        li.appendChild(a);
-                        trackList.appendChild(li);
-                    });
-                    categorySection.appendChild(trackList);
-                    playlistContainer.appendChild(categorySection);
+                    const option = document.createElement('option');
+                    option.value = category;
+                    option.textContent = category;
+                    categorySelect.appendChild(option);
                 });
+
+                // Обработчик выбора категории
+                categorySelect.onchange = () => {
+                    const selectedCategory = categorySelect.value;
+                    if (selectedCategory) {
+                        displayPlaylist(categories[selectedCategory]);
+                    } else {
+                        document.getElementById('playlist').innerHTML = ''; // Очищаем плейлист, если категория не выбрана
+                    }
+                };
 
                 // Показываем первую категорию по умолчанию
                 if (Object.keys(categories).length > 0) {
-                    showCategory(Object.keys(categories)[0]);
+                    categorySelect.value = Object.keys(categories)[0];
+                    displayPlaylist(categories[Object.keys(categories)[0]]);
                 }
             } catch (error) {
                 console.error("Помилка завантаження плейлиста:", error);
@@ -224,20 +197,32 @@
             }
         }
 
-        // Функция для отображения выбранной категории
-        function showCategory(category) {
-            const sections = document.querySelectorAll('.playlist-section');
-            sections.forEach((section) => {
-                section.classList.remove('active');
+        // Функция для отображения плейлиста
+        function displayPlaylist(tracks) {
+            const playlistElement = document.getElementById('playlist');
+            playlistElement.innerHTML = ''; // Очищаем текущий плейлист
+
+            tracks.forEach((track, index) => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#';
+                a.onclick = (event) => playAudio(track.url, track.title, event);
+                a.innerHTML = `<img src="play-button-5690573.png" alt=" " width="16" height="16" style="vertical-align: middle; margin-right: 8px;">${index + 1}. ${track.title}`;
+                li.appendChild(a);
+                playlistElement.appendChild(li);
             });
-            const selectedSection = document.getElementById(`category-${category}`);
-            if (selectedSection) {
-                selectedSection.classList.add('active');
-            }
         }
 
-        // Загружаем плейлист по умолчанию
-        loadPlaylist('playlist1.txt');
+        // Получаем параметр из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const playlistFile = urlParams.get('playlist'); // Например, playlist1.txt
+
+        // Если параметр передан, загружаем плейлист
+        if (playlistFile) {
+            loadPlaylist(playlistFile);
+        } else {
+            alert("Плейлист не вказано.");
+        }
     </script>
 </body>
 </html>
