@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
@@ -22,34 +22,45 @@
             margin: 0;
             font-size: 2.5em;
         }
-        .categories {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 20px;
+        #categoryList {
+            list-style: none;
+            padding: 0;
+            margin: 20px;
         }
-        .categories button {
+        #categoryList li {
             margin: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
+            padding: 10px;
             background-color: #4a90e2;
             color: white;
-            border: none;
             border-radius: 5px;
+            cursor: pointer;
             transition: background-color 0.3s ease;
         }
-        .categories button:hover {
+        #categoryList li:hover {
             background-color: #6a11cb;
         }
-        #playlist {
-            padding: 20px;
-            text-align: center;
+        #playlistContainer {
+            display: none;
+            margin: 20px;
         }
-        #playlist audio {
+        #playlist {
+            list-style: none;
+            padding: 0;
+        }
+        #playlist li {
             margin: 10px 0;
+        }
+        #playlist a {
+            text-decoration: none;
+            color: #333;
+        }
+        #playlist a:hover {
+            text-decoration: underline;
+        }
+        #audioPlayer {
             width: 100%;
             max-width: 400px;
+            margin: 20px 0;
         }
         #loading {
             display: none;
@@ -65,95 +76,100 @@
         <h1>Християнський плейлист</h1>
     </header>
     <div id="loading">Завантаження...</div>
-    <div class="categories">
-        <!-- Кнопки категорій будуть додаватися сюди -->
+    <ul id="categoryList">
+        <!-- Категорії будуть додаватися сюди -->
+    </ul>
+    <div id="playlistContainer">
+        <ul id="playlist">
+            <!-- Треки будуть додаватися сюди -->
+        </ul>
     </div>
-    <div id="playlist">
-        <!-- Треки будуть додаватися сюди -->
-    </div>
+    <audio id="audioPlayer" controls></audio>
 
     <script>
-        async function loadPlaylist() {
+        let currentAudio = null;
+
+        // Функція для відтворення аудіо
+        function playAudio(url, title, event) {
+            event.preventDefault();
+            if (currentAudio) {
+                currentAudio.pause();
+            }
+            const audioPlayer = document.getElementById('audioPlayer');
+            audioPlayer.src = url;
+            audioPlayer.play();
+            currentAudio = audioPlayer;
+            document.title = title + " | Християнське онлайн аудіо";
+        }
+
+        // Функція для завантаження плейлисту з файлу
+        async function loadPlaylist(playlistFile) {
             const loadingElement = document.getElementById('loading');
             loadingElement.style.display = 'block';
 
             try {
-                // Завантажуємо текстовий файл з Dropbox
-                const response = await fetch('https://raw.githubusercontent.com/ruyriy/Audio-christ/refs/heads/main/playlist.txt');
-                const text = await response.text();
+                const response = await fetch(playlistFile); // Завантажуємо файл плейлисту
+                if (!response.ok) {
+                    throw new Error("Плейлист не знайдено");
+                }
+                const text = await response.text(); // Читаємо вміст файлу
+                const lines = text.split('\n'); // Розділяємо на рядки
 
-                // Парсимо текст
-                const categories = parseTextToCategories(text);
+                const categories = {};
+                let currentCategory = null;
 
-                // Відображаємо категорії
-                renderCategories(categories);
+                // Парсимо плейлист
+                lines.forEach((line) => {
+                    if (line.startsWith("Категорія:")) {
+                        currentCategory = line.replace("Категорія:", "").trim();
+                        categories[currentCategory] = [];
+                    } else if (line.trim() && currentCategory) {
+                        const [title, url] = line.split(';');
+                        if (title && url) {
+                            categories[currentCategory].push({ title: title.trim(), url: url.trim() });
+                        }
+                    }
+                });
+
+                // Створюємо список категорій
+                const categoryList = document.getElementById('categoryList');
+                categoryList.innerHTML = ''; // Очищаємо поточний список
+                Object.keys(categories).forEach((category) => {
+                    const li = document.createElement('li');
+                    li.textContent = category; // Назва категорії
+                    li.onclick = () => {
+                        displayPlaylist(categories[category]);
+                        document.getElementById('playlistContainer').style.display = 'block'; // Показуємо плейлист
+                    };
+                    categoryList.appendChild(li);
+                });
             } catch (error) {
-                console.error('Помилка завантаження плейлиста:', error);
+                console.error("Помилка завантаження плейлиста:", error);
+                alert("Не вдалося завантажити плейлист.");
             } finally {
                 loadingElement.style.display = 'none';
             }
         }
 
-        function parseTextToCategories(text) {
-            const categories = [];
-            const lines = text.split('\n'); // Розділяємо текст на рядки
-
-            let currentCategory = null;
-
-            lines.forEach(line => {
-                line = line.trim(); // Видаляємо зайві пробіли
-
-                // Якщо рядок починається з "Категорія:", це нова категорія
-                if (line.startsWith('Категорія:')) {
-                    const categoryName = line.replace('Категорія:', '').trim();
-                    currentCategory = { name: categoryName, tracks: [] };
-                    categories.push(currentCategory);
-                }
-                // Якщо рядок починається з цифри, це трек
-                else if (/^\d+\./.test(line) && currentCategory) {
-                    const [title, src] = line.split(';').map(part => part.trim());
-                    currentCategory.tracks.push({ title, src });
-                }
-            });
-
-            return categories;
-        }
-
-        function renderCategories(categories) {
-            const categoriesElement = document.querySelector('.categories');
-            categoriesElement.innerHTML = '';
-
-            categories.forEach(category => {
-                const button = document.createElement('button');
-                button.textContent = category.name;
-                button.onclick = () => loadTracks(category.tracks);
-                categoriesElement.appendChild(button);
-            });
-        }
-
-        function loadTracks(tracks) {
+        // Функція для відображення плейлисту
+        function displayPlaylist(tracks) {
             const playlistElement = document.getElementById('playlist');
-            playlistElement.innerHTML = '';
+            playlistElement.innerHTML = ''; // Очищаємо поточний плейлист
 
-            if (tracks && tracks.length > 0) {
-                tracks.forEach(track => {
-                    const audioElement = document.createElement('audio');
-                    audioElement.controls = true;
-                    audioElement.src = track.src;
-
-                    const trackTitle = document.createElement('p');
-                    trackTitle.textContent = track.title;
-
-                    playlistElement.appendChild(trackTitle);
-                    playlistElement.appendChild(audioElement);
-                });
-            } else {
-                playlistElement.innerHTML = '<p>Треки у цій категорії відсутні.</p>';
-            }
+            tracks.forEach((track, index) => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#';
+                a.onclick = (event) => playAudio(track.url, track.title, event);
+                a.innerHTML = `<img src="play-button-5690573.png" alt=" " width="16" height="16" style="vertical-align: middle; margin-right: 8px;">${index + 1}. ${track.title}`;
+                li.appendChild(a);
+                playlistElement.appendChild(li);
+            });
         }
 
-        // Завантажити плейлист при завантаженні сторінки
-        loadPlaylist();
+        // Завантажуємо плейлист з Dropbox
+        const playlistFile = 'https://www.dropbox.com/scl/fi/lftbrvxr7179ylf509k5h/musicPlaylist.txt?rlkey=8660zxouxdfyxzta6z8aygpfk&st=j2so203r&dl=1';
+        loadPlaylist(playlistFile);
     </script>
 </body>
 </html>
