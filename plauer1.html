@@ -6,7 +6,7 @@
     <title>Медіа Аудіо Плеєр</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
@@ -25,10 +25,12 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         header h1 {
             margin: 0;
             font-size: 2.5em;
+            font-weight: 600;
         }
         #playlistSelector {
             margin: 20px;
@@ -40,6 +42,11 @@
             max-width: 100%;
             background-color: white;
             color: #333;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+        #playlistSelector:hover {
+            border-color: #6a11cb;
         }
         #categoryList {
             list-style: none;
@@ -57,14 +64,16 @@
             border: 2px solid #6a11cb;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
             flex: 0 0 auto;
             width: 200px;
             text-align: center;
+            font-weight: 500;
         }
         #categoryList li:hover {
             background-color: #6a11cb;
             color: white;
+            transform: translateY(-3px);
         }
         #playlistContainer {
             display: none;
@@ -80,30 +89,41 @@
         }
         #playlist li {
             margin: 10px 0;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        #playlist li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
         #playlist a {
             text-decoration: none;
             color: #333;
-            display: block;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: white;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            transition: background-color 0.3s ease;
         }
         #playlist a:hover {
-            background-color: #f0f0f0;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f8f8f8;
         }
         #playlist a.playing {
-            background-color: #e0f7ff; /* Світло-блакитний колір для підсвітки */
-            border-color: #4a90e2;
+            background-color: #e0f7ff;
+            border-left: 4px solid #4a90e2;
+        }
+        #playlist a img {
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
         }
         #audioPlayer {
             width: 100%;
             max-width: 400px;
             margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         #loading {
             display: none;
@@ -122,7 +142,7 @@
     <select id="playlistSelector">
         <option value="">Виберіть плейлист</option>
         <option value="playlist1.txt">Плейлист 1 (Християнська музика)</option>
-        <option value="https://www.dropbox.com/scl/fi/tyn4sonjkzsu3szytaoer/bookPlaylist.txt?rlkey=gdytmc5mn97id0nz7wcq4vcas&st=gt11hrkq&dl=1">Плейлист 2 (Аудіокниги)</option>
+        <option value="playlist2.txt">Плейлист 2 (Аудіокниги)</option>
         <!-- Додайте більше плейлистів -->
     </select>
     <ul id="categoryList">
@@ -233,7 +253,7 @@
                 const a = document.createElement('a');
                 a.href = '#';
                 a.onclick = (event) => playAudio(track.url, track.title, event);
-                a.innerHTML = `<img src="play-button-5690573.png" alt=" " width="16" height="16" style="vertical-align: middle; margin-right: 8px;">${index + 1}. ${track.title}`;
+                a.innerHTML = `<img src="play-button-5690573.png" alt=" " width="24" height="24" style="vertical-align: middle; margin-right: 12px;">${index + 1}. ${track.title}`;
                 li.appendChild(a);
                 playlistElement.appendChild(li);
             });
