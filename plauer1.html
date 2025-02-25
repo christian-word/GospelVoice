@@ -87,8 +87,8 @@
     <div id="loading">Завантаження...</div>
     <select id="playlistSelector">
         <option value="">Виберіть плейлист</option>
-        <option value="https://www.dropbox.com/scl/fi/lftbrvxr7179ylf509k5h/musicPlaylist.txt?rlkey=8660zxouxdfyxzta6z8aygpfk&st=j2so203r&dl=1">Плейлист 1 (Християнська музика)</option>
-        <option value="https://www.dropbox.com/scl/fi/tyn4sonjkzsu3szytaoer/bookPlaylist.txt?rlkey=gdytmc5mn97id0nz7wcq4vcas&dl=1">Плейлист 2 (Аудіокниги)</option>
+        <option value="https://www.dropbox.com/scl/fi/lftbrvxr7179ylf509k5h/musicPlaylist.txt?rlkey=8660zxouxdfyxzta6z8aygpfk&st=j2so203r&dl=0">Плейлист 1 (Християнська музика)</option>
+        <option value="https://www.dropbox.com/scl/fi/tyn4sonjkzsu3szytaoer/bookPlaylist.txt?rlkey=gdytmc5mn97id0nz7wcq4vcas&dl=0">Плейлист 2 (Аудіокниги)</option>
         <!-- Додайте більше плейлистів -->
     </select>
     <ul id="categoryList">
@@ -138,7 +138,9 @@
                     if (line.startsWith("Категорія:")) {
                         currentCategory = line.replace("Категорія:", "").trim();
                         categories[currentCategory] = [];
-                    } else if (line.trim() && currentCategory) {
+                    }
+                    // Якщо рядок починається з цифри, це трек
+                    else if (/^\d+\./.test(line) && currentCategory) {
                         const [title, url] = line.split(';');
                         if (title && url) {
                             categories[currentCategory].push({ title: title.trim(), url: url.trim() });
