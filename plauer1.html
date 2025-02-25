@@ -111,7 +111,7 @@
         }
 
         #playlist li {
-            margin: 10px 0;
+            margin: 5px 0; /* Зменшено відстань між треками */
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -128,8 +128,9 @@
             color: #333;
             display: flex;
             align-items: center;
-            padding: 15px;
+            padding: 10px; /* Зменшено внутрішній відступ */
             transition: background-color 0.3s ease;
+            font-weight: 400; /* Зроблено текст менш "жирним" */
         }
 
         #playlist a:hover {
@@ -142,9 +143,9 @@
         }
 
         #playlist a img {
-            width: 24px;
-            height: 24px;
-            margin-right: 12px;
+            width: 20px; /* Зменшено розмір іконки */
+            height: 20px;
+            margin-right: 10px; /* Зменшено відстань між іконкою та текстом */
         }
 
         #audioControls {
@@ -257,6 +258,8 @@
                 currentAudio.pause();
                 if (currentPlayingElement) {
                     currentPlayingElement.classList.remove('playing');
+                    currentPlayingElement.querySelector('i').classList.remove('fa-pause');
+                    currentPlayingElement.querySelector('i').classList.add('fa-play');
                 }
             }
             const audioPlayer = document.getElementById('audioPlayer');
@@ -265,12 +268,16 @@
             currentAudio = audioPlayer;
             document.title = title + " | Християнське онлайн аудіо";
 
-            // Підсвітка поточного треку
+            // Підсвітка поточного треку та зміна іконки
             if (currentPlayingElement) {
                 currentPlayingElement.classList.remove('playing');
+                currentPlayingElement.querySelector('i').classList.remove('fa-pause');
+                currentPlayingElement.querySelector('i').classList.add('fa-play');
             }
             currentPlayingElement = event.currentTarget;
             currentPlayingElement.classList.add('playing');
+            currentPlayingElement.querySelector('i').classList.remove('fa-play');
+            currentPlayingElement.querySelector('i').classList.add('fa-pause');
         }
 
         // Функція для очищення плейлисту та зупинки плеєра
@@ -349,7 +356,7 @@
                     playAudio(track.url, track.title, event);
                     currentTrackIndex = index;
                 };
-                a.innerHTML = `<img src="play-button-5690573.png" alt=" " width="24" height="24" style="vertical-align: middle; margin-right: 12px;">${index + 1}. ${track.title}`;
+                a.innerHTML = `<i class="fas fa-play"></i>${index + 1}. ${track.title}`;
                 li.appendChild(a);
                 playlistElement.appendChild(li);
             });
@@ -387,14 +394,18 @@
                 audioPlayer.play();
                 document.title = nextTrack.title + " | Християнське онлайн аудіо";
 
-                // Підсвітка поточного треку
+                // Підсвітка поточного треку та зміна іконки
                 const playlistElement = document.getElementById('playlist');
                 const trackElements = playlistElement.querySelectorAll('a');
                 if (currentPlayingElement) {
                     currentPlayingElement.classList.remove('playing');
+                    currentPlayingElement.querySelector('i').classList.remove('fa-pause');
+                    currentPlayingElement.querySelector('i').classList.add('fa-play');
                 }
                 currentPlayingElement = trackElements[currentTrackIndex];
                 currentPlayingElement.classList.add('playing');
+                currentPlayingElement.querySelector('i').classList.remove('fa-play');
+                currentPlayingElement.querySelector('i').classList.add('fa-pause');
             }
         }
 
@@ -427,14 +438,18 @@
                 audioPlayer.play();
                 document.title = prevTrack.title + " | Християнське онлайн аудіо";
 
-                // Підсвітка поточного треку
+                // Підсвітка поточного треку та зміна іконки
                 const playlistElement = document.getElementById('playlist');
                 const trackElements = playlistElement.querySelectorAll('a');
                 if (currentPlayingElement) {
                     currentPlayingElement.classList.remove('playing');
+                    currentPlayingElement.querySelector('i').classList.remove('fa-pause');
+                    currentPlayingElement.querySelector('i').classList.add('fa-play');
                 }
                 currentPlayingElement = trackElements[currentTrackIndex];
                 currentPlayingElement.classList.add('playing');
+                currentPlayingElement.querySelector('i').classList.remove('fa-play');
+                currentPlayingElement.querySelector('i').classList.add('fa-pause');
             }
         });
 
