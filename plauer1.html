@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Медіа Аудіо Плеєр</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
+     <style>
         :root {
             --primary-color: #4a90e2;
             --hover-color: #6a11cb;
@@ -335,55 +335,229 @@
         let currentTrackIndex = 0;
         let tracks = [];
 
-        // Зміна гучності
-        volumeSlider.addEventListener('input', () => {
-            audioPlayer.volume = volumeSlider.value;
-            updateVolumeIcon();
-            localStorage.setItem('volume', audioPlayer.volume);
-        });
+        // Функція для завантаження плейлисту
+        async function loadPlaylist(playlistFile) {
+            loadingElement.style.display = 'block';
+            try {
+                const response = await fetch(playlistFile);
+                if (!response.ok) throw new Error("Плейлист не знайдено");
+                const text = await response.text();
+                const lines = text.split('\n');
 
-        // Вимкнення/увімкнення звуку
-        volumeButton.addEventListener('click', () => {
-            if (audioPlayer.volume > 0) {
-                audioPlayer.volume = 0;
-                volumeSlider.value = 0;
-            } else {
-                audioPlayer.volume = 1;
-                volumeSlider.value = 1;
-            }
-            updateVolumeIcon();
-        });
+                const categories = {};
+                let currentCategory = null;
 
-        // Оновлення іконки гучності
-        function updateVolumeIcon() {
-            if (audioPlayer.volume === 0) {
-                volumeButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
-            } else if (audioPlayer.volume < 0.5) {
-                volumeButton.innerHTML = '<i class="fas fa-volume-down"></i>';
-            } else {
-                volumeButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+                lines.forEach((line) => {
+                    if (line.startsWith("Категорія:")) {
+                        currentCategory = line.replace("Категорія:", "").trim();
+                        categories[currentCategory] = [];
+                    } else if (/^\d+\./.test(line) && currentCategory) {
+                        const [title, url] = line.split(';');
+                        if (title && url) {
+                            categories[currentCategory].push({ title: title.trim(), url: url.trim() });
+                        }
+                    }
+                });
+
+                clearPlaylist();
+                categoryList.innerHTML = '';
+                Object.keys(categories).forEach((category) => {
+                    const li = document.createElement('li');
+                    li.textContent = category;
+                    li.onclick = () => {
+                        tracks = categories[category];
+                        displayPlaylist(tracks);
+                        playlistContainer.style.display = 'block';
+                        currentTrackIndex = 0;
+                    };
+                    categoryList.appendChild(li);
+                });
+            } catch (error) {
+                console.error("Помилка завантаження плейлиста:", error);
+                alert("Не вдалося завантажити плейлист.");
+            } finally {
+                loadingElement.style.display = 'none';
             }
         }
 
-        // Відновлення гучності при завантаженні сторінки
-        window.addEventListener('load', () => {
-            const savedVolume = localStorage.getItem('volume');
-            if (savedVolume) {
-                audioPlayer.volume = parseFloat(savedVolume);
-                volumeSlider.value = savedVolume;
-                updateVolumeIcon();
+        // Функція для очищення плейлисту
+        function clearPlaylist() {
+            playlist.innerHTML = '';
+            playlistContainer.style.display = 'none';
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+        }
+
+        // Функція для відображення плейлисту
+        function displayPlaylist(tracks) {
+            playlist.innerHTML = '';
+            tracks.forEach((track, index) => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#';
+                a.onclick = (event) => playAudio(track.url, track.title, event);
+                a.innerHTML = `<i class="fas fa-play"></i>${index + 1}. ${track.title}`;
+                li.appendChild(a);
+                playlist.appendChild(li);
+            });
+        }
+
+        // Функція для відтворення аудіо
+        function playAudio(url, title, event) {
+            event.preventDefault();
+
+            // Якщо натиснуто на той самий трек, який зараз відтворюється
+            if (currentPlayingElement === event.currentTarget) {
+                if (!audioPlayer.paused) {
+                    audioPlayer.pause();
+                    updatePlayPauseButton(false);
+                    updatePlayPauseIcon(currentPlayingElement, false);
+                    return;
+                } else {
+                    audioPlayer.play();
+                    updatePlayPauseButton(true);
+                    updatePlayPauseIcon(currentPlayingElement, true);
+                    return;
+                }
+            }
+
+            // Якщо відтворюється інший трек, зупиняємо його
+            if (currentAudio) {
+                currentAudio.pause();
+                if (currentPlayingElement) {
+                    currentPlayingElement.classList.remove('playing');
+                    updatePlayPauseIcon(currentPlayingElement, false);
+                }
+            }
+
+            // Встановлюємо нове джерело та відтворюємо трек
+            audioPlayer.src = url;
+            audioPlayer.play();
+            currentAudio = audioPlayer;
+            document.title = `${title} | Християнське онлайн аудіо`;
+
+            // Підсвічуємо поточний трек
+            if (currentPlayingElement) {
+                currentPlayingElement.classList.remove('playing');
+                updatePlayPauseIcon(currentPlayingElement, false);
+            }
+            currentPlayingElement = event.currentTarget;
+            currentPlayingElement.classList.add('playing');
+            updatePlayPauseIcon(currentPlayingElement, true);
+
+            // Оновлюємо кнопку Play/Pause
+            updatePlayPauseButton(true);
+        }
+
+        // Оновлення кнопки Play/Pause
+        function updatePlayPauseButton(isPlaying) {
+            playPauseButton.innerHTML = `<i class="fas fa-${isPlaying ? 'pause' : 'play'}"></i>`;
+        }
+
+        // Оновлення іконки Play/Pause
+        function updatePlayPauseIcon(element, isPlaying) {
+            const icon = element.querySelector('i');
+            icon.classList.remove(isPlaying ? 'fa-play' : 'fa-pause');
+            icon.classList.add(isPlaying ? 'fa-pause' : 'fa-play');
+        }
+
+        // Оновлення прогресу відтворення
+        function updateProgressBar() {
+            if (audioPlayer.duration) {
+                const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                progressBar.style.width = `${progress}%`;
+
+                const formatTime = (time) => {
+                    const minutes = Math.floor(time / 60);
+                    const seconds = Math.floor(time % 60);
+                    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                };
+
+                currentTime.textContent = formatTime(audioPlayer.currentTime);
+                duration.textContent = formatTime(audioPlayer.duration);
+            }
+        }
+
+        // Відтворення наступного треку
+        function playNextTrack() {
+            if (currentTrackIndex < tracks.length - 1) {
+                currentTrackIndex++;
+                const nextTrack = tracks[currentTrackIndex];
+                audioPlayer.src = nextTrack.url;
+                audioPlayer.play();
+                document.title = `${nextTrack.title} | Християнське онлайн аудіо`;
+                updatePlayingTrack(currentTrackIndex);
+                updatePlayPauseButton(true);
+            }
+        }
+
+        // Оновлення поточного треку
+        function updatePlayingTrack(index) {
+            const trackElements = playlist.querySelectorAll('a');
+            if (currentPlayingElement) {
+                currentPlayingElement.classList.remove('playing');
+                updatePlayPauseIcon(currentPlayingElement, false);
+            }
+            currentPlayingElement = trackElements[index];
+            currentPlayingElement.classList.add('playing');
+            updatePlayPauseIcon(currentPlayingElement, true);
+        }
+
+        // Обробник вибору плейлисту
+        playlistSelector.addEventListener('change', (event) => {
+            const playlistFile = event.target.value;
+            if (playlistFile) {
+                loadPlaylist(playlistFile);
             }
         });
 
-        // Закриття випадаючого меню при кліку поза ним
-        document.addEventListener('click', (event) => {
-            if (!volumeControl.contains(event.target)) {
-                volumePopup.style.display = 'none';
+        // Обробники кнопок управління
+        playPauseButton.addEventListener('click', () => {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                updatePlayPauseButton(true);
+                if (currentPlayingElement) updatePlayPauseIcon(currentPlayingElement, true);
+            } else {
+                audioPlayer.pause();
+                updatePlayPauseButton(false);
+                if (currentPlayingElement) updatePlayPauseIcon(currentPlayingElement, false);
             }
         });
 
-        // Решта функцій залишаються незмінними
-        // (loadPlaylist, clearPlaylist, displayPlaylist, playAudio, updateProgressBar, playNextTrack, etc.)
+        prevButton.addEventListener('click', () => {
+            if (currentTrackIndex > 0) {
+                currentTrackIndex--;
+                const prevTrack = tracks[currentTrackIndex];
+                audioPlayer.src = prevTrack.url;
+                audioPlayer.play();
+                document.title = `${prevTrack.title} | Християнське онлайн аудіо`;
+                updatePlayingTrack(currentTrackIndex);
+                updatePlayPauseButton(true);
+            }
+        });
+
+        nextButton.addEventListener('click', playNextTrack);
+
+        // Оновлення прогресу
+        audioPlayer.addEventListener('timeupdate', updateProgressBar);
+
+        // Перемотка
+        progressContainer.addEventListener('click', (e) => {
+            const rect = e.target.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const width = rect.width;
+            const seekTime = (clickX / width) * audioPlayer.duration;
+            audioPlayer.currentTime = seekTime;
+        });
+
+        // Автоматичне відтворення наступного треку
+        audioPlayer.addEventListener('ended', playNextTrack);
+
+        // Завантаження плейлисту за замовчуванням
+        const defaultPlaylist = 'playlist1.txt';
+        loadPlaylist(defaultPlaylist);
     </script>
 </body>
 </html>
