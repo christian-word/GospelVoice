@@ -227,15 +227,10 @@
         <option value="">Виберіть плейлист</option>
         <option value="playlist1.txt">Плейлист 1 (Християнська музика)</option>
         <option value="playlist2.txt">Плейлист 2 (Аудіокниги)</option>
-        <!-- Додайте більше плейлистів -->
     </select>
-    <ul id="categoryList">
-        <!-- Категорії будуть додаватися сюди -->
-    </ul>
+    <ul id="categoryList"></ul>
     <div id="playlistContainer">
-        <ul id="playlist">
-            <!-- Треки будуть додаватися сюди -->
-        </ul>
+        <ul id="playlist"></ul>
     </div>
     <div id="audioControls">
         <button id="prevButton"><i class="fas fa-step-backward"></i></button>
@@ -250,102 +245,43 @@
         <span id="duration">0:00</span>
     </div>
     <audio id="audioPlayer"></audio>
-  
-    <footer style="background-color: #f4f4f4; padding: 20px; text-align: center; border-top: 1px solid #ccc; margin-top: 50px;">
-        <a href="index.html" style="color: var(--primary-color); text-decoration: none; font-size: 1em;">
-            <i class="fas fa-home"></i> Головне меню
-        </a>
+    <footer>
+        <a href="index.html"><i class="fas fa-home"></i> Головне меню</a>
         <p>м. Суми, версія збірки 1.0 : © 2025 р.</p>
-
         <div class="social-icons">
-            <a href="https://www.youtube.com" target="_blank">
-                <i class="fab fa-youtube"></i>
-            </a>
-            <a href="https://www.facebook.com" target="_blank">
-                <i class="fab fa-facebook"></i>
-            </a>
-            <a href="https://www.instagram.com" target="_blank">
-                <i class="fab fa-instagram"></i>
-            </a>
+            <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
         </div>
     </footer>
 
     <script>
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playlistSelector = document.getElementById('playlistSelector');
+        const categoryList = document.getElementById('categoryList');
+        const playlistContainer = document.getElementById('playlistContainer');
+        const playlist = document.getElementById('playlist');
+        const loadingElement = document.getElementById('loading');
+        const playPauseButton = document.getElementById('playPauseButton');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressBar = document.getElementById('progressBar');
+        const currentTime = document.getElementById('currentTime');
+        const duration = document.getElementById('duration');
+
         let currentAudio = null;
         let currentPlayingElement = null;
         let currentTrackIndex = 0;
         let tracks = [];
 
-        // Функція для відтворення аудіо
-        function playAudio(url, title, event) {
-            event.preventDefault();
-            const audioPlayer = document.getElementById('audioPlayer');
-
-            // Якщо трек вже відтворюється, зупинити його
-            if (currentPlayingElement === event.currentTarget && !audioPlayer.paused) {
-                audioPlayer.pause();
-                currentPlayingElement.querySelector('i').classList.remove('fa-pause');
-                currentPlayingElement.querySelector('i').classList.add('fa-play');
-                document.getElementById('playPauseButton').innerHTML = '<i class="fas fa-play"></i>';
-                return;
-            }
-
-            // Якщо відтворюється інший трек, зупинити його
-            if (currentAudio) {
-                currentAudio.pause();
-                if (currentPlayingElement) {
-                    currentPlayingElement.classList.remove('playing');
-                    currentPlayingElement.querySelector('i').classList.remove('fa-pause');
-                    currentPlayingElement.querySelector('i').classList.add('fa-play');
-                }
-            }
-
-            // Відтворення нового треку
-            audioPlayer.src = url;
-            audioPlayer.play();
-            currentAudio = audioPlayer;
-            document.title = title + " | Християнське онлайн аудіо";
-
-            // Підсвітка поточного треку та зміна іконки
-            if (currentPlayingElement) {
-                currentPlayingElement.classList.remove('playing');
-                currentPlayingElement.querySelector('i').classList.remove('fa-pause');
-                currentPlayingElement.querySelector('i').classList.add('fa-play');
-            }
-            currentPlayingElement = event.currentTarget;
-            currentPlayingElement.classList.add('playing');
-            currentPlayingElement.querySelector('i').classList.remove('fa-play');
-            currentPlayingElement.querySelector('i').classList.add('fa-pause');
-
-            // Оновлення кнопки Play/Pause
-            document.getElementById('playPauseButton').innerHTML = '<i class="fas fa-pause"></i>';
-        }
-
-        // Функція для очищення плейлисту та зупинки плеєра
-        function clearPlaylist() {
-            const playlistElement = document.getElementById('playlist');
-            playlistElement.innerHTML = '';
-            document.getElementById('playlistContainer').style.display = 'none';
-
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio = null;
-            }
-        }
-
-        // Функція для завантаження плейлисту з файлу
         async function loadPlaylist(playlistFile) {
-            const loadingElement = document.getElementById('loading');
             loadingElement.style.display = 'block';
-
             try {
                 const response = await fetch(playlistFile);
-                if (!response.ok) {
-                    throw new Error("Плейлист не знайдено");
-                }
+                if (!response.ok) throw new Error("Плейлист не знайдено");
                 const text = await response.text();
                 const lines = text.split('\n');
-
                 const categories = {};
                 let currentCategory = null;
 
@@ -362,8 +298,6 @@
                 });
 
                 clearPlaylist();
-
-                const categoryList = document.getElementById('categoryList');
                 categoryList.innerHTML = '';
                 Object.keys(categories).forEach((category) => {
                     const li = document.createElement('li');
@@ -371,7 +305,7 @@
                     li.onclick = () => {
                         tracks = categories[category];
                         displayPlaylist(tracks);
-                        document.getElementById('playlistContainer').style.display = 'block';
+                        playlistContainer.style.display = 'block';
                         currentTrackIndex = 0;
                     };
                     categoryList.appendChild(li);
@@ -384,138 +318,141 @@
             }
         }
 
-        // Функція для відображення плейлисту
-        function displayPlaylist(tracks) {
-            const playlistElement = document.getElementById('playlist');
-            playlistElement.innerHTML = '';
+        function clearPlaylist() {
+            playlist.innerHTML = '';
+            playlistContainer.style.display = 'none';
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+        }
 
+        function displayPlaylist(tracks) {
+            playlist.innerHTML = '';
             tracks.forEach((track, index) => {
                 const li = document.createElement('li');
                 const a = document.createElement('a');
                 a.href = '#';
-                a.onclick = (event) => {
-                    playAudio(track.url, track.title, event);
-                    currentTrackIndex = index;
-                };
+                a.onclick = (event) => playAudio(track.url, track.title, event);
                 a.innerHTML = `<i class="fas fa-play"></i>${index + 1}. ${track.title}`;
                 li.appendChild(a);
-                playlistElement.appendChild(li);
+                playlist.appendChild(li);
             });
         }
 
-        // Функція для оновлення прогресс-бару
-        function updateProgressBar() {
-            const audioPlayer = document.getElementById('audioPlayer');
-            const progressBar = document.getElementById('progressBar');
-            const currentTime = document.getElementById('currentTime');
-            const duration = document.getElementById('duration');
+        function playAudio(url, title, event) {
+            event.preventDefault();
+            if (currentPlayingElement === event.currentTarget && !audioPlayer.paused) {
+                audioPlayer.pause();
+                updatePlayPauseButton(false);
+                return;
+            }
 
+            if (currentAudio) {
+                currentAudio.pause();
+                if (currentPlayingElement) {
+                    currentPlayingElement.classList.remove('playing');
+                    updatePlayPauseIcon(currentPlayingElement, false);
+                }
+            }
+
+            audioPlayer.src = url;
+            audioPlayer.play();
+            currentAudio = audioPlayer;
+            document.title = `${title} | Християнське онлайн аудіо`;
+
+            if (currentPlayingElement) {
+                currentPlayingElement.classList.remove('playing');
+                updatePlayPauseIcon(currentPlayingElement, false);
+            }
+            currentPlayingElement = event.currentTarget;
+            currentPlayingElement.classList.add('playing');
+            updatePlayPauseIcon(currentPlayingElement, true);
+            updatePlayPauseButton(true);
+        }
+
+        function updatePlayPauseButton(isPlaying) {
+            playPauseButton.innerHTML = `<i class="fas fa-${isPlaying ? 'pause' : 'play'}"></i>`;
+        }
+
+        function updatePlayPauseIcon(element, isPlaying) {
+            const icon = element.querySelector('i');
+            icon.classList.remove(isPlaying ? 'fa-play' : 'fa-pause');
+            icon.classList.add(isPlaying ? 'fa-pause' : 'fa-play');
+        }
+
+        function updateProgressBar() {
             if (audioPlayer.duration) {
                 const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
                 progressBar.style.width = `${progress}%`;
-
-                const formatTime = (time) => {
-                    const minutes = Math.floor(time / 60);
-                    const seconds = Math.floor(time % 60);
-                    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-                };
-
                 currentTime.textContent = formatTime(audioPlayer.currentTime);
                 duration.textContent = formatTime(audioPlayer.duration);
             }
         }
 
-        // Функція для автоматичного відтворення наступного треку
+        function formatTime(time) {
+            const minutes = Math.floor(time / 60);
+            const seconds = Math.floor(time % 60);
+            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+
         function playNextTrack() {
             if (currentTrackIndex < tracks.length - 1) {
                 currentTrackIndex++;
                 const nextTrack = tracks[currentTrackIndex];
-                const audioPlayer = document.getElementById('audioPlayer');
                 audioPlayer.src = nextTrack.url;
                 audioPlayer.play();
-                document.title = nextTrack.title + " | Християнське онлайн аудіо";
-
-                // Підсвітка поточного треку та зміна іконки
-                const playlistElement = document.getElementById('playlist');
-                const trackElements = playlistElement.querySelectorAll('a');
-                if (currentPlayingElement) {
-                    currentPlayingElement.classList.remove('playing');
-                    currentPlayingElement.querySelector('i').classList.remove('fa-pause');
-                    currentPlayingElement.querySelector('i').classList.add('fa-play');
-                }
-                currentPlayingElement = trackElements[currentTrackIndex];
-                currentPlayingElement.classList.add('playing');
-                currentPlayingElement.querySelector('i').classList.remove('fa-play');
-                currentPlayingElement.querySelector('i').classList.add('fa-pause');
-
-                // Оновлення кнопки Play/Pause
-                document.getElementById('playPauseButton').innerHTML = '<i class="fas fa-pause"></i>';
+                document.title = `${nextTrack.title} | Християнське онлайн аудіо`;
+                updatePlayingTrack(currentTrackIndex);
+                updatePlayPauseButton(true);
             }
         }
 
-        // Обробник події для вибору плейлисту
-        document.getElementById('playlistSelector').addEventListener('change', (event) => {
-            const playlistFile = event.target.value;
-            if (playlistFile) {
-                loadPlaylist(playlistFile);
+        function updatePlayingTrack(index) {
+            const trackElements = playlist.querySelectorAll('a');
+            if (currentPlayingElement) {
+                currentPlayingElement.classList.remove('playing');
+                updatePlayPauseIcon(currentPlayingElement, false);
             }
+            currentPlayingElement = trackElements[index];
+            currentPlayingElement.classList.add('playing');
+            updatePlayPauseIcon(currentPlayingElement, true);
+        }
+
+        playlistSelector.addEventListener('change', (event) => {
+            const playlistFile = event.target.value;
+            if (playlistFile) loadPlaylist(playlistFile);
         });
 
-        // Обробники подій для кнопок управління
-        document.getElementById('playPauseButton').addEventListener('click', () => {
-            const audioPlayer = document.getElementById('audioPlayer');
+        playPauseButton.addEventListener('click', () => {
             if (audioPlayer.paused) {
                 audioPlayer.play();
-                document.getElementById('playPauseButton').innerHTML = '<i class="fas fa-pause"></i>';
-                if (currentPlayingElement) {
-                    currentPlayingElement.querySelector('i').classList.remove('fa-play');
-                    currentPlayingElement.querySelector('i').classList.add('fa-pause');
-                }
+                updatePlayPauseButton(true);
+                if (currentPlayingElement) updatePlayPauseIcon(currentPlayingElement, true);
             } else {
                 audioPlayer.pause();
-                document.getElementById('playPauseButton').innerHTML = '<i class="fas fa-play"></i>';
-                if (currentPlayingElement) {
-                    currentPlayingElement.querySelector('i').classList.remove('fa-pause');
-                    currentPlayingElement.querySelector('i').classList.add('fa-play');
-                }
+                updatePlayPauseButton(false);
+                if (currentPlayingElement) updatePlayPauseIcon(currentPlayingElement, false);
             }
         });
 
-        document.getElementById('prevButton').addEventListener('click', () => {
+        prevButton.addEventListener('click', () => {
             if (currentTrackIndex > 0) {
                 currentTrackIndex--;
                 const prevTrack = tracks[currentTrackIndex];
-                const audioPlayer = document.getElementById('audioPlayer');
                 audioPlayer.src = prevTrack.url;
                 audioPlayer.play();
-                document.title = prevTrack.title + " | Християнське онлайн аудіо";
-
-                // Підсвітка поточного треку та зміна іконки
-                const playlistElement = document.getElementById('playlist');
-                const trackElements = playlistElement.querySelectorAll('a');
-                if (currentPlayingElement) {
-                    currentPlayingElement.classList.remove('playing');
-                    currentPlayingElement.querySelector('i').classList.remove('fa-pause');
-                    currentPlayingElement.querySelector('i').classList.add('fa-play');
-                }
-                currentPlayingElement = trackElements[currentTrackIndex];
-                currentPlayingElement.classList.add('playing');
-                currentPlayingElement.querySelector('i').classList.remove('fa-play');
-                currentPlayingElement.querySelector('i').classList.add('fa-pause');
-
-                // Оновлення кнопки Play/Pause
-                document.getElementById('playPauseButton').innerHTML = '<i class="fas fa-pause"></i>';
+                document.title = `${prevTrack.title} | Християнське онлайн аудіо`;
+                updatePlayingTrack(currentTrackIndex);
+                updatePlayPauseButton(true);
             }
         });
 
-        document.getElementById('nextButton').addEventListener('click', playNextTrack);
+        nextButton.addEventListener('click', playNextTrack);
 
-        // Оновлення прогресс-бару
-        const audioPlayer = document.getElementById('audioPlayer');
         audioPlayer.addEventListener('timeupdate', updateProgressBar);
 
-        // Перемотка при кліку на прогресс-бар
-        document.getElementById('progressContainer').addEventListener('click', (e) => {
+        progressContainer.addEventListener('click', (e) => {
             const rect = e.target.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
             const width = rect.width;
@@ -523,10 +460,8 @@
             audioPlayer.currentTime = seekTime;
         });
 
-        // Автоматичне відтворення наступного треку
         audioPlayer.addEventListener('ended', playNextTrack);
 
-        // Завантажуємо перший плейлист за замовчуванням
         const defaultPlaylist = 'playlist1.txt';
         loadPlaylist(defaultPlaylist);
     </script>
