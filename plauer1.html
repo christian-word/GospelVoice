@@ -260,6 +260,18 @@
         // Функція для відтворення аудіо
         function playAudio(url, title, event) {
             event.preventDefault();
+            const audioPlayer = document.getElementById('audioPlayer');
+
+            // Якщо трек вже відтворюється, зупинити його
+            if (currentPlayingElement === event.currentTarget && !audioPlayer.paused) {
+                audioPlayer.pause();
+                currentPlayingElement.querySelector('i').classList.remove('fa-pause');
+                currentPlayingElement.querySelector('i').classList.add('fa-play');
+                document.getElementById('playPauseButton').innerHTML = '<i class="fas fa-play"></i>';
+                return;
+            }
+
+            // Якщо відтворюється інший трек, зупинити його
             if (currentAudio) {
                 currentAudio.pause();
                 if (currentPlayingElement) {
@@ -268,7 +280,8 @@
                     currentPlayingElement.querySelector('i').classList.add('fa-play');
                 }
             }
-            const audioPlayer = document.getElementById('audioPlayer');
+
+            // Відтворення нового треку
             audioPlayer.src = url;
             audioPlayer.play();
             currentAudio = audioPlayer;
