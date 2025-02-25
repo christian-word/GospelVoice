@@ -16,6 +16,7 @@
             --header-text-color: #ffffff;
             --button-color: #28a745;
             --button-hover-color: #218838;
+            --icon-color: #28a745; /* Зелений колір для іконок */
         }
 
         body {
@@ -146,10 +147,11 @@
             font-size: 18px; /* Збільшено розмір іконки */
             margin-right: 10px; /* Зменшено відстань між іконкою та текстом */
             transition: color 0.3s ease;
+            color: var(--icon-color); /* Зелений колір для іконок */
         }
 
         #playlist a.playing i {
-            color: var(--primary-color);
+            color: var(--primary-color); /* Колір іконки при відтворенні */
         }
 
         #audioControls {
@@ -282,6 +284,9 @@
             currentPlayingElement.classList.add('playing');
             currentPlayingElement.querySelector('i').classList.remove('fa-play');
             currentPlayingElement.querySelector('i').classList.add('fa-pause');
+
+            // Оновлення кнопки Play/Pause
+            document.getElementById('playPauseButton').innerHTML = '<i class="fas fa-pause"></i>';
         }
 
         // Функція для очищення плейлисту та зупинки плеєра
@@ -410,6 +415,9 @@
                 currentPlayingElement.classList.add('playing');
                 currentPlayingElement.querySelector('i').classList.remove('fa-play');
                 currentPlayingElement.querySelector('i').classList.add('fa-pause');
+
+                // Оновлення кнопки Play/Pause
+                document.getElementById('playPauseButton').innerHTML = '<i class="fas fa-pause"></i>';
             }
         }
 
@@ -427,9 +435,17 @@
             if (audioPlayer.paused) {
                 audioPlayer.play();
                 document.getElementById('playPauseButton').innerHTML = '<i class="fas fa-pause"></i>';
+                if (currentPlayingElement) {
+                    currentPlayingElement.querySelector('i').classList.remove('fa-play');
+                    currentPlayingElement.querySelector('i').classList.add('fa-pause');
+                }
             } else {
                 audioPlayer.pause();
                 document.getElementById('playPauseButton').innerHTML = '<i class="fas fa-play"></i>';
+                if (currentPlayingElement) {
+                    currentPlayingElement.querySelector('i').classList.remove('fa-pause');
+                    currentPlayingElement.querySelector('i').classList.add('fa-play');
+                }
             }
         });
 
@@ -454,6 +470,9 @@
                 currentPlayingElement.classList.add('playing');
                 currentPlayingElement.querySelector('i').classList.remove('fa-play');
                 currentPlayingElement.querySelector('i').classList.add('fa-pause');
+
+                // Оновлення кнопки Play/Pause
+                document.getElementById('playPauseButton').innerHTML = '<i class="fas fa-pause"></i>';
             }
         });
 
