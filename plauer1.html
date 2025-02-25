@@ -142,10 +142,14 @@
             border-left: 4px solid var(--primary-color);
         }
 
-        #playlist a img {
-            width: 20px; /* Зменшено розмір іконки */
-            height: 20px;
+        #playlist a i {
+            font-size: 18px; /* Збільшено розмір іконки */
             margin-right: 10px; /* Зменшено відстань між іконкою та текстом */
+            transition: color 0.3s ease;
+        }
+
+        #playlist a.playing i {
+            color: var(--primary-color);
         }
 
         #audioControls {
@@ -232,9 +236,9 @@
         </ul>
     </div>
     <div id="audioControls">
-        <button id="prevButton"><i class="fas fa-backward"></i></button>
+        <button id="prevButton"><i class="fas fa-step-backward"></i></button>
         <button id="playPauseButton"><i class="fas fa-play"></i></button>
-        <button id="nextButton"><i class="fas fa-forward"></i></button>
+        <button id="nextButton"><i class="fas fa-step-forward"></i></button>
     </div>
     <div id="progressContainer">
         <div id="progressBar"></div>
