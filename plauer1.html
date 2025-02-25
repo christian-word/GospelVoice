@@ -216,6 +216,24 @@
             text-align: center;
             padding: 20px;
         }
+
+        /* Стилі для регулятора гучності */
+        #volumeControl {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        #volumeControl input[type="range"] {
+            width: 100px;
+            cursor: pointer;
+        }
+
+        #volumeControl i {
+            font-size: 20px;
+            color: var(--primary-color);
+        }
     </style>
 </head>
 <body>
@@ -243,6 +261,10 @@
     <div id="timeDisplay">
         <span id="currentTime">0:00</span>
         <span id="duration">0:00</span>
+    </div>
+    <div id="volumeControl">
+        <i class="fas fa-volume-up"></i>
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
     </div>
     <audio id="audioPlayer"></audio>
     <footer style="background-color: #f4f4f4; padding: 20px; text-align: center; border-top: 1px solid #ccc; margin-top: 50px;">
@@ -277,6 +299,7 @@
         const progressBar = document.getElementById('progressBar');
         const currentTime = document.getElementById('currentTime');
         const duration = document.getElementById('duration');
+        const volumeSlider = document.getElementById('volumeSlider');
 
         let currentAudio = null;
         let currentPlayingElement = null;
@@ -486,6 +509,11 @@
         });
 
         audioPlayer.addEventListener('ended', playNextTrack);
+
+        // Додаємо обробник події для регулятора гучності
+        volumeSlider.addEventListener('input', (e) => {
+            audioPlayer.volume = e.target.value;
+        });
 
         const defaultPlaylist = 'playlist1.txt';
         loadPlaylist(defaultPlaylist);
