@@ -14,7 +14,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             min-height: 100vh;
         }
         header {
@@ -23,10 +22,22 @@
             padding: 20px;
             text-align: center;
             width: 100%;
+            position: fixed; /* Фиксируем header вверху */
+            top: 0;
+            left: 0;
+            z-index: 1000; /* Убедимся, что header поверх остального контента */
         }
         header h1 {
             margin: 0;
             font-size: 2.5em;
+        }
+        #content {
+            margin-top: 100px; /* Отступ для контента, чтобы header не перекрывал его */
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         #playlistSelector {
             margin: 20px;
@@ -107,22 +118,24 @@
     <header>
         <h1>Християнський плейлист</h1>
     </header>
-    <div id="loading">Завантаження...</div>
-    <select id="playlistSelector">
-        <option value="">Виберіть плейлист</option>
-        <option value="playlist1.txt">Плейлист 1 (Християнська музика)</option>
-        <option value="playlist2.txt">Плейлист 2 (Аудіокниги)</option>
-        <!-- Додайте більше плейлистів -->
-    </select>
-    <ul id="categoryList">
-        <!-- Категорії будуть додаватися сюди -->
-    </ul>
-    <div id="playlistContainer">
-        <ul id="playlist">
-            <!-- Треки будуть додаватися сюди -->
+    <div id="content">
+        <div id="loading">Завантаження...</div>
+        <select id="playlistSelector">
+            <option value="">Виберіть плейлист</option>
+            <option value="playlist1.txt">Плейлист 1 (Християнська музика)</option>
+            <option value="playlist2.txt">Плейлист 2 (Аудіокниги)</option>
+            <!-- Додайте більше плейлистів -->
+        </select>
+        <ul id="categoryList">
+            <!-- Категорії будуть додаватися сюди -->
         </ul>
+        <div id="playlistContainer">
+            <ul id="playlist">
+                <!-- Треки будуть додаватися сюди -->
+            </ul>
+        </div>
+        <audio id="audioPlayer" controls></audio>
     </div>
-    <audio id="audioPlayer" controls></audio>
 
     <script>
         let currentAudio = null;
