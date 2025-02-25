@@ -14,6 +14,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             min-height: 100vh;
         }
         header {
@@ -22,22 +23,10 @@
             padding: 20px;
             text-align: center;
             width: 100%;
-            position: fixed; /* Фиксируем header вверху */
-            top: 0;
-            left: 0;
-            z-index: 1000; /* Убедимся, что header поверх остального контента */
         }
         header h1 {
             margin: 0;
             font-size: 2.5em;
-        }
-        #content {
-            margin-top: 100px; /* Отступ для контента, чтобы header не перекрывал его */
-            width: 100%;
-            max-width: 800px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
         #playlistSelector {
             margin: 20px;
@@ -64,6 +53,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            flex: 0 0 auto;
             width: 200px; /* Фіксована ширина кнопок */
             text-align: center;
         }
@@ -75,6 +65,7 @@
             margin: 20px;
             width: 100%;
             max-width: 600px;
+            text-align: center;
         }
         #playlist {
             list-style: none;
@@ -82,23 +73,21 @@
         }
         #playlist li {
             margin: 10px 0;
-            padding: 10px;
-            background-color: #fff;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        #playlist li.active {
-            background-color: #4a90e2;
-            color: white;
         }
         #playlist a {
             text-decoration: none;
             color: #333;
-            display: flex;
-            align-items: center;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
         #playlist a:hover {
-            text-decoration: underline;
+            background-color: #e0e0e0;
+        }
+        #playlist a.playing {
+            background-color: #4a90e2;
+            color: white;
         }
         #audioPlayer {
             width: 100%;
@@ -118,34 +107,35 @@
     <header>
         <h1>Християнський плейлист</h1>
     </header>
-    <div id="content">
-        <div id="loading">Завантаження...</div>
-        <select id="playlistSelector">
-            <option value="">Виберіть плейлист</option>
-            <option value="playlist1.txt">Плейлист 1 (Християнська музика)</option>
-            <option value="playlist2.txt">Плейлист 2 (Аудіокниги)</option>
-            <!-- Додайте більше плейлистів -->
-        </select>
-        <ul id="categoryList">
-            <!-- Категорії будуть додаватися сюди -->
+    <div id="loading">Завантаження...</div>
+    <select id="playlistSelector">
+        <option value="">Виберіть плейлист</option>
+        <option value="playlist1.txt">Плейлист 1 (Християнська музика)</option>
+        <option value="playlist2.txt">Плейлист 2 (Аудіокниги)</option>
+        <!-- Додайте більше плейлистів -->
+    </select>
+    <ul id="categoryList">
+        <!-- Категорії будуть додаватися сюди -->
+    </ul>
+    <div id="playlistContainer">
+        <ul id="playlist">
+            <!-- Треки будуть додаватися сюди -->
         </ul>
-        <div id="playlistContainer">
-            <ul id="playlist">
-                <!-- Треки будуть додаватися сюди -->
-            </ul>
-        </div>
-        <audio id="audioPlayer" controls></audio>
     </div>
+    <audio id="audioPlayer" controls></audio>
 
     <script>
         let currentAudio = null;
-        let currentTrackElement = null;
+        let currentPlayingElement = null;
 
         // Функція для відтворення аудіо
         function playAudio(url, title, event) {
             event.preventDefault();
             if (currentAudio) {
                 currentAudio.pause();
+                if (currentPlayingElement) {
+                    currentPlayingElement.classList.remove('playing');
+                }
             }
             const audioPlayer = document.getElementById('audioPlayer');
             audioPlayer.src = url;
@@ -154,11 +144,11 @@
             document.title = title + " | Християнське онлайн аудіо";
 
             // Підсвітка поточного треку
-            if (currentTrackElement) {
-                currentTrackElement.classList.remove('active');
+            if (currentPlayingElement) {
+                currentPlayingElement.classList.remove('playing');
             }
-            currentTrackElement = event.target.closest('li');
-            currentTrackElement.classList.add('active');
+            currentPlayingElement = event.currentTarget;
+            currentPlayingElement.classList.add('playing');
         }
 
         // Функція для очищення плейлисту та зупинки плеєра
