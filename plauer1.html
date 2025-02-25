@@ -111,12 +111,18 @@
             width: 100%;
         }
 
+        /* Стиль "Картки" */
+        /*
         #playlist li {
-            margin: 5px 0;
+            margin: 10px 0;
             background-color: white;
-            border-radius: 10px;
+            border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
         #playlist li:hover {
@@ -129,30 +135,248 @@
             color: #333;
             display: flex;
             align-items: center;
-            padding: 10px;
-            transition: background-color 0.3s ease;
-            font-weight: 400;
+            width: 100%;
         }
 
-        #playlist a:hover {
-            background-color: #f8f8f8;
+        #playlist a i {
+            font-size: 24px;
+            margin-right: 15px;
+            color: var(--primary-color);
+            transition: color 0.3s ease;
+        }
+
+        #playlist a.playing i {
+            color: var(--hover-color);
+        }
+
+        #playlist a.playing {
+            background-color: var(--playing-color);
+            border-radius: 12px;
+            padding: 15px;
+        }
+        */
+
+        /* Стиль "Мінімалістичний" */
+        /*
+        #playlist li {
+            margin: 5px 0;
+            background-color: white;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            padding: 10px;
+        }
+
+        #playlist li:hover {
+            background-color: var(--track-hover-color);
+        }
+
+        #playlist a {
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #playlist a i {
+            font-size: 18px;
+            color: var(--primary-color);
+            transition: color 0.3s ease;
+        }
+
+        #playlist a.playing i {
+            color: var(--hover-color);
         }
 
         #playlist a.playing {
             background-color: var(--playing-color);
             border-left: 4px solid var(--primary-color);
+            padding: 10px;
+        }
+        */
+
+        /* Стиль "Список з іконками" */
+        /*
+        #playlist li {
+            margin: 8px 0;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 12px;
+        }
+
+        #playlist li:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        #playlist a {
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         #playlist a i {
-            font-size: 18px;
-            margin-right: 10px;
+            font-size: 20px;
+            color: var(--primary-color);
             transition: color 0.3s ease;
-            color: var(--icon-color);
         }
 
         #playlist a.playing i {
-            color: var(--primary-color);
+            color: var(--hover-color);
         }
+
+        #playlist a.playing {
+            background-color: var(--playing-color);
+            border-left: 4px solid var(--primary-color);
+            padding: 12px;
+        }
+        */
+
+        /* Стиль "Темна тема" */
+        /*
+        :root {
+            --primary-color: #6a11cb;
+            --hover-color: #4a90e2;
+            --background-color: #1e1e1e;
+            --track-hover-color: #333;
+            --playing-color: #444;
+            --icon-color: #6a11cb;
+            --text-color: #ffffff;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        #playlist li {
+            margin: 8px 0;
+            background-color: #2a2a2a;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 12px;
+        }
+
+        #playlist li:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        #playlist a {
+            text-decoration: none;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        #playlist a i {
+            font-size: 20px;
+            color: var(--icon-color);
+            transition: color 0.3s ease;
+        }
+
+        #playlist a.playing i {
+            color: var(--hover-color);
+        }
+
+        #playlist a.playing {
+            background-color: var(--playing-color);
+            border-left: 4px solid var(--primary-color);
+            padding: 12px;
+        }
+        */
+
+        /* Стиль "Градієнтний" */
+        /*
+        #playlist li {
+            margin: 8px 0;
+            background: linear-gradient(135deg, #4a90e2, #6a11cb);
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 12px;
+        }
+
+        #playlist li:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        #playlist a {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        #playlist a i {
+            font-size: 20px;
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        #playlist a.playing i {
+            color: #d0ebff;
+        }
+
+        #playlist a.playing {
+            background: linear-gradient(135deg, #6a11cb, #4a90e2);
+            border-left: 4px solid #d0ebff;
+            padding: 12px;
+        }
+        */
+
+        /* Стиль "Акцент на іконці" */
+        /*
+        #playlist li {
+            margin: 8px 0;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 12px;
+        }
+
+        #playlist li:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        #playlist a {
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        #playlist a i {
+            font-size: 24px;
+            color: var(--primary-color);
+            background-color: #e9f5ff;
+            padding: 10px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        #playlist a.playing i {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        #playlist a.playing {
+            background-color: var(--playing-color);
+            border-left: 4px solid var(--primary-color);
+            padding: 12px;
+        }
+        */
 
         #audioControls {
             display: flex;
@@ -235,6 +459,7 @@
             color: var(--primary-color);
         }
     </style>
+
 </head>
 <body>
     <header>
