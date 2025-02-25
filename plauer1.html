@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Християнський плейлист</title>
+    <title>Медіа Аудіо Плеєр</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,12 +11,18 @@
             padding: 0;
             background-color: #f4f4f4;
             color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
         header {
             background: linear-gradient(135deg, #4a90e2, #6a11cb);
             color: white;
             padding: 20px;
             text-align: center;
+            width: 100%;
         }
         header h1 {
             margin: 0;
@@ -35,15 +41,20 @@
             list-style: none;
             padding: 0;
             margin: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
         }
         #categoryList li {
-            margin: 10px;
-            padding: 10px;
+            padding: 10px 20px;
             background-color: #4a90e2;
             color: white;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            width: 200px; /* Фіксована ширина кнопок */
+            text-align: center;
         }
         #categoryList li:hover {
             background-color: #6a11cb;
@@ -51,6 +62,8 @@
         #playlistContainer {
             display: none;
             margin: 20px;
+            width: 100%;
+            max-width: 600px;
         }
         #playlist {
             list-style: none;
@@ -58,10 +71,20 @@
         }
         #playlist li {
             margin: 10px 0;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        #playlist li.active {
+            background-color: #4a90e2;
+            color: white;
         }
         #playlist a {
             text-decoration: none;
             color: #333;
+            display: flex;
+            align-items: center;
         }
         #playlist a:hover {
             text-decoration: underline;
@@ -103,6 +126,7 @@
 
     <script>
         let currentAudio = null;
+        let currentTrackElement = null;
 
         // Функція для відтворення аудіо
         function playAudio(url, title, event) {
@@ -115,6 +139,13 @@
             audioPlayer.play();
             currentAudio = audioPlayer;
             document.title = title + " | Християнське онлайн аудіо";
+
+            // Підсвітка поточного треку
+            if (currentTrackElement) {
+                currentTrackElement.classList.remove('active');
+            }
+            currentTrackElement = event.target.closest('li');
+            currentTrackElement.classList.add('active');
         }
 
         // Функція для очищення плейлисту та зупинки плеєра
