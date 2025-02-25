@@ -84,16 +84,22 @@
             text-decoration: none;
             color: #333;
             display: block;
-            padding: 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
+            padding: 15px;
+            border: 2px solid #4a90e2;
+            border-radius: 10px;
+            background-color: white;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         #playlist a:hover {
-            background-color: #e0e0e0;
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
         #playlist a.playing {
             background-color: #4a90e2;
             color: white;
+            border-color: #6a11cb;
         }
         #audioPlayer {
             width: 100%;
