@@ -154,18 +154,19 @@
             font-size: 18px;
             margin-right: 10px;
             transition: color 0.3s ease;
+            color: var(--icon-color);
         }
 
         #playlist a.music i {
-            color: #4a90e2; /* Синій для музики */
+            color: #4a90e2;
         }
 
         #playlist a.audiobook i {
-            color: #28a745; /* Зелений для аудіокниг */
+            color: #28a745;
         }
 
         #playlist a.podcast i {
-            color: #ff6f61; /* Червоний для подкастів */
+            color: #ff6f61;
         }
 
         #playlist a.playing i {
@@ -182,7 +183,7 @@
 
         #audioControls button {
             background-color: var(--primary-color);
-            border: none;
+            border: 2px solid var(--primary-color); /* Добавляем границу */
             color: white;
             padding: 10px;
             border-radius: 50%;
@@ -193,14 +194,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.5); /* Біла рамка */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень по умолчанию */
         }
 
         #audioControls button:hover {
             background-color: var(--hover-color);
+            border-color: var(--hover-color); /* Изменяем цвет границы при наведении */
             transform: scale(1.1);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Увеличиваем тень при наведении */
+        }
+
+        #audioControls button:active {
+            transform: scale(0.95); /* Небольшое уменьшение кнопки при нажатии */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Уменьшаем тень при нажатии */
         }
 
         #progressContainer {
@@ -212,6 +218,8 @@
             position: relative;
             height: 10px;
             cursor: pointer;
+            border: 1px solid var(--primary-color); /* Добавляем границу */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Добавляем тень */
         }
 
         #progressBar {
@@ -267,6 +275,10 @@
             -webkit-appearance: none;
             appearance: none;
             background: transparent;
+            border: 1px solid var(--primary-color); /* Добавляем границу */
+            border-radius: 5px; /* Закругляем углы */
+            padding: 2px; /* Добавляем отступы */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Добавляем тень */
         }
 
         #volumeControl input[type="range"]::-webkit-slider-runnable-track {
@@ -284,6 +296,7 @@
             border-radius: 50%;
             cursor: pointer;
             margin-top: -5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Добавляем тень для ползунка */
         }
 
         #volumeControl input[type="range"]::-moz-range-track {
@@ -298,6 +311,7 @@
             background: var(--primary-color);
             border-radius: 50%;
             cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Добавляем тень для ползунка */
         }
 
         #volumeControl i {
@@ -447,16 +461,6 @@
                 const a = document.createElement('a');
                 a.href = '#';
                 a.onclick = (event) => playAudio(track.url, track.title, event);
-
-                // Додаємо клас для типу треку
-                if (track.url.includes("music")) {
-                    a.classList.add("music");
-                } else if (track.url.includes("audiobook")) {
-                    a.classList.add("audiobook");
-                } else if (track.url.includes("podcast")) {
-                    a.classList.add("podcast");
-                }
-
                 a.innerHTML = `<i class="fas fa-play"></i>${index + 1}. ${track.title}`;
                 li.appendChild(a);
                 playlist.appendChild(li);
