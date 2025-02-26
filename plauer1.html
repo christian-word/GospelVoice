@@ -442,18 +442,18 @@
             }
         }
 
-        function displayPlaylist(tracks) {
-            playlist.innerHTML = '';
-            tracks.forEach((track, index) => {
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                a.href = '#';
-                a.onclick = (event) => playAudio(track.url, track.title, event);
-                a.innerHTML = `<i class="fas fa-play-circle"></i>${index + 1}. ${track.title}`;
-                li.appendChild(a);
-                playlist.appendChild(li);
-            });
-        }
+function displayPlaylist(tracks) {
+    playlist.innerHTML = '';
+    tracks.forEach((track, index) => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = '#';
+        a.onclick = (event) => playAudio(track.url, track.title, event);
+        a.innerHTML = `<i class="fas fa-music"></i>${index + 1}. ${track.title}`; // Змінено іконку
+        li.appendChild(a);
+        playlist.appendChild(li);
+    });
+}
 
         function playAudio(url, title, event) {
             event.preventDefault();
