@@ -112,9 +112,9 @@
         }
 
         #playlist li {
-            margin: 5px 10px; /* Отступы слева и справа */
+            margin: 5px 10px;
             background-color: white;
-            border-radius: 12px; /* Закругление краёв */
+            border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, opacity 0.5s ease;
             opacity: 1;
@@ -151,7 +151,7 @@
         }
 
         #playlist a i {
-            font-size: 18px;
+            font-size: 20px;
             margin-right: 10px;
             transition: color 0.3s ease;
             color: var(--icon-color);
@@ -189,8 +189,8 @@
             border-radius: 50%;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -209,12 +209,23 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
+        #audioControls button i {
+            font-size: 30px;
+            color: white;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        #audioControls button:hover i {
+            color: var(--hover-color);
+            transform: scale(1.1);
+        }
+
         #progressContainer {
-            width: calc(100% - 40px); /* Отступы по 20px с каждой стороны */
+            width: calc(100% - 40px);
             max-width: 400px;
             background-color: #ddd;
             border-radius: 5px;
-            margin: 20px auto; /* Центрируем и добавляем отступы */
+            margin: 20px auto;
             position: relative;
             height: 10px;
             cursor: pointer;
@@ -342,7 +353,7 @@
 </head>
 <body>
     <header>
-        <h1>Музыкальный архив</h1>
+        <h1>Християнський плейлист</h1>
     </header>
     <div id="loading">Завантаження...</div>
     <select id="playlistSelector">
@@ -355,9 +366,9 @@
         <ul id="playlist"></ul>
     </div>
     <div id="audioControls">
-        <button id="prevButton"><i class="fas fa-step-backward"></i></button>
-        <button id="playPauseButton"><i class="fas fa-play"></i></button>
-        <button id="nextButton"><i class="fas fa-step-forward"></i></button>
+        <button id="prevButton"><i class="fas fa-arrow-circle-left"></i></button>
+        <button id="playPauseButton"><i class="fas fa-play-circle"></i></button>
+        <button id="nextButton"><i class="fas fa-arrow-circle-right"></i></button>
     </div>
     <div id="progressContainer">
         <div id="progressBar"></div>
@@ -461,7 +472,7 @@
                 const a = document.createElement('a');
                 a.href = '#';
                 a.onclick = (event) => playAudio(track.url, track.title, event);
-                a.innerHTML = `<i class="fas fa-play"></i>${index + 1}. ${track.title}`;
+                a.innerHTML = `<i class="fas fa-music"></i>${index + 1}. ${track.title}`;
                 li.appendChild(a);
                 playlist.appendChild(li);
             });
@@ -509,13 +520,13 @@
         }
 
         function updatePlayPauseButton(isPlaying) {
-            playPauseButton.innerHTML = `<i class="fas fa-${isPlaying ? 'pause' : 'play'}"></i>`;
+            playPauseButton.innerHTML = `<i class="fas fa-${isPlaying ? 'pause-circle' : 'play-circle'}"></i>`;
         }
 
         function updatePlayPauseIcon(element, isPlaying) {
             const icon = element.querySelector('i');
-            icon.classList.remove(isPlaying ? 'fa-play' : 'fa-pause');
-            icon.classList.add(isPlaying ? 'fa-pause' : 'fa-play');
+            icon.classList.remove(isPlaying ? 'fa-play-circle' : 'fa-pause-circle');
+            icon.classList.add(isPlaying ? 'fa-pause-circle' : 'fa-play-circle');
         }
 
         function updateProgressBar() {
