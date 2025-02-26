@@ -225,7 +225,7 @@
             display: flex;
             align-items: center;
             flex-grow: 1;
-            position: relative;
+            gap: 10px;
         }
 
         /* Прогрессбар */
@@ -237,7 +237,7 @@
             cursor: pointer;
             border: 1px solid var(--primary-color);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-right: 10px;
+            transition: flex-grow 0.3s ease;
         }
 
         /* Регулятор громкости */
@@ -245,13 +245,9 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            position: absolute;
-            right: 0;
-            background-color: var(--background-color);
-            padding-left: 10px;
-            transition: width 0.3s ease, opacity 0.3s ease;
-            width: 30px;
             overflow: hidden;
+            width: 30px;
+            transition: width 0.3s ease;
         }
 
         #volumeControl input[type="range"] {
@@ -261,6 +257,10 @@
         }
 
         /* При наведении */
+        #progressAndVolume:hover #progressContainer {
+            flex-grow: 0.7;
+        }
+
         #progressAndVolume:hover #volumeControl {
             width: 130px;
         }
