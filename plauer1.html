@@ -111,25 +111,40 @@
             width: 100%;
         }
 
-   /* Стиль "Список з іконками" */
+ /* Стиль "Темна тема" */
         /*
+        :root {
+            --primary-color: #6a11cb;
+            --hover-color: #4a90e2;
+            --background-color: #1e1e1e;
+            --track-hover-color: #333;
+            --playing-color: #444;
+            --icon-color: #6a11cb;
+            --text-color: #ffffff;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
         #playlist li {
             margin: 8px 0;
-            background-color: white;
+            background-color: #2a2a2a;
             border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             padding: 12px;
         }
 
         #playlist li:hover {
             transform: translateY(-3px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         #playlist a {
             text-decoration: none;
-            color: #333;
+            color: var(--text-color);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -137,7 +152,7 @@
 
         #playlist a i {
             font-size: 20px;
-            color: var(--primary-color);
+            color: var(--icon-color);
             transition: color 0.3s ease;
         }
 
@@ -151,7 +166,6 @@
             padding: 12px;
         }
         */
-
 
         #audioControls button {
             background-color: var(--primary-color);
