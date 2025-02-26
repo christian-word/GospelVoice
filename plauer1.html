@@ -212,33 +212,32 @@
         /* Контейнер для всех элементов управления */
         #controlsContainer {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center; /* Центрируем по горизонтали */
+            justify-content: center;
             width: 100%;
             max-width: 600px;
             margin: 20px 0;
-            gap: 10px; /* Расстояние между элементами */
+            gap: 10px;
         }
 
         /* Контейнер для прогрессбара и регулятора громкости */
         #progressAndVolume {
             display: flex;
             align-items: center;
-            flex-grow: 1; /* Занимает всё доступное пространство */
-            gap: 10px; /* Расстояние между прогрессбаром и регулятором */
-            position: relative; /* Для позиционирования регулятора громкости */
+            width: 100%;
+            gap: 10px;
         }
 
         /* Прогрессбар */
         #progressContainer {
-            flex-grow: 1; /* Занимает всё доступное пространство */
+            flex-grow: 1;
             background-color: #ddd;
             border-radius: 5px;
             height: 10px;
             cursor: pointer;
             border: 1px solid var(--primary-color);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: flex-grow 0.3s ease; /* Анимация сжатия */
         }
 
         /* Регулятор громкости */
@@ -246,37 +245,34 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            position: absolute; /* Абсолютное позиционирование */
-            right: 0; /* Прижимаем к правому краю */
-            background-color: var(--background-color); /* Фон, чтобы перекрыть прогрессбар */
-            padding-left: 10px; /* Отступ слева */
+            background-color: var(--background-color);
+            padding-left: 10px;
             transition: width 0.3s ease, opacity 0.3s ease;
-            width: 30px; /* Ширина только для иконки */
-            overflow: hidden; /* Скрываем ползунок по умолчанию */
+            width: 30px;
+            overflow: hidden;
         }
 
         #volumeControl input[type="range"] {
-            width: 0; /* Скрываем ползунок по умолчанию */
-            opacity: 0; /* Плавное появление */
+            width: 0;
+            opacity: 0;
             transition: width 0.3s ease, opacity 0.3s ease;
         }
 
         /* При наведении */
         #progressAndVolume:hover #volumeControl {
-            width: 130px; /* Раскрываем контейнер для ползунка */
+            width: 130px;
         }
 
         #progressAndVolume:hover #volumeControl input[type="range"] {
-            width: 100px; /* Показываем ползунок */
-            opacity: 1; /* Плавное появление */
+            width: 100px;
+            opacity: 1;
         }
 
         /* Таймер */
         #timeDisplay {
             font-size: 14px;
             color: #666;
-            min-width: 50px; /* Фиксированная ширина для таймера */
-            text-align: left;
+            text-align: center;
         }
 
         footer {
