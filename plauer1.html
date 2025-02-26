@@ -500,16 +500,16 @@
             playPauseButton.innerHTML = `<i class="fas fa-${isPlaying ? 'pause' : 'play'}"></i>`;
         }
 
-        function updatePlayPauseIcon(element, isPlaying) {
-            const icon = element.querySelector('i');
-            if (isPlaying) {
-                icon.classList.remove('fa-play-circle');
-                icon.classList.add('fa-pause-circle');
-            } else {
-                icon.classList.remove('fa-pause-circle');
-                icon.classList.add('fa-play-circle');
-            }
-        }
+function updatePlayPauseIcon(element, isPlaying) {
+    const icon = element.querySelector('i');
+    if (isPlaying) {
+        icon.classList.remove('fa-music');
+        icon.classList.add('fa-pause');
+    } else {
+        icon.classList.remove('fa-pause');
+        icon.classList.add('fa-music');
+    }
+}
 
         function updateProgressBar() {
             if (audioPlayer.duration) {
