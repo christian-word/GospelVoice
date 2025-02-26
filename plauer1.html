@@ -217,7 +217,8 @@
             justify-content: center;
             width: 100%;
             max-width: 600px;
-            margin: 20px 0;
+            margin: 20px;
+            padding: 0 20px; /* Отступы от краев экрана */
             gap: 10px;
         }
 
@@ -245,27 +246,10 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            background-color: var(--background-color);
-            padding-left: 10px;
-            transition: width 0.3s ease, opacity 0.3s ease;
-            width: 30px;
-            overflow: hidden;
         }
 
         #volumeControl input[type="range"] {
-            width: 0;
-            opacity: 0;
-            transition: width 0.3s ease, opacity 0.3s ease;
-        }
-
-        /* При наведении */
-        #progressAndVolume:hover #volumeControl {
-            width: 130px;
-        }
-
-        #progressAndVolume:hover #volumeControl input[type="range"] {
             width: 100px;
-            opacity: 1;
         }
 
         /* Таймер */
@@ -281,6 +265,7 @@
             text-align: center;
             border-top: 1px solid #ccc;
             margin-top: 50px;
+            width: 100%;
         }
 
         footer a {
