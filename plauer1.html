@@ -29,6 +29,7 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            padding: 0 20px; /* Відступи від країв екрана */
         }
 
         header {
@@ -55,8 +56,8 @@
             font-size: 16px;
             border-radius: 5px;
             border: 2px solid var(--primary-color);
-            width: 300px;
-            max-width: 100%;
+            width: calc(100% - 40px); /* Враховуємо відступи */
+            max-width: 600px;
             background-color: white;
             color: #333;
             cursor: pointer;
@@ -75,6 +76,8 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
+            width: calc(100% - 40px); /* Враховуємо відступи */
+            max-width: 600px;
         }
 
         #categoryList li {
@@ -100,7 +103,7 @@
         #playlistContainer {
             display: none;
             margin: 20px;
-            width: 100%;
+            width: calc(100% - 40px); /* Враховуємо відступи */
             max-width: 600px;
             text-align: center;
         }
@@ -209,20 +212,20 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        /* Контейнер для всех элементов управления */
+        /* Контейнер для всіх елементів управління */
         #controlsContainer {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 100%;
+            width: calc(100% - 40px); /* Враховуємо відступи */
             max-width: 600px;
-            margin: 20px;
-            padding: 0 20px; /* Отступы от краев экрана */
+            margin: 20px 0;
+            padding: 0 20px; /* Відступи від країв екрана */
             gap: 10px;
         }
 
-        /* Контейнер для прогрессбара и регулятора громкости */
+        /* Контейнер для прогрессбара і регулятора громкості */
         #progressAndVolume {
             display: flex;
             align-items: center;
@@ -241,7 +244,7 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        /* Регулятор громкости */
+        /* Регулятор громкості */
         #volumeControl {
             display: flex;
             align-items: center;
@@ -266,6 +269,7 @@
             border-top: 1px solid #ccc;
             margin-top: 50px;
             width: 100%;
+            padding: 20px; /* Відступи від країв екрана */
         }
 
         footer a {
