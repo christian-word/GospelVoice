@@ -151,10 +151,22 @@
         }
 
         #playlist a i {
-            font-size: 20px;
+            font-size: 18px;
             margin-right: 10px;
             transition: color 0.3s ease;
             color: var(--icon-color);
+        }
+
+        #playlist a.music i {
+            color: #4a90e2;
+        }
+
+        #playlist a.audiobook i {
+            color: #28a745;
+        }
+
+        #playlist a.podcast i {
+            color: #ff6f61;
         }
 
         #playlist a.playing i {
@@ -197,114 +209,73 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
+        /* Контейнер для всех элементов управления */
+        #controlsContainer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px 0;
+            gap: 20px;
+        }
+
+        /* Контейнер для прогрессбара и регулятора громкости */
+        #progressAndVolume {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            position: relative;
+        }
+
+        /* Прогрессбар */
         #progressContainer {
-            width: calc(100% - 40px);
-            max-width: 400px;
+            flex-grow: 1;
             background-color: #ddd;
             border-radius: 5px;
-            margin: 20px auto;
-            position: relative;
             height: 10px;
             cursor: pointer;
             border: 1px solid var(--primary-color);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-right: 10px;
         }
 
-        #progressBar {
-            width: 0%;
-            height: 100%;
-            background-color: var(--primary-color);
-            border-radius: 5px;
-            transition: width 0.1s ease;
-        }
-
-        #timeDisplay {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            color: #666;
-            margin-top: 5px;
-        }
-
-        #loading {
-            display: none;
-            font-size: 18px;
-            color: var(--primary-color);
-            text-align: center;
-            padding: 20px;
-        }
-
-        #loading::after {
-            content: '';
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid var(--primary-color);
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
+        /* Регулятор громкости */
         #volumeControl {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-top: 20px;
+            position: absolute;
+            right: 0;
+            background-color: var(--background-color);
+            padding-left: 10px;
+            transition: width 0.3s ease, opacity 0.3s ease;
+            width: 30px;
+            overflow: hidden;
         }
 
         #volumeControl input[type="range"] {
+            width: 0;
+            opacity: 0;
+            transition: width 0.3s ease, opacity 0.3s ease;
+        }
+
+        /* При наведении */
+        #progressAndVolume:hover #volumeControl {
+            width: 130px;
+        }
+
+        #progressAndVolume:hover #volumeControl input[type="range"] {
             width: 100px;
-            cursor: pointer;
-            -webkit-appearance: none;
-            appearance: none;
-            background: transparent;
-            border: 1px solid var(--primary-color);
-            border-radius: 5px;
-            padding: 2px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            opacity: 1;
         }
 
-        #volumeControl input[type="range"]::-webkit-slider-runnable-track {
-            background: #ddd;
-            height: 5px;
-            border-radius: 5px;
-        }
-
-        #volumeControl input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 15px;
-            height: 15px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            cursor: pointer;
-            margin-top: -5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        #volumeControl input[type="range"]::-moz-range-track {
-            background: #ddd;
-            height: 5px;
-            border-radius: 5px;
-        }
-
-        #volumeControl input[type="range"]::-moz-range-thumb {
-            width: 15px;
-            height: 15px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        #volumeControl i {
-            font-size: 20px;
-            color: var(--primary-color);
+        /* Таймер */
+        #timeDisplay {
+            font-size: 14px;
+            color: #666;
+            min-width: 50px;
+            text-align: left;
         }
 
         footer {
@@ -347,16 +318,19 @@
         <button id="playPauseButton"><i class="fas fa-play"></i></button>
         <button id="nextButton"><i class="fas fa-step-forward"></i></button>
     </div>
-    <div id="progressContainer">
-        <div id="progressBar"></div>
-    </div>
-    <div id="timeDisplay">
-        <span id="currentTime">0:00</span>
-        <span id="duration">0:00</span>
-    </div>
-    <div id="volumeControl">
-        <i class="fas fa-volume-up"></i>
-        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+    <div id="controlsContainer">
+        <div id="timeDisplay">
+            <span id="currentTime">0:00</span>
+        </div>
+        <div id="progressAndVolume">
+            <div id="progressContainer">
+                <div id="progressBar"></div>
+            </div>
+            <div id="volumeControl">
+                <i class="fas fa-volume-up"></i>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+            </div>
+        </div>
     </div>
     <audio id="audioPlayer"></audio>
     <footer>
@@ -384,6 +358,7 @@
         const currentTime = document.getElementById('currentTime');
         const duration = document.getElementById('duration');
         const volumeSlider = document.getElementById('volumeSlider');
+        const volumeIcon = document.querySelector('#volumeControl i');
 
         let currentAudio = null;
         let currentPlayingElement = null;
@@ -442,18 +417,18 @@
             }
         }
 
-function displayPlaylist(tracks) {
-    playlist.innerHTML = '';
-    tracks.forEach((track, index) => {
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        a.href = '#';
-        a.onclick = (event) => playAudio(track.url, track.title, event);
-        a.innerHTML = `<i class="fas fa-music"></i>${index + 1}. ${track.title}`; // Змінено іконку
-        li.appendChild(a);
-        playlist.appendChild(li);
-    });
-}
+        function displayPlaylist(tracks) {
+            playlist.innerHTML = '';
+            tracks.forEach((track, index) => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#';
+                a.onclick = (event) => playAudio(track.url, track.title, event);
+                a.innerHTML = `<i class="fas fa-play"></i>${index + 1}. ${track.title}`;
+                li.appendChild(a);
+                playlist.appendChild(li);
+            });
+        }
 
         function playAudio(url, title, event) {
             event.preventDefault();
@@ -500,16 +475,11 @@ function displayPlaylist(tracks) {
             playPauseButton.innerHTML = `<i class="fas fa-${isPlaying ? 'pause' : 'play'}"></i>`;
         }
 
-function updatePlayPauseIcon(element, isPlaying) {
-    const icon = element.querySelector('i');
-    if (isPlaying) {
-        icon.classList.remove('fa-music');
-        icon.classList.add('fa-pause');
-    } else {
-        icon.classList.remove('fa-pause');
-        icon.classList.add('fa-music');
-    }
-}
+        function updatePlayPauseIcon(element, isPlaying) {
+            const icon = element.querySelector('i');
+            icon.classList.remove(isPlaying ? 'fa-play' : 'fa-pause');
+            icon.classList.add(isPlaying ? 'fa-pause' : 'fa-play');
+        }
 
         function updateProgressBar() {
             if (audioPlayer.duration) {
@@ -599,6 +569,17 @@ function updatePlayPauseIcon(element, isPlaying) {
 
         volumeSlider.addEventListener('input', (e) => {
             audioPlayer.volume = e.target.value;
+            const volume = e.target.value;
+            if (volume == 0) {
+                volumeIcon.classList.remove('fa-volume-up', 'fa-volume-high');
+                volumeIcon.classList.add('fa-volume-down');
+            } else if (volume <= 0.5) {
+                volumeIcon.classList.remove('fa-volume-down', 'fa-volume-high');
+                volumeIcon.classList.add('fa-volume-up');
+            } else {
+                volumeIcon.classList.remove('fa-volume-down', 'fa-volume-up');
+                volumeIcon.classList.add('fa-volume-high');
+            }
         });
 
         const defaultPlaylist = 'playlist1.txt';
