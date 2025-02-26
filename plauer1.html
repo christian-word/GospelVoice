@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
@@ -29,7 +29,6 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding: 0 20px; /* Відступи від країв екрана */
         }
 
         header {
@@ -56,8 +55,8 @@
             font-size: 16px;
             border-radius: 5px;
             border: 2px solid var(--primary-color);
-            width: calc(100% - 40px); /* Враховуємо відступи */
-            max-width: 600px;
+            width: 300px;
+            max-width: 100%;
             background-color: white;
             color: #333;
             cursor: pointer;
@@ -76,8 +75,6 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
-            width: calc(100% - 40px); /* Враховуємо відступи */
-            max-width: 600px;
         }
 
         #categoryList li {
@@ -103,7 +100,7 @@
         #playlistContainer {
             display: none;
             margin: 20px;
-            width: calc(100% - 40px); /* Враховуємо відступи */
+            width: 100%;
             max-width: 600px;
             text-align: center;
         }
@@ -212,54 +209,75 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        /* Контейнер для всіх елементів управління */
+        /* Контейнер для всех элементов управления */
         #controlsContainer {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            width: calc(100% - 40px); /* Враховуємо відступи */
+            justify-content: center; /* Центрируем по горизонтали */
+            width: 100%;
             max-width: 600px;
-            margin: 20px 0;
-            padding: 0 20px; /* Відступи від країв екрана */
-            gap: 10px;
+            margin: 20px auto; /* Отступы сверху и снизу, автоматические отступы по бокам */
+            gap: 10px; /* Расстояние между элементами */
+            padding: 0 20px; /* Отступы от краёв экрана */
         }
 
-        /* Контейнер для прогрессбара і регулятора громкості */
+        /* Контейнер для прогрессбара и регулятора громкости */
         #progressAndVolume {
             display: flex;
             align-items: center;
-            width: 100%;
-            gap: 10px;
+            flex-grow: 1; /* Занимает всё доступное пространство */
+            gap: 10px; /* Расстояние между прогрессбаром и регулятором */
+            position: relative; /* Для позиционирования регулятора громкости */
         }
 
         /* Прогрессбар */
         #progressContainer {
-            flex-grow: 1;
+            flex-grow: 1; /* Занимает всё доступное пространство */
             background-color: #ddd;
             border-radius: 5px;
             height: 10px;
             cursor: pointer;
             border: 1px solid var(--primary-color);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: flex-grow 0.3s ease; /* Анимация сжатия */
         }
 
-        /* Регулятор громкості */
+        /* Регулятор громкости */
         #volumeControl {
             display: flex;
             align-items: center;
             gap: 10px;
+            position: absolute; /* Абсолютное позиционирование */
+            right: 0; /* Прижимаем к правому краю */
+            background-color: var(--background-color); /* Фон, чтобы перекрыть прогрессбар */
+            padding-left: 10px; /* Отступ слева */
+            transition: width 0.3s ease, opacity 0.3s ease;
+            width: 30px; /* Ширина только для иконки */
+            overflow: hidden; /* Скрываем ползунок по умолчанию */
         }
 
         #volumeControl input[type="range"] {
-            width: 100px;
+            width: 0; /* Скрываем ползунок по умолчанию */
+            opacity: 0; /* Плавное появление */
+            transition: width 0.3s ease, opacity 0.3s ease;
+        }
+
+        /* При наведении */
+        #progressAndVolume:hover #volumeControl {
+            width: 130px; /* Раскрываем контейнер для ползунка */
+        }
+
+        #progressAndVolume:hover #volumeControl input[type="range"] {
+            width: 100px; /* Показываем ползунок */
+            opacity: 1; /* Плавное появление */
         }
 
         /* Таймер */
         #timeDisplay {
             font-size: 14px;
             color: #666;
-            text-align: center;
+            min-width: 50px; /* Фиксированная ширина для таймера */
+            text-align: left;
         }
 
         footer {
@@ -268,8 +286,6 @@
             text-align: center;
             border-top: 1px solid #ccc;
             margin-top: 50px;
-            width: 100%;
-            padding: 20px; /* Відступи від країв екрана */
         }
 
         footer a {
