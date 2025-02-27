@@ -442,4 +442,178 @@
                     categoryList.appendChild(li);
                 });
             } catch (error) {
-                console.error("Помилка завантаження плейлиста:", error
+                console.error("Помилка завантаження плейлиста:", error);
+                alert("Не вдалося завантажити плейлист.");
+            } finally {
+                loadingElement.style.display = 'none';
+            }
+        }
+
+        function clearPlaylist() {
+            playlist.innerHTML = '';
+            playlistContainer.style.display = 'none';
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+        }
+
+        function displayPlaylist(tracks) {
+            playlist.innerHTML = '';
+            tracks.forEach((track, index) => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#';
+                a.onclick = (event) => playAudio(track.url, track.title, event);
+                a.innerHTML = `<i class="fas fa-play"></i>${index + 1}. ${track.title}`;
+                li.appendChild(a);
+                playlist.appendChild(li);
+            });
+        }
+
+        function playAudio(url, title, event) {
+            event.preventDefault();
+
+            if (currentPlayingElement === event.currentTarget) {
+                if (!audioPlayer.paused) {
+                    audioPlayer.pause();
+                    updatePlayPauseButton(false);
+                    updatePlayPauseIcon(currentPlayingElement, false);
+                    return;
+                } else {
+                    audioPlayer.play();
+                    updatePlayPauseButton(true);
+                    updatePlayPauseIcon(currentPlayingElement, true);
+                    return;
+                }
+            }
+
+            if (currentAudio) {
+                currentAudio.pause();
+                if (currentPlayingElement) {
+                    currentPlayingElement.classList.remove('playing');
+                    updatePlayPauseIcon(currentPlayingElement, false);
+                }
+            }
+
+            audioPlayer.src = url;
+            audioPlayer.play();
+            currentAudio = audioPlayer;
+            document.title = `${title} | Християнське онлайн аудіо`;
+
+            if (currentPlayingElement) {
+                currentPlayingElement.classList.remove('playing');
+                updatePlayPauseIcon(currentPlayingElement, false);
+            }
+            currentPlayingElement = event.currentTarget;
+            currentPlayingElement.classList.add('playing');
+            updatePlayPauseIcon(currentPlayingElement, true);
+
+            updatePlayPauseButton(true);
+        }
+
+        function updatePlayPauseButton(isPlaying) {
+            playPauseButton.innerHTML = `<i class="fas fa-${isPlaying ? 'pause' : 'play'}"></i>`;
+        }
+
+        function updatePlayPauseIcon(element, isPlaying) {
+            const icon = element.querySelector('i');
+            icon.classList.remove(isPlaying ? 'fa-play' : 'fa-pause');
+            icon.classList.add(isPlaying ? 'fa-pause' : 'fa-play');
+        }
+
+        function updateProgressBar() {
+            if (audioPlayer.duration) {
+                const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                progressBar.style.width = `${progress}%`;
+                currentTime.textContent = formatTime(audioPlayer.currentTime);
+                duration.textContent = formatTime(audioPlayer.duration);
+            }
+        }
+
+        function formatTime(time) {
+            const minutes = Math.floor(time / 60);
+            const seconds = Math.floor(time % 60);
+            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+
+        function playNextTrack() {
+            if (currentTrackIndex < tracks.length - 1) {
+                currentTrackIndex++;
+                const nextTrack = tracks[currentTrackIndex];
+                const currentTrackElement = playlist.children[currentTrackIndex - 1];
+                currentTrackElement.classList.add('fade-out');
+                setTimeout(() => {
+                    audioPlayer.src = nextTrack.url;
+                    audioPlayer.play();
+                    document.title = `${nextTrack.title} | Християнське онлайн аудіо`;
+                    updatePlayingTrack(currentTrackIndex);
+                    updatePlayPauseButton(true);
+                    currentTrackElement.classList.remove('fade-out');
+                }, 500);
+            }
+        }
+
+        function updatePlayingTrack(index) {
+            const trackElements = playlist.querySelectorAll('a');
+            if (currentPlayingElement) {
+                currentPlayingElement.classList.remove('playing');
+                updatePlayPauseIcon(currentPlayingElement, false);
+            }
+            currentPlayingElement = trackElements[index];
+            currentPlayingElement.classList.add('playing');
+            updatePlayPauseIcon(currentPlayingElement, true);
+        }
+
+        playlistSelector.addEventListener('change', (event) => {
+            const playlistFile = event.target.value;
+            if (playlistFile) loadPlaylist(playlistFile);
+        });
+
+        playPauseButton.addEventListener('click', () => {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                updatePlayPauseButton(true);
+                if (currentPlayingElement) updatePlayPauseIcon(currentPlayingElement, true);
+            } else {
+                audioPlayer.pause();
+                updatePlayPauseButton(false);
+                if (currentPlayingElement) updatePlayPauseIcon(currentPlayingElement, false);
+            }
+        });
+
+        prevButton.addEventListener('click', () => {
+            if (currentTrackIndex > 0) {
+                currentTrackIndex--;
+                const prevTrack = tracks[currentTrackIndex];
+                audioPlayer.src = prevTrack.url;
+                audioPlayer.play();
+                document.title = `${prevTrack.title} | Християнське онлайн аудіо`;
+                updatePlayingTrack(currentTrackIndex);
+                updatePlayPauseButton(true);
+            }
+        });
+
+        nextButton.addEventListener('click', playNextTrack);
+
+        audioPlayer.addEventListener('timeupdate', updateProgressBar);
+
+        progressContainer.addEventListener('click', (e) => {
+            const rect = e.target.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const width = rect.width;
+            const seekTime = (clickX / width) * audioPlayer.duration;
+            audioPlayer.currentTime = seekTime;
+        });
+
+        audioPlayer.addEventListener('ended', playNextTrack);
+
+        volumeSlider.addEventListener('input', (e) => {
+            audioPlayer.volume = e.target.value;
+        });
+
+        const defaultPlaylist = 'playlist1.txt';
+        loadPlaylist(defaultPlaylist);
+    </script>
+</body>
+</html>
