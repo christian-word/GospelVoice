@@ -209,7 +209,7 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
- #controlsContainer {
+#controlsContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -221,6 +221,7 @@
 #timeDisplay {
     font-size: 1.2em;
     margin-bottom: 5px;
+    text-align: center;
 }
 
 #progressAndVolume {
@@ -229,12 +230,15 @@
     justify-content: center;
     gap: 15px;
     width: 100%;
-    max-width: 500px; /* Ограничим ширину, чтобы не растягивалось на больших экранах */
+    max-width: 500px; /* Ограничение для больших экранов */
 }
 
 #progressContainer {
     flex: 1;
+    min-width: 150px; /* Минимальная ширина, чтобы не схлопывался */
     height: 10px;
+    width: 100%;
+    max-width: 400px;
     background: #ccc;
     border-radius: 5px;
     overflow: hidden;
@@ -242,7 +246,7 @@
 }
 
 #progressBar {
-    width: 0%;
+    width: 50%; /* Для теста, заменится JS */
     height: 100%;
     background: #007bff;
     transition: width 0.2s;
@@ -257,6 +261,36 @@
 #volumeSlider {
     width: 100px;
 }
+
+
+
+        footer {
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ccc;
+            margin-top: 50px;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1em;
+        }
+
+        footer .social-icons a {
+            margin: 0 10px;
+            color: var(--primary-color);
+            font-size: 1.5em;
+        }
+
+/* Адаптация под мобильные устройства */
+@media (max-width: 600px) {
+    #progressAndVolume {
+        flex-direction: column; /* В колонку */
+        align-items: center;
+        gap: 10px;
+        width: 
 
 
         #volumeControl input[type="range"] {
@@ -284,46 +318,6 @@
             margin: 0;
             padding: 0;
         }
-
-        footer {
-            background-color: #f4f4f4;
-            padding: 20px;
-            text-align: center;
-            border-top: 1px solid #ccc;
-            margin-top: 50px;
-        }
-
-        footer a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-size: 1em;
-        }
-
-        footer .social-icons a {
-            margin: 0 10px;
-            color: var(--primary-color);
-            font-size: 1.5em;
-        }
-
-/* Адаптация под мобильные устройства */
-@media (max-width: 600px) {
-    #progressAndVolume {
-        flex-direction: column; /* Размещаем элементы в колонку */
-        align-items: center;
-        gap: 10px;
-    }
-
-    #progressContainer {
-        width: 90%; /* Уменьшаем ширину */
-    }
-
-    #volumeSlider {
-        width: 80px; /* Делаем ползунок меньше */
-    }
-
-    #timeDisplay {
-        font-size: 1em; /* Уменьшаем шрифт */
-    }
 }
 
     </style>
