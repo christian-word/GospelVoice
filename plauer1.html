@@ -112,9 +112,9 @@
         }
 
         #playlist li {
-            margin: 5px 10px; /* Отступы слева и справа */
+            margin: 5px 10px;
             background-color: white;
-            border-radius: 12px; /* Закругление краёв */
+            border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, opacity 0.5s ease;
             opacity: 1;
@@ -209,13 +209,27 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
+        #controlsContainer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px 0;
+            gap: 20px;
+        }
+
+        #timeDisplay {
+            font-size: 14px;
+            color: #666;
+            min-width: 50px;
+            text-align: left;
+        }
+
         #progressContainer {
-            width: calc(100% - 40px); /* Отступы по 20px с каждой стороны */
-            max-width: 400px;
+            flex-grow: 1;
             background-color: #ddd;
             border-radius: 5px;
-            margin: 20px auto; /* Центрируем и добавляем отступы */
-            position: relative;
             height: 10px;
             cursor: pointer;
             border: 1px solid var(--primary-color);
@@ -230,43 +244,11 @@
             transition: width 0.1s ease;
         }
 
-        #timeDisplay {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            color: #666;
-            margin-top: 5px;
-        }
-
-        #loading {
-            display: none;
-            font-size: 18px;
-            color: var(--primary-color);
-            text-align: center;
-            padding: 20px;
-        }
-
-        #loading::after {
-            content: '';
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid var(--primary-color);
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         #volumeControl {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-top: 20px;
+            min-width: 120px;
         }
 
         #volumeControl input[type="range"] {
@@ -359,16 +341,17 @@
         <button id="playPauseButton"><i class="fas fa-play"></i></button>
         <button id="nextButton"><i class="fas fa-step-forward"></i></button>
     </div>
-    <div id="progressContainer">
-        <div id="progressBar"></div>
-    </div>
-    <div id="timeDisplay">
-        <span id="currentTime">0:00</span>
-        <span id="duration">0:00</span>
-    </div>
-    <div id="volumeControl">
-        <i class="fas fa-volume-up"></i>
-        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+    <div id="controlsContainer">
+        <div id="timeDisplay">
+            <span id="currentTime">0:00</span>
+        </div>
+        <div id="progressContainer">
+            <div id="progressBar"></div>
+        </div>
+        <div id="volumeControl">
+            <i class="fas fa-volume-up"></i>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+        </div>
     </div>
     <audio id="audioPlayer"></audio>
     <footer>
