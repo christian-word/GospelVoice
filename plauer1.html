@@ -311,10 +311,12 @@
         flex-direction: column; /* Размещаем элементы в колонку */
         align-items: center;
         gap: 10px;
+        width: 100%; /* Занимаем всю ширину */
     }
 
     #progressContainer {
         width: 90%; /* Уменьшаем ширину */
+        height: 8px; /* Уменьшаем высоту для мобильных устройств */
     }
 
     #volumeSlider {
@@ -324,8 +326,15 @@
     #timeDisplay {
         font-size: 1em; /* Уменьшаем шрифт */
     }
-}
 
+    #controlsContainer {
+        padding: 5px; /* Уменьшаем отступы */
+    }
+
+    #progressBar {
+        height: 100%; /* Занимаем всю высоту контейнера */
+    }
+}
     </style>
 </head>
 <body>
