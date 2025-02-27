@@ -151,22 +151,10 @@
         }
 
         #playlist a i {
-            font-size: 18px;
+            font-size: 20px;
             margin-right: 10px;
             transition: color 0.3s ease;
             color: var(--icon-color);
-        }
-
-        #playlist a.music i {
-            color: #4a90e2;
-        }
-
-        #playlist a.audiobook i {
-            color: #28a745;
-        }
-
-        #playlist a.podcast i {
-            color: #ff6f61;
         }
 
         #playlist a.playing i {
@@ -209,80 +197,114 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
- #controlsContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 10px;
-}
-
-#timeDisplay {
-    font-size: 1.2em;
-    margin-bottom: 5px;
-}
-
-#progressAndVolume {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    width: 100%;
-    max-width: 500px; /* Ограничим ширину, чтобы не растягивалось на больших экранах */
-}
-
-#progressContainer {
-    flex: 1;
-    height: 10px;
-    background: #ccc;
-    border-radius: 5px;
-    overflow: hidden;
-    position: relative;
-}
-
-#progressBar {
-    width: 0%;
-    height: 100%;
-    background: #007bff;
-    transition: width 0.2s;
-}
-
-#volumeControl {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-#volumeSlider {
-    width: 100px;
-}
-
-
-        #volumeControl input[type="range"] {
-            width: 0;
-            opacity: 0;
-            transition: width 0.3s ease, opacity 0.3s ease;
+        #progressContainer {
+            width: calc(100% - 40px);
+            max-width: 400px;
+            background-color: #ddd;
+            border-radius: 5px;
+            margin: 20px auto;
+            position: relative;
+            height: 10px;
+            cursor: pointer;
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        #volumeControl:hover {
-            width: 130px;
-        }
-
-        #volumeControl:hover input[type="range"] {
-            width: 100px;
-            opacity: 1;
+        #progressBar {
+            width: 0%;
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+            transition: width 0.1s ease;
         }
 
         #timeDisplay {
+            display: flex;
+            justify-content: space-between;
             font-size: 14px;
             color: #666;
-            min-width: 50px;
+            margin-top: 5px;
+        }
+
+        #loading {
+            display: none;
+            font-size: 18px;
+            color: var(--primary-color);
             text-align: center;
+            padding: 20px;
+        }
+
+        #loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--primary-color);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #volumeControl {
             display: flex;
             align-items: center;
-            margin: 0;
-            padding: 0;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        #volumeControl input[type="range"] {
+            width: 100px;
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            border-radius: 5px;
+            padding: 2px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #volumeControl input[type="range"]::-webkit-slider-runnable-track {
+            background: #ddd;
+            height: 5px;
+            border-radius: 5px;
+        }
+
+        #volumeControl input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            margin-top: -5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #volumeControl input[type="range"]::-moz-range-track {
+            background: #ddd;
+            height: 5px;
+            border-radius: 5px;
+        }
+
+        #volumeControl input[type="range"]::-moz-range-thumb {
+            width: 15px;
+            height: 15px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #volumeControl i {
+            font-size: 20px;
+            color: var(--primary-color);
         }
 
         footer {
@@ -304,37 +326,6 @@
             color: var(--primary-color);
             font-size: 1.5em;
         }
-
-/* Адаптация под мобильные устройства */
-@media (max-width: 600px) {
-    #progressAndVolume {
-        flex-direction: column; /* Размещаем элементы в колонку */
-        align-items: center;
-        gap: 10px;
-        width: 100%; /* Занимаем всю ширину */
-    }
-
-    #progressContainer {
-        width: 90%; /* Уменьшаем ширину */
-        height: 8px; /* Уменьшаем высоту для мобильных устройств */
-    }
-
-    #volumeSlider {
-        width: 80px; /* Делаем ползунок меньше */
-    }
-
-    #timeDisplay {
-        font-size: 1em; /* Уменьшаем шрифт */
-    }
-
-    #controlsContainer {
-        padding: 5px; /* Уменьшаем отступы */
-    }
-
-    #progressBar {
-        height: 100%; /* Занимаем всю высоту контейнера */
-    }
-}
     </style>
 </head>
 <body>
@@ -356,19 +347,16 @@
         <button id="playPauseButton"><i class="fas fa-play"></i></button>
         <button id="nextButton"><i class="fas fa-step-forward"></i></button>
     </div>
-    <div id="controlsContainer">
-        <div id="timeDisplay">
-            <span id="currentTime">0:00</span>
-        </div>
-        <div id="progressAndVolume">
-            <div id="progressContainer">
-                <div id="progressBar"></div>
-            </div>
-            <div id="volumeControl">
-                <i class="fas fa-volume-up"></i>
-                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
-            </div>
-        </div>
+    <div id="progressContainer">
+        <div id="progressBar"></div>
+    </div>
+    <div id="timeDisplay">
+        <span id="currentTime">0:00</span>
+        <span id="duration">0:00</span>
+    </div>
+    <div id="volumeControl">
+        <i class="fas fa-volume-up"></i>
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
     </div>
     <audio id="audioPlayer"></audio>
     <footer>
@@ -394,14 +382,13 @@
         const progressContainer = document.getElementById('progressContainer');
         const progressBar = document.getElementById('progressBar');
         const currentTime = document.getElementById('currentTime');
+        const duration = document.getElementById('duration');
         const volumeSlider = document.getElementById('volumeSlider');
-        const volumeIcon = document.querySelector('#volumeControl i');
 
         let currentAudio = null;
         let currentPlayingElement = null;
         let currentTrackIndex = 0;
         let tracks = [];
-        let lastSeconds = -1;
 
         async function loadPlaylist(playlistFile) {
             loadingElement.style.display = 'block';
@@ -462,7 +449,7 @@
                 const a = document.createElement('a');
                 a.href = '#';
                 a.onclick = (event) => playAudio(track.url, track.title, event);
-                a.innerHTML = `<i class="fas fa-play"></i>${index + 1}. ${track.title}`;
+                a.innerHTML = `<i class="fas fa-play-circle"></i>${index + 1}. ${track.title}`;
                 li.appendChild(a);
                 playlist.appendChild(li);
             });
@@ -515,19 +502,21 @@
 
         function updatePlayPauseIcon(element, isPlaying) {
             const icon = element.querySelector('i');
-            icon.classList.remove(isPlaying ? 'fa-play' : 'fa-pause');
-            icon.classList.add(isPlaying ? 'fa-pause' : 'fa-play');
+            if (isPlaying) {
+                icon.classList.remove('fa-play-circle');
+                icon.classList.add('fa-pause-circle');
+            } else {
+                icon.classList.remove('fa-pause-circle');
+                icon.classList.add('fa-play-circle');
+            }
         }
 
         function updateProgressBar() {
             if (audioPlayer.duration) {
                 const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
                 progressBar.style.width = `${progress}%`;
-                const currentSeconds = Math.floor(audioPlayer.currentTime);
-                if (currentSeconds !== lastSeconds) {
-                    currentTime.textContent = formatTime(audioPlayer.currentTime);
-                    lastSeconds = currentSeconds;
-                }
+                currentTime.textContent = formatTime(audioPlayer.currentTime);
+                duration.textContent = formatTime(audioPlayer.duration);
             }
         }
 
@@ -551,9 +540,6 @@
                     updatePlayPauseButton(true);
                     currentTrackElement.classList.remove('fade-out');
                 }, 500);
-            } else {
-                const currentTrackElement = playlist.children[currentTrackIndex];
-                currentTrackElement.classList.remove('fade-out');
             }
         }
 
@@ -570,11 +556,7 @@
 
         playlistSelector.addEventListener('change', (event) => {
             const playlistFile = event.target.value;
-            if (playlistFile) {
-                loadPlaylist(playlistFile);
-            } else {
-                clearPlaylist();
-            }
+            if (playlistFile) loadPlaylist(playlistFile);
         });
 
         playPauseButton.addEventListener('click', () => {
@@ -606,7 +588,7 @@
         audioPlayer.addEventListener('timeupdate', updateProgressBar);
 
         progressContainer.addEventListener('click', (e) => {
-            const rect = progressContainer.getBoundingClientRect();
+            const rect = e.target.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
             const width = rect.width;
             const seekTime = (clickX / width) * audioPlayer.duration;
@@ -615,40 +597,9 @@
 
         audioPlayer.addEventListener('ended', playNextTrack);
 
-        audioPlayer.addEventListener('error', () => {
-            alert("Не вдалося завантажити аудіофайл. Будь ласка, спробуйте інший трек.");
-        });
-
         volumeSlider.addEventListener('input', (e) => {
             audioPlayer.volume = e.target.value;
-            const volume = e.target.value;
-            if (volume == 0) {
-                volumeIcon.classList.remove('fa-volume-up', 'fa-volume-high');
-                volumeIcon.classList.add('fa-volume-down');
-            } else if (volume <= 0.5) {
-                volumeIcon.classList.remove('fa-volume-down', 'fa-volume-high');
-                volumeIcon.classList.add('fa-volume-up');
-            } else {
-                volumeIcon.classList.remove('fa-volume-down', 'fa-volume-up');
-                volumeIcon.classList.add('fa-volume-high');
-            }
         });
-
-        volumeSlider.addEventListener('mousedown', () => {
-            document.addEventListener('mousemove', handleVolumeChange);
-            document.addEventListener('mouseup', () => {
-                document.removeEventListener('mousemove', handleVolumeChange);
-            });
-        });
-
-        function handleVolumeChange(e) {
-            const rect = volumeSlider.getBoundingClientRect();
-            const clickX = e.clientX - rect.left;
-            const width = rect.width;
-            const volume = Math.min(Math.max(clickX / width, 0), 1);
-            audioPlayer.volume = volume;
-            volumeSlider.value = volume;
-        }
 
         const defaultPlaylist = 'playlist1.txt';
         loadPlaylist(defaultPlaylist);
