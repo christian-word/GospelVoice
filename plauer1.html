@@ -209,53 +209,55 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        #controlsContainer {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 600px;
-            margin: 20px 0;
-            gap: 20px;
-        }
+ #controlsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+}
 
-        #progressAndVolume {
-            display: flex;
-            align-items: center;
-            flex-grow: 1;
-            gap: 10px;
-        }
+#timeDisplay {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
 
-        #progressContainer {
-            flex-grow: 1;
-            background-color: #ddd;
-            border-radius: 5px;
-            height: 10px;
-            cursor: pointer;
-            border: 1px solid var(--primary-color);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin: 0;
-            padding: 0;
-        }
+#progressAndVolume {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 500px; /* Ограничим ширину, чтобы не растягивалось на больших экранах */
+}
 
-        #progressBar {
-            height: 100%;
-            background-color: var(--primary-color);
-            width: 0;
-            border-radius: 5px;
-            transition: width 0.1s ease;
-        }
+#progressContainer {
+    flex: 1;
+    height: 10px;
+    background: #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
 
-        #volumeControl {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            overflow: hidden;
-            width: 30px;
-            transition: width 0.3s ease;
-            margin: 0;
-            padding: 0;
-        }
+#progressBar {
+    width: 0%;
+    height: 100%;
+    background: #007bff;
+    transition: width 0.2s;
+}
+
+#volumeControl {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#volumeSlider {
+    width: 100px;
+}
+
 
         #volumeControl input[type="range"] {
             width: 0;
@@ -302,6 +304,28 @@
             color: var(--primary-color);
             font-size: 1.5em;
         }
+
+/* Адаптация под мобильные устройства */
+@media (max-width: 600px) {
+    #progressAndVolume {
+        flex-direction: column; /* Размещаем элементы в колонку */
+        align-items: center;
+        gap: 10px;
+    }
+
+    #progressContainer {
+        width: 90%; /* Уменьшаем ширину */
+    }
+
+    #volumeSlider {
+        width: 80px; /* Делаем ползунок меньше */
+    }
+
+    #timeDisplay {
+        font-size: 1em; /* Уменьшаем шрифт */
+    }
+}
+
     </style>
 </head>
 <body>
