@@ -209,7 +209,6 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        /* Контейнер для всех элементов управления */
         #controlsContainer {
             display: flex;
             align-items: center;
@@ -220,7 +219,6 @@
             gap: 20px;
         }
 
-        /* Контейнер для прогрессбара и регулятора громкости */
         #progressAndVolume {
             display: flex;
             align-items: center;
@@ -228,7 +226,6 @@
             gap: 10px;
         }
 
-        /* Прогрессбар */
         #progressContainer {
             flex-grow: 1;
             background-color: #ddd;
@@ -240,7 +237,14 @@
             transition: flex-grow 0.3s ease;
         }
 
-        /* Регулятор громкости */
+        #progressBar {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0;
+            border-radius: 5px;
+            transition: width 0.1s ease;
+        }
+
         #volumeControl {
             display: flex;
             align-items: center;
@@ -256,7 +260,6 @@
             transition: width 0.3s ease, opacity 0.3s ease;
         }
 
-        /* Анимация для регулятора громкости при наведении на него */
         #volumeControl:hover {
             width: 130px;
         }
@@ -266,7 +269,6 @@
             opacity: 1;
         }
 
-        /* Таймер */
         #timeDisplay {
             font-size: 14px;
             color: #666;
@@ -352,7 +354,6 @@
         const progressContainer = document.getElementById('progressContainer');
         const progressBar = document.getElementById('progressBar');
         const currentTime = document.getElementById('currentTime');
-        const duration = document.getElementById('duration');
         const volumeSlider = document.getElementById('volumeSlider');
         const volumeIcon = document.querySelector('#volumeControl i');
 
@@ -482,7 +483,6 @@
                 const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
                 progressBar.style.width = `${progress}%`;
                 currentTime.textContent = formatTime(audioPlayer.currentTime);
-                duration.textContent = formatTime(audioPlayer.duration);
             }
         }
 
@@ -554,7 +554,7 @@
         audioPlayer.addEventListener('timeupdate', updateProgressBar);
 
         progressContainer.addEventListener('click', (e) => {
-            const rect = e.target.getBoundingClientRect();
+            const rect = progressContainer.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
             const width = rect.width;
             const seekTime = (clickX / width) * audioPlayer.duration;
