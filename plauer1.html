@@ -6,7 +6,8 @@
     <title>Медіа Аудіо Плеєр</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
- :root {
+
+:root {
     --primary-color: #4a90e2;
     --hover-color: #6a11cb;
     --background-color: #f4f4f4;
@@ -199,7 +200,7 @@ header h1 {
 
 #audioControls button:hover {
     background-color: var(--hover-color);
-    border-color: var(--hover-color);
+    border-color: darken(var(--hover-color), 10%);
     transform: scale(1.1);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
@@ -211,7 +212,7 @@ header h1 {
 
 #controlsContainer {
     display: flex;
-    align-items: center;
+    align-items: baseline; /* Выравнивание по базовой линии */
     justify-content: space-between;
     width: 100%;
     max-width: 600px;
@@ -230,11 +231,12 @@ header h1 {
     flex-grow: 1;
     background-color: #ddd;
     border-radius: 5px;
-    height: 10px;
+    height: 10px; /* Фиксированная высота */
     cursor: pointer;
     border: 1px solid var(--primary-color);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: flex-grow 0.3s ease;
+    margin: 0; /* Убираем лишние отступы */
+    padding: 0; /* Убираем лишние отступы */
 }
 
 #progressBar {
@@ -252,6 +254,8 @@ header h1 {
     overflow: hidden;
     width: 30px;
     transition: width 0.3s ease;
+    margin: 0; /* Убираем лишние отступы */
+    padding: 0; /* Убираем лишние отступы */
 }
 
 #volumeControl input[type="range"] {
@@ -276,6 +280,8 @@ header h1 {
     text-align: center;
     display: flex;
     align-items: center;
+    margin: 0; /* Убираем лишние отступы */
+    padding: 0; /* Убираем лишние отступы */
 }
 
 footer {
@@ -296,8 +302,7 @@ footer .social-icons a {
     margin: 0 10px;
     color: var(--primary-color);
     font-size: 1.5em;
-}  
-
+}
     </style>
 </head>
 <body>
