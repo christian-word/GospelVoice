@@ -406,7 +406,18 @@
                 justify-content: center;
                 margin-top: 20px; /* Отступ сверху для регулятора громкости */
             }
-        }
+
+     .custom-list li {
+        padding: 12px 10px;
+        text-align: center;
+    }
+
+    .custom-list li::before {
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 16px; /* Чуть меньше, чтобы не мешало тексту */
+    }
+}
     </style>
 
 </head>
