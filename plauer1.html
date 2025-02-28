@@ -331,39 +331,60 @@
     padding: 0;
     color: #4a90e2;
     font-size: 16px;
-    font-family: Arial, sans-serif;
+    font-family: "Arial", sans-serif;
 }
 
 .custom-list li {
     position: relative;
-    padding: 8px 0 8px 25px;
-    border-bottom: 1px dashed rgba(74, 144, 226, 0.5); /* Пунктирная линия */
-    transition: color 0.3s ease-in-out;
+    padding: 10px 0 10px 30px;
+    border-bottom: 1px dashed rgba(74, 144, 226, 0.3); /* Тонкая пунктирная линия */
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in-out forwards;
 }
+
+.custom-list li:nth-child(1) { animation-delay: 0.1s; }
+.custom-list li:nth-child(2) { animation-delay: 0.2s; }
+.custom-list li:nth-child(3) { animation-delay: 0.3s; }
+.custom-list li:nth-child(4) { animation-delay: 0.4s; }
 
 .custom-list li:last-child {
     border-bottom: none; /* Убираем линию у последнего элемента */
 }
 
 .custom-list li::before {
-    content: "➜"; /* Изменённый маркер */
-    font-size: 16px;
-    color: #4a90e2;
+    content: "▹"; /* Красивый стрелочный маркер */
+    font-size: 18px;
+    font-weight: bold;
     position: absolute;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    transition: color 0.3s ease-in-out;
+    background: linear-gradient(45deg, #4a90e2, #76b5ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: transform 0.3s ease-in-out;
 }
 
 .custom-list li:hover {
     color: #357abd;
+    transform: translateX(3px); /* Лёгкое движение вперёд */
 }
 
 .custom-list li:hover::before {
-    color: #357abd;
+    transform: translateY(-50%) scale(1.2); /* Увеличение маркера */
 }
-       
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}    
         /* Медиа-запрос для мобильных устройств */
         @media (max-width: 600px) {
             #controlsContainer {
