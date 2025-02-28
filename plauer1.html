@@ -316,10 +316,16 @@
             font-size: 1em;
         }
 
-        footer .social-icons a {
+              footer .social-icons a {
             margin: 0 10px;
             font-size: 1.5em;
+            color: initial; /* Сброс цвета */
         }
+
+        footer .social-icons a .fa-facebook { color: #1877F2; } /* Синий Facebook */
+        footer .social-icons a .fa-twitter { color: #1DA1F2; }  /* Голубой Twitter */
+        footer .social-icons a .fa-instagram { color: #E4405F; } /* Розовый Instagram */
+        footer .social-icons a .fa-youtube { color: #FF0000; }   /* Красный YouTube */ 
 
         /* Медиа-запрос для мобильных устройств */
         @media (max-width: 600px) {
