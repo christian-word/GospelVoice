@@ -488,56 +488,61 @@ footer .social-icons a .fa-youtube { color: #FF0000; }   /* Красный YouTu
             });
         }
 
-        function playAudio(url, title, event) {
-            event.preventDefault();
+function playAudio(url, title, event) {
+    event.preventDefault();
 
-            if (currentPlayingElement === event.currentTarget) {
-                if (!audioPlayer.paused) {
-                    audioPlayer.pause();
-                    updatePlayPauseButton(false);
-                    updatePlayPauseIcon(currentPlayingElement, false);
-                    return;
-                } else {
-                    audioPlayer.play();
-                    updatePlayPauseButton(true);
-                    updatePlayPauseIcon(currentPlayingElement, true);
-                    return;
-                }
-            }
-
-            if (currentAudio) {
-                currentAudio.pause();
-                if (currentPlayingElement) {
-                    currentPlayingElement.classList.remove('playing');
-                    updatePlayPauseIcon(currentPlayingElement, false);
-                }
-            }
-
-            audioPlayer.src = url;
+    if (currentPlayingElement === event.currentTarget) {
+        if (!audioPlayer.paused) {
+            audioPlayer.pause();
+            updatePlayPauseButton(false);
+            updatePlayPauseIcon(currentPlayingElement, false);
+            return;
+        } else {
             audioPlayer.play();
-            currentAudio = audioPlayer;
-            document.title = `${title} | Християнське онлайн аудіо`;
-
-            if (currentPlayingElement) {
-                currentPlayingElement.classList.remove('playing');
-                updatePlayPauseIcon(currentPlayingElement, false);
-            }
-            currentPlayingElement = event.currentTarget;
-            currentPlayingElement.classList.add('playing');
-            updatePlayPauseIcon(currentPlayingElement, true);
-
             updatePlayPauseButton(true);
+            updatePlayPauseIcon(currentPlayingElement, true);
+            return;
         }
+    }
+
+    if (currentAudio) {
+        currentAudio.pause();
+        if (currentPlayingElement) {
+            updatePlayPauseIcon(currentPlayingElement, false); // Возвращаем ноту
+        }
+    }
+
+    audioPlayer.src = url;
+    audioPlayer.play();
+    currentAudio = audioPlayer;
+    document.title = `${title} | Християнське онлайн аудіо`;
+
+    if (currentPlayingElement) {
+        updatePlayPauseIcon(currentPlayingElement, false); // Возвращаем ноту
+    }
+    currentPlayingElement = event.currentTarget;
+    currentPlayingElement.classList.add('playing');
+    updatePlayPauseIcon(currentPlayingElement, true); // Показываем паузу
+
+    updatePlayPauseButton(true);
+}
 
         function updatePlayPauseButton(isPlaying) {
             playPauseButton.innerHTML = `<i class="fas fa-${isPlaying ? 'pause' : 'play'}"></i>`;
         }
 
-        function updatePlayPauseIcon(element, isPlaying) {
-            const icon = element.querySelector('i');
-            icon.classList.remove(isPlaying ? 'fa-play' : 'fa-pause');
-            icon.classList.add(isPlaying ? 'fa-pause' : 'fa-play');
-        }
+       function updatePlayPauseIcon(element, isPlaying) {
+    const icon = element.querySelector('i');
+    if (isPlaying) {
+        // Если трек играет, показываем паузу
+        icon.classList.remove('fa-music', 'fa-play');
+        icon.classList.add('fa-pause');
+    } else {
+        // Если трек не играет, возвращаем ноту
+        icon.classList.remove('fa-pause', 'fa-play');
+        icon.classList.add('fa-music');
+    }
+}
 
         function updateProgressBar() {
             if (audioPlayer.duration) {
@@ -571,16 +576,16 @@ footer .social-icons a .fa-youtube { color: #FF0000; }   /* Красный YouTu
             }
         }
 
-        function updatePlayingTrack(index) {
-            const trackElements = playlist.querySelectorAll('a');
-            if (currentPlayingElement) {
-                currentPlayingElement.classList.remove('playing');
-                updatePlayPauseIcon(currentPlayingElement, false);
-            }
-            currentPlayingElement = trackElements[index];
-            currentPlayingElement.classList.add('playing');
-            updatePlayPauseIcon(currentPlayingElement, true);
-        }
+     function updatePlayingTrack(index) {
+    const trackElements = playlist.querySelectorAll('a');
+    if (currentPlayingElement) {
+        currentPlayingElement.classList.remove('playing');
+        updatePlayPauseIcon(currentPlayingElement, false); // Возвращаем ноту
+    }
+    currentPlayingElement = trackElements[index];
+    currentPlayingElement.classList.add('playing');
+    updatePlayPauseIcon(currentPlayingElement, true); // Показываем паузу
+}
 
         playlistSelector.addEventListener('change', (event) => {
             const playlistFile = event.target.value;
