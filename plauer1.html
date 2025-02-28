@@ -230,7 +230,7 @@
             flex-grow: 1;
             background-color: #ddd;
             border-radius: 5px;
-            height: 10px;
+            height: 6px; /* Тонкий прогрессбар */
             cursor: pointer;
             border: 1px solid var(--primary-color);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -261,20 +261,20 @@
             border-radius: 5px;
             padding: 2px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            height: 6px; /* высота ползунка */
+            height: 6px; /* Тонкий регулятор громкости */
         }
 
         #volumeControl input[type="range"]::-webkit-slider-runnable-track {
             background: #ddd;
-            height: 6px; /* высота дорожки */
+            height: 6px; /* Тонкая дорожка */
             border-radius: 5px;
         }
 
         #volumeControl input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 16px; /* размер ползунка */
-            height: 18px;
+            width: 16px; /* Уменьшенный ползунок */
+            height: 16px;
             background: var(--primary-color);
             border-radius: 50%;
             cursor: pointer;
@@ -284,13 +284,13 @@
 
         #volumeControl input[type="range"]::-moz-range-track {
             background: #ddd;
-            height: 6px; /* высота дорожки */
+            height: 6px; /* Тонкая дорожка */
             border-radius: 5px;
         }
 
         #volumeControl input[type="range"]::-moz-range-thumb {
-            width: 16px; /* размер ползунка */
-            height: 18px;
+            width: 16px; /* Уменьшенный ползунок */
+            height: 16px;
             background: var(--primary-color);
             border-radius: 50%;
             cursor: pointer;
@@ -319,14 +319,8 @@
         footer .social-icons a {
             margin: 0 10px;
             font-size: 1.5em;
-            color: initial; /* Сброс цвета */
         }
 
-
-footer .social-icons a .fa-facebook { color: #1877F2; } /* Синий Facebook */
-footer .social-icons a .fa-twitter { color: #1DA1F2; }  /* Голубой Twitter */
-footer .social-icons a .fa-instagram { color: #E4405F; } /* Розовый Instagram */
-footer .social-icons a .fa-youtube { color: #FF0000; }   /* Красный YouTube */ 
         /* Медиа-запрос для мобильных устройств */
         @media (max-width: 600px) {
             #controlsContainer {
@@ -383,24 +377,15 @@ footer .social-icons a .fa-youtube { color: #FF0000; }   /* Красный YouTu
         </div>
     </div>
     <audio id="audioPlayer"></audio>
- 
-<footer>
-    <a href="index.html">
-        <i class="fas fa-home"></i> Головне меню
-    </a>
-    <p>м. Суми, версія збірки 1.0 : © 2025 р.</p>
-    <div class="social-icons">
-        <a href="https://www.youtube.com" target="_blank">
-            <i class="fab fa-youtube"></i> <!-- Красный -->
-        </a>
-        <a href="https://www.facebook.com" target="_blank">
-            <i class="fab fa-facebook"></i> <!-- Синий -->
-        </a>
-        <a href="https://www.instagram.com" target="_blank">
-            <i class="fab fa-instagram"></i> <!-- Градиент -->
-        </a>
-    </div>
-</footer>
+    <footer>
+        <a href="index.html"><i class="fas fa-home"></i> Головне меню</a>
+        <p>м. Суми, версія збірки 1.0 : © 2025 р.</p>
+        <div class="social-icons">
+            <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
 
     <script>
         const audioPlayer = document.getElementById('audioPlayer');
@@ -488,61 +473,61 @@ footer .social-icons a .fa-youtube { color: #FF0000; }   /* Красный YouTu
             });
         }
 
-function playAudio(url, title, event) {
-    event.preventDefault();
+        function playAudio(url, title, event) {
+            event.preventDefault();
 
-    if (currentPlayingElement === event.currentTarget) {
-        if (!audioPlayer.paused) {
-            audioPlayer.pause();
-            updatePlayPauseButton(false);
-            updatePlayPauseIcon(currentPlayingElement, false);
-            return;
-        } else {
+            if (currentPlayingElement === event.currentTarget) {
+                if (!audioPlayer.paused) {
+                    audioPlayer.pause();
+                    updatePlayPauseButton(false);
+                    updatePlayPauseIcon(currentPlayingElement, false);
+                    return;
+                } else {
+                    audioPlayer.play();
+                    updatePlayPauseButton(true);
+                    updatePlayPauseIcon(currentPlayingElement, true);
+                    return;
+                }
+            }
+
+            if (currentAudio) {
+                currentAudio.pause();
+                if (currentPlayingElement) {
+                    currentPlayingElement.classList.remove('playing');
+                    updatePlayPauseIcon(currentPlayingElement, false);
+                }
+            }
+
+            audioPlayer.src = url;
             audioPlayer.play();
-            updatePlayPauseButton(true);
+            currentAudio = audioPlayer;
+            document.title = `${title} | Християнське онлайн аудіо`;
+
+            if (currentPlayingElement) {
+                currentPlayingElement.classList.remove('playing');
+                updatePlayPauseIcon(currentPlayingElement, false);
+            }
+            currentPlayingElement = event.currentTarget;
+            currentPlayingElement.classList.add('playing');
             updatePlayPauseIcon(currentPlayingElement, true);
-            return;
+
+            updatePlayPauseButton(true);
         }
-    }
-
-    if (currentAudio) {
-        currentAudio.pause();
-        if (currentPlayingElement) {
-            updatePlayPauseIcon(currentPlayingElement, false); // Возвращаем ноту
-        }
-    }
-
-    audioPlayer.src = url;
-    audioPlayer.play();
-    currentAudio = audioPlayer;
-    document.title = `${title} | Християнське онлайн аудіо`;
-
-    if (currentPlayingElement) {
-        updatePlayPauseIcon(currentPlayingElement, false); // Возвращаем ноту
-    }
-    currentPlayingElement = event.currentTarget;
-    currentPlayingElement.classList.add('playing');
-    updatePlayPauseIcon(currentPlayingElement, true); // Показываем паузу
-
-    updatePlayPauseButton(true);
-}
 
         function updatePlayPauseButton(isPlaying) {
             playPauseButton.innerHTML = `<i class="fas fa-${isPlaying ? 'pause' : 'play'}"></i>`;
         }
 
-       function updatePlayPauseIcon(element, isPlaying) {
-    const icon = element.querySelector('i');
-    if (isPlaying) {
-        // Если трек играет, показываем паузу
-        icon.classList.remove('fa-music', 'fa-play');
-        icon.classList.add('fa-pause');
-    } else {
-        // Если трек не играет, возвращаем ноту
-        icon.classList.remove('fa-pause', 'fa-play');
-        icon.classList.add('fa-music');
-    }
-}
+        function updatePlayPauseIcon(element, isPlaying) {
+            const icon = element.querySelector('i');
+            if (isPlaying) {
+                icon.classList.remove('fa-music', 'fa-play'); // Убираем ноту и треугольник
+                icon.classList.add('fa-pause'); // Добавляем паузу
+            } else {
+                icon.classList.remove('fa-pause'); // Убираем паузу
+                icon.classList.add('fa-music'); // Возвращаем ноту
+            }
+        }
 
         function updateProgressBar() {
             if (audioPlayer.duration) {
@@ -576,16 +561,16 @@ function playAudio(url, title, event) {
             }
         }
 
-     function updatePlayingTrack(index) {
-    const trackElements = playlist.querySelectorAll('a');
-    if (currentPlayingElement) {
-        currentPlayingElement.classList.remove('playing');
-        updatePlayPauseIcon(currentPlayingElement, false); // Возвращаем ноту
-    }
-    currentPlayingElement = trackElements[index];
-    currentPlayingElement.classList.add('playing');
-    updatePlayPauseIcon(currentPlayingElement, true); // Показываем паузу
-}
+        function updatePlayingTrack(index) {
+            const trackElements = playlist.querySelectorAll('a');
+            if (currentPlayingElement) {
+                currentPlayingElement.classList.remove('playing');
+                updatePlayPauseIcon(currentPlayingElement, false);
+            }
+            currentPlayingElement = trackElements[index];
+            currentPlayingElement.classList.add('playing');
+            updatePlayPauseIcon(currentPlayingElement, true);
+        }
 
         playlistSelector.addEventListener('change', (event) => {
             const playlistFile = event.target.value;
@@ -606,6 +591,9 @@ function playAudio(url, title, event) {
 
         prevButton.addEventListener('click', () => {
             if (currentTrackIndex > 0) {
+                if (currentPlayingElement) {
+                    updatePlayPauseIcon(currentPlayingElement, false); // Возвращаем иконку к ноте
+                }
                 currentTrackIndex--;
                 const prevTrack = tracks[currentTrackIndex];
                 audioPlayer.src = prevTrack.url;
@@ -616,7 +604,12 @@ function playAudio(url, title, event) {
             }
         });
 
-        nextButton.addEventListener('click', playNextTrack);
+        nextButton.addEventListener('click', () => {
+            if (currentPlayingElement) {
+                updatePlayPauseIcon(currentPlayingElement, false); // Возвращаем иконку к ноте
+            }
+            playNextTrack();
+        });
 
         audioPlayer.addEventListener('timeupdate', updateProgressBar);
 
@@ -628,7 +621,12 @@ function playAudio(url, title, event) {
             audioPlayer.currentTime = seekTime;
         });
 
-        audioPlayer.addEventListener('ended', playNextTrack);
+        audioPlayer.addEventListener('ended', () => {
+            if (currentPlayingElement) {
+                updatePlayPauseIcon(currentPlayingElement, false); // Возвращаем иконку к ноте
+            }
+            playNextTrack();
+        });
 
         volumeSlider.addEventListener('input', (e) => {
             audioPlayer.volume = e.target.value;
