@@ -326,6 +326,44 @@
         footer .social-icons a .fa-instagram { color: #E4405F; } /* Розовый Instagram */
         footer .social-icons a .fa-youtube { color: #FF0000; }   /* Красный YouTube */
 
+.custom-list {
+    list-style: none;
+    padding: 0;
+    color: #4a90e2;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+
+.custom-list li {
+    position: relative;
+    padding: 8px 0 8px 25px;
+    border-bottom: 1px dashed rgba(74, 144, 226, 0.5); /* Пунктирная линия */
+    transition: color 0.3s ease-in-out;
+}
+
+.custom-list li:last-child {
+    border-bottom: none; /* Убираем линию у последнего элемента */
+}
+
+.custom-list li::before {
+    content: "➜"; /* Изменённый маркер */
+    font-size: 16px;
+    color: #4a90e2;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: color 0.3s ease-in-out;
+}
+
+.custom-list li:hover {
+    color: #357abd;
+}
+
+.custom-list li:hover::before {
+    color: #357abd;
+}
+       
         /* Медиа-запрос для мобильных устройств */
         @media (max-width: 600px) {
             #controlsContainer {
@@ -388,12 +426,12 @@
     </div>
     <audio id="audioPlayer"></audio>
 <div id="playerDescription">
-<ul style="color: #4a90e2;">
+<ul class="custom-list">
     <li>Вибір плейлиста з кількох категорій</li>
     <li>Інтуїтивне управління відтворенням</li>
     <li>Адаптивний дизайн для мобільних пристроїв</li>
     <li>Стилизований інтерфейс</li>
-</ul>  
+</ul>
     <footer>
         <a href="index.html"><i class="fas fa-home"></i> Головне меню</a>
         <p>м. Суми, версія збірки 1.0 : © 2025 р.</p>
