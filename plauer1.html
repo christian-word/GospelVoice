@@ -79,9 +79,8 @@ header h1 {
 
 #categoryList li {
     padding: 10px 20px;
-    background-color: white;
-    color: #333;
-    border: 2px solid var(--primary-color);
+    color: #333; /* Текст остаётся тёмным */
+    border: 2px solid #d9b3ff; /* Лёгкая фиолетовая рамка */
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
@@ -89,15 +88,15 @@ header h1 {
     width: 200px;
     text-align: center;
     font-weight: 500;
-    background: linear-gradient(135deg, #f4f4f4, #e0e0e0); /* Легкий градиент */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Увеличенная тень */
+    background: linear-gradient(135deg, #f2e6ff, #e6ccff); /* Лёгкий фиолетовый градиент */
+    box-shadow: 0 4px 6px rgba(217, 179, 255, 0.2); /* Лёгкая тень с фиолетовым оттенком */
 }
 
 #categoryList li:hover {
-    background: linear-gradient(135deg, var(--primary-color), var(--hover-color)); /* Градиент при наведении */
-    color: white;
+    background: linear-gradient(135deg, #e6ccff, #f2e6ff); /* Инвертированный градиент при наведении */
+    color: #333;
     transform: translateY(-3px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Еще больше тени при наведении */
+    box-shadow: 0 6px 12px rgba(217, 179, 255, 0.3); /* Увеличенная тень при наведении */
 }
 
 #playlistContainer {
