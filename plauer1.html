@@ -328,12 +328,13 @@ footer .social-icons a .fa-youtube { color: #FF0000; }   /* Красный YouTu
 .promo-box {
   background: linear-gradient(145deg, #ffffff, #e6e6e6);
   border-radius: 12px;
-  padding: 20px;
+  padding: 15px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2), 
               -5px -5px 15px rgba(255, 255, 255, 0.7);
   text-align: center;
-  width: max-content;
-  margin: auto;
+  width: 90%;
+  max-width: 400px;
+  margin: 20px auto;
   transform: perspective(1000px) rotateX(5deg) rotateY(2deg);
   transition: transform 0.3s ease;
 }
@@ -346,13 +347,14 @@ footer .social-icons a .fa-youtube { color: #FF0000; }   /* Красный YouTu
   list-style: none;
   padding: 0;
   color: gray;
-  font-size: 1.2em;
+  font-size: 1em;
 }
 
 .promo-box li {
-  margin: 10px 0;
+  margin: 8px 0;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
+
 
 /* Медиа-запрос для мобильных устройств */
 @media (max-width: 600px) {
@@ -374,7 +376,20 @@ footer .social-icons a .fa-youtube { color: #FF0000; }   /* Красный YouTu
     #volumeControl {
         justify-content: center;
         margin-top: 20px; /* Отступ сверху для регулятора громкости */
-    }
+  
+    .promo-box {
+    width: 90%;
+    padding: 10px;
+    margin: 10px auto;
+  }
+
+  .promo-box ul {
+    font-size: 0.9em;
+  }
+
+  .promo-box li {
+    margin: 6px 0;
+  }
 }
     </style>
 
