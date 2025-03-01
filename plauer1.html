@@ -7,17 +7,39 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
    
-    :root {
-       --primary-color: #4a90e2; /* Синій колір залишається основним */
+:root {
+    --primary-color: #4a90e2; /* Синій колір залишається основним */
     --hover-color: #6a11cb;
     --background-color: #f4f4f4;
     --track-hover-color: #e9f5ff;
     --playing-color: #d0ebff;
     --icon-size: 24px;
     --header-text-color: #ffffff;
-    --button-color: #28a745;
-    --button-hover-color: #218838;
-    --icon-color: #28a745;
+    --button-color: #28a745; /* Зелений для кнопок */
+    --button-hover-color: #218838; /* Темніший зелений для hover */
+    --icon-color: #28a745; /* Зелений для іконок */
+}
+
+#audioControls button {
+    background-color: var(--button-color); /* Зелений колір для кнопок */
+    border-color: var(--button-color); /* Зелений колір для рамки */
+}
+
+#audioControls button:hover {
+    background-color: var(--button-hover-color); /* Темніший зелений при наведенні */
+    border-color: var(--button-hover-color);
+}
+
+#progressBar {
+    background-color: var(--button-color); /* Зелений колір для прогрессбару */
+}
+
+#volumeControl input[type="range"]::-webkit-slider-thumb {
+    background: var(--button-color); /* Зелений колір для повзунка гучності */
+}
+
+#volumeControl input[type="range"]::-moz-range-thumb {
+    background: var(--button-color); /* Зелений колір для повзунка гучності */
 }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
