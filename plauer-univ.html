@@ -5,23 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Інтерактивний аудіоплеєр</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; margin: 0; }
+        body { font-family: Arial, sans-serif; padding: 20px; }
         select, button, input { margin: 5px; padding: 10px; font-size: 16px; }
         ul { list-style: none; padding: 0; }
         li { margin: 5px 0; cursor: pointer; padding: 5px; }
         li.active { background-color: rgba(0, 0, 0, 0.1); }
         
-        .header {
-            background-color: #cccccc; /* Серый цвет */
-            padding: 10px;
-            text-align: center;
-            font-size: 24px;
-        }
-
         .player-container {
             display: flex;
             align-items: flex-start;
-            margin: 20px 0;
         }
         
         .track-player {
@@ -33,12 +25,15 @@
             width: 400px;
         }
 
-        .footer {
-            background-color: #000000; /* Чёрный цвет */
-            color: #ffffff; /* Белый текст */
-            padding: 10px;
+        .playlist-header {
             text-align: center;
-            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .playlist-header p {
+            margin: 0;
+            font-size: 18px;
+            color: gray;
         }
 
         @media (max-width: 600px) {
@@ -58,16 +53,10 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        Добро пожаловать на наш аудиоплеер!
-    </div>
-
-    <h1 style="text-align: center;">Інтерактивний аудіоплеєр</h1>
+    <h1>Інтерактивний аудіоплеєр</h1>
     
-    <p style="text-align: center;"> 
-        Плейлист<span style="color: gray;">(Виберіть із відкриваючого списку)</span>
-    </p>
-    <div style="text-align: center;">
+    <div class="playlist-header">
+        <p>Плейлист <span>(Виберіть із відкриваючого списку)</span></p>
         <select id="categorySelect"></select>
     </div>
     
@@ -78,11 +67,7 @@
             <audio id="audioPlayer" controls></audio>
         </div>
     </div>
-
-    <div class="footer">
-        Разработка версии 1.0.0 | © 2025 Все права защищены
-    </div>
-
+    
     <script>
         const categorySelect = document.getElementById('categorySelect');
         const trackList = document.getElementById('trackList');
