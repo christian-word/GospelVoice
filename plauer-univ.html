@@ -41,6 +41,8 @@
 <body>
     <h1>Універсальний аудіоплеєр</h1>
     
+    <select id="categorySelect"></select>
+    
     <div class="player-container">
         <img id="categoryImage" src="" alt="Category Image">
         <div class="track-player">
@@ -53,6 +55,7 @@
         const trackList = document.getElementById('trackList');
         const audioPlayer = document.getElementById('audioPlayer');
         const categoryImage = document.getElementById('categoryImage');
+        const categorySelect = document.getElementById('categorySelect');
         let playlists = {};
         
         function loadPlaylist(url) {
@@ -82,24 +85,39 @@
                 if (line.startsWith('Категорія:')) {
                     const parts = line.split(';');
                     currentCategory = parts[0].replace('Категорія:', '').trim();
-                    categoryImage.src = parts[1] ? parts[1].trim() : '';
-                    playlists[currentCategory] = [];
+                    playlists[currentCategory] = { imageUrl: parts[1] ? parts[1].trim() : '', tracks: [] };
                 } else if (line && currentCategory) {
                     let [title, url] = line.split(';');
                     if (title && url) {
-                        playlists[currentCategory].push({ title: title.trim(), url: url.trim() });
+                        playlists[currentCategory].tracks.push({ title: title.trim(), url: url.trim() });
                     }
                 }
             });
-            updateTrackList();
+            updateCategorySelect();
         }
         
+        function updateCategorySelect() {
+            categorySelect.innerHTML = '';
+            Object.keys(playlists).forEach(category => {
+                let option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                categorySelect.appendChild(option);
+            });
+            updateTrackList();
+        }
+
+        categorySelect.addEventListener('change', updateTrackList);
+
         function updateTrackList() {
             trackList.innerHTML = '';
-            let category = Object.keys(playlists)[0];
-            if (!category) return;
+            let category = categorySelect.value;
+            if (!playlists[category]) return;
             
-            playlists[category].forEach(track => {
+            categoryImage.src = playlists[category].imageUrl;
+            categoryImage.alt = category;
+
+            playlists[category].tracks.forEach(track => {
                 let li = document.createElement('li');
                 li.textContent = track.title;
                 li.addEventListener('click', () => {
