@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аудіоплеєр</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        select, button, input { margin: 5px; padding: 10px; }
+        ul { list-style: none; padding: 0; }
+        li { margin: 5px 0; cursor: pointer; }
+        
+        /* Стилі для контейнера плеєра */
+        .player-container {
+            display: flex; /* Використовуємо Flexbox для розміщення елементів в ряд */
+            align-items: flex-start; /* Вирівнюємо елементи по верхньому краю */
+        }
+
+        .track-player {
+            margin-left: 20px; /* Додаємо відступ між зображенням та плеєром */
+        }
+
+        img {
+            width: 400px; /* Встановлюємо ширину зображення */
+        }
+
+        /* Медіа-запит для мобільних пристроїв */
+        @media (max-width: 600px) {
+            .player-container {
+                flex-direction: column; /* Вирівнюємо елементи вертикально */
+                align-items: center; /* Вирівнюємо елементи по центру */
+            }
+
+            .track-player {
+                margin-left: 0; /* Вимикаємо відступ для мобільного режиму */
+                margin-top: 20px; /* Додаємо відступ зверху для плеєра */
+            }
+
+            img {
+                width: 100%; /* Зображення займає всю ширину контейнера */
+                max-width: 400px; /* Максимальна ширина зображення */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Універсальний аудіоплеєр</h1>
+
+    <!-- Ввод ссылки -->
+    <input type="text" id="playlistUrl" placeholder="Вставте ссылку">
+    <button onclick="loadPlaylist()">Загрузить</button>
+
+    <!-- Кнопка с необработанной ссылкой -->
+    <button onclick="loadPlaylist('https://www.dropbox.com/scl/fi/ui1yidc861w4i372248al/musicPlaylist.txt?rlkey=3kpn6lesd2kj7z6oeo11hjpxp&st=lepuijet&dl=1')">
+        Загрузить плейлист
+    </button>
+
+    <!-- Файл-плейлист -->
+    <input type="file" id="fileInput" accept=".txt">
+    <select id="categorySelect"></select>
+
+    <!-- Контейнер для зображення та плеєра -->
+    <div class="player-container">
+        <img id="categoryImage" src="" alt="Category Image">
+        <div class="track-player">
+            <ul id="trackList"></ul>
+            <audio id="audioPlayer" controls></audio>
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const categorySelect = document.getElementById('categorySelect');
+        const trackList = document.getElementById('trackList');
+        const audioPlayer = document.getElementById('audioPlayer');
+        
+        let playlists = {};
+
+        // Функція загрузки плейлиста
+        function loadPlaylist(url = null) {
+            let playlistUrl = url || document.getElementById('playlistUrl').value;
+            if (!playlistUrl) return;
+
+            // Исправляем ссылку, если это Dropbox
+            playlistUrl = playlistUrl.replace("www.dropbox.com", "dl.dropboxusercontent.com");
+
+            fetch(playlistUrl)
+                .then(response => response.text())
+                .then(text => parsePlaylist(text))
+                .catch(error => console.error("Ошибка загрузки:", error));
+        }
+
+        // Загружаем плейлист из параметра ?playlist=...
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            let playlistUrl = urlParams.get("playlist");
+            if (playlistUrl) {
+                loadPlaylist(playlistUrl);
+            }
+        });
+
+        // Загрузка плейлиста из файла
+        fileInput.addEventListener('change', event => {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                parsePlaylist(e.target.result);
+            };
+            reader.readAsText(file);
+        });
+
+        // Разбираем текст плейлиста
+        function parsePlaylist(text) {
+            playlists = {};
+            let lines = text.split('\n');
+            let currentCategory = '';
+            
+            lines.forEach(line => {
+                line = line.trim();
+                if (line.startsWith('Категорія:')) {
+                    const parts = line.split(';');
+                    currentCategory = parts[0].replace('Категорія:', '').trim();
+                    const imageUrl = parts[1] ? parts[1].trim() : '';
+                    playlists[currentCategory] = { imageUrl: imageUrl, tracks: [] };
+                } else if (line && currentCategory) {
+                    let [title, url] = line.split(';');
+                    if (title && url) {
+                        playlists[currentCategory].tracks.push({ title: title.trim(), url: url.trim() });
+                    }
+                }
+            });
+            updateCategorySelect();
+        }
+
+        // Обновляем выпадающий список категорий
+        function updateCategorySelect() {
+            categorySelect.innerHTML = '';
+            Object.keys(playlists).forEach(category => {
+                let option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                categorySelect.appendChild(option);
+            });
+            updateTrackList();
+        }
+
+        // При изменении категории обновляем список треков
+        categorySelect.addEventListener('change', updateTrackList);
+
+        function updateTrackList() {
+            trackList.innerHTML = '';
+            let category = categorySelect.value;
+            if (!playlists[category]) return;
+
+            // Додаємо зображення категорії
+            const categoryImage = document.getElementById('categoryImage');
+            categoryImage.src = playlists[category].imageUrl;
+            categoryImage.alt = category;
+
+            playlists[category].tracks.forEach(track => {
+                let li = document.createElement('li');
+                li.textContent = track.title;
+                li.addEventListener('click', () => {
+                    audioPlayer.src = track.url;
+                    audioPlayer.play();
+                });
+                trackList.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
