@@ -3,27 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Аудіоплеєр</title>
+    <title>Інтерактивний аудіоплеєр</title>
     <style>
         body { font-family: Arial, sans-serif; padding: 20px; }
-        select, button, input { margin: 5px; padding: 10px; }
+        select, button, input { margin: 5px; padding: 10px; font-size: 16px; }
         ul { list-style: none; padding: 0; }
-        li { margin: 5px 0; cursor: pointer; padding: 5px; transition: background 0.3s; }
-        li.playing { background: #f0f0f0; }
-        
+        li { margin: 5px 0; cursor: pointer; padding: 5px; }
+        li.playing { background-color: lightgray; }
         .player-container {
             display: flex;
             align-items: flex-start;
         }
-        
         .track-player {
             margin-left: 20px;
         }
-
         img {
             width: 400px;
         }
-        
         @media (max-width: 600px) {
             .player-container {
                 flex-direction: column;
@@ -42,33 +38,30 @@
 </head>
 <body>
     <h1>Інтерактивний аудіоплеєр</h1>
-    
+    <p style="text-align: center;"> 
+        Плейлист<span style="color: gray;">(Виберіть із відкриваючого списку)</span>
+    </p>
+    <select id="categorySelect"></select>
     <div class="player-container">
         <img id="categoryImage" src="" alt="Category Image">
         <div class="track-player">
-            <select id="categorySelect" style="margin: 5px; padding: 10px;"></select>
             <ul id="trackList"></ul>
             <audio id="audioPlayer" controls></audio>
         </div>
     </div>
-
     <script>
+        const categorySelect = document.getElementById('categorySelect');
         const trackList = document.getElementById('trackList');
         const audioPlayer = document.getElementById('audioPlayer');
-        const categoryImage = document.getElementById('categoryImage');
-        const categorySelect = document.getElementById('categorySelect');
         let playlists = {};
-        let currentTrackIndex = -1;
-        
+        let currentTracks = [];
+        let currentTrackIndex = 0;
         function loadPlaylist(url) {
-            if (!url) return;
-            url = url.replace("www.dropbox.com", "dl.dropboxusercontent.com");
-            fetch(url)
+            fetch(url.replace("www.dropbox.com", "dl.dropboxusercontent.com"))
                 .then(response => response.text())
                 .then(text => parsePlaylist(text))
                 .catch(error => console.error("Ошибка загрузки:", error));
         }
-        
         document.addEventListener("DOMContentLoaded", () => {
             const urlParams = new URLSearchParams(window.location.search);
             let playlistUrl = urlParams.get("playlist");
@@ -76,18 +69,17 @@
                 loadPlaylist(playlistUrl);
             }
         });
-        
         function parsePlaylist(text) {
             playlists = {};
             let lines = text.split('\n');
             let currentCategory = '';
-            
             lines.forEach(line => {
                 line = line.trim();
                 if (line.startsWith('Категорія:')) {
                     const parts = line.split(';');
                     currentCategory = parts[0].replace('Категорія:', '').trim();
-                    playlists[currentCategory] = { imageUrl: parts[1] ? parts[1].trim() : '', tracks: [] };
+                    const imageUrl = parts[1] ? parts[1].trim() : '';
+                    playlists[currentCategory] = { imageUrl: imageUrl, tracks: [] };
                 } else if (line && currentCategory) {
                     let [title, url] = line.split(';');
                     if (title && url) {
@@ -97,7 +89,6 @@
             });
             updateCategorySelect();
         }
-        
         function updateCategorySelect() {
             categorySelect.innerHTML = '';
             Object.keys(playlists).forEach(category => {
@@ -108,49 +99,39 @@
             });
             updateTrackList();
         }
-
         categorySelect.addEventListener('change', updateTrackList);
-
         function updateTrackList() {
             trackList.innerHTML = '';
             let category = categorySelect.value;
             if (!playlists[category]) return;
-            
+            const categoryImage = document.getElementById('categoryImage');
             categoryImage.src = playlists[category].imageUrl;
             categoryImage.alt = category;
-
-            playlists[category].tracks.forEach((track, index) => {
+            currentTracks = playlists[category].tracks;
+            currentTrackIndex = 0;
+            currentTracks.forEach((track, index) => {
                 let li = document.createElement('li');
                 li.textContent = track.title;
-                li.addEventListener('click', () => playTrack(index));
+                li.addEventListener('click', () => {
+                    playTrack(index);
+                });
                 trackList.appendChild(li);
             });
         }
-
         function playTrack(index) {
-            let category = categorySelect.value;
-            if (!playlists[category] || !playlists[category].tracks[index]) return;
-            
             currentTrackIndex = index;
-            audioPlayer.src = playlists[category].tracks[index].url;
+            audioPlayer.src = currentTracks[index].url;
             audioPlayer.play();
             highlightPlayingTrack();
         }
-
         function highlightPlayingTrack() {
-            const items = trackList.getElementsByTagName('li');
-            for (let i = 0; i < items.length; i++) {
-                items[i].classList.toggle('playing', i === currentTrackIndex);
-            }
+            [...trackList.children].forEach((li, i) => {
+                li.classList.toggle('playing', i === currentTrackIndex);
+            });
         }
-
         audioPlayer.addEventListener('ended', () => {
-            let category = categorySelect.value;
-            if (!playlists[category]) return;
-            
-            currentTrackIndex++;
-            if (currentTrackIndex < playlists[category].tracks.length) {
-                playTrack(currentTrackIndex);
+            if (currentTrackIndex < currentTracks.length - 1) {
+                playTrack(currentTrackIndex + 1);
             }
         });
     </script>
