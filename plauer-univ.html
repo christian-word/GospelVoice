@@ -6,6 +6,7 @@
     <title>Аудіоплеєр</title>
     <style>
         body { font-family: Arial, sans-serif; padding: 20px; }
+        select, button, input { margin: 5px; padding: 10px; }
         ul { list-style: none; padding: 0; }
         li { margin: 5px 0; cursor: pointer; }
         
@@ -44,7 +45,7 @@
     <div class="player-container">
         <img id="categoryImage" src="" alt="Category Image">
         <div class="track-player">
-            <select id="categorySelect"></select>
+            <select id="categorySelect" style="margin: 5px; padding: 10px;"></select>
             <ul id="trackList"></ul>
             <audio id="audioPlayer" controls></audio>
         </div>
