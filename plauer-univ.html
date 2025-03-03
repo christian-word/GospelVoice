@@ -8,7 +8,8 @@
         body { font-family: Arial, sans-serif; padding: 20px; }
         select, button, input { margin: 5px; padding: 10px; }
         ul { list-style: none; padding: 0; }
-        li { margin: 5px 0; cursor: pointer; }
+        li { margin: 5px 0; cursor: pointer; padding: 5px; transition: background 0.3s; }
+        li.playing { background: #f0f0f0; }
         
         .player-container {
             display: flex;
@@ -57,6 +58,7 @@
         const categoryImage = document.getElementById('categoryImage');
         const categorySelect = document.getElementById('categorySelect');
         let playlists = {};
+        let currentTrackIndex = -1;
         
         function loadPlaylist(url) {
             if (!url) return;
@@ -117,16 +119,40 @@
             categoryImage.src = playlists[category].imageUrl;
             categoryImage.alt = category;
 
-            playlists[category].tracks.forEach(track => {
+            playlists[category].tracks.forEach((track, index) => {
                 let li = document.createElement('li');
                 li.textContent = track.title;
-                li.addEventListener('click', () => {
-                    audioPlayer.src = track.url;
-                    audioPlayer.play();
-                });
+                li.addEventListener('click', () => playTrack(index));
                 trackList.appendChild(li);
             });
         }
+
+        function playTrack(index) {
+            let category = categorySelect.value;
+            if (!playlists[category] || !playlists[category].tracks[index]) return;
+            
+            currentTrackIndex = index;
+            audioPlayer.src = playlists[category].tracks[index].url;
+            audioPlayer.play();
+            highlightPlayingTrack();
+        }
+
+        function highlightPlayingTrack() {
+            const items = trackList.getElementsByTagName('li');
+            for (let i = 0; i < items.length; i++) {
+                items[i].classList.toggle('playing', i === currentTrackIndex);
+            }
+        }
+
+        audioPlayer.addEventListener('ended', () => {
+            let category = categorySelect.value;
+            if (!playlists[category]) return;
+            
+            currentTrackIndex++;
+            if (currentTrackIndex < playlists[category].tracks.length) {
+                playTrack(currentTrackIndex);
+            }
+        });
     </script>
 </body>
 </html>
