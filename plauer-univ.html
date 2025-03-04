@@ -172,7 +172,8 @@
     <footer>
         <p>Версія 2005 | &copy; 2005 Інтерактивний аудіоплеєр | <a href="#">Політика конфіденційності</a></p>
     </footer>
-<script>
+
+ <script>
     const categorySelect = document.getElementById('categorySelect');
     const trackList = document.getElementById('trackList');
     const audioPlayer = document.getElementById('audioPlayer');
@@ -188,18 +189,10 @@
         audioPlayer.src = ''; // Очищаем источник
     });
 
-    // Остановка воспроизведения при переходе на другую страницу (для мобильных устройств)
+    // Остановка воспроизведения при закрытии страницы свайпом вверх (для мобильных устройств)
     window.addEventListener('pagehide', () => {
         audioPlayer.pause(); // Останавливаем воспроизведение
         audioPlayer.src = ''; // Очищаем источник
-    });
-
-    // Используем Page Visibility API для остановки аудио при сворачивании страницы
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            audioPlayer.pause(); // Останавливаем воспроизведение, если страница скрыта
-            audioPlayer.src = ''; // Очищаем источник
-        }
     });
 
     function loadPlaylist(url) {
@@ -298,5 +291,6 @@
         }
     });
 </script>
+    
 </body>
 </html>
