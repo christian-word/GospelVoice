@@ -158,7 +158,7 @@
 
     <!-- Нижняя панель (футер) -->
     <footer>
-        <p>Версія 1.0 | &copy; 2023 Інтерактивний аудіоплеєр | <a href="#">Політика конфіденційності</a></p>
+        <p>Версія 2005 | &copy; 2005 Інтерактивний аудіоплеєр | <a href="#">Політика конфіденційності</a></p>
     </footer>
     
     <script>
@@ -168,6 +168,12 @@
         let playlists = {};
         let currentTrackIndex = 0;
         let currentCategory = '';
+
+        // Остановка воспроизведения при закрытии страницы
+        window.addEventListener('beforeunload', () => {
+            audioPlayer.pause(); // Останавливаем воспроизведение
+            audioPlayer.src = ''; // Очищаем источник
+        });
 
         function loadPlaylist(url) {
             if (!url) return;
