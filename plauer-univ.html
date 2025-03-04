@@ -95,6 +95,13 @@
             text-align: center;
         }
 
+        .loading {
+            display: none;
+            text-align: center;
+            font-size: 18px;
+            color: #333;
+        }
+
         footer {
             background-color: #000;
             color: #fff;
@@ -142,10 +149,12 @@
         <div class="header-info">
             <span id="currentCategory">Категорія: Не обрано</span> | 
             <span id="trackCount">Треків: 0</span>
+            <span id="currentTrackInfo"></span> <!-- Информация о текущем треке -->
         </div>
     </header>
 
     <div class="main-content">
+        <div class="loading" id="loadingIndicator">Загрузка плейлиста...</div> <!-- Индикатор загрузки -->
         <div class="player-container">
             <img id="categoryImage" src="" alt="Category Image">
             <div class="track-player">
@@ -155,6 +164,7 @@
                 </div>
                 <ul id="trackList"></ul>
                 <audio id="audioPlayer" controls></audio>
+                <button id="randomTrackButton">Случайный трек</button> <!-- Кнопка случайного трека -->
             </div>
         </div>
     </div>
@@ -164,6 +174,9 @@
     </footer>
 
     <script>
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const currentTrackInfo = document.getElementById('currentTrackInfo');
+        const randomTrackButton = document.getElementById('randomTrackButton');
         const categorySelect = document.getElementById('categorySelect');
         const trackList = document.getElementById('trackList');
         const audioPlayer = document.getElementById('audioPlayer');
@@ -185,10 +198,16 @@
 
         function loadPlaylist(url) {
             if (!url) return;
+            loadingIndicator.style.display = 'block'; // Показать индикатор загрузки
             url = url.replace("www.dropbox.com", "dl.dropboxusercontent.com");
             fetch(url)
                 .then(response => response.text())
-                .then(text => parsePlaylist(text))
+                .then(text => {
+                    parsePlaylist(text);
+                })
+                .finally(() => {
+                    loadingIndicator.style.display = 'none'; // Скрыть индикатор загрузки
+                })
                 .catch(error => console.error("Ошибка загрузки:", error));
         }
 
@@ -242,6 +261,7 @@
 
             currentCategoryElement.textContent = `Категорія: ${currentCategory}`;
             trackCountElement.textContent = `Треків: ${playlists[currentCategory].tracks.length}`;
+            currentTrackInfo.textContent = ''; // Очистить информацию о текущем треке
 
             document.getElementById('categoryImage').src = playlists[currentCategory].imageUrl;
             document.getElementById('categoryImage').alt = currentCategory;
@@ -249,6 +269,7 @@
             playlists[currentCategory].tracks.forEach((track, index) => {
                 let li = document.createElement('li');
                 li.textContent = track.title;
+                li.title = track.url; // Добавить подсказку с URL
                 li.addEventListener('click', () => playTrack(index));
                 trackList.appendChild(li);
             });
@@ -261,6 +282,7 @@
             if (track) {
                 audioPlayer.src = track.url;
                 audioPlayer.play();
+                currentTrackInfo.textContent = `Сейчас играет: ${track.title}`; // Обновить информацию о текущем треке
                 highlightCurrentTrack();
             }
         }
@@ -275,6 +297,14 @@
             currentTrackIndex++;
             if (currentTrackIndex < playlists[currentCategory].tracks.length) {
                 playTrack(currentTrackIndex);
+            }
+        });
+
+        randomTrackButton.addEventListener('click', () => {
+            const tracks = playlists[currentCategory].tracks;
+            if (tracks.length > 0) {
+                const randomIndex = Math.floor(Math.random() * tracks.length);
+                playTrack(randomIndex);
             }
         });
     </script>
