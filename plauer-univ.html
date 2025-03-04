@@ -5,161 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Інтерактивний аудіоплеєр</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        /* Верхняя панель (хедер) */
-        header {
-            background-color: #333; /* Темный фон */
-            color: #fff; /* Белый текст */
-            padding: 20px 0;
-            text-align: center;
-            font-size: 24px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Тень для красоты */
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 1.5em;
-        }
-
-        /* Основной контент */
-        .main-content {
-            flex: 1;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        select, button, input {
-            margin: 5px;
-            padding: 10px;
-            font-size: 16px;
-            width: 100%; /* На всю ширину в мобильном режиме */
-            box-sizing: border-box;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            margin: 5px 0;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        li.active {
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        select, button, input { margin: 5px; padding: 10px; font-size: 16px; }
+        ul { list-style: none; padding: 0; }
+        li { margin: 5px 0; cursor: pointer; padding: 5px; }
+        li.active { background-color: rgba(0, 0, 0, 0.1); }
+        
         .player-container {
             display: flex;
-            flex-direction: column; /* В мобильном режиме всё в столбик */
-            align-items: center;
+            align-items: flex-start;
         }
-
+        
         .track-player {
-            width: 100%; /* На всю ширину */
-            margin-top: 20px;
+            margin-left: 20px;
+            flex: 1;
         }
 
         img {
-            width: 100%; /* На всю ширину */
-            max-width: 400px; /* Ограничение по ширине */
-            height: auto; /* Сохраняем пропорции */
+            width: 400px;
         }
 
         .playlist-header {
+            text-align: center;
             margin-bottom: 20px;
-            width: 100%; /* На всю ширину */
         }
 
         .playlist-header p {
-            margin: 0 0 10px 0;
+            margin: 0;
             font-size: 18px;
             color: gray;
-            text-align: center; /* Центрируем текст */
         }
 
-        /* Нижняя панель (футер) */
-        footer {
-            background-color: #000; /* Черный цвет футера */
-            color: #fff; /* Белый текст */
-            text-align: center;
-            padding: 15px 0;
-            margin-top: auto; /* Прижимаем футер к низу */
-            font-size: 14px;
-            width: 100%; /* На всю ширину */
-        }
-
-        footer a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        @media (min-width: 600px) {
+        @media (max-width: 600px) {
             .player-container {
-                flex-direction: row; /* На ПК всё в строку */
-                align-items: flex-start;
+                flex-direction: column;
+                align-items: center;
             }
-
             .track-player {
-                margin-left: 20px;
-                margin-top: 0;
+                margin-left: 0;
+                margin-top: 20px;
             }
-
             img {
-                width: 400px; /* Фиксированная ширина на ПК */
-            }
-
-            select, button, input {
-                width: auto; /* Автоматическая ширина на ПК */
+                width: 100%;
+                max-width: 400px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Верхняя панель (хедер) -->
-    <header>
-        <h1>Інтерактивний аудіоплеєр</h1>
-    </header>
-
-    <!-- Основной контент -->
-    <div class="main-content">
-        <div class="player-container">
-            <img id="categoryImage" src="" alt="Category Image">
-            <div class="track-player">
-                <!-- Контейнер для текста и выпадающего списка -->
-                <div class="playlist-header">
-                    <p>Плейлист <span>(Виберіть із відкриваючого списку)</span></p>
-                    <select id="categorySelect"></select>
-                </div>
-                
-                <!-- Список треков -->
-                <ul id="trackList"></ul>
-                <audio id="audioPlayer" controls></audio>
-            </div>
+    <h1>Інтерактивний аудіоплеєр</h1>
+    
+    <div class="playlist-header">
+        <p>Плейлист <span>(Виберіть із відкриваючого списку)</span></p>
+        <select id="categorySelect"></select>
+    </div>
+    
+    <div class="player-container">
+        <img id="categoryImage" src="" alt="Category Image">
+        <div class="track-player">
+            <ul id="trackList"></ul>
+            <audio id="audioPlayer" controls></audio>
         </div>
     </div>
-
-    <!-- Нижняя панель (футер) -->
-    <footer>
-        <p>Версія 2005 | &copy; 2005 Інтерактивний аудіоплеєр | <a href="#">Політика конфіденційності</a></p>
-    </footer>
     
     <script>
         const categorySelect = document.getElementById('categorySelect');
@@ -168,18 +75,6 @@
         let playlists = {};
         let currentTrackIndex = 0;
         let currentCategory = '';
-
-        // Остановка воспроизведения при закрытии страницы (для десктопа и мобильных устройств)
-        window.addEventListener('beforeunload', () => {
-            audioPlayer.pause(); // Останавливаем воспроизведение
-            audioPlayer.src = ''; // Очищаем источник
-        });
-
-        // Остановка воспроизведения при переходе на другую страницу (для мобильных устройств)
-        window.addEventListener('pagehide', () => {
-            audioPlayer.pause(); // Останавливаем воспроизведение
-            audioPlayer.src = ''; // Очищаем источник
-        });
 
         function loadPlaylist(url) {
             if (!url) return;
