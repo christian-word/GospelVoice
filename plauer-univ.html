@@ -28,6 +28,13 @@
             font-size: 1.5em;
         }
 
+        /* Дополнительная информация в хедере */
+        .header-info {
+            font-size: 14px; /* Мелкий шрифт */
+            color: #ccc; /* Светло-серый цвет */
+            margin-top: 5px;
+        }
+
         /* Основной контент */
         .main-content {
             flex: 1;
@@ -136,6 +143,11 @@
     <!-- Верхняя панель (хедер) -->
     <header>
         <h1>Інтерактивний аудіоплеєр</h1>
+        <!-- Дополнительная информация -->
+        <div class="header-info">
+            <span id="currentCategory">Категорія: Не обрано</span> | 
+            <span id="trackCount">Треків: 0</span>
+        </div>
     </header>
 
     <!-- Основной контент -->
@@ -165,6 +177,8 @@
         const categorySelect = document.getElementById('categorySelect');
         const trackList = document.getElementById('trackList');
         const audioPlayer = document.getElementById('audioPlayer');
+        const currentCategoryElement = document.getElementById('currentCategory');
+        const trackCountElement = document.getElementById('trackCount');
         let playlists = {};
         let currentTrackIndex = 0;
         let currentCategory = '';
@@ -245,6 +259,10 @@
             trackList.innerHTML = '';
             currentCategory = categorySelect.value;
             if (!playlists[currentCategory]) return;
+
+            // Обновляем информацию в хедере
+            currentCategoryElement.textContent = `Категорія: ${currentCategory}`;
+            trackCountElement.textContent = `Треків: ${playlists[currentCategory].tracks.length}`;
 
             document.getElementById('categoryImage').src = playlists[currentCategory].imageUrl;
             document.getElementById('categoryImage').alt = currentCategory;
