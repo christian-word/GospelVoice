@@ -4,171 +4,172 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Інтерактивний аудіоплеєр</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-            font-size: 24px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 1.5em;
-        }
-
-        .header-info {
-            font-size: 14px;
-            color: #ccc;
-            margin-top: 5px;
-        }
-
-        .main-content {
-            flex: 1;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        select, button, input {
-            margin: 5px;
-            padding: 10px;
-            font-size: 16px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            margin: 5px 0;
-            cursor: pointer;
-            padding: 5px;
-            transition: background-color 0.3s;
-        }
-
-        li.active {
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-
-        .player-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .track-player {
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        img {
-            width: 100%;
-            max-width: 400px;
-            height: auto;
-        }
-
-        .playlist-header {
-            margin-bottom: 20px;
-            width: 100%;
-        }
-
-        .playlist-header p {
-            margin: 0 0 10px 0;
-            font-size: 18px;
-            color: gray;
-            text-align: center;
-        }
-
-        .loading {
-            display: none;
-            text-align: center;
-            font-size: 18px;
-            color: #333;
-        }
-
-        footer {
-            background-color: #000;
-            color: #fff;
-            text-align: center;
-            padding: 15px 0;
-            margin-top: auto;
-            font-size: 14px;
-            width: 100%;
-        }
-
-        footer a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-.button {
-    display: inline-flex;
-    align-items: center;
-    padding: 5px 10px; /* Уменьшенные паддинги */
-    border: 1px solid #ccc; /* Тонкая обводка */
-    border-radius: 5px;
-    background-color: #f0f0f0;
-    cursor: pointer;
-    font-size: 14px; /* Меньший размер шрифта */
-}
-
-.button:hover {
-    background-color: #e0e0e0; /* Эффект наведения */
-}
-
-.button img {
-    margin-right: 5px; /* Отступ между иконкой и текстом */
-    width: 16px; /* Размер иконки */
-    height: 16px;
-}
-        
-@media (min-width: 600px) {
-    .player-container {
-        flex-direction: row;
-        align-items: flex-start;
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
     }
 
-    .track-player {
-        margin-left: 20px;
-        margin-top: 0;
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+        font-size: 24px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
-    img {
-        width: 400px;
+    header h1 {
+        margin: 0;
+        font-size: 1.5em;
+    }
+
+    .header-info {
+        font-size: 14px;
+        color: #ccc;
+        margin-top: 5px;
+    }
+
+    .main-content {
+        flex: 1;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     select, button, input {
-        width: auto;
+        margin: 5px;
+        padding: 10px;
+        font-size: 16px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    li {
+        margin: 5px 0;
+        cursor: pointer;
+        padding: 5px;
+        transition: background-color 0.3s;
+    }
+
+    li.active {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .player-container {
+        display: flex;
+        flex-direction: column; /* По умолчанию для мобильных устройств */
+        align-items: center;
+    }
+
+    .track-player {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    img {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+    }
+
+    .playlist-header {
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+    .playlist-header p {
+        margin: 0 0 10px 0;
+        font-size: 18px;
+        color: gray;
+        text-align: center;
+    }
+
+    .loading {
+        display: none;
+        text-align: center;
+        font-size: 18px;
+        color: #333;
+    }
+
+    footer {
+        background-color: #000;
+        color: #fff;
+        text-align: center;
+        padding: 15px 0;
+        margin-top: auto;
+        font-size: 14px;
+        width: 100%;
+    }
+
+    footer a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 10px;
+    }
+
+    footer a:hover {
+        text-decoration: underline;
     }
 
     .button {
-        padding: 5px 10px; /* Уменьшенные паддинги для мобильных устройств */
-        font-size: 14px; /* Меньший размер шрифта для мобильных */
-        width: auto; /* Или задать конкретное значение */
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 10px; /* Уменьшенные паддинги */
+        border: 1px solid #ccc; /* Тонкая обводка */
+        border-radius: 5px;
+        background-color: #f0f0f0;
+        cursor: pointer;
+        font-size: 14px; /* Меньший размер шрифта */
+        margin: 5px; /* Отступы между кнопками */
     }
-}
-    </style>
+
+    .button:hover {
+        background-color: #e0e0e0; /* Эффект наведения */
+    }
+
+    .button img {
+        margin-right: 5px; /* Отступ между иконкой и текстом */
+        width: 24px; /* Размер иконки */
+        height: auto; /* Сохраняет пропорции */
+    }
+
+    @media (min-width: 600px) {
+        .player-container {
+            flex-direction: row; /* Изменение на ряд для больших экранов */
+            align-items: flex-start;
+        }
+
+        .track-player {
+            margin-left: 20px;
+            margin-top: 0;
+        }
+
+        img {
+            width: 400px; /* Размер изображения для больших экранов */
+        }
+
+        select, button, input {
+            width: auto; /* Автоматическая ширина для элементов */
+        }
+
+        .button {
+            padding: 5px 10px; /* Уменьшенные паддинги для мобильных устройств */
+            font-size: 14px; /* Меньший размер шрифта для мобильных */
+            width: auto; /* Или задать конкретное значение */
+        }
+    }
+</style>
 </head>
 <body>
     <header>
