@@ -240,7 +240,7 @@
             currentCategory = categorySelect.value;
             if (!playlists[currentCategory]) return;
 
-            currentCategoryElement.textContent = `Категорія: ${currentCategory}`;
+            currentCategoryElement.textContent = `Альбом : ${currentCategory}`;
             trackCountElement.textContent = `Треків: ${playlists[currentCategory].tracks.length}`;
 
             document.getElementById('categoryImage').src = playlists[currentCategory].imageUrl;
