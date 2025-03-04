@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +6,7 @@
     <title>Аудіоплеєр</title>
     <style>
         body { font-family: Arial, sans-serif; padding: 20px; }
-        select, button { margin: 5px; padding: 10px; }
+        select, button, input { margin: 5px; padding: 10px; }
         ul { list-style: none; padding: 0; }
         li { margin: 5px 0; cursor: pointer; }
     </style>
@@ -14,16 +14,16 @@
 <body>
     <h1>Універсальний аудіоплеєр</h1>
 
-<input type="text" id="playlistUrl" placeholder="Вставте ссылку">
-<button onclick="loadPlaylist()">Загрузить</button>
+    <!-- Ввод ссылки -->
+    <input type="text" id="playlistUrl" placeholder="Вставте ссылку">
+    <button onclick="loadPlaylist()">Загрузить</button>
 
+    <!-- Кнопка с необработанной ссылкой -->
+    <button onclick="loadPlaylist('https://www.dropbox.com/scl/fi/ui1yidc861w4i372248al/musicPlaylist.txt?rlkey=3kpn6lesd2kj7z6oeo11hjpxp&st=lepuijet&dl=1')">
+        Загрузить плейлист
+    </button>
 
-<button onclick="loadPlaylist('https://dl.dropboxusercontent.com/scl/fi/ui1yidc861w4i372248al/musicPlaylist.txt?rlkey=3kpn6lesd2kj7z6oeo11hjpxp&st=lepuijet&dl=1')">
-    Загрузить плейлист
-</button>
-
-
-
+    <!-- Файл-плейлист -->
     <input type="file" id="fileInput" accept=".txt">
     <select id="categorySelect"></select>
     <ul id="trackList"></ul>
@@ -36,30 +36,31 @@
         const audioPlayer = document.getElementById('audioPlayer');
         
         let playlists = {};
-        
-function loadPlaylist() {
-    let playlistUrl = document.getElementById('playlistUrl').value;
-    playlistUrl = playlistUrl.replace("www.dropbox.com", "dl.dropboxusercontent.com"); // Исправляем ссылку
-    fetch(playlistUrl)
-        .then(response => response.text())
-        .then(text => parsePlaylist(text))
-        .catch(error => console.error("Ошибка загрузки:", error));
-}
 
+        // Функция загрузки плейлиста
+        function loadPlaylist(url = null) {
+            let playlistUrl = url || document.getElementById('playlistUrl').value;
+            if (!playlistUrl) return;
 
- document.addEventListener("DOMContentLoaded", () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    let playlistUrl = urlParams.get("playlist");
-    if (playlistUrl) {
-        playlistUrl = playlistUrl.replace("www.dropbox.com", "dl.dropboxusercontent.com"); // Исправляем URL
-        fetch(playlistUrl)
-            .then(response => response.text())
-            .then(text => parsePlaylist(text))
-            .catch(error => console.error("Помилка завантаження плейлиста:", error));
-    }
-});
+            // Исправляем ссылку, если это Dropbox
+            playlistUrl = playlistUrl.replace("www.dropbox.com", "dl.dropboxusercontent.com");
 
-        
+            fetch(playlistUrl)
+                .then(response => response.text())
+                .then(text => parsePlaylist(text))
+                .catch(error => console.error("Ошибка загрузки:", error));
+        }
+
+        // Загружаем плейлист из параметра ?playlist=...
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            let playlistUrl = urlParams.get("playlist");
+            if (playlistUrl) {
+                loadPlaylist(playlistUrl);
+            }
+        });
+
+        // Загрузка плейлиста из файла
         fileInput.addEventListener('change', event => {
             const file = event.target.files[0];
             if (!file) return;
@@ -70,7 +71,8 @@ function loadPlaylist() {
             };
             reader.readAsText(file);
         });
-        
+
+        // Разбираем текст плейлиста
         function parsePlaylist(text) {
             playlists = {};
             let lines = text.split('\n');
@@ -90,7 +92,8 @@ function loadPlaylist() {
             });
             updateCategorySelect();
         }
-        
+
+        // Обновляем выпадающий список категорий
         function updateCategorySelect() {
             categorySelect.innerHTML = '';
             Object.keys(playlists).forEach(category => {
@@ -101,14 +104,15 @@ function loadPlaylist() {
             });
             updateTrackList();
         }
-        
+
+        // При изменении категории обновляем список треков
         categorySelect.addEventListener('change', updateTrackList);
-        
+
         function updateTrackList() {
             trackList.innerHTML = '';
             let category = categorySelect.value;
             if (!playlists[category]) return;
-            
+
             playlists[category].forEach(track => {
                 let li = document.createElement('li');
                 li.textContent = track.title;
