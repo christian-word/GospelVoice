@@ -125,7 +125,7 @@
     .button {
         display: inline-flex;
         align-items: center;
-        padding: 5px 10px; /* Уменьшенные паддинги */
+        padding: 5px; /* Уменьшенные паддинги */
         border: 1px solid #ccc; /* Тонкая обводка */
         border-radius: 5px;
         background-color: #f0f0f0;
@@ -140,7 +140,7 @@
 
     .button img {
         margin-right: 5px; /* Отступ между иконкой и текстом */
-        width: 24px; /* Размер иконки */
+        width: 20px; /* Уменьшенный размер иконки */
         height: auto; /* Сохраняет пропорции */
     }
 
@@ -191,9 +191,9 @@
                 </div>
                 <ul id="trackList"></ul>
                 <audio id="audioPlayer" controls></audio>
-                <button class="button">
-                        <img src="https://ruyriy.github.io/Audio-christ/ICO/pngwing.com.png" alt="Иконка" />
-                        Случайный трек
+                <button class="button" id="randomTrackButton">
+                    <img src="https://ruyriy.github.io/Audio-christ/ICO/pngwing.com.png" alt="Иконка" />
+                    Случайный трек
                 </button>
             </div>
         </div>
