@@ -35,12 +35,15 @@
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
+            box-sizing: border-box;
         }
 
         select, button, input {
             margin: 5px;
             padding: 10px;
             font-size: 16px;
+            width: 100%; /* На всю ширину в мобильном режиме */
+            box-sizing: border-box;
         }
 
         ul {
@@ -60,26 +63,31 @@
 
         .player-container {
             display: flex;
-            align-items: flex-start;
+            flex-direction: column; /* В мобильном режиме всё в столбик */
+            align-items: center;
         }
 
         .track-player {
-            margin-left: 20px;
-            flex: 1;
+            width: 100%; /* На всю ширину */
+            margin-top: 20px;
         }
 
         img {
-            width: 400px;
+            width: 100%; /* На всю ширину */
+            max-width: 400px; /* Ограничение по ширине */
+            height: auto; /* Сохраняем пропорции */
         }
 
         .playlist-header {
             margin-bottom: 20px;
+            width: 100%; /* На всю ширину */
         }
 
         .playlist-header p {
             margin: 0 0 10px 0;
             font-size: 18px;
             color: gray;
+            text-align: center; /* Центрируем текст */
         }
 
         /* Нижняя панель (футер) */
@@ -103,18 +111,23 @@
             text-decoration: underline;
         }
 
-        @media (max-width: 600px) {
+        @media (min-width: 600px) {
             .player-container {
-                flex-direction: column;
-                align-items: center;
+                flex-direction: row; /* На ПК всё в строку */
+                align-items: flex-start;
             }
+
             .track-player {
-                margin-left: 0;
-                margin-top: 20px;
+                margin-left: 20px;
+                margin-top: 0;
             }
+
             img {
-                width: 100%;
-                max-width: 400px;
+                width: 400px; /* Фиксированная ширина на ПК */
+            }
+
+            select, button, input {
+                width: auto; /* Автоматическая ширина на ПК */
             }
         }
     </style>
