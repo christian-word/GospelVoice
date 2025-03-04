@@ -172,124 +172,131 @@
     <footer>
         <p>Версія 2005 | &copy; 2005 Інтерактивний аудіоплеєр | <a href="#">Політика конфіденційності</a></p>
     </footer>
-    
-    <script>
-        const categorySelect = document.getElementById('categorySelect');
-        const trackList = document.getElementById('trackList');
-        const audioPlayer = document.getElementById('audioPlayer');
-        const currentCategoryElement = document.getElementById('currentCategory');
-        const trackCountElement = document.getElementById('trackCount');
-        let playlists = {};
-        let currentTrackIndex = 0;
-        let currentCategory = '';
+<script>
+    const categorySelect = document.getElementById('categorySelect');
+    const trackList = document.getElementById('trackList');
+    const audioPlayer = document.getElementById('audioPlayer');
+    const currentCategoryElement = document.getElementById('currentCategory');
+    const trackCountElement = document.getElementById('trackCount');
+    let playlists = {};
+    let currentTrackIndex = 0;
+    let currentCategory = '';
 
-        // Остановка воспроизведения при закрытии страницы (для десктопа и мобильных устройств)
-        window.addEventListener('beforeunload', () => {
-            audioPlayer.pause(); // Останавливаем воспроизведение
+    // Остановка воспроизведения при закрытии страницы (для десктопа и мобильных устройств)
+    window.addEventListener('beforeunload', () => {
+        audioPlayer.pause(); // Останавливаем воспроизведение
+        audioPlayer.src = ''; // Очищаем источник
+    });
+
+    // Остановка воспроизведения при переходе на другую страницу (для мобильных устройств)
+    window.addEventListener('pagehide', () => {
+        audioPlayer.pause(); // Останавливаем воспроизведение
+        audioPlayer.src = ''; // Очищаем источник
+    });
+
+    // Используем Page Visibility API для остановки аудио при сворачивании страницы
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            audioPlayer.pause(); // Останавливаем воспроизведение, если страница скрыта
             audioPlayer.src = ''; // Очищаем источник
-        });
-
-        // Остановка воспроизведения при переходе на другую страницу (для мобильных устройств)
-        window.addEventListener('pagehide', () => {
-            audioPlayer.pause(); // Останавливаем воспроизведение
-            audioPlayer.src = ''; // Очищаем источник
-        });
-
-        function loadPlaylist(url) {
-            if (!url) return;
-            url = url.replace("www.dropbox.com", "dl.dropboxusercontent.com");
-            fetch(url)
-                .then(response => response.text())
-                .then(text => parsePlaylist(text))
-                .catch(error => console.error("Ошибка загрузки:", error));
         }
+    });
 
-        document.addEventListener("DOMContentLoaded", () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            let playlistUrl = urlParams.get("playlist");
-            if (playlistUrl) {
-                loadPlaylist(playlistUrl);
-            }
-        });
+    function loadPlaylist(url) {
+        if (!url) return;
+        url = url.replace("www.dropbox.com", "dl.dropboxusercontent.com");
+        fetch(url)
+            .then(response => response.text())
+            .then(text => parsePlaylist(text))
+            .catch(error => console.error("Ошибка загрузки:", error));
+    }
 
-        function parsePlaylist(text) {
-            playlists = {};
-            let lines = text.split('\n');
-            let category = '';
-            
-            lines.forEach(line => {
-                line = line.trim();
-                if (line.startsWith('Категорія:')) {
-                    const parts = line.split(';');
-                    category = parts[0].replace('Категорія:', '').trim();
-                    const imageUrl = parts[1] ? parts[1].trim() : '';
-                    playlists[category] = { imageUrl, tracks: [] };
-                } else if (line && category) {
-                    let [title, url] = line.split(';');
-                    if (title && url) {
-                        playlists[category].tracks.push({ title: title.trim(), url: url.trim() });
-                    }
+    document.addEventListener("DOMContentLoaded", () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        let playlistUrl = urlParams.get("playlist");
+        if (playlistUrl) {
+            loadPlaylist(playlistUrl);
+        }
+    });
+
+    function parsePlaylist(text) {
+        playlists = {};
+        let lines = text.split('\n');
+        let category = '';
+        
+        lines.forEach(line => {
+            line = line.trim();
+            if (line.startsWith('Категорія:')) {
+                const parts = line.split(';');
+                category = parts[0].replace('Категорія:', '').trim();
+                const imageUrl = parts[1] ? parts[1].trim() : '';
+                playlists[category] = { imageUrl, tracks: [] };
+            } else if (line && category) {
+                let [title, url] = line.split(';');
+                if (title && url) {
+                    playlists[category].tracks.push({ title: title.trim(), url: url.trim() });
                 }
-            });
-            updateCategorySelect();
-        }
-
-        function updateCategorySelect() {
-            categorySelect.innerHTML = '';
-            Object.keys(playlists).forEach(category => {
-                let option = document.createElement('option');
-                option.value = category;
-                option.textContent = category;
-                categorySelect.appendChild(option);
-            });
-            updateTrackList();
-        }
-
-        categorySelect.addEventListener('change', updateTrackList);
-
-        function updateTrackList() {
-            trackList.innerHTML = '';
-            currentCategory = categorySelect.value;
-            if (!playlists[currentCategory]) return;
-
-            // Обновляем информацию в хедере
-            currentCategoryElement.textContent = `Категорія: ${currentCategory}`;
-            trackCountElement.textContent = `Треків: ${playlists[currentCategory].tracks.length}`;
-
-            document.getElementById('categoryImage').src = playlists[currentCategory].imageUrl;
-            document.getElementById('categoryImage').alt = currentCategory;
-
-            playlists[currentCategory].tracks.forEach((track, index) => {
-                let li = document.createElement('li');
-                li.textContent = track.title;
-                li.addEventListener('click', () => playTrack(index));
-                trackList.appendChild(li);
-            });
-            currentTrackIndex = 0;
-        }
-
-        function playTrack(index) {
-            currentTrackIndex = index;
-            let track = playlists[currentCategory].tracks[currentTrackIndex];
-            if (track) {
-                audioPlayer.src = track.url;
-                audioPlayer.play();
-                highlightCurrentTrack();
-            }
-        }
-
-        function highlightCurrentTrack() {
-            Array.from(trackList.children).forEach((li, index) => {
-                li.classList.toggle('active', index === currentTrackIndex);
-            });
-        }
-
-        audioPlayer.addEventListener('ended', () => {
-            currentTrackIndex++;
-            if (currentTrackIndex < playlists[currentCategory].tracks.length) {
-                playTrack(currentTrackIndex);
             }
         });
-    </script>
+        updateCategorySelect();
+    }
+
+    function updateCategorySelect() {
+        categorySelect.innerHTML = '';
+        Object.keys(playlists).forEach(category => {
+            let option = document.createElement('option');
+            option.value = category;
+            option.textContent = category;
+            categorySelect.appendChild(option);
+        });
+        updateTrackList();
+    }
+
+    categorySelect.addEventListener('change', updateTrackList);
+
+    function updateTrackList() {
+        trackList.innerHTML = '';
+        currentCategory = categorySelect.value;
+        if (!playlists[currentCategory]) return;
+
+        // Обновляем информацию в хедере
+        currentCategoryElement.textContent = `Категорія: ${currentCategory}`;
+        trackCountElement.textContent = `Треків: ${playlists[currentCategory].tracks.length}`;
+
+        document.getElementById('categoryImage').src = playlists[currentCategory].imageUrl;
+        document.getElementById('categoryImage').alt = currentCategory;
+
+        playlists[currentCategory].tracks.forEach((track, index) => {
+            let li = document.createElement('li');
+            li.textContent = track.title;
+            li.addEventListener('click', () => playTrack(index));
+            trackList.appendChild(li);
+        });
+        currentTrackIndex = 0;
+    }
+
+    function playTrack(index) {
+        currentTrackIndex = index;
+        let track = playlists[currentCategory].tracks[currentTrackIndex];
+        if (track) {
+            audioPlayer.src = track.url;
+            audioPlayer.play();
+            highlightCurrentTrack();
+        }
+    }
+
+    function highlightCurrentTrack() {
+        Array.from(trackList.children).forEach((li, index) => {
+            li.classList.toggle('active', index === currentTrackIndex);
+        });
+    }
+
+    audioPlayer.addEventListener('ended', () => {
+        currentTrackIndex++;
+        if (currentTrackIndex < playlists[currentCategory].tracks.length) {
+            playTrack(currentTrackIndex);
+        }
+    });
+</script>
 </body>
 </html>
