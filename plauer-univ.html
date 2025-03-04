@@ -123,6 +123,7 @@
             border-radius: 5px;
             overflow: hidden;
             margin-top: 20px;
+            cursor: pointer; /* Додаємо курсор для вказівки на можливість взаємодії */
         }
 
         .progress-bar {
@@ -181,7 +182,7 @@
                 <ul id="trackList"></ul>
                 <audio id="audioPlayer" controls></audio>
                 <!-- Прогресбар -->
-                <div class="progress-container">
+                <div class="progress-container" id="progressContainer">
                     <div class="progress-bar" id="progressBar"></div>
                 </div>
                 <!-- Таймер -->
@@ -201,6 +202,7 @@
         const currentCategoryElement = document.getElementById('currentCategory');
         const trackCountElement = document.getElementById('trackCount');
         const progressBar = document.getElementById('progressBar');
+        const progressContainer = document.getElementById('progressContainer');
         const timer = document.getElementById('timer');
         let playlists = {};
         let currentTrackIndex = 0;
@@ -329,6 +331,15 @@
             const secs = Math.floor(seconds % 60);
             return `${minutes}:${secs < 10 ? '0' + secs : secs}`;
         }
+
+        // Керування прогресбаром
+        progressContainer.addEventListener('click', (event) => {
+            const rect = progressContainer.getBoundingClientRect();
+            const offsetX = event.clientX - rect.left; // Відстань від лівого краю контейнера
+            const width = rect.width; // Ширина контейнера
+            const percentage = offsetX / width; // Відсоток
+            audioPlayer.currentTime = percentage * audioPlayer.duration; // Встановлюємо новий час відтворення
+        });
     </script>
 </body>
 </html>
