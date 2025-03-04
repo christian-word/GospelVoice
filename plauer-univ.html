@@ -169,8 +169,14 @@
         let currentTrackIndex = 0;
         let currentCategory = '';
 
-        // Остановка воспроизведения при закрытии страницы
+        // Остановка воспроизведения при закрытии страницы (для десктопа и мобильных устройств)
         window.addEventListener('beforeunload', () => {
+            audioPlayer.pause(); // Останавливаем воспроизведение
+            audioPlayer.src = ''; // Очищаем источник
+        });
+
+        // Остановка воспроизведения при переходе на другую страницу (для мобильных устройств)
+        window.addEventListener('pagehide', () => {
             audioPlayer.pause(); // Останавливаем воспроизведение
             audioPlayer.src = ''; // Очищаем источник
         });
