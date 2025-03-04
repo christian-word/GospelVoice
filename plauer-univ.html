@@ -195,14 +195,6 @@
             audioPlayer.src = ''; // Очищаем источник
         });
 
-        // Используем Page Visibility API для остановки аудио при сворачивании страницы
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                audioPlayer.pause(); // Останавливаем воспроизведение, если страница скрыта
-                audioPlayer.src = ''; // Очищаем источник
-            }
-        });
-
         function loadPlaylist(url) {
             if (!url) return;
             url = url.replace("www.dropbox.com", "dl.dropboxusercontent.com");
