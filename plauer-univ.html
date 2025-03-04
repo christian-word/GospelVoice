@@ -122,6 +122,27 @@
             text-decoration: underline;
         }
 
+.button {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px; /* Уменьшение размера */
+    border: 1px solid #ccc; /* Тонкая обводка */
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #e0e0e0; /* Эффект наведения */
+}
+
+.button img {
+    margin-right: 5px; /* Отступ между иконкой и текстом */
+    width: 16px; /* Размер иконки */
+    height: 16px;
+}
+        
         @media (min-width: 600px) {
             .player-container {
                 flex-direction: row;
@@ -163,7 +184,10 @@
                 </div>
                 <ul id="trackList"></ul>
                 <audio id="audioPlayer" controls></audio>
-                <button id="randomTrackButton">Случайный трек</button> <!-- Кнопка случайного трека -->
+                <button class="button">
+                        <img src="path/to/icon.png" alt="Иконка" />
+                        Случайный трек
+                </button>
             </div>
         </div>
     </div>
