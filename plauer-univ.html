@@ -149,7 +149,6 @@
         <div class="header-info">
             <span id="currentCategory">Категорія: Не обрано</span> | 
             <span id="trackCount">Треків: 0</span>
-            <span id="currentTrackInfo"></span> <!-- Информация о текущем треке -->
         </div>
     </header>
 
@@ -175,7 +174,6 @@
 
     <script>
         const loadingIndicator = document.getElementById('loadingIndicator');
-        const currentTrackInfo = document.getElementById('currentTrackInfo');
         const randomTrackButton = document.getElementById('randomTrackButton');
         const categorySelect = document.getElementById('categorySelect');
         const trackList = document.getElementById('trackList');
@@ -261,7 +259,6 @@
 
             currentCategoryElement.textContent = `Категорія: ${currentCategory}`;
             trackCountElement.textContent = `Треків: ${playlists[currentCategory].tracks.length}`;
-            currentTrackInfo.textContent = ''; // Очистить информацию о текущем треке
 
             document.getElementById('categoryImage').src = playlists[currentCategory].imageUrl;
             document.getElementById('categoryImage').alt = currentCategory;
@@ -269,7 +266,6 @@
             playlists[currentCategory].tracks.forEach((track, index) => {
                 let li = document.createElement('li');
                 li.textContent = track.title;
-                li.title = track.url; // Добавить подсказку с URL
                 li.addEventListener('click', () => playTrack(index));
                 trackList.appendChild(li);
             });
@@ -282,9 +278,8 @@
             if (track) {
                 audioPlayer.src = track.url;
                 audioPlayer.play();
-                currentTrackInfo.textContent = `Сейчас играет: ${track.title}`; // Обновить информацию о текущем треке
-                highlightCurrentTrack();
             }
+            highlightCurrentTrack();
         }
 
         function highlightCurrentTrack() {
