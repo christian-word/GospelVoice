@@ -20,6 +20,7 @@
             text-align: center;
             font-size: 24px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: relative; /* Додаємо позицію для абсолютного позиціонування іконки */
         }
 
         header h1 {
@@ -31,6 +32,21 @@
             font-size: 14px;
             color: #ccc;
             margin-top: 5px;
+        }
+
+        .logo {
+            position: absolute; /* Абсолютне позиціонування */
+            left: 20px; /* Відступ від лівого краю */
+            top: 20px; /* Відступ від верхнього краю */
+            width: 40px; /* Ширина іконки */
+            height: 40px; /* Висота іконки */
+            border-radius: 50%; /* Закруглені кути для круглої іконки */
+            overflow: hidden; /* Сховати все, що виходить за межі */
+        }
+
+        .logo img {
+            width: 100%; /* Ширина зображення */
+            height: auto; /* Автоматична висота */
         }
 
         .main-content {
@@ -193,6 +209,9 @@
 </head>
 <body>
     <header>
+        <div class="logo">
+            <img src="https://github.com/ruyriy/Audio-christ/tree/main/ICO/logo.png" alt="Логотип"> <!-- Замість цього URL вставте URL вашої іконки -->
+        </div>
         <h1>Інтерактивний аудіоплеєр</h1>
         <div class="header-info">
             <span id="currentCategory">Альбом : Не обрано</span> | 
