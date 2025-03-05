@@ -20,7 +20,7 @@
             text-align: center;
             font-size: 24px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            position: relative; /* Додаємо позицію для абсолютного позиціонування іконки */
+            position: relative;
         }
 
         header h1 {
@@ -35,18 +35,18 @@
         }
 
         .logo {
-            position: absolute; /* Абсолютне позиціонування */
-            left: 20px; /* Відступ від лівого краю */
-            top: 20px; /* Відступ від верхнього краю */
-            width: 40px; /* Ширина іконки */
-            height: 40px; /* Висота іконки */
-            border-radius: 50%; /* Закруглені кути для круглої іконки */
-            overflow: hidden; /* Сховати все, що виходить за межі */
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
         }
 
         .logo img {
-            width: 100%; /* Ширина зображення */
-            height: auto; /* Автоматична висота */
+            width: 100%;
+            height: auto;
         }
 
         .main-content {
@@ -64,6 +64,13 @@
             font-size: 16px;
             width: 100%;
             box-sizing: border-box;
+            border: 2px solid green; /* Зелена рамка за замовчуванням */
+            border-radius: 5px; /* Закруглені кути */
+        }
+
+        select:focus {
+            border-color: orange; /* Оранжева рамка при виборі */
+            outline: none; /* Прибираємо стандартний контур */
         }
 
         ul {
@@ -131,33 +138,30 @@
             text-decoration: underline;
         }
 
-        /* Оновлений прогресбар */
         .progress-container {
             width: 100%;
-            height: 5px; /* Висота прогресбара */
-            border: 1px solid #000; /* Чорна обводка */
+            height: 5px;
+            border: 1px solid #000;
             border-radius: 5px;
             overflow: hidden;
             margin-top: 20px;
-            cursor: pointer; /* Додаємо курсор для вказівки на можливість взаємодії */
+            cursor: pointer;
         }
 
         .progress-bar {
             height: 100%;
             width: 0;
-            background-color: rgba(0, 0, 0, 0.5); /* Чорний колір заповнення */
+            background-color: rgba(0, 0, 0, 0.5);
             border-radius: 5px;
             transition: width 0.5s;
         }
 
-        /* Таймер */
         .timer {
             font-size: 16px;
             margin-top: 5px;
             text-align: center;
         }
 
-        /* Кнопки управління */
         .controls {
             display: flex;
             justify-content: center;
@@ -165,25 +169,25 @@
         }
 
         .control-button {
-            width: 35px; /* Ширина кнопок */
-            height: 30px; /* Висота кнопок */
-            border: 1px solid #000; /* Чорна обводка */
-            background-color: transparent; /* Прозорий фон */
-            color: #000; /* Чорний колір тексту */
-            font-size: 18px; /* Розмір шрифту */
-            border-radius: 5px; /* Закруглені кути */
-            margin: 0 5px; /* Відступи між кнопками */
-            cursor: pointer; /* Курсор вказує на можливість взаємодії */
-            transition: background-color 0.3s, color 0.3s; /* Анімація при наведенні */
-            display: flex; /* Додаємо флекс для центрування */
-            align-items: center; /* Вертикальне вирівнювання */
-            justify-content: center; /* Горизонтальне вирівнювання */
-            line-height: 1; /* Вирівнювання тексту по вертикалі */
+            width: 35px;
+            height: 30px;
+            border: 1px solid #000;
+            background-color: transparent;
+            color: #000;
+            font-size: 18px;
+            border-radius: 5px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
         }
 
         .control-button:hover {
-            background-color: rgba(0, 0, 0, 0.1); /* Фон при наведенні */
-            color: #fff; /* Колір тексту при наведенні */
+            background-color: rgba(0, 0, 0, 0.1);
+            color: #fff;
         }
 
         @media (min-width: 600px) {
@@ -210,7 +214,7 @@
 <body>
     <header>
         <div class="logo">
-            <img src="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/logo.png" alt="Логотип"> <!-- Замість цього URL вставте URL вашої іконки -->
+            <img src="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/logo.png" alt="Логотип">
         </div>
         <h1>Інтерактивний аудіоплеєр</h1>
         <div class="header-info">
@@ -229,17 +233,14 @@
                 </div>
                 <ul id="trackList"></ul>
 
-                <!-- Оновлений прогресбар -->
                 <div class="progress-container" id="progressContainer">
                     <div class="progress-bar" id="progressBar"></div>
                 </div>
-                <!-- Таймер -->
                 <div class="timer" id="timer">0:00 / 0:00</div>
 
-                <!-- Кнопки управління -->
                 <div class="controls">
                     <button class="control-button" id="prevButton"><<</button>
-                    <button class="control-button" id="playButton">▶</button> <!-- Символ плей -->
+                    <button class="control-button" id="playButton">▶</button>
                     <button class="control-button" id="nextButton">>></button>
                 </div>
 
@@ -374,7 +375,6 @@
             }
         });
 
-        // Оновлення прогресбару та таймера
         audioPlayer.addEventListener('timeupdate', () => {
             const percentage = (audioPlayer.currentTime / audioPlayer.duration) * 100;
             progressBar.style.width = percentage + '%';
@@ -393,16 +393,14 @@
             return `${minutes}:${secs < 10 ? '0' + secs : secs}`;
         }
 
-        // Керування прогресбаром
         progressContainer.addEventListener('click', (event) => {
             const rect = progressContainer.getBoundingClientRect();
-            const offsetX = event.clientX - rect.left; // Відстань від лівого краю контейнера
-            const width = rect.width; // Ширина контейнера
-            const percentage = offsetX / width; // Відсоток
-            audioPlayer.currentTime = percentage * audioPlayer.duration; // Встановлюємо новий час відтворення
+            const offsetX = event.clientX - rect.left;
+            const width = rect.width;
+            const percentage = offsetX / width;
+            audioPlayer.currentTime = percentage * audioPlayer.duration;
         });
 
-        // Кнопки управління
         playButton.addEventListener('click', () => {
             if (audioPlayer.paused) {
                 audioPlayer.play();
@@ -424,9 +422,9 @@
 
         function updatePlayPauseButton() {
             if (audioPlayer.paused) {
-                playButton.textContent = '▶'; // Символ плей
+                playButton.textContent = '▶';
             } else {
-                playButton.textContent = '||'; // Символ пауза
+                playButton.textContent = '||';
             }
         }
     </script>
