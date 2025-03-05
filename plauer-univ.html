@@ -220,7 +220,7 @@
                 <!-- Кнопки управління -->
                 <div class="controls">
                     <button class="control-button" id="prevButton"><<</button>
-                    <button class="control-button" id="playButton">||</button>
+                    <button class="control-button" id="playButton">▶</button> <!-- Символ плей -->
                     <button class="control-button" id="nextButton">>></button>
                 </div>
 
@@ -338,6 +338,7 @@
                 audioPlayer.src = track.url;
                 audioPlayer.play();
                 highlightCurrentTrack();
+                updatePlayPauseButton();
             }
         }
 
@@ -389,6 +390,7 @@
             } else {
                 audioPlayer.pause();
             }
+            updatePlayPauseButton();
         });
 
         prevButton.addEventListener('click', () => {
@@ -400,6 +402,14 @@
             currentTrackIndex = Math.min(playlists[currentCategory].tracks.length - 1, currentTrackIndex + 1);
             playTrack(currentTrackIndex);
         });
+
+        function updatePlayPauseButton() {
+            if (audioPlayer.paused) {
+                playButton.textContent = '▶'; // Символ плей
+            } else {
+                playButton.textContent = '||'; // Символ пауза
+            }
+        }
     </script>
 </body>
 </html>
