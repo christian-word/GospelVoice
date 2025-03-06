@@ -277,14 +277,21 @@
         let currentTrackIndex = 0;
         let currentCategory = '';
 
-        window.addEventListener('beforeunload', () => {
-            audioPlayer.pause();
-            audioPlayer.src = '';
-        });
+        // Web Audio API
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        let source;
 
-        window.addEventListener('pagehide', () => {
-            audioPlayer.pause();
-            audioPlayer.src = '';
+        // Page Visibility API
+        document.addEventListener("visibilitychange", () => {
+            if (document.visibilityState === "visible") {
+                // Страница снова видима, можно возобновить воспроизведение
+                if (!audioPlayer.paused) {
+                    audioPlayer.play();
+                }
+            } else {
+                // Страница невидима, можно приостановить воспроизведение
+                audioPlayer.pause();
+            }
         });
 
         function loadPlaylist(url) {
@@ -405,10 +412,10 @@
         // Керування прогресбаром
         progressContainer.addEventListener('click', (event) => {
             const rect = progressContainer.getBoundingClientRect();
-            const offsetX = event.clientX - rect.left; // Відстань від лівого краю контейнера
-            const width = rect.width; // Ширина контейнера
-            const percentage = offsetX / width; // Відсоток
-            audioPlayer.currentTime = percentage * audioPlayer.duration; // Встановлюємо новий час відтворення
+            const offsetX = event.clientX - rect.left;
+            const width = rect.width;
+            const percentage = offsetX / width;
+            audioPlayer.currentTime = percentage * audioPlayer.duration;
         });
 
         // Кнопки управління
@@ -433,9 +440,9 @@
 
         function updatePlayPauseButton() {
             if (audioPlayer.paused) {
-                playButton.textContent = '▶'; // Символ плей
+                playButton.textContent = '▶';
             } else {
-                playButton.textContent = '||'; // Символ пауза
+                playButton.textContent = '||';
             }
         }
     </script>
