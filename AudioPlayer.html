@@ -178,6 +178,18 @@
             box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
         }
 
+        #categoryImageContainer {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #categoryImage {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            display: none;
+        }
+
         @media (max-width: 600px) {
             .container {
                 max-width: 100%;
@@ -246,6 +258,10 @@
         <select id="categorySelect" onchange="selectCategory(this.value)">
             <option value="">Оберіть категорію</option>
         </select>
+        <!-- Блок для фото категорії -->
+        <div id="categoryImageContainer">
+            <img id="categoryImage" src="" alt="Фото категорії">
+        </div>
         <div id="playlist"></div>
 
         <!-- Плеер, кнопки и прогресс-бар перемещены вниз -->
@@ -318,12 +334,16 @@
                     if (line.trim() === "") return;
 
                     if (line.startsWith("Категорія:")) {
-                        currentCategory = line.replace("Категорія:", "").trim();
-                        categories[currentCategory] = [];
+                        const [categoryName, imageUrl] = line.replace("Категорія:", "").split(';');
+                        currentCategory = categoryName.trim();
+                        categories[currentCategory] = {
+                            image: imageUrl ? imageUrl.trim() : null, // Зберігаємо фото категорії
+                            tracks: []
+                        };
                     } else if (currentCategory) {
                         const [title, url] = line.split(';');
                         if (title && url) {
-                            categories[currentCategory].push({ title: title.trim(), url: url.trim() });
+                            categories[currentCategory].tracks.push({ title: title.trim(), url: url.trim() });
                         }
                     }
                 });
@@ -371,11 +391,20 @@
 
         function selectCategory(category) {
             currentCategory = category;
+            const categoryImage = document.getElementById("categoryImage");
+
+            if (categories[category].image) {
+                categoryImage.src = categories[category].image;
+                categoryImage.style.display = "block"; // Показуємо фото
+            } else {
+                categoryImage.style.display = "none"; // Ховаємо фото, якщо його немає
+            }
+
             renderPlaylist(category);
         }
 
         function renderPlaylist(category) {
-            const tracks = categories[category];
+            const tracks = categories[category].tracks;
             if (tracks && tracks.length > 0) {
                 playlistElement.innerHTML = tracks.map((track, index) => `
                     <div class="track">
@@ -389,7 +418,7 @@
         }
 
         function playTrack(index, category) {
-            const tracks = categories[category];
+            const tracks = categories[category].tracks;
             if (index >= tracks.length) index = 0;
             currentTrack = index;
 
@@ -428,7 +457,7 @@
         });
 
         function playNextTrack() {
-            const tracks = categories[currentCategory];
+            const tracks = categories[currentCategory].tracks;
             if (tracks && tracks.length > 0) {
                 currentTrack = (currentTrack + 1) % tracks.length;
                 playTrack(currentTrack, currentCategory);
@@ -436,7 +465,7 @@
         }
 
         function playPrevTrack() {
-            const tracks = categories[currentCategory];
+            const tracks = categories[currentCategory].tracks;
             if (tracks && tracks.length > 0) {
                 currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
                 playTrack(currentTrack, currentCategory);
