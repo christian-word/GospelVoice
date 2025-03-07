@@ -274,7 +274,7 @@ header h3 {
         </select>
         <div id="playlist"></div>
 
-        <!-- Плеер, кнопки и прогресс-бар перемещены вниз -->
+        <!-- Плеер, кнопки та прогресс-бар -->
         <div class="controls">
             <button onclick="playPrevTrack()"><i class="fas fa-backward"></i></button>
             <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
@@ -324,15 +324,32 @@ header h3 {
         let categories = {};
         let currentCategory = null;
 
+        // Функція для перетворення звичайного YouTube-посилання на посилання для вбудовування
+        function convertToEmbedUrl(url) {
+            if (url.includes("youtu.be")) {
+                const videoId = url.split("/").pop();
+                return `https://www.youtube.com/embed/${videoId}`;
+            } else if (url.includes("v=")) {
+                const videoId = url.split("v=")[1].split("&")[0];
+                return `https://www.youtube.com/embed/${videoId}`;
+            } else if (url.includes("embed")) {
+                return url;
+            }
+            return null;
+        }
+
+        // Функція для отримання імені плейлиста з URL
         function getPlaylistNameFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get('playlist') || 'playlist.txt';
         }
 
+        // Показуємо індикатор завантаження перед завантаженням плейлиста
         document.addEventListener("DOMContentLoaded", () => {
             playlistElement.innerHTML = '<div id="loading" style="text-align:center; padding: 20px;"><i class="fas fa-spinner fa-spin" style="font-size: 24px; color: var(--primary-color);"></i></div>';
         });
 
+        // Функція для оновлення інформації про альбом
         function updateAlbumInfo(category) {
             const albumNameElement = document.getElementById("albumName");
             const trackCountElement = document.getElementById("trackCount");
@@ -346,6 +363,7 @@ header h3 {
             }
         }
 
+        // Завантаження плейлиста
         async function loadPlaylist() {
             const playlistName = getPlaylistNameFromURL();
             try {
@@ -409,6 +427,7 @@ header h3 {
             }
         }
 
+        // Відображення меню категорій
         function renderCategoryMenu() {
             const categoryKeys = Object.keys(categories);
             const categorySelect = document.getElementById("categorySelect");
@@ -432,6 +451,7 @@ header h3 {
             }
         }
 
+        // Вибір категорії
         function selectCategory(category) {
             currentCategory = category;
             const categoryImage = document.getElementById("categoryImage");
@@ -447,6 +467,7 @@ header h3 {
             updateAlbumInfo(category);
         }
 
+        // Відображення плейлиста
         function renderPlaylist(category) {
             const tracks = categories[category].tracks;
             if (tracks && tracks.length > 0) {
@@ -472,6 +493,7 @@ header h3 {
             }
         }
 
+        // Відтворення треку
         function playTrack(index, category) {
             const tracks = categories[category].tracks;
             if (index >= tracks.length) index = 0;
@@ -501,7 +523,8 @@ header h3 {
                 audioPlayer.pause();
                 audioPlayer.style.display = "none";
                 videoPlayerContainer.style.display = "block";
-                videoPlayer.src = track.url;
+                const embedUrl = convertToEmbedUrl(track.url);
+                videoPlayer.src = embedUrl;
             } else {
                 videoPlayerContainer.style.display = "none";
                 audioPlayer.style.display = "block";
@@ -512,6 +535,7 @@ header h3 {
             document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
         }
 
+        // Обробник кліку на трек
         playlistElement.addEventListener("click", (e) => {
             if (e.target.tagName === "A") {
                 e.preventDefault();
@@ -524,6 +548,7 @@ header h3 {
             }
         });
 
+        // Відтворення наступного треку
         function playNextTrack() {
             const tracks = categories[currentCategory].tracks;
             if (tracks && tracks.length > 0) {
@@ -532,6 +557,7 @@ header h3 {
             }
         }
 
+        // Відтворення попереднього треку
         function playPrevTrack() {
             const tracks = categories[currentCategory].tracks;
             if (tracks && tracks.length > 0) {
@@ -540,6 +566,7 @@ header h3 {
             }
         }
 
+        // Перемикання між відтворенням та паузою
         function togglePlayPause() {
             if (audioPlayer.paused) {
                 audioPlayer.play();
@@ -552,6 +579,7 @@ header h3 {
             }
         }
 
+        // Оновлення прогресс-бара та часу
         audioPlayer.addEventListener("timeupdate", () => {
             const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
             progressBar.style.width = `${progress}%`;
@@ -560,6 +588,7 @@ header h3 {
             durationDisplay.textContent = formatTime(audioPlayer.duration);
         });
 
+        // Перемотка при кліку на прогресс-бар
         progressBar.parentElement.addEventListener("click", (e) => {
             const rect = progressBar.parentElement.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
@@ -568,12 +597,14 @@ header h3 {
             audioPlayer.currentTime = seekTime;
         });
 
+        // Форматування часу у хвилини:секунди
         function formatTime(seconds) {
             const mins = Math.floor(seconds / 60);
             const secs = Math.floor(seconds % 60);
             return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
         }
 
+        // Обробники подій для аудіоплеєра
         audioPlayer.addEventListener("ended", () => {
             playNextTrack();
         });
@@ -582,7 +613,17 @@ header h3 {
             alert("Не вдалося завантажити аудіофайл. Спробуйте ще раз.");
         });
 
+        // Завантаження плейлиста при завантаженні сторінки
         window.onload = loadPlaylist;
     </script>
 </body>
 </html>
+    
+    
+    
+    
+    
+    
+    
+
+   
