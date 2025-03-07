@@ -262,17 +262,18 @@ header h3 {
     </header>
 
     <div class="container">
+          <!-- Блок для фото категорії -->
+        <div id="categoryImageContainer">
+            <img id="categoryImage" src="" alt="Фото категорії">
+        </div>
         <select id="categorySelect" onchange="selectCategory(this.value)">
-            <option value="">Оберіть категорію</option>
+            <option value="">Оберіть Альбом</option>
         </select>
         <!-- Блок для інформації про альбом -->
         <div id="albumInfo">
             Альбом: <span id="albumName">Не обрано</span> | Треків: <span id="trackCount">0</span>
         </div>
-        <!-- Блок для фото категорії -->
-        <div id="categoryImageContainer">
-            <img id="categoryImage" src="" alt="Фото категорії">
-        </div>
+
         <div id="playlist"></div>
 
         <!-- Плеер, кнопки и прогресс-бар перемещены вниз -->
