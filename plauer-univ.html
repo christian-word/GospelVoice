@@ -247,18 +247,18 @@
                 <div class="timer" id="timer">0:00 / 0:00</div>
 
                 <div class="controls">
-                    <button class="control-button" id="prevButton" title="Предыдущий трек">⏮</button>
-                    <button class="control-button" id="playButton" title="Воспроизвести/Пауза">▶</button>
-                    <button class="control-button" id="nextButton" title="Следующий трек">⏭</button>
+                    <button class="control-button" id="prevButton" title="Попередній трек">⏮</button>
+                    <button class="control-button" id="playButton" title="Відтворити/Пауза">▶</button>
+                    <button class="control-button" id="nextButton" title="Наступний трек">⏭</button>
                 </div>
 
-                <audio id="audioPlayer" controls></audio>
+                <audio id="audioPlayer" controls playsinline></audio>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>Версія 2005 | &copy; 2005 Інтерактивний аудіоплеєр | <a href="#">Web Audio API</a></p>
+        <p>Версія 2005 | &copy; 2005 Інтерактивний аудіоплеєр | <a href="#">Політика конфіденційності</a></p>
     </footer>
 
     <script>
@@ -277,30 +277,13 @@
         let currentTrackIndex = 0;
         let currentCategory = '';
 
-        // Web Audio API
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        let source;
-
-        // Page Visibility API
-        document.addEventListener("visibilitychange", () => {
-            if (document.visibilityState === "visible") {
-                // Страница снова видима, можно возобновить воспроизведение
-                if (!audioPlayer.paused) {
-                    audioPlayer.play();
-                }
-            } else {
-                // Страница невидима, можно приостановить воспроизведение
-                audioPlayer.pause();
-            }
-        });
-
         function loadPlaylist(url) {
             if (!url) return;
             url = url.replace("www.dropbox.com", "dl.dropboxusercontent.com");
             fetch(url)
                 .then(response => response.text())
                 .then(text => parsePlaylist(text))
-                .catch(error => console.error("Ошибка загрузки:", error));
+                .catch(error => console.error("Помилка завантаження:", error));
         }
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -390,7 +373,6 @@
             }
         });
 
-        // Оновлення прогресбару та таймера
         audioPlayer.addEventListener('timeupdate', () => {
             const percentage = (audioPlayer.currentTime / audioPlayer.duration) * 100;
             progressBar.style.width = percentage + '%';
@@ -409,7 +391,6 @@
             return `${minutes}:${secs < 10 ? '0' + secs : secs}`;
         }
 
-        // Керування прогресбаром
         progressContainer.addEventListener('click', (event) => {
             const rect = progressContainer.getBoundingClientRect();
             const offsetX = event.clientX - rect.left;
@@ -418,7 +399,6 @@
             audioPlayer.currentTime = percentage * audioPlayer.duration;
         });
 
-        // Кнопки управління
         playButton.addEventListener('click', () => {
             if (audioPlayer.paused) {
                 audioPlayer.play();
