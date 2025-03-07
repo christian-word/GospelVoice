@@ -6,258 +6,255 @@
     <title>Аудіо Плеєр</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-  :root {
-    --primary-color: #007bff;
-    --hover-color: #0056b3;
-    --background-color: #f4f4f4;
-    --track-hover-color: #e9f5ff;
-    --playing-color: #d0ebff;
-    --icon-size: 24px;
-    --header-text-color: #ffffff; /* Білий колір тексту */
-    --button-color: #28a745;
-    --button-hover-color: #218838;
-}
+        :root {
+            --primary-color: #007bff;
+            --hover-color: #0056b3;
+            --background-color: #f4f4f4;
+            --track-hover-color: #e9f5ff;
+            --playing-color: #d0ebff;
+            --icon-size: 24px;
+            --header-text-color: #ffffff; /* Білий колір тексту */
+            --button-color: #28a745;
+            --button-hover-color: #218838;
+        }
 
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: var(--background-color);
-    margin: 0;
-    padding: 0;
-}
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+        }
 
-header {
-    background: #000000; /* Чорний колір */
-    color: var(--header-text-color);
-    padding: 20px 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+        header {
+            background: #000000; /* Чорний колір */
+            color: var(--header-text-color);
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-header h1 {
-    margin: 0;
-    font-size: 2.5em;
-}
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
 
-header h3 {
-    margin: 5px 0;
-    font-size: 1.2em;
-}
+        header h3 {
+            margin: 5px 0;
+            font-size: 1.2em;
+        }
 
-.container {
-    max-width: 800px;
-    width: 100%;
-    margin: 20px auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-}
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
 
-.track {
-    display: flex;
-    align-items: center;
-    margin: 5px 0;
-    padding: 8px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-align: left;
-}
+        .track {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: left;
+        }
 
-.track:hover {
-    background-color: var(--track-hover-color);
-}
+        .track:hover {
+            background-color: var(--track-hover-color);
+        }
 
-.track a {
-    text-decoration: none;
-    color: var(--primary-color);
-    font-size: 18px;
-    margin-left: 8px;
-    transition: color 0.3s ease;
-    flex-grow: 1;
-}
+        .track a {
+            text-decoration: none;
+            color: #000000; /* Чорний колір тексту */
+            font-size: 18px;
+            margin-left: 8px;
+            transition: color 0.3s ease;
+            flex-grow: 1;
+        }
 
-.track a:hover {
-    color: var(--hover-color);
-}
+        .track a:hover {
+            color: var(--hover-color);
+        }
 
-.track i {
-    font-size: 14px;
-    color: var(--primary-color);
-    transition: color 0.3s ease;
-}
+        .track i {
+            font-size: 14px;
+            color: var(--primary-color);
+            transition: color 0.3s ease;
+        }
 
-.playing {
-    background-color: var(--playing-color);
-    font-weight: bold;
-}
+        .playing {
+            background-color: var(--playing-color);
+            font-weight: bold;
+        }
 
-.playing a {
-    color: var(--hover-color);
-}
+        .playing a {
+            color: var(--hover-color);
+        }
 
-.playing i {
-    color: var(--hover-color);
-}
+        .playing i {
+            color: var(--hover-color);
+        }
 
-.controls {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
 
-.controls button {
-    background-color: var(--button-color);
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        .controls button {
+            background-color: var(--button-color);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.controls button:hover {
-    background-color: var(--button-hover-color);
-}
+        .controls button:hover {
+            background-color: var(--button-hover-color);
+        }
 
-.controls button i {
-    font-size: 16px;
-}
+        .controls button i {
+            font-size: 16px;
+        }
 
-.progress-container {
-    width: 100%;
-    height: 5px;
-    background-color: #ddd;
-    margin-top: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-}
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background-color: #ddd;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
-.progress-bar {
-    height: 100%;
-    background-color: var(--primary-color);
-    width: 0%;
-    border-radius: 5px;
-    transition: width 0.1s ease;
-}
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+            border-radius: 5px;
+            transition: width 0.1s ease;
+        }
 
-.time-display {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5px;
-    font-size: 14px;
-    color: #555;
-}
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 14px;
+            color: #555;
+        }
 
-#categorySelect {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid var(--primary-color);
-    background-color: white;
-    color: var(--primary-color);
-    font-size: 16px;
-    margin-bottom: 20px;
-    cursor: pointer;
-}
+        #categorySelect {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--primary-color);
+            background-color: white;
+            color: var(--primary-color);
+            font-size: 16px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
 
-#categorySelect:hover {
-    border-color: var(--hover-color);
-}
+        #categorySelect:hover {
+            border-color: var(--hover-color);
+        }
 
-#categorySelect:focus {
-    outline: none;
-    border-color: var(--hover-color);
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
+        #categorySelect:focus {
+            outline: none;
+            border-color: var(--hover-color);
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
 
-#categoryImageContainer {
-    text-align: center;
-    margin-bottom: 20px;
-}
+        #categoryImageContainer {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-#categoryImage {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    display: none;
-}
+        #categoryImage {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            display: none;
+        }
 
-#albumInfo {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 18px;
-    color: var(--primary-color);
-}
+        .album-info {
+            font-size: 14px; /* Уменьшенный размер шрифта */
+            color: #000000; /* Чёрный цвет текста */
+        }
 
-@media (max-width: 600px) {
-    .container {
-        max-width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-        border-radius: 0;
-    }
+        @media (max-width: 600px) {
+            .container {
+                max-width: 100%;
+                padding: 10px;
+                margin: 10px 0;
+                border-radius: 0;
+            }
 
-    .track {
-        padding: 8px;
-    }
+            .track {
+                padding: 8px;
+            }
 
-    .track a {
-        font-size: 16px;
-    }
+            .track a {
+                font-size: 16px;
+            }
 
-    header h1 {
-        font-size: 2em;
-    }
+            header h1 {
+                font-size: 2em;
+            }
 
-    header h3 {
-        font-size: 1em;
-    }
-}
+            header h3 {
+                font-size: 1em;
+            }
+        }
 
-.social-icons {
-    margin-top: 10px;
-}
+        .social-icons {
+            margin-top: 10px;
+        }
 
-.social-icons a {
-    text-decoration: none;
-    margin: 0 10px;
-    font-size: 24px;
-    transition: opacity 0.3s ease;
-}
+        .social-icons a {
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 24px;
+            transition: opacity 0.3s ease;
+        }
 
-.social-icons a:hover {
-    opacity: 0.8;
-}
+        .social-icons a:hover {
+            opacity: 0.8;
+        }
 
-.social-icons .fa-youtube {
-    color: #ff0000;
-}
+        .social-icons .fa-youtube {
+            color: #ff0000;
+        }
 
-.social-icons .fa-facebook {
-    color: #1877f2;
-}
+        .social-icons .fa-facebook {
+            color: #1877f2;
+        }
 
-.social-icons .fa-instagram {
-    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
+        .social-icons .fa-instagram {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Інтерактивний аудіоплеєр</h1>
         <h3>Збірка (церква ЄХБ "Дім Євангелія")</h3>
-
     </header>
 
     <div class="container">
@@ -265,8 +262,8 @@ header h3 {
         <div id="categoryImageContainer">
             <img id="categoryImage" src="" alt="Фото категорії">
         </div>
-           <!-- Блок для інформації про альбом -->
-        <div id="albumInfo">
+        <!-- Блок для інформації про альбом -->
+        <div id="albumInfo" class="album-info">
             Альбом: <span id="albumName">Не обрано</span> | Треків: <span id="trackCount">0</span>
         </div>
 
@@ -312,262 +309,262 @@ header h3 {
     </footer>
 
     <script>
-let audioPlayer = document.getElementById("audioPlayer");
-let playlistElement = document.getElementById("playlist");
-let progressBar = document.getElementById("progressBar");
-let currentTimeDisplay = document.getElementById("currentTime");
-let durationDisplay = document.getElementById("duration");
-let currentTrack = 0;
-let categories = {};
-let currentCategory = null;
+        let audioPlayer = document.getElementById("audioPlayer");
+        let playlistElement = document.getElementById("playlist");
+        let progressBar = document.getElementById("progressBar");
+        let currentTimeDisplay = document.getElementById("currentTime");
+        let durationDisplay = document.getElementById("duration");
+        let currentTrack = 0;
+        let categories = {};
+        let currentCategory = null;
 
-// Функція для отримання імені плейлиста з URL
-function getPlaylistNameFromURL() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('playlist') || 'playlist.txt';
-}
-
-// Показуємо індикатор завантаження перед завантаженням плейлиста
-document.addEventListener("DOMContentLoaded", () => {
-    playlistElement.innerHTML = '<div id="loading" style="text-align:center; padding: 20px;"><i class="fas fa-spinner fa-spin" style="font-size: 24px; color: var(--primary-color);"></i></div>';
-});
-
-// Функція для оновлення інформації про альбом
-function updateAlbumInfo(category) {
-    const albumNameElement = document.getElementById("albumName");
-    const trackCountElement = document.getElementById("trackCount");
-
-    if (category && categories[category]) {
-        albumNameElement.textContent = category;
-        trackCountElement.textContent = categories[category].tracks.length;
-    } else {
-        albumNameElement.textContent = "Не обрано";
-        trackCountElement.textContent = 0;
-    }
-}
-
-async function loadPlaylist() {
-    const playlistName = getPlaylistNameFromURL();
-    try {
-        const response = await fetch(playlistName);
-        if (!response.ok) {
-            throw new Error(`Помилка завантаження: ${response.status} ${response.statusText}`);
+        // Функція для отримання імені плейлиста з URL
+        function getPlaylistNameFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('playlist') || 'playlist.txt';
         }
-        const text = await response.text();
-        const lines = text.split('\n');
 
-        lines.forEach((line) => {
-            if (line.trim() === "") return;
+        // Показуємо індикатор завантаження перед завантаженням плейлиста
+        document.addEventListener("DOMContentLoaded", () => {
+            playlistElement.innerHTML = '<div id="loading" style="text-align:center; padding: 20px;"><i class="fas fa-spinner fa-spin" style="font-size: 24px; color: var(--primary-color);"></i></div>';
+        });
 
-            if (line.startsWith("Категорія:")) {
-                const [categoryName, imageUrl] = line.replace("Категорія:", "").split(';');
-                currentCategory = categoryName.trim();
-                categories[currentCategory] = {
-                    image: imageUrl ? imageUrl.trim() : null, // Зберігаємо фото категорії
-                    tracks: []
-                };
-            } else if (currentCategory) {
-                const [title, url] = line.split(';');
-                if (title && url) {
-                    categories[currentCategory].tracks.push({ title: title.trim(), url: url.trim() });
+        // Функція для оновлення інформації про альбом
+        function updateAlbumInfo(category) {
+            const albumNameElement = document.getElementById("albumName");
+            const trackCountElement = document.getElementById("trackCount");
+
+            if (category && categories[category]) {
+                albumNameElement.textContent = category;
+                trackCountElement.textContent = categories[category].tracks.length;
+            } else {
+                albumNameElement.textContent = "Не обрано";
+                trackCountElement.textContent = 0;
+            }
+        }
+
+        async function loadPlaylist() {
+            const playlistName = getPlaylistNameFromURL();
+            try {
+                const response = await fetch(playlistName);
+                if (!response.ok) {
+                    throw new Error(`Помилка завантаження: ${response.status} ${response.statusText}`);
+                }
+                const text = await response.text();
+                const lines = text.split('\n');
+
+                lines.forEach((line) => {
+                    if (line.trim() === "") return;
+
+                    if (line.startsWith("Категорія:")) {
+                        const [categoryName, imageUrl] = line.replace("Категорія:", "").split(';');
+                        currentCategory = categoryName.trim();
+                        categories[currentCategory] = {
+                            image: imageUrl ? imageUrl.trim() : null, // Зберігаємо фото категорії
+                            tracks: []
+                        };
+                    } else if (currentCategory) {
+                        const [title, url] = line.split(';');
+                        if (title && url) {
+                            categories[currentCategory].tracks.push({ title: title.trim(), url: url.trim() });
+                        }
+                    }
+                });
+
+                renderCategoryMenu();
+
+                if (Object.keys(categories).length === 1) {
+                    currentCategory = Object.keys(categories)[0];
+                    renderPlaylist(currentCategory);
+                    // Підвантажуємо фото для першої категорії
+                    const categoryImage = document.getElementById("categoryImage");
+                    if (categories[currentCategory].image) {
+                        categoryImage.src = categories[currentCategory].image;
+                        categoryImage.style.display = "block"; // Показуємо фото
+                    } else {
+                        categoryImage.style.display = "none"; // Ховаємо фото, якщо його немає
+                    }
+                    updateAlbumInfo(currentCategory); // Оновлюємо інформацію про альбом
+                } else if (Object.keys(categories).length > 1) {
+                    currentCategory = Object.keys(categories)[0];
+                    renderPlaylist(currentCategory);
+                    // Підвантажуємо фото для першої категорії
+                    const categoryImage = document.getElementById("categoryImage");
+                    if (categories[currentCategory].image) {
+                        categoryImage.src = categories[currentCategory].image;
+                        categoryImage.style.display = "block"; // Показуємо фото
+                    } else {
+                        categoryImage.style.display = "none"; // Ховаємо фото, якщо його немає
+                    }
+                    updateAlbumInfo(currentCategory); // Оновлюємо інформацію про альбом
+                } else {
+                    playlistElement.innerHTML = '<p style="color: red; text-align: center;">Плейлист порожній або невірно сформований.</p>';
+                    updateAlbumInfo(null); // Оновлюємо інформацію про альбом
+                }
+            } catch (error) {
+                console.error('Помилка завантаження плейлиста:', error);
+                playlistElement.innerHTML = '<p style="color: red; text-align: center;">Не вдалося завантажити плейлист</p>';
+                updateAlbumInfo(null); // Оновлюємо інформацію про альбом
+            }
+        }
+
+        function renderCategoryMenu() {
+            const categoryKeys = Object.keys(categories);
+            const categorySelect = document.getElementById("categorySelect");
+            categorySelect.innerHTML = '<option value="">Оберіть категорію</option>';
+
+            if (categoryKeys.length > 0) {
+                categoryKeys.forEach(category => {
+                    const option = document.createElement("option");
+                    option.value = category;
+                    option.textContent = category;
+                    categorySelect.appendChild(option);
+                });
+
+                // Автоматично вибираємо першу категорію, якщо вона є
+                if (categoryKeys.length === 1) {
+                    currentCategory = categoryKeys[0];
+                    categorySelect.value = currentCategory;
+                    renderPlaylist(currentCategory);
+                }
+            } else {
+                categorySelect.innerHTML = '<option value="">Немає категорій</option>';
+            }
+        }
+
+        function selectCategory(category) {
+            currentCategory = category;
+            const categoryImage = document.getElementById("categoryImage");
+
+            if (categories[category].image) {
+                categoryImage.src = categories[category].image;
+                categoryImage.style.display = "block"; // Показуємо фото
+            } else {
+                categoryImage.style.display = "none"; // Ховаємо фото, якщо його немає
+            }
+
+            renderPlaylist(category);
+            updateAlbumInfo(category); // Оновлюємо інформацію про альбом
+        }
+
+        function renderPlaylist(category) {
+            const tracks = categories[category].tracks;
+            if (tracks && tracks.length > 0) {
+                playlistElement.innerHTML = tracks.map((track, index) => `
+                    <div class="track">
+                        <i class="fas fa-music"></i>
+                        <a href="#" data-src="${track.url}">${track.title}</a>
+                    </div>
+                `).join('');
+            } else {
+                playlistElement.innerHTML = '<p style="color: red; text-align: center;">Немає треків у цій категорії.</p>';
+            }
+        }
+
+        function playTrack(index, category) {
+            const tracks = categories[category].tracks;
+            if (index >= tracks.length) index = 0;
+            currentTrack = index;
+
+            const trackElements = document.querySelectorAll("#playlist .track");
+            const icons = document.querySelectorAll("#playlist i");
+
+            trackElements.forEach((track, i) => {
+                if (i === index) {
+                    track.classList.add("playing");
+                    icons[i].classList.remove("fa-music");
+                    icons[i].classList.add("fa-pause");
+                } else {
+                    track.classList.remove("playing");
+                    icons[i].classList.remove("fa-pause");
+                    icons[i].classList.add("fa-music");
+                }
+            });
+
+            audioPlayer.src = tracks[index].url;
+            audioPlayer.play();
+            document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
+            document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
+        }
+
+        // Обработчик клика на уровне плейлиста
+        playlistElement.addEventListener("click", (e) => {
+            if (e.target.tagName === "A") {
+                e.preventDefault(); // Отменяем действие по умолчанию
+                const trackElement = e.target.closest(".track");
+                if (trackElement) {
+                    const index = Array.from(trackElement.parentElement.children).indexOf(trackElement);
+                    const category = currentCategory;
+                    playTrack(index, category);
                 }
             }
         });
 
-        renderCategoryMenu();
-
-        if (Object.keys(categories).length === 1) {
-            currentCategory = Object.keys(categories)[0];
-            renderPlaylist(currentCategory);
-            // Підвантажуємо фото для першої категорії
-            const categoryImage = document.getElementById("categoryImage");
-            if (categories[currentCategory].image) {
-                categoryImage.src = categories[currentCategory].image;
-                categoryImage.style.display = "block"; // Показуємо фото
-            } else {
-                categoryImage.style.display = "none"; // Ховаємо фото, якщо його немає
+        function playNextTrack() {
+            const tracks = categories[currentCategory].tracks;
+            if (tracks && tracks.length > 0) {
+                currentTrack = (currentTrack + 1) % tracks.length;
+                playTrack(currentTrack, currentCategory);
             }
-            updateAlbumInfo(currentCategory); // Оновлюємо інформацію про альбом
-        } else if (Object.keys(categories).length > 1) {
-            currentCategory = Object.keys(categories)[0];
-            renderPlaylist(currentCategory);
-            // Підвантажуємо фото для першої категорії
-            const categoryImage = document.getElementById("categoryImage");
-            if (categories[currentCategory].image) {
-                categoryImage.src = categories[currentCategory].image;
-                categoryImage.style.display = "block"; // Показуємо фото
-            } else {
-                categoryImage.style.display = "none"; // Ховаємо фото, якщо його немає
-            }
-            updateAlbumInfo(currentCategory); // Оновлюємо інформацію про альбом
-        } else {
-            playlistElement.innerHTML = '<p style="color: red; text-align: center;">Плейлист порожній або невірно сформований.</p>';
-            updateAlbumInfo(null); // Оновлюємо інформацію про альбом
         }
-    } catch (error) {
-        console.error('Помилка завантаження плейлиста:', error);
-        playlistElement.innerHTML = '<p style="color: red; text-align: center;">Не вдалося завантажити плейлист</p>';
-        updateAlbumInfo(null); // Оновлюємо інформацію про альбом
-    }
-}
 
-function renderCategoryMenu() {
-    const categoryKeys = Object.keys(categories);
-    const categorySelect = document.getElementById("categorySelect");
-    categorySelect.innerHTML = '<option value="">Оберіть категорію</option>';
+        function playPrevTrack() {
+            const tracks = categories[currentCategory].tracks;
+            if (tracks && tracks.length > 0) {
+                currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+                playTrack(currentTrack, currentCategory);
+            }
+        }
 
-    if (categoryKeys.length > 0) {
-        categoryKeys.forEach(category => {
-            const option = document.createElement("option");
-            option.value = category;
-            option.textContent = category;
-            categorySelect.appendChild(option);
+        function togglePlayPause() {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
+                document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
+            } else {
+                audioPlayer.pause();
+                document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-pause");
+                document.querySelector(".controls button:nth-child(2) i").classList.add("fa-play");
+            }
+        }
+
+        // Оновлення прогресс-бара та часу
+        audioPlayer.addEventListener("timeupdate", () => {
+            const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            // Оновлення часу
+            currentTimeDisplay.textContent = formatTime(audioPlayer.currentTime);
+            durationDisplay.textContent = formatTime(audioPlayer.duration);
         });
 
-        // Автоматично вибираємо першу категорію, якщо вона є
-        if (categoryKeys.length === 1) {
-            currentCategory = categoryKeys[0];
-            categorySelect.value = currentCategory;
-            renderPlaylist(currentCategory);
+        // Перемотка при кліку на прогресс-бар
+        progressBar.parentElement.addEventListener("click", (e) => {
+            const rect = progressBar.parentElement.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const width = rect.width;
+            const seekTime = (clickX / width) * audioPlayer.duration;
+            audioPlayer.currentTime = seekTime;
+        });
+
+        // Форматування часу у хвилини:секунди
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
         }
-    } else {
-        categorySelect.innerHTML = '<option value="">Немає категорій</option>';
-    }
-}
 
-function selectCategory(category) {
-    currentCategory = category;
-    const categoryImage = document.getElementById("categoryImage");
+        // Обробники подій для аудіоплеєра
+        audioPlayer.addEventListener("ended", () => {
+            playNextTrack();
+        });
 
-    if (categories[category].image) {
-        categoryImage.src = categories[category].image;
-        categoryImage.style.display = "block"; // Показуємо фото
-    } else {
-        categoryImage.style.display = "none"; // Ховаємо фото, якщо його немає
-    }
+        audioPlayer.addEventListener("error", () => {
+            alert("Не вдалося завантажити аудіофайл. Спробуйте ще раз.");
+        });
 
-    renderPlaylist(category);
-    updateAlbumInfo(category); // Оновлюємо інформацію про альбом
-}
-
-function renderPlaylist(category) {
-    const tracks = categories[category].tracks;
-    if (tracks && tracks.length > 0) {
-        playlistElement.innerHTML = tracks.map((track, index) => `
-            <div class="track">
-                <i class="fas fa-music"></i>
-                <a href="#" data-src="${track.url}">${track.title}</a>
-            </div>
-        `).join('');
-    } else {
-        playlistElement.innerHTML = '<p style="color: red; text-align: center;">Немає треків у цій категорії.</p>';
-    }
-}
-
-function playTrack(index, category) {
-    const tracks = categories[category].tracks;
-    if (index >= tracks.length) index = 0;
-    currentTrack = index;
-
-    const trackElements = document.querySelectorAll("#playlist .track");
-    const icons = document.querySelectorAll("#playlist i");
-
-    trackElements.forEach((track, i) => {
-        if (i === index) {
-            track.classList.add("playing");
-            icons[i].classList.remove("fa-music");
-            icons[i].classList.add("fa-pause");
-        } else {
-            track.classList.remove("playing");
-            icons[i].classList.remove("fa-pause");
-            icons[i].classList.add("fa-music");
-        }
-    });
-
-    audioPlayer.src = tracks[index].url;
-    audioPlayer.play();
-    document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
-    document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
-}
-
-// Обработчик клика на уровне плейлиста
-playlistElement.addEventListener("click", (e) => {
-    if (e.target.tagName === "A") {
-        e.preventDefault(); // Отменяем действие по умолчанию
-        const trackElement = e.target.closest(".track");
-        if (trackElement) {
-            const index = Array.from(trackElement.parentElement.children).indexOf(trackElement);
-            const category = currentCategory;
-            playTrack(index, category);
-        }
-    }
-});
-
-function playNextTrack() {
-    const tracks = categories[currentCategory].tracks;
-    if (tracks && tracks.length > 0) {
-        currentTrack = (currentTrack + 1) % tracks.length;
-        playTrack(currentTrack, currentCategory);
-    }
-}
-
-function playPrevTrack() {
-    const tracks = categories[currentCategory].tracks;
-    if (tracks && tracks.length > 0) {
-        currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
-        playTrack(currentTrack, currentCategory);
-    }
-}
-
-function togglePlayPause() {
-    if (audioPlayer.paused) {
-        audioPlayer.play();
-        document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
-        document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
-    } else {
-        audioPlayer.pause();
-        document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-pause");
-        document.querySelector(".controls button:nth-child(2) i").classList.add("fa-play");
-    }
-}
-
-// Оновлення прогресс-бара та часу
-audioPlayer.addEventListener("timeupdate", () => {
-    const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-    progressBar.style.width = `${progress}%`;
-
-    // Оновлення часу
-    currentTimeDisplay.textContent = formatTime(audioPlayer.currentTime);
-    durationDisplay.textContent = formatTime(audioPlayer.duration);
-});
-
-// Перемотка при кліку на прогресс-бар
-progressBar.parentElement.addEventListener("click", (e) => {
-    const rect = progressBar.parentElement.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const width = rect.width;
-    const seekTime = (clickX / width) * audioPlayer.duration;
-    audioPlayer.currentTime = seekTime;
-});
-
-// Форматування часу у хвилини:секунди
-function formatTime(seconds) {
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-}
-
-// Обробники подій для аудіоплеєра
-audioPlayer.addEventListener("ended", () => {
-    playNextTrack();
-});
-
-audioPlayer.addEventListener("error", () => {
-    alert("Не вдалося завантажити аудіофайл. Спробуйте ще раз.");
-});
-
-// Завантажуємо плейлист при завантаженні сторінки
-window.onload = loadPlaylist;
-   </script>
+        // Завантажуємо плейлист при завантаженні сторінки
+        window.onload = loadPlaylist;
+    </script>
 </body>
-</html>        
+</html>
