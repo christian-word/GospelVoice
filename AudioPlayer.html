@@ -250,18 +250,19 @@
     <header>
         <h1>Інтерактивний аудіоплеєр</h1>
        /* <h3>Збірка (церква ЄХБ "Дім Євангелія")</h3>
-       /* <h3>Аудіо Плеєр</h3>
     </header>
 
     <div class="container">
        /* <h2>Музичне служіння</h2>
-        <select id="categorySelect" onchange="selectCategory(this.value)">
-            <option value="">Оберіть Альбом</option>
-        </select>
+
         <!-- Блок для фото категорії -->
         <div id="categoryImageContainer">
             <img id="categoryImage" src="" alt="Фото категорії">
         </div>
+
+        <select id="categorySelect" onchange="selectCategory(this.value)">
+            <option value="">Оберіть Альбом</option>
+        </select>
         <div id="playlist"></div>
 
         <!-- Плеер, кнопки и прогресс-бар перемещены вниз -->
