@@ -328,11 +328,11 @@ header h3 {
         // Функція для перетворення звичайного YouTube-посилання на посилання для вбудовування
         function convertToEmbedUrl(url) {
             if (url.includes("youtu.be")) {
-                const videoId = url.split("/").pop(); // Отримуємо VIDEO_ID
-                return `https://www.youtube.com/embed/${videoId}?autoplay=1`; // Додаємо autoplay
+                const videoId = url.split("/").pop().split("?")[0]; // Видаляємо параметри після ?
+                return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
             } else if (url.includes("v=")) {
-                const videoId = url.split("v=")[1].split("&")[0]; // Отримуємо VIDEO_ID
-                return `https://www.youtube.com/embed/${videoId}?autoplay=1`; // Додаємо autoplay
+                const videoId = url.split("v=")[1].split("&")[0]; // Видаляємо параметри після &
+                return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
             } else if (url.includes("embed")) {
                 return url;
             }
@@ -619,16 +619,4 @@ header h3 {
     </script>
 </body>
 </html>
-
-
-
-
-
-
-    
-    
-    
-    
-    
-
    
