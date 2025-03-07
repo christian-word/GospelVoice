@@ -258,16 +258,14 @@ header h3 {
 </head>
 <body>
     <header>
-        <h1>Інтерактивний аудіоплеєр</h1>
+        <h1>Інтерактивний аудіо та відео плеєр</h1>
         <h3>Збірка (церква ЄХБ "Дім Євангелія")</h3>
     </header>
 
     <div class="container">
-           <!-- Блок для інформації про альбом -->
         <div id="albumInfo">
             Альбом: <span id="albumName">Не обрано</span> | Треків: <span id="trackCount">0</span>
         </div>
-          <!-- Блок для фото категорії -->
         <div id="categoryImageContainer">
             <img id="categoryImage" src="" alt="Фото категорії">
         </div>
@@ -290,6 +288,9 @@ header h3 {
             <span id="duration">0:00</span>
         </div>
         <audio id="audioPlayer" controls></audio>
+        <div id="videoPlayerContainer" style="display: none;">
+            <iframe id="videoPlayer" width="100%" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
     </div>
 
     <footer style="background-color: #f4f4f4; padding: 20px; text-align: center; border-top: 1px solid #ccc; margin-top: 50px;">
@@ -313,6 +314,8 @@ header h3 {
 
     <script>
         let audioPlayer = document.getElementById("audioPlayer");
+        let videoPlayerContainer = document.getElementById("videoPlayerContainer");
+        let videoPlayer = document.getElementById("videoPlayer");
         let playlistElement = document.getElementById("playlist");
         let progressBar = document.getElementById("progressBar");
         let currentTimeDisplay = document.getElementById("currentTime");
@@ -321,18 +324,15 @@ header h3 {
         let categories = {};
         let currentCategory = null;
 
-        // Функція для отримання імені плейлиста з URL
         function getPlaylistNameFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get('playlist') || 'playlist.txt';
         }
 
-        // Показуємо індикатор завантаження перед завантаженням плейлиста
         document.addEventListener("DOMContentLoaded", () => {
             playlistElement.innerHTML = '<div id="loading" style="text-align:center; padding: 20px;"><i class="fas fa-spinner fa-spin" style="font-size: 24px; color: var(--primary-color);"></i></div>';
         });
 
-        // Функція для оновлення інформації про альбом
         function updateAlbumInfo(category) {
             const albumNameElement = document.getElementById("albumName");
             const trackCountElement = document.getElementById("trackCount");
@@ -363,7 +363,7 @@ header h3 {
                         const [categoryName, imageUrl] = line.replace("Категорія:", "").split(';');
                         currentCategory = categoryName.trim();
                         categories[currentCategory] = {
-                            image: imageUrl ? imageUrl.trim() : null, // Зберігаємо фото категорії
+                            image: imageUrl ? imageUrl.trim() : null,
                             tracks: []
                         };
                     } else if (currentCategory) {
@@ -379,35 +379,33 @@ header h3 {
                 if (Object.keys(categories).length === 1) {
                     currentCategory = Object.keys(categories)[0];
                     renderPlaylist(currentCategory);
-                    // Підвантажуємо фото для першої категорії
                     const categoryImage = document.getElementById("categoryImage");
                     if (categories[currentCategory].image) {
                         categoryImage.src = categories[currentCategory].image;
-                        categoryImage.style.display = "block"; // Показуємо фото
+                        categoryImage.style.display = "block";
                     } else {
-                        categoryImage.style.display = "none"; // Ховаємо фото, якщо його немає
+                        categoryImage.style.display = "none";
                     }
-                    updateAlbumInfo(currentCategory); // Оновлюємо інформацію про альбом
+                    updateAlbumInfo(currentCategory);
                 } else if (Object.keys(categories).length > 1) {
                     currentCategory = Object.keys(categories)[0];
                     renderPlaylist(currentCategory);
-                    // Підвантажуємо фото для першої категорії
                     const categoryImage = document.getElementById("categoryImage");
                     if (categories[currentCategory].image) {
                         categoryImage.src = categories[currentCategory].image;
-                        categoryImage.style.display = "block"; // Показуємо фото
+                        categoryImage.style.display = "block";
                     } else {
-                        categoryImage.style.display = "none"; // Ховаємо фото, якщо його немає
+                        categoryImage.style.display = "none";
                     }
-                    updateAlbumInfo(currentCategory); // Оновлюємо інформацію про альбом
+                    updateAlbumInfo(currentCategory);
                 } else {
                     playlistElement.innerHTML = '<p style="color: red; text-align: center;">Плейлист порожній або невірно сформований.</p>';
-                    updateAlbumInfo(null); // Оновлюємо інформацію про альбом
+                    updateAlbumInfo(null);
                 }
             } catch (error) {
                 console.error('Помилка завантаження плейлиста:', error);
                 playlistElement.innerHTML = '<p style="color: red; text-align: center;">Не вдалося завантажити плейлист</p>';
-                updateAlbumInfo(null); // Оновлюємо інформацію про альбом
+                updateAlbumInfo(null);
             }
         }
 
@@ -424,7 +422,6 @@ header h3 {
                     categorySelect.appendChild(option);
                 });
 
-                // Автоматично вибираємо першу категорію, якщо вона є
                 if (categoryKeys.length === 1) {
                     currentCategory = categoryKeys[0];
                     categorySelect.value = currentCategory;
@@ -441,24 +438,35 @@ header h3 {
 
             if (categories[category].image) {
                 categoryImage.src = categories[category].image;
-                categoryImage.style.display = "block"; // Показуємо фото
+                categoryImage.style.display = "block";
             } else {
-                categoryImage.style.display = "none"; // Ховаємо фото, якщо його немає
+                categoryImage.style.display = "none";
             }
 
             renderPlaylist(category);
-            updateAlbumInfo(category); // Оновлюємо інформацію про альбом
+            updateAlbumInfo(category);
         }
 
         function renderPlaylist(category) {
             const tracks = categories[category].tracks;
             if (tracks && tracks.length > 0) {
-                playlistElement.innerHTML = tracks.map((track, index) => `
-                    <div class="track">
-                        <i class="fas fa-music"></i>
-                        <a href="#" data-src="${track.url}">${track.title}</a>
-                    </div>
-                `).join('');
+                playlistElement.innerHTML = tracks.map((track, index) => {
+                    if (track.url.includes("youtube.com") || track.url.includes("youtu.be")) {
+                        return `
+                            <div class="track">
+                                <i class="fas fa-video"></i>
+                                <a href="#" data-src="${track.url}">${track.title}</a>
+                            </div>
+                        `;
+                    } else {
+                        return `
+                            <div class="track">
+                                <i class="fas fa-music"></i>
+                                <a href="#" data-src="${track.url}">${track.title}</a>
+                            </div>
+                        `;
+                    }
+                }).join('');
             } else {
                 playlistElement.innerHTML = '<p style="color: red; text-align: center;">Немає треків у цій категорії.</p>';
             }
@@ -475,25 +483,38 @@ header h3 {
             trackElements.forEach((track, i) => {
                 if (i === index) {
                     track.classList.add("playing");
-                    icons[i].classList.remove("fa-music");
+                    icons[i].classList.remove("fa-music", "fa-video");
                     icons[i].classList.add("fa-pause");
                 } else {
                     track.classList.remove("playing");
                     icons[i].classList.remove("fa-pause");
-                    icons[i].classList.add("fa-music");
+                    if (tracks[i].url.includes("youtube.com") || tracks[i].url.includes("youtu.be")) {
+                        icons[i].classList.add("fa-video");
+                    } else {
+                        icons[i].classList.add("fa-music");
+                    }
                 }
             });
 
-            audioPlayer.src = tracks[index].url;
-            audioPlayer.play();
+            const track = tracks[index];
+            if (track.url.includes("youtube.com") || track.url.includes("youtu.be")) {
+                audioPlayer.pause();
+                audioPlayer.style.display = "none";
+                videoPlayerContainer.style.display = "block";
+                videoPlayer.src = track.url;
+            } else {
+                videoPlayerContainer.style.display = "none";
+                audioPlayer.style.display = "block";
+                audioPlayer.src = track.url;
+                audioPlayer.play();
+            }
             document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
             document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
         }
 
-        // Обработчик клика на уровне плейлиста
         playlistElement.addEventListener("click", (e) => {
             if (e.target.tagName === "A") {
-                e.preventDefault(); // Отменяем действие по умолчанию
+                e.preventDefault();
                 const trackElement = e.target.closest(".track");
                 if (trackElement) {
                     const index = Array.from(trackElement.parentElement.children).indexOf(trackElement);
@@ -531,17 +552,14 @@ header h3 {
             }
         }
 
-        // Оновлення прогресс-бара та часу
         audioPlayer.addEventListener("timeupdate", () => {
             const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
             progressBar.style.width = `${progress}%`;
 
-            // Оновлення часу
             currentTimeDisplay.textContent = formatTime(audioPlayer.currentTime);
             durationDisplay.textContent = formatTime(audioPlayer.duration);
         });
 
-        // Перемотка при кліку на прогресс-бар
         progressBar.parentElement.addEventListener("click", (e) => {
             const rect = progressBar.parentElement.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
@@ -550,14 +568,12 @@ header h3 {
             audioPlayer.currentTime = seekTime;
         });
 
-        // Форматування часу у хвилини:секунди
         function formatTime(seconds) {
             const mins = Math.floor(seconds / 60);
             const secs = Math.floor(seconds % 60);
             return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
         }
 
-        // Обробники подій для аудіоплеєра
         audioPlayer.addEventListener("ended", () => {
             playNextTrack();
         });
@@ -566,7 +582,6 @@ header h3 {
             alert("Не вдалося завантажити аудіофайл. Спробуйте ще раз.");
         });
 
-        // Завантажуємо плейлист при завантаженні сторінки
         window.onload = loadPlaylist;
     </script>
 </body>
