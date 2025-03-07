@@ -255,10 +255,11 @@ header h3 {
 }
 
     </style>
+
 </head>
 <body>
     <header>
-        <h1>Інтерактивний Медіаплеер</h1>
+        <h1>Інтерактивний аудіо та відео плеєр</h1>
         <h3>Збірка (церква ЄХБ "Дім Євангелія")</h3>
     </header>
 
@@ -274,7 +275,7 @@ header h3 {
         </select>
         <div id="playlist"></div>
 
-        <!-- Плеер, кнопки та прогресс-бар -->
+        <!-- Плеєр, кнопки та прогрес-бар -->
         <div class="controls">
             <button onclick="playPrevTrack()"><i class="fas fa-backward"></i></button>
             <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
@@ -327,11 +328,11 @@ header h3 {
         // Функція для перетворення звичайного YouTube-посилання на посилання для вбудовування
         function convertToEmbedUrl(url) {
             if (url.includes("youtu.be")) {
-                const videoId = url.split("/").pop();
-                return `https://www.youtube.com/embed/${videoId}`;
+                const videoId = url.split("/").pop(); // Отримуємо VIDEO_ID
+                return `https://www.youtube.com/embed/${videoId}?autoplay=1`; // Додаємо autoplay
             } else if (url.includes("v=")) {
-                const videoId = url.split("v=")[1].split("&")[0];
-                return `https://www.youtube.com/embed/${videoId}`;
+                const videoId = url.split("v=")[1].split("&")[0]; // Отримуємо VIDEO_ID
+                return `https://www.youtube.com/embed/${videoId}?autoplay=1`; // Додаємо autoplay
             } else if (url.includes("embed")) {
                 return url;
             }
@@ -618,8 +619,12 @@ header h3 {
     </script>
 </body>
 </html>
-    
-    
+
+
+
+
+
+
     
     
     
