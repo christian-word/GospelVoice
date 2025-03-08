@@ -31,16 +31,16 @@ header {
     color: var(--header-text-color);
     padding: 20px 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* Вирівнювання по лівому краю */
     position: relative;
+    text-align: center; /* Центруємо текст */
 }
 
 .logo {
     height: 50px; /* Встановіть висоту логотипу */
-    margin-right: 15px; /* Відступ між логотипом і текстом */
-    margin-left: 15px; /* Відступ зліва */
+    position: absolute; /* Абсолютне позиціонування */
+    left: 15px; /* Відступ зліва */
+    top: 50%; /* Вирівнювання по вертикалі */
+    transform: translateY(-50%); /* Центрування по вертикалі */
 }
 
 header h1 {
@@ -231,6 +231,11 @@ header h3 {
 
     header h3 {
         font-size: 1em;
+    }
+
+    .logo {
+        height: 40px; /* Зменшуємо розмір логотипу для мобільних пристроїв */
+        left: 10px; /* Зменшуємо відступ зліва */
     }
 }
 
