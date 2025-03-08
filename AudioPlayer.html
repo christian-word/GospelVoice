@@ -474,4 +474,201 @@
             const tracks = categories[category].tracks;
             if (tracks && tracks.length > 0) {
                 playlistElement.innerHTML = tracks.map((track, index) => `
-                    <div class="
+                    <div class="track">
+                        <i class="fas fa-music"></i>
+                        <a href="#" data-src="${track.url}">${track.title}</a>
+                    </div>
+                `).join('');
+            } else {
+                playlistElement.innerHTML = '<p style="color: red; text-align: center;">Немає треків у цій категорії.</p>';
+            }
+        }
+
+        function stopAllMedia() {
+            if (!isAutoSwitching) { // Зупиняємо медіа тільки якщо це не автоматичне перемикання
+                audioPlayer.pause();
+                videoPlayer.pause();
+                youtubePlayer.src = ""; // Зупиняємо YouTube відео
+            }
+        }
+
+        function playTrack(index, category) {
+            const tracks = categories[category].tracks;
+            if (index >= tracks.length) index = 0;
+            currentTrack = index;
+
+            const trackElements = document.querySelectorAll("#playlist .track");
+            const icons = document.querySelectorAll("#playlist i");
+
+            trackElements.forEach((track, i) => {
+                if (i === index) {
+                    track.classList.add("playing");
+                    icons[i].classList.remove("fa-music");
+                    icons[i].classList.add("fa-pause");
+                } else {
+                    track.classList.remove("playing");
+                    icons[i].classList.remove("fa-pause");
+                    icons[i].classList.add("fa-music");
+                }
+            });
+
+            const trackUrl = tracks[index].url;
+            stopAllMedia(); // Зупиняємо всі медіа перед відтворенням нового
+
+            if (trackUrl.includes("youtube.com") || trackUrl.includes("youtu.be")) {
+                // Якщо це YouTube посилання
+                const videoId = extractYouTubeId(trackUrl);
+                youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+                youtubePlayer.style.display = "block";
+                videoPlayer.style.display = "none";
+                videoPlayerContainer.style.display = "block";
+            } else if (trackUrl.endsWith(".mp4") || trackUrl.endsWith(".webm") || trackUrl.endsWith(".ogg")) {
+                // Якщо це відеофайл
+                youtubePlayer.style.display = "none";
+                videoPlayer.src = trackUrl;
+                videoPlayer.style.display = "block";
+                videoPlayerContainer.style.display = "block";
+                videoPlayer.play();
+            } else {
+                // Якщо це аудіофайл
+                videoPlayerContainer.style.display = "none";
+                audioPlayer.src = trackUrl;
+                audioPlayer.play();
+            }
+
+            document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
+            document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
+        }
+
+        function extractYouTubeId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        playlistElement.addEventListener("click", (e) => {
+            if (e.target.tagName === "A") {
+                e.preventDefault();
+                const trackElement = e.target.closest(".track");
+                if (trackElement) {
+                    const index = Array.from(trackElement.parentElement.children).indexOf(trackElement);
+                    const category = currentCategory;
+                    playTrack(index, category);
+                }
+            }
+        });
+
+        function playNextTrack() {
+            isAutoSwitching = true; // Встановлюємо прапорець автоматичного перемикання
+            const tracks = categories[currentCategory].tracks;
+            if (tracks && tracks.length > 0) {
+                currentTrack = (currentTrack + 1) % tracks.length;
+                playTrack(currentTrack, currentCategory);
+            }
+            isAutoSwitching = false; // Скидаємо прапорець після перемикання
+        }
+
+        function playPrevTrack() {
+            isAutoSwitching = true; // Встановлюємо прапорець автоматичного перемикання
+            const tracks = categories[currentCategory].tracks;
+            if (tracks && tracks.length > 0) {
+                currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+                playTrack(currentTrack, currentCategory);
+            }
+            isAutoSwitching = false; // Скидаємо прапорець після перемикання
+        }
+
+        function togglePlayPause() {
+            if (videoPlayerContainer.style.display === "block") {
+                if (youtubePlayer.style.display === "block") {
+                    // Для YouTube відео
+                    const iframeSrc = youtubePlayer.src;
+                    if (iframeSrc.includes("autoplay=1")) {
+                        youtubePlayer.src = iframeSrc.replace("autoplay=1", "autoplay=0");
+                    } else {
+                        youtubePlayer.src = iframeSrc + "&autoplay=1";
+                    }
+                } else {
+                    // Для локальних відео
+                    if (videoPlayer.paused) {
+                        videoPlayer.play();
+                        document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
+                        document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
+                    } else {
+                        videoPlayer.pause();
+                        document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-pause");
+                        document.querySelector(".controls button:nth-child(2) i").classList.add("fa-play");
+                    }
+                }
+            } else {
+                // Для аудіо
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
+                    document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
+                } else {
+                    audioPlayer.pause();
+                    document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-pause");
+                    document.querySelector(".controls button:nth-child(2) i").classList.add("fa-play");
+                }
+            }
+        }
+
+        audioPlayer.addEventListener("timeupdate", () => {
+            const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            currentTimeDisplay.textContent = formatTime(audioPlayer.currentTime);
+            durationDisplay.textContent = formatTime(audioPlayer.duration);
+        });
+
+        videoPlayer.addEventListener("timeupdate", () => {
+            const progress = (videoPlayer.currentTime / videoPlayer.duration) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            currentTimeDisplay.textContent = formatTime(videoPlayer.currentTime);
+            durationDisplay.textContent = formatTime(videoPlayer.duration);
+        });
+
+        progressBar.parentElement.addEventListener("click", (e) => {
+            const rect = progressBar.parentElement.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const width = rect.width;
+            const seekTime = (clickX / width) * (videoPlayerContainer.style.display === "block" ? videoPlayer.duration : audioPlayer.duration);
+            if (videoPlayerContainer.style.display === "block") {
+                videoPlayer.currentTime = seekTime;
+            } else {
+                audioPlayer.currentTime = seekTime;
+            }
+        });
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        audioPlayer.addEventListener("ended", () => {
+            isAutoSwitching = true; // Встановлюємо прапорець автоматичного перемикання
+            playNextTrack();
+            isAutoSwitching = false; // Скидаємо прапорець після перемикання
+        });
+
+        videoPlayer.addEventListener("ended", () => {
+            isAutoSwitching = true; // Встановлюємо прапорець автоматичного перемикання
+            playNextTrack();
+            isAutoSwitching = false; // Скидаємо прапорець після перемикання
+        });
+
+        audioPlayer.addEventListener("error", () => {
+            alert("Не вдалося завантажити аудіофайл. Спробуйте ще раз.");
+        });
+
+        videoPlayer.addEventListener("error", () => {
+            alert("Не вдалося завантажити відеофайл. Спробуйте ще раз.");
+        });
+
+        window.onload = loadPlaylist;
+    </script>
+</body>
+</html>
