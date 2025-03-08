@@ -274,7 +274,6 @@
         }
     </style>
 
-
 </head>
 <body>
     <header>
@@ -346,12 +345,6 @@
         let currentTrack = 0;
         let categories = {};
         let currentCategory = null;
-
-        // Функція для отримання параметра з URL
-        function getParameterFromURL(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
-        }
 
         // Функція для отримання імені плейлиста з URL
         function getPlaylistNameFromURL() {
@@ -473,6 +466,10 @@
 
             renderPlaylist(category);
             updateAlbumInfo(category);
+
+            // Оновлюємо вибір у <select>
+            const categorySelect = document.getElementById("categorySelect");
+            categorySelect.value = category;
         }
 
         function renderPlaylist(category) {
