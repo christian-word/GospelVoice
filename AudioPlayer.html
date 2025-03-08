@@ -277,7 +277,7 @@
 </head>
 <body>
     <header>
-        <h1>Інтерактивний Медіаплеєр</h1>
+        <h1>Інтерактивний аудіо та відеоплеєр</h1>
         <h3>Збірка (церква ЄХБ "Дім Євангелія")</h3>
     </header>
 
@@ -311,7 +311,7 @@
             <span id="currentTime">0:00</span>
             <span id="duration">0:00</span>
         </div>
-        <audio id="audioPlayer" controls></audio>
+        <audio id="audioPlayer" controls style="display: none;"></audio> <!-- Аудіоплеєр прихований за замовчуванням -->
     </div>
 
     <footer style="background-color: #f4f4f4; padding: 20px; text-align: center; border-top: 1px solid #ccc; margin-top: 50px;">
@@ -490,6 +490,11 @@
             youtubePlayer.src = ""; // Зупиняємо YouTube відео
         }
 
+        function scrollToVideo() {
+            const videoContainer = document.getElementById("videoPlayerContainer");
+            videoContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
         function playTrack(index, category) {
             stopAllMedia(); // Зупиняємо всі медіа перед відтворенням нового треку
 
@@ -521,17 +526,22 @@
                 youtubePlayer.style.display = "block";
                 videoPlayer.style.display = "none";
                 videoPlayerContainer.style.display = "block";
+                audioPlayer.style.display = "none"; // Приховуємо аудіоплеєр
+                scrollToVideo(); // Плавно прокручуємо до відеоплеєра
             } else if (trackUrl.endsWith(".mp4") || trackUrl.endsWith(".webm") || trackUrl.endsWith(".ogg")) {
                 // Якщо це відеофайл
                 youtubePlayer.style.display = "none";
                 videoPlayer.src = trackUrl;
                 videoPlayer.style.display = "block";
                 videoPlayerContainer.style.display = "block";
+                audioPlayer.style.display = "none"; // Приховуємо аудіоплеєр
                 videoPlayer.play();
+                scrollToVideo(); // Плавно прокручуємо до відеоплеєра
             } else {
                 // Якщо це аудіофайл
                 videoPlayerContainer.style.display = "none";
                 audioPlayer.src = trackUrl;
+                audioPlayer.style.display = "block"; // Показуємо аудіоплеєр
                 audioPlayer.play();
             }
 
@@ -663,3 +673,4 @@
     </script>
 </body>
 </html>
+
