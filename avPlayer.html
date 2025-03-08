@@ -424,17 +424,11 @@
                     // Якщо індекс валідний, вибираємо відповідну категорію
                     currentCategory = categoryKeys[categoryIndex];
                     selectCategory(currentCategory);
-                } else if (categoryKeys.length === 1) {
-                    // Якщо категорія одна, вибираємо її
-                    currentCategory = categoryKeys[0];
-                    selectCategory(currentCategory);
-                } else if (categoryKeys.length > 1) {
-                    // Якщо категорій багато, вибираємо першу
-                    currentCategory = categoryKeys[0];
-                    selectCategory(currentCategory);
                 } else {
-                    playlistElement.innerHTML = '<p style="color: red; text-align: center;">Плейлист порожній або невірно сформований.</p>';
-                    updateAlbumInfo(null);
+                    // Якщо параметр #... відсутній, залишаємо вибір на "Оберіть альбом"
+                    const categorySelect = document.getElementById("categorySelect");
+                    categorySelect.value = ""; // Встановлюємо значення за замовчуванням
+                    updateAlbumInfo(null); // Оновлюємо інформацію про альбом
                 }
             } catch (error) {
                 console.error('Помилка завантаження плейлиста:', error);
@@ -456,7 +450,7 @@
                     categorySelect.appendChild(option);
                 });
 
-                // Встановлюємо вибрану категорію
+                // Встановлюємо вибрану категорію, якщо вона вказана
                 if (currentCategory) {
                     categorySelect.value = currentCategory;
                 }
