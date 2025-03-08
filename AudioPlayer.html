@@ -331,6 +331,7 @@ header h3 {
     </footer>
 
     <script>
+
 let audioPlayer = document.getElementById("audioPlayer");
 let videoPlayerContainer = document.getElementById("videoPlayerContainer");
 let videoPlayer = document.getElementById("videoPlayer");
@@ -546,7 +547,11 @@ function playTrack(index, category) {
 
     const track = tracks[index];
     if (track.url.includes("youtube.com") || track.url.includes("youtu.be")) {
-        audioPlayer.pause();
+        // Зупиняємо аудіо, якщо воно відтворюється
+        if (!audioPlayer.paused) {
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
+        }
         audioPlayer.style.display = "none";
         videoPlayerContainer.style.display = "block";
         const embedUrl = convertToEmbedUrl(track.url);
@@ -555,7 +560,11 @@ function playTrack(index, category) {
         // Прокрутка до відеоплеєра
         scrollToVideoPlayer();
     } else {
-        videoPlayerContainer.style.display = "none";
+        // Зупиняємо відео, якщо воно відтворюється
+        if (videoPlayer.src) {
+            videoPlayer.src = ""; // Зупиняємо відео
+            videoPlayerContainer.style.display = "none";
+        }
         audioPlayer.style.display = "block";
         audioPlayer.src = track.url;
         audioPlayer.play();
@@ -644,7 +653,7 @@ audioPlayer.addEventListener("error", () => {
 
 // Завантаження плейлиста при завантаженні сторінки
 window.onload = loadPlaylist;
+        
     </script>
 </body>
 </html>
-   
