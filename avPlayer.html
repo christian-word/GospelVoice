@@ -277,7 +277,7 @@
 </head>
 <body>
     <header>
-        <h1>Інтерактивний Медіаплеєр</h1>
+        <h1>Інтерактивний аудіо та відеоплеєр</h1>
         <h3>Збірка (церква ЄХБ "Дім Євангелія")</h3>
     </header>
 
@@ -318,7 +318,7 @@
         <a href="index.html" style="color: var(--primary-color); text-decoration: none; font-size: 1em;">
             <i class="fas fa-home"></i> Головне меню
         </a>
-        <p>м. Суми, версія збірки 2.0 Video: © 2025 р.</p>
+        <p>м. Суми, версія збірки 1.0 : © 2025 р.</p>
 
         <div class="social-icons">
             <a href="https://www.youtube.com" target="_blank">
@@ -346,9 +346,26 @@
         let categories = {};
         let currentCategory = null;
 
+        // Функція для отримання параметра з URL
+        function getParameterFromURL(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Функція для отримання імені плейлиста з URL
         function getPlaylistNameFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get('playlist') || 'playlist.txt';
+        }
+
+        // Функція для отримання номера категорії з хешу URL
+        function getCategoryIndexFromHash() {
+            const hash = window.location.hash;
+            if (hash) {
+                const index = parseInt(hash.replace('#', ''), 10);
+                return isNaN(index) ? null : index;
+            }
+            return null;
         }
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -398,28 +415,22 @@
 
                 renderCategoryMenu();
 
-                if (Object.keys(categories).length === 1) {
-                    currentCategory = Object.keys(categories)[0];
-                    renderPlaylist(currentCategory);
-                    const categoryImage = document.getElementById("categoryImage");
-                    if (categories[currentCategory].image) {
-                        categoryImage.src = categories[currentCategory].image;
-                        categoryImage.style.display = "block";
-                    } else {
-                        categoryImage.style.display = "none";
-                    }
-                    updateAlbumInfo(currentCategory);
-                } else if (Object.keys(categories).length > 1) {
-                    currentCategory = Object.keys(categories)[0];
-                    renderPlaylist(currentCategory);
-                    const categoryImage = document.getElementById("categoryImage");
-                    if (categories[currentCategory].image) {
-                        categoryImage.src = categories[currentCategory].image;
-                        categoryImage.style.display = "block";
-                    } else {
-                        categoryImage.style.display = "none";
-                    }
-                    updateAlbumInfo(currentCategory);
+                // Отримуємо індекс категорії з хешу URL
+                const categoryIndex = getCategoryIndexFromHash();
+                const categoryKeys = Object.keys(categories);
+
+                if (categoryIndex !== null && categoryIndex >= 0 && categoryIndex < categoryKeys.length) {
+                    // Якщо індекс валідний, вибираємо відповідну категорію
+                    currentCategory = categoryKeys[categoryIndex];
+                    selectCategory(currentCategory);
+                } else if (categoryKeys.length === 1) {
+                    // Якщо категорія одна, вибираємо її
+                    currentCategory = categoryKeys[0];
+                    selectCategory(currentCategory);
+                } else if (categoryKeys.length > 1) {
+                    // Якщо категорій багато, вибираємо першу
+                    currentCategory = categoryKeys[0];
+                    selectCategory(currentCategory);
                 } else {
                     playlistElement.innerHTML = '<p style="color: red; text-align: center;">Плейлист порожній або невірно сформований.</p>';
                     updateAlbumInfo(null);
@@ -437,17 +448,16 @@
             categorySelect.innerHTML = '<option value="">Оберіть альбом</option>';
 
             if (categoryKeys.length > 0) {
-                categoryKeys.forEach(category => {
+                categoryKeys.forEach((category, index) => {
                     const option = document.createElement("option");
                     option.value = category;
                     option.textContent = category;
                     categorySelect.appendChild(option);
                 });
 
-                if (categoryKeys.length === 1) {
-                    currentCategory = categoryKeys[0];
+                // Встановлюємо вибрану категорію
+                if (currentCategory) {
                     categorySelect.value = currentCategory;
-                    renderPlaylist(currentCategory);
                 }
             } else {
                 categorySelect.innerHTML = '<option value="">Немає категорій</option>';
