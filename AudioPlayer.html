@@ -345,7 +345,6 @@
         let currentTrack = 0;
         let categories = {};
         let currentCategory = null;
-        let isAutoSwitching = false; // Прапорець для автоматичного перемикання
 
         function getPlaylistNameFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -456,6 +455,7 @@
         }
 
         function selectCategory(category) {
+            stopAllMedia(); // Зупиняємо всі медіа при зміні категорії
             currentCategory = category;
             const categoryImage = document.getElementById("categoryImage");
 
@@ -485,14 +485,14 @@
         }
 
         function stopAllMedia() {
-            if (!isAutoSwitching) { // Зупиняємо медіа тільки якщо це не автоматичне перемикання
-                audioPlayer.pause();
-                videoPlayer.pause();
-                youtubePlayer.src = ""; // Зупиняємо YouTube відео
-            }
+            audioPlayer.pause();
+            videoPlayer.pause();
+            youtubePlayer.src = ""; // Зупиняємо YouTube відео
         }
 
         function playTrack(index, category) {
+            stopAllMedia(); // Зупиняємо всі медіа перед відтворенням нового треку
+
             const tracks = categories[category].tracks;
             if (index >= tracks.length) index = 0;
             currentTrack = index;
@@ -513,7 +513,6 @@
             });
 
             const trackUrl = tracks[index].url;
-            stopAllMedia(); // Зупиняємо всі медіа перед відтворенням нового
 
             if (trackUrl.includes("youtube.com") || trackUrl.includes("youtu.be")) {
                 // Якщо це YouTube посилання
@@ -559,23 +558,19 @@
         });
 
         function playNextTrack() {
-            isAutoSwitching = true; // Встановлюємо прапорець автоматичного перемикання
             const tracks = categories[currentCategory].tracks;
             if (tracks && tracks.length > 0) {
                 currentTrack = (currentTrack + 1) % tracks.length;
                 playTrack(currentTrack, currentCategory);
             }
-            isAutoSwitching = false; // Скидаємо прапорець після перемикання
         }
 
         function playPrevTrack() {
-            isAutoSwitching = true; // Встановлюємо прапорець автоматичного перемикання
             const tracks = categories[currentCategory].tracks;
             if (tracks && tracks.length > 0) {
                 currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
                 playTrack(currentTrack, currentCategory);
             }
-            isAutoSwitching = false; // Скидаємо прапорець після перемикання
         }
 
         function togglePlayPause() {
@@ -649,15 +644,11 @@
         }
 
         audioPlayer.addEventListener("ended", () => {
-            isAutoSwitching = true; // Встановлюємо прапорець автоматичного перемикання
             playNextTrack();
-            isAutoSwitching = false; // Скидаємо прапорець після перемикання
         });
 
         videoPlayer.addEventListener("ended", () => {
-            isAutoSwitching = true; // Встановлюємо прапорець автоматичного перемикання
             playNextTrack();
-            isAutoSwitching = false; // Скидаємо прапорець після перемикання
         });
 
         audioPlayer.addEventListener("error", () => {
