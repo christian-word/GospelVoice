@@ -6,7 +6,7 @@
     <title>Аудіо Плеєр</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
- :root {
+:root {
     --primary-color: #007bff;
     --hover-color: #0056b3;
     --background-color: #f4f4f4;
@@ -31,6 +31,16 @@ header {
     color: var(--header-text-color);
     padding: 20px 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Вирівнювання по лівому краю */
+    position: relative;
+}
+
+.logo {
+    height: 50px; /* Встановіть висоту логотипу */
+    margin-right: 15px; /* Відступ між логотипом і текстом */
+    margin-left: 15px; /* Відступ зліва */
 }
 
 header h1 {
@@ -255,13 +265,12 @@ header h3 {
 }
 
     </style>
-
-</head>
 <body>
-    <header>
-        <h1>Інтерактивний Медіаплеєр</h1>
-        <h3>Збірка (церква ЄХБ "Дім Євангелія")</h3>
-    </header>
+<header>
+    <img src="logo.png" alt="Логотип" class="logo">
+    <h1>Інтерактивний Медіаплеєр</h1>
+    <h3>Збірка (церква ЄХБ "Дім Євангелія")</h3>
+</header>
 
     <div class="container">
         <div id="albumInfo">
