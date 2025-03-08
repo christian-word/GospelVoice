@@ -273,6 +273,7 @@
             color: transparent;
         }
     </style>
+
 </head>
 <body>
     <header>
@@ -305,12 +306,8 @@
             <span id="currentTime">0:00</span>
             <span id="duration">0:00</span>
         </div>
-        <audio id="audioPlayer" controls></audio>
-        <div id="videoPlayerContainer" style="display: none;">
-            <iframe id="videoPlayer" width="100%" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <div id="localVideoPlayerContainer" style="display: none;">
-            <video id="localVideoPlayer" width="100%" height="315" controls></video>
+        <div id="mediaPlayerContainer" style="display: none;">
+            <iframe id="mediaPlayer" width="100%" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
 
@@ -334,11 +331,8 @@
     </footer>
 
     <script>
-        let audioPlayer = document.getElementById("audioPlayer");
-        let videoPlayerContainer = document.getElementById("videoPlayerContainer");
-        let videoPlayer = document.getElementById("videoPlayer");
-        let localVideoPlayerContainer = document.getElementById("localVideoPlayerContainer");
-        let localVideoPlayer = document.getElementById("localVideoPlayer");
+        let mediaPlayerContainer = document.getElementById("mediaPlayerContainer");
+        let mediaPlayer = document.getElementById("mediaPlayer");
         let playlistElement = document.getElementById("playlist");
         let progressBar = document.getElementById("progressBar");
         let currentTimeDisplay = document.getElementById("currentTime");
@@ -347,11 +341,10 @@
         let categories = {};
         let currentCategory = null;
 
-        // Функція для прокрутки до відеоплеєра
-        function scrollToVideoPlayer() {
-            const videoPlayerContainer = document.getElementById("videoPlayerContainer");
-            if (videoPlayerContainer) {
-                videoPlayerContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+        // Функція для прокрутки до медіаплеєра
+        function scrollToMediaPlayer() {
+            if (mediaPlayerContainer) {
+                mediaPlayerContainer.scrollIntoView({ behavior: "smooth", block: "start" });
             }
         }
 
@@ -552,39 +545,20 @@
             const track = tracks[index];
             if (track.url.includes("youtube.com") || track.url.includes("youtu.be")) {
                 // YouTube-відео
-                if (!audioPlayer.paused) {
-                    audioPlayer.pause();
-                    audioPlayer.currentTime = 0;
-                }
-                audioPlayer.style.display = "none";
-                localVideoPlayerContainer.style.display = "none";
-                videoPlayerContainer.style.display = "block";
+                mediaPlayerContainer.style.display = "block";
                 const embedUrl = convertToEmbedUrl(track.url);
-                videoPlayer.src = embedUrl;
-                scrollToVideoPlayer();
+                mediaPlayer.src = embedUrl;
+                scrollToMediaPlayer();
             } else if (isVideoFile(track.url)) {
                 // Локальне відео
-                if (!audioPlayer.paused) {
-                    audioPlayer.pause();
-                    audioPlayer.currentTime = 0;
-                }
-                audioPlayer.style.display = "none";
-                videoPlayerContainer.style.display = "none";
-                localVideoPlayerContainer.style.display = "block";
-                localVideoPlayer.src = track.url;
-                localVideoPlayer.play();
-                scrollToVideoPlayer();
+                mediaPlayerContainer.style.display = "block";
+                mediaPlayer.src = track.url;
+                mediaPlayer.play();
+                scrollToMediaPlayer();
             } else {
                 // Аудіофайл
-                if (videoPlayer.src || localVideoPlayer.src) {
-                    videoPlayer.src = "";
-                    localVideoPlayer.src = "";
-                    videoPlayerContainer.style.display = "none";
-                    localVideoPlayerContainer.style.display = "none";
-                }
-                audioPlayer.style.display = "block";
-                audioPlayer.src = track.url;
-                audioPlayer.play();
+                mediaPlayerContainer.style.display = "none";
+                mediaPlayer.src = "";
             }
             document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
             document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
@@ -629,24 +603,24 @@
 
         // Перемикання між відтворенням та паузою
         function togglePlayPause() {
-            if (audioPlayer.paused) {
-                audioPlayer.play();
+            if (mediaPlayer.paused) {
+                mediaPlayer.play();
                 document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
                 document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
             } else {
-                audioPlayer.pause();
+                mediaPlayer.pause();
                 document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-pause");
                 document.querySelector(".controls button:nth-child(2) i").classList.add("fa-play");
             }
         }
 
         // Оновлення прогресс-бара та часу
-        audioPlayer.addEventListener("timeupdate", () => {
-            const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+        mediaPlayer.addEventListener("timeupdate", () => {
+            const progress = (mediaPlayer.currentTime / mediaPlayer.duration) * 100;
             progressBar.style.width = `${progress}%`;
 
-            currentTimeDisplay.textContent = formatTime(audioPlayer.currentTime);
-            durationDisplay.textContent = formatTime(audioPlayer.duration);
+            currentTimeDisplay.textContent = formatTime(mediaPlayer.currentTime);
+            durationDisplay.textContent = formatTime(mediaPlayer.duration);
         });
 
         // Перемотка при кліку на прогресс-бар
@@ -654,8 +628,8 @@
             const rect = progressBar.parentElement.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
             const width = rect.width;
-            const seekTime = (clickX / width) * audioPlayer.duration;
-            audioPlayer.currentTime = seekTime;
+            const seekTime = (clickX / width) * mediaPlayer.duration;
+            mediaPlayer.currentTime = seekTime;
         });
 
         // Форматування часу у хвилини:секунди
@@ -665,17 +639,17 @@
             return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
         }
 
-        // Обробники подій для аудіоплеєра
-        audioPlayer.addEventListener("ended", () => {
+        // Обробники подій для медіаплеєра
+        mediaPlayer.addEventListener("ended", () => {
             playNextTrack();
         });
 
-        audioPlayer.addEventListener("error", () => {
-            alert("Не вдалося завантажити аудіофайл. Спробуйте ще раз.");
+        mediaPlayer.addEventListener("error", () => {
+            alert("Не вдалося завантажити медіафайл. Спробуйте ще раз.");
         });
 
         // Завантаження плейлиста при завантаженні сторінки
         window.onload = loadPlaylist;
     </script>
 </body>
-</html>
+</html> 
