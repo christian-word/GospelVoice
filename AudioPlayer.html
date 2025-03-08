@@ -273,13 +273,14 @@
             color: transparent;
         }
     </style>
+
 </head>
 <body>
     <header>
-        <img src="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/logo.png" alt="Логотип" class="logo">
-        <h1>Інтерактивний Медіаплеєр</h1>
+        <h1>Інтерактивний аудіо та відеоплеєр</h1>
         <h3>Збірка (церква ЄХБ "Дім Євангелія")</h3>
     </header>
+
     <div class="container">
         <div id="albumInfo">
             Альбом: <span id="albumName">Не обрано</span> | Треків: <span id="trackCount">0</span>
@@ -292,7 +293,11 @@
         </select>
         <div id="playlist"></div>
 
-        <!-- Плеєр, кнопки та прогрес-бар -->
+        <!-- Додаємо відеоплеєр -->
+        <div id="videoPlayerContainer" style="display: none;">
+            <video id="videoPlayer" controls style="width: 100%;"></video>
+        </div>
+
         <div class="controls">
             <button onclick="playPrevTrack()"><i class="fas fa-backward"></i></button>
             <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
@@ -305,19 +310,7 @@
             <span id="currentTime">0:00</span>
             <span id="duration">0:00</span>
         </div>
-
-        <!-- Аудіоплеєр -->
-        <audio id="audioPlayer" controls style="display: none;"></audio>
-
-        <!-- Відеоплеєр -->
-        <div id="videoPlayerContainer" style="display: none;">
-            <iframe id="videoPlayer" width="100%" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-
-        <!-- Локальний відеоплеєр -->
-        <div id="localVideoPlayerContainer" style="display: none;">
-            <video id="localVideoPlayer" width="100%" height="315" controls></video>
-        </div>
+        <audio id="audioPlayer" controls></audio>
     </div>
 
     <footer style="background-color: #f4f4f4; padding: 20px; text-align: center; border-top: 1px solid #ccc; margin-top: 50px;">
@@ -327,13 +320,13 @@
         <p>м. Суми, версія збірки 1.0 : © 2025 р.</p>
 
         <div class="social-icons">
-            <a href="https://www.youtube.com/@pravdachurch" target="_blank">
+            <a href="https://www.youtube.com" target="_blank">
                 <i class="fab fa-youtube"></i>
             </a>
-            <a href="https://www.youtube.com/@pravdachurch" target="_blank">
+            <a href="https://www.facebook.com" target="_blank">
                 <i class="fab fa-facebook"></i>
             </a>
-            <a href="https://www.instagram.com/pravda.church" target="_blank">
+            <a href="https://www.instagram.com" target="_blank">
                 <i class="fab fa-instagram"></i>
             </a>
         </div>
@@ -341,10 +334,8 @@
 
     <script>
         let audioPlayer = document.getElementById("audioPlayer");
-        let videoPlayerContainer = document.getElementById("videoPlayerContainer");
         let videoPlayer = document.getElementById("videoPlayer");
-        let localVideoPlayerContainer = document.getElementById("localVideoPlayerContainer");
-        let localVideoPlayer = document.getElementById("localVideoPlayer");
+        let videoPlayerContainer = document.getElementById("videoPlayerContainer");
         let playlistElement = document.getElementById("playlist");
         let progressBar = document.getElementById("progressBar");
         let currentTimeDisplay = document.getElementById("currentTime");
@@ -353,40 +344,15 @@
         let categories = {};
         let currentCategory = null;
 
-        // Функція для прокрутки до відеоплеєра
-        function scrollToVideoPlayer() {
-            const videoPlayerContainer = document.getElementById("videoPlayerContainer");
-            if (videoPlayerContainer) {
-                videoPlayerContainer.scrollIntoView({ behavior: "smooth", block: "start" });
-            }
-        }
-
-        // Функція для перетворення звичайного YouTube-посилання на посилання для вбудовування
-        function convertToEmbedUrl(url) {
-            if (url.includes("youtu.be")) {
-                const videoId = url.split("/").pop().split("?")[0];
-                return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-            } else if (url.includes("v=")) {
-                const videoId = url.split("v=")[1].split("&")[0];
-                return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-            } else if (url.includes("embed")) {
-                return url;
-            }
-            return null;
-        }
-
-        // Функція для отримання імені плейлиста з URL
         function getPlaylistNameFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get('playlist') || 'playlist.txt';
         }
 
-        // Показуємо індикатор завантаження перед завантаженням плейлиста
         document.addEventListener("DOMContentLoaded", () => {
             playlistElement.innerHTML = '<div id="loading" style="text-align:center; padding: 20px;"><i class="fas fa-spinner fa-spin" style="font-size: 24px; color: var(--primary-color);"></i></div>';
         });
 
-        // Функція для оновлення інформації про альбом
         function updateAlbumInfo(category) {
             const albumNameElement = document.getElementById("albumName");
             const trackCountElement = document.getElementById("trackCount");
@@ -400,7 +366,6 @@
             }
         }
 
-        // Завантаження плейлиста
         async function loadPlaylist() {
             const playlistName = getPlaylistNameFromURL();
             try {
@@ -464,7 +429,6 @@
             }
         }
 
-        // Відображення меню категорій
         function renderCategoryMenu() {
             const categoryKeys = Object.keys(categories);
             const categorySelect = document.getElementById("categorySelect");
@@ -488,7 +452,6 @@
             }
         }
 
-        // Вибір категорії
         function selectCategory(category) {
             currentCategory = category;
             const categoryImage = document.getElementById("categoryImage");
@@ -504,33 +467,20 @@
             updateAlbumInfo(category);
         }
 
-        // Відображення плейлиста
         function renderPlaylist(category) {
             const tracks = categories[category].tracks;
             if (tracks && tracks.length > 0) {
-                playlistElement.innerHTML = tracks.map((track, index) => {
-                    if (track.url.includes("youtube.com") || track.url.includes("youtu.be") || isVideoFile(track.url)) {
-                        return `
-                            <div class="track">
-                                <i class="fas fa-video"></i>
-                                <a href="#" data-src="${track.url}">${track.title}</a>
-                            </div>
-                        `;
-                    } else {
-                        return `
-                            <div class="track">
-                                <i class="fas fa-music"></i>
-                                <a href="#" data-src="${track.url}">${track.title}</a>
-                            </div>
-                        `;
-                    }
-                }).join('');
+                playlistElement.innerHTML = tracks.map((track, index) => `
+                    <div class="track">
+                        <i class="fas fa-music"></i>
+                        <a href="#" data-src="${track.url}">${track.title}</a>
+                    </div>
+                `).join('');
             } else {
                 playlistElement.innerHTML = '<p style="color: red; text-align: center;">Немає треків у цій категорії.</p>';
             }
         }
 
-        // Відтворення треку
         function playTrack(index, category) {
             const tracks = categories[category].tracks;
             if (index >= tracks.length) index = 0;
@@ -542,55 +492,39 @@
             trackElements.forEach((track, i) => {
                 if (i === index) {
                     track.classList.add("playing");
-                    icons[i].classList.remove("fa-music", "fa-video");
+                    icons[i].classList.remove("fa-music");
                     icons[i].classList.add("fa-pause");
                 } else {
                     track.classList.remove("playing");
                     icons[i].classList.remove("fa-pause");
-                    if (tracks[i].url.includes("youtube.com") || tracks[i].url.includes("youtu.be") || isVideoFile(tracks[i].url)) {
-                        icons[i].classList.add("fa-video");
-                    } else {
-                        icons[i].classList.add("fa-music");
-                    }
+                    icons[i].classList.add("fa-music");
                 }
             });
 
-            const track = tracks[index];
-            if (track.url.includes("youtube.com") || track.url.includes("youtu.be")) {
-                // YouTube-відео
-                audioPlayer.style.display = "none";
-                localVideoPlayerContainer.style.display = "none";
+            const trackUrl = tracks[index].url;
+            if (trackUrl.includes("youtube.com") || trackUrl.includes("youtu.be")) {
+                // Якщо це YouTube посилання
+                videoPlayer.src = trackUrl;
                 videoPlayerContainer.style.display = "block";
-                const embedUrl = convertToEmbedUrl(track.url);
-                videoPlayer.src = embedUrl;
-                scrollToVideoPlayer();
-            } else if (isVideoFile(track.url)) {
-                // Локальне відео
-                audioPlayer.style.display = "none";
-                videoPlayerContainer.style.display = "none";
-                localVideoPlayerContainer.style.display = "block";
-                localVideoPlayer.src = track.url;
-                localVideoPlayer.play();
-                scrollToVideoPlayer();
+                audioPlayer.pause();
+                videoPlayer.play();
+            } else if (trackUrl.endsWith(".mp4") || trackUrl.endsWith(".webm") || trackUrl.endsWith(".ogg")) {
+                // Якщо це відеофайл
+                videoPlayer.src = trackUrl;
+                videoPlayerContainer.style.display = "block";
+                audioPlayer.pause();
+                videoPlayer.play();
             } else {
-                // Аудіофайл
+                // Якщо це аудіофайл
                 videoPlayerContainer.style.display = "none";
-                localVideoPlayerContainer.style.display = "none";
-                audioPlayer.style.display = "block";
-                audioPlayer.src = track.url;
+                audioPlayer.src = trackUrl;
                 audioPlayer.play();
             }
+
             document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
             document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
         }
 
-        // Функція для перевірки, чи є посилання відеофайлом
-        function isVideoFile(url) {
-            const videoExtensions = [".mp4", ".webm", ".ogg", ".mov"];
-            return videoExtensions.some(ext => url.includes(ext));
-        }
-
-        // Обробник кліку на трек
         playlistElement.addEventListener("click", (e) => {
             if (e.target.tagName === "A") {
                 e.preventDefault();
@@ -603,7 +537,6 @@
             }
         });
 
-        // Відтворення наступного треку
         function playNextTrack() {
             const tracks = categories[currentCategory].tracks;
             if (tracks && tracks.length > 0) {
@@ -612,7 +545,6 @@
             }
         }
 
-        // Відтворення попереднього треку
         function playPrevTrack() {
             const tracks = categories[currentCategory].tracks;
             if (tracks && tracks.length > 0) {
@@ -621,32 +553,30 @@
             }
         }
 
-        // Перемикання між відтворенням та паузою
         function togglePlayPause() {
-            if (audioPlayer.paused && videoPlayer.paused && localVideoPlayer.paused) {
-                if (audioPlayer.style.display === "block") {
-                    audioPlayer.play();
-                } else if (videoPlayerContainer.style.display === "block") {
-                    videoPlayer.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-                } else if (localVideoPlayerContainer.style.display === "block") {
-                    localVideoPlayer.play();
+            if (videoPlayerContainer.style.display === "block") {
+                if (videoPlayer.paused) {
+                    videoPlayer.play();
+                    document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
+                    document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
+                } else {
+                    videoPlayer.pause();
+                    document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-pause");
+                    document.querySelector(".controls button:nth-child(2) i").classList.add("fa-play");
                 }
-                document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
-                document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
             } else {
-                if (audioPlayer.style.display === "block") {
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
+                    document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
+                } else {
                     audioPlayer.pause();
-                } else if (videoPlayerContainer.style.display === "block") {
-                    videoPlayer.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-                } else if (localVideoPlayerContainer.style.display === "block") {
-                    localVideoPlayer.pause();
+                    document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-pause");
+                    document.querySelector(".controls button:nth-child(2) i").classList.add("fa-play");
                 }
-                document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-pause");
-                document.querySelector(".controls button:nth-child(2) i").classList.add("fa-play");
             }
         }
 
-        // Оновлення прогресс-бара та часу
         audioPlayer.addEventListener("timeupdate", () => {
             const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
             progressBar.style.width = `${progress}%`;
@@ -655,37 +585,37 @@
             durationDisplay.textContent = formatTime(audioPlayer.duration);
         });
 
-        localVideoPlayer.addEventListener("timeupdate", () => {
-            const progress = (localVideoPlayer.currentTime / localVideoPlayer.duration) * 100;
+        videoPlayer.addEventListener("timeupdate", () => {
+            const progress = (videoPlayer.currentTime / videoPlayer.duration) * 100;
             progressBar.style.width = `${progress}%`;
 
-            currentTimeDisplay.textContent = formatTime(localVideoPlayer.currentTime);
-            durationDisplay.textContent = formatTime(localVideoPlayer.duration);
+            currentTimeDisplay.textContent = formatTime(videoPlayer.currentTime);
+            durationDisplay.textContent = formatTime(videoPlayer.duration);
         });
 
-        // Перемотка при кліку на прогресс-бар
         progressBar.parentElement.addEventListener("click", (e) => {
             const rect = progressBar.parentElement.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
             const width = rect.width;
-            if (audioPlayer.style.display === "block") {
-                const seekTime = (clickX / width) * audioPlayer.duration;
+            const seekTime = (clickX / width) * (videoPlayerContainer.style.display === "block" ? videoPlayer.duration : audioPlayer.duration);
+            if (videoPlayerContainer.style.display === "block") {
+                videoPlayer.currentTime = seekTime;
+            } else {
                 audioPlayer.currentTime = seekTime;
-            } else if (localVideoPlayerContainer.style.display === "block") {
-                const seekTime = (clickX / width) * localVideoPlayer.duration;
-                localVideoPlayer.currentTime = seekTime;
             }
         });
 
-        // Форматування часу у хвилини:секунди
         function formatTime(seconds) {
             const mins = Math.floor(seconds / 60);
             const secs = Math.floor(seconds % 60);
             return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
         }
 
-        // Обробники подій для аудіоплеєра
         audioPlayer.addEventListener("ended", () => {
+            playNextTrack();
+        });
+
+        videoPlayer.addEventListener("ended", () => {
             playNextTrack();
         });
 
@@ -693,19 +623,11 @@
             alert("Не вдалося завантажити аудіофайл. Спробуйте ще раз.");
         });
 
-        // Обробники подій для локального відеоплеєра
-        localVideoPlayer.addEventListener("ended", () => {
-            playNextTrack();
-        });
-
-        localVideoPlayer.addEventListener("error", () => {
+        videoPlayer.addEventListener("error", () => {
             alert("Не вдалося завантажити відеофайл. Спробуйте ще раз.");
         });
 
-        // Завантаження плейлиста при завантаженні сторінки
         window.onload = loadPlaylist;
     </script>
 </body>
 </html>
-
-    
