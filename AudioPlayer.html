@@ -273,7 +273,6 @@
             color: transparent;
         }
     </style>
-
 </head>
 <body>
     <header>
@@ -306,8 +305,18 @@
             <span id="currentTime">0:00</span>
             <span id="duration">0:00</span>
         </div>
-        <div id="mediaPlayerContainer" style="display: none;">
-            <iframe id="mediaPlayer" width="100%" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+        <!-- Аудіоплеєр -->
+        <audio id="audioPlayer" controls style="display: none;"></audio>
+
+        <!-- Відеоплеєр -->
+        <div id="videoPlayerContainer" style="display: none;">
+            <iframe id="videoPlayer" width="100%" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <!-- Локальний відеоплеєр -->
+        <div id="localVideoPlayerContainer" style="display: none;">
+            <video id="localVideoPlayer" width="100%" height="315" controls></video>
         </div>
     </div>
 
@@ -331,8 +340,11 @@
     </footer>
 
     <script>
-        let mediaPlayerContainer = document.getElementById("mediaPlayerContainer");
-        let mediaPlayer = document.getElementById("mediaPlayer");
+        let audioPlayer = document.getElementById("audioPlayer");
+        let videoPlayerContainer = document.getElementById("videoPlayerContainer");
+        let videoPlayer = document.getElementById("videoPlayer");
+        let localVideoPlayerContainer = document.getElementById("localVideoPlayerContainer");
+        let localVideoPlayer = document.getElementById("localVideoPlayer");
         let playlistElement = document.getElementById("playlist");
         let progressBar = document.getElementById("progressBar");
         let currentTimeDisplay = document.getElementById("currentTime");
@@ -341,10 +353,11 @@
         let categories = {};
         let currentCategory = null;
 
-        // Функція для прокрутки до медіаплеєра
-        function scrollToMediaPlayer() {
-            if (mediaPlayerContainer) {
-                mediaPlayerContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+        // Функція для прокрутки до відеоплеєра
+        function scrollToVideoPlayer() {
+            const videoPlayerContainer = document.getElementById("videoPlayerContainer");
+            if (videoPlayerContainer) {
+                videoPlayerContainer.scrollIntoView({ behavior: "smooth", block: "start" });
             }
         }
 
@@ -437,219 +450,4 @@
                         categoryImage.src = categories[currentCategory].image;
                         categoryImage.style.display = "block";
                     } else {
-                        categoryImage.style.display = "none";
-                    }
-                    updateAlbumInfo(currentCategory);
-                } else {
-                    playlistElement.innerHTML = '<p style="color: red; text-align: center;">Плейлист порожній або невірно сформований.</p>';
-                    updateAlbumInfo(null);
-                }
-            } catch (error) {
-                console.error('Помилка завантаження плейлиста:', error);
-                playlistElement.innerHTML = '<p style="color: red; text-align: center;">Не вдалося завантажити плейлист</p>';
-                updateAlbumInfo(null);
-            }
-        }
-
-        // Відображення меню категорій
-        function renderCategoryMenu() {
-            const categoryKeys = Object.keys(categories);
-            const categorySelect = document.getElementById("categorySelect");
-            categorySelect.innerHTML = '<option value="">Оберіть альбом</option>';
-
-            if (categoryKeys.length > 0) {
-                categoryKeys.forEach(category => {
-                    const option = document.createElement("option");
-                    option.value = category;
-                    option.textContent = category;
-                    categorySelect.appendChild(option);
-                });
-
-                if (categoryKeys.length === 1) {
-                    currentCategory = categoryKeys[0];
-                    categorySelect.value = currentCategory;
-                    renderPlaylist(currentCategory);
-                }
-            } else {
-                categorySelect.innerHTML = '<option value="">Немає категорій</option>';
-            }
-        }
-
-        // Вибір категорії
-        function selectCategory(category) {
-            currentCategory = category;
-            const categoryImage = document.getElementById("categoryImage");
-
-            if (categories[category].image) {
-                categoryImage.src = categories[category].image;
-                categoryImage.style.display = "block";
-            } else {
-                categoryImage.style.display = "none";
-            }
-
-            renderPlaylist(category);
-            updateAlbumInfo(category);
-        }
-
-        // Відображення плейлиста
-        function renderPlaylist(category) {
-            const tracks = categories[category].tracks;
-            if (tracks && tracks.length > 0) {
-                playlistElement.innerHTML = tracks.map((track, index) => {
-                    if (track.url.includes("youtube.com") || track.url.includes("youtu.be") || isVideoFile(track.url)) {
-                        return `
-                            <div class="track">
-                                <i class="fas fa-video"></i>
-                                <a href="#" data-src="${track.url}">${track.title}</a>
-                            </div>
-                        `;
-                    } else {
-                        return `
-                            <div class="track">
-                                <i class="fas fa-music"></i>
-                                <a href="#" data-src="${track.url}">${track.title}</a>
-                            </div>
-                        `;
-                    }
-                }).join('');
-            } else {
-                playlistElement.innerHTML = '<p style="color: red; text-align: center;">Немає треків у цій категорії.</p>';
-            }
-        }
-
-        // Відтворення треку
-        function playTrack(index, category) {
-            const tracks = categories[category].tracks;
-            if (index >= tracks.length) index = 0;
-            currentTrack = index;
-
-            const trackElements = document.querySelectorAll("#playlist .track");
-            const icons = document.querySelectorAll("#playlist i");
-
-            trackElements.forEach((track, i) => {
-                if (i === index) {
-                    track.classList.add("playing");
-                    icons[i].classList.remove("fa-music", "fa-video");
-                    icons[i].classList.add("fa-pause");
-                } else {
-                    track.classList.remove("playing");
-                    icons[i].classList.remove("fa-pause");
-                    if (tracks[i].url.includes("youtube.com") || tracks[i].url.includes("youtu.be") || isVideoFile(tracks[i].url)) {
-                        icons[i].classList.add("fa-video");
-                    } else {
-                        icons[i].classList.add("fa-music");
-                    }
-                }
-            });
-
-            const track = tracks[index];
-            if (track.url.includes("youtube.com") || track.url.includes("youtu.be")) {
-                // YouTube-відео
-                mediaPlayerContainer.style.display = "block";
-                const embedUrl = convertToEmbedUrl(track.url);
-                mediaPlayer.src = embedUrl;
-                scrollToMediaPlayer();
-            } else if (isVideoFile(track.url)) {
-                // Локальне відео
-                mediaPlayerContainer.style.display = "block";
-                mediaPlayer.src = track.url;
-                mediaPlayer.play();
-                scrollToMediaPlayer();
-            } else {
-                // Аудіофайл
-                mediaPlayerContainer.style.display = "none";
-                mediaPlayer.src = "";
-            }
-            document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
-            document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
-        }
-
-        // Функція для перевірки, чи є посилання відеофайлом
-        function isVideoFile(url) {
-            const videoExtensions = [".mp4", ".webm", ".ogg", ".mov"];
-            return videoExtensions.some(ext => url.includes(ext));
-        }
-
-        // Обробник кліку на трек
-        playlistElement.addEventListener("click", (e) => {
-            if (e.target.tagName === "A") {
-                e.preventDefault();
-                const trackElement = e.target.closest(".track");
-                if (trackElement) {
-                    const index = Array.from(trackElement.parentElement.children).indexOf(trackElement);
-                    const category = currentCategory;
-                    playTrack(index, category);
-                }
-            }
-        });
-
-        // Відтворення наступного треку
-        function playNextTrack() {
-            const tracks = categories[currentCategory].tracks;
-            if (tracks && tracks.length > 0) {
-                currentTrack = (currentTrack + 1) % tracks.length;
-                playTrack(currentTrack, currentCategory);
-            }
-        }
-
-        // Відтворення попереднього треку
-        function playPrevTrack() {
-            const tracks = categories[currentCategory].tracks;
-            if (tracks && tracks.length > 0) {
-                currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
-                playTrack(currentTrack, currentCategory);
-            }
-        }
-
-        // Перемикання між відтворенням та паузою
-        function togglePlayPause() {
-            if (mediaPlayer.paused) {
-                mediaPlayer.play();
-                document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
-                document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
-            } else {
-                mediaPlayer.pause();
-                document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-pause");
-                document.querySelector(".controls button:nth-child(2) i").classList.add("fa-play");
-            }
-        }
-
-        // Оновлення прогресс-бара та часу
-        mediaPlayer.addEventListener("timeupdate", () => {
-            const progress = (mediaPlayer.currentTime / mediaPlayer.duration) * 100;
-            progressBar.style.width = `${progress}%`;
-
-            currentTimeDisplay.textContent = formatTime(mediaPlayer.currentTime);
-            durationDisplay.textContent = formatTime(mediaPlayer.duration);
-        });
-
-        // Перемотка при кліку на прогресс-бар
-        progressBar.parentElement.addEventListener("click", (e) => {
-            const rect = progressBar.parentElement.getBoundingClientRect();
-            const clickX = e.clientX - rect.left;
-            const width = rect.width;
-            const seekTime = (clickX / width) * mediaPlayer.duration;
-            mediaPlayer.currentTime = seekTime;
-        });
-
-        // Форматування часу у хвилини:секунди
-        function formatTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-        }
-
-        // Обробники подій для медіаплеєра
-        mediaPlayer.addEventListener("ended", () => {
-            playNextTrack();
-        });
-
-        mediaPlayer.addEventListener("error", () => {
-            alert("Не вдалося завантажити медіафайл. Спробуйте ще раз.");
-        });
-
-        // Завантаження плейлиста при завантаженні сторінки
-        window.onload = loadPlaylist;
-    </script>
-</body>
-</html> 
+                        categoryImage.style.display = 
