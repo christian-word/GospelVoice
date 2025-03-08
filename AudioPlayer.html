@@ -295,7 +295,8 @@
 
         <!-- Додаємо відеоплеєр -->
         <div id="videoPlayerContainer" style="display: none;">
-            <video id="videoPlayer" controls style="width: 100%;"></video>
+            <iframe id="youtubePlayer" width="100%" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <video id="videoPlayer" controls style="width: 100%; display: none;"></video>
         </div>
 
         <div class="controls">
@@ -335,6 +336,7 @@
     <script>
         let audioPlayer = document.getElementById("audioPlayer");
         let videoPlayer = document.getElementById("videoPlayer");
+        let youtubePlayer = document.getElementById("youtubePlayer");
         let videoPlayerContainer = document.getElementById("videoPlayerContainer");
         let playlistElement = document.getElementById("playlist");
         let progressBar = document.getElementById("progressBar");
@@ -504,13 +506,17 @@
             const trackUrl = tracks[index].url;
             if (trackUrl.includes("youtube.com") || trackUrl.includes("youtu.be")) {
                 // Якщо це YouTube посилання
-                videoPlayer.src = trackUrl;
+                const videoId = extractYouTubeId(trackUrl);
+                youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+                youtubePlayer.style.display = "block";
+                videoPlayer.style.display = "none";
                 videoPlayerContainer.style.display = "block";
                 audioPlayer.pause();
-                videoPlayer.play();
             } else if (trackUrl.endsWith(".mp4") || trackUrl.endsWith(".webm") || trackUrl.endsWith(".ogg")) {
                 // Якщо це відеофайл
+                youtubePlayer.style.display = "none";
                 videoPlayer.src = trackUrl;
+                videoPlayer.style.display = "block";
                 videoPlayerContainer.style.display = "block";
                 audioPlayer.pause();
                 videoPlayer.play();
@@ -523,6 +529,12 @@
 
             document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
             document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
+        }
+
+        function extractYouTubeId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
         }
 
         playlistElement.addEventListener("click", (e) => {
@@ -555,16 +567,28 @@
 
         function togglePlayPause() {
             if (videoPlayerContainer.style.display === "block") {
-                if (videoPlayer.paused) {
-                    videoPlayer.play();
-                    document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
-                    document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
+                if (youtubePlayer.style.display === "block") {
+                    // Для YouTube відео
+                    const iframeSrc = youtubePlayer.src;
+                    if (iframeSrc.includes("autoplay=1")) {
+                        youtubePlayer.src = iframeSrc.replace("autoplay=1", "autoplay=0");
+                    } else {
+                        youtubePlayer.src = iframeSrc + "&autoplay=1";
+                    }
                 } else {
-                    videoPlayer.pause();
-                    document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-pause");
-                    document.querySelector(".controls button:nth-child(2) i").classList.add("fa-play");
+                    // Для локальних відео
+                    if (videoPlayer.paused) {
+                        videoPlayer.play();
+                        document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
+                        document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
+                    } else {
+                        videoPlayer.pause();
+                        document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-pause");
+                        document.querySelector(".controls button:nth-child(2) i").classList.add("fa-play");
+                    }
                 }
             } else {
+                // Для аудіо
                 if (audioPlayer.paused) {
                     audioPlayer.play();
                     document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
