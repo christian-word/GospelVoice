@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -223,26 +223,22 @@
         function renderPlaylist(title, playlistText, playlistUrl) {
             const themeDiv = document.createElement('div');
             themeDiv.className = 'theme';
-            themeDiv.id = `theme-${title.replace(/\s+/g, '-').toLowerCase()}`; // Уникальный ID для плейлиста
+            themeDiv.id = `theme-${title.replace(/\s+/g, '-').toLowerCase()}`; 
 
-            // Заголовок тематики
             const titleElement = document.createElement('h1');
             titleElement.textContent = title;
             themeDiv.appendChild(titleElement);
 
-            // Обрабатываем категории
             const lines = playlistText.split('\n');
             let currentCategory = null;
             let categoryId = 0;
 
             lines.forEach(line => {
                 if (line.startsWith('Категорія:')) {
-                    // Создаем новый блок для категории
                     const [categoryName, thumbnail] = line.split(';');
                     currentCategory = document.createElement('div');
                     currentCategory.className = 'category';
 
-                    // Иконка категории
                     const img = document.createElement('img');
                     img.src = thumbnail.trim();
                     currentCategory.appendChild(img);
@@ -250,16 +246,21 @@
                     // Название категории (ссылка на плеер)
                     const categoryTitle = document.createElement('h2');
                     const link = document.createElement('a');
-                    link.href = `https://ruyriy.github.io/Audio-christ/avPlayer.html?playlist=${playlistUrl}#${categoryId}`; // Ссылка на плеер с параметрами
+                    link.href = `https://ruyriy.github.io/Audio-christ/avPlayer.html?playlist=${playlistUrl}#${categoryId}`; 
                     link.textContent = categoryName.replace('Категорія:', '').trim();
                     categoryTitle.appendChild(link);
                     currentCategory.appendChild(categoryTitle);
+
+                    // Добавляем обработчик клика на изображение
+                    img.onclick = () => {
+                        window.location.href = link.href; // Переход на страницу плеера
+                    };
 
                     // Кнопка "Докладніше"
                     const detailsButton = document.createElement('button');
                     detailsButton.className = 'details-button';
                     detailsButton.textContent = 'Докладніше';
-                    detailsButton.dataset.target = `tracks-${title.replace(/\s+/g, '-').toLowerCase()}-${categoryId}`; // Уникальный ID для контейнера треков
+                    detailsButton.dataset.target = `tracks-${title.replace(/\s+/g, '-').toLowerCase()}-${categoryId}`;
                     detailsButton.onclick = (event) => {
                         const targetId = event.target.dataset.target;
                         const tracksContainer = document.getElementById(targetId);
@@ -267,16 +268,14 @@
                     };
                     currentCategory.appendChild(detailsButton);
 
-                    // Контейнер для треков
                     const tracksContainer = document.createElement('div');
-                    tracksContainer.id = `tracks-${title.replace(/\s+/g, '-').toLowerCase()}-${categoryId}`; // Уникальный ID
+                    tracksContainer.id = `tracks-${title.replace(/\s+/g, '-').toLowerCase()}-${categoryId}`;
                     tracksContainer.className = 'tracks-container';
                     currentCategory.appendChild(tracksContainer);
 
                     themeDiv.appendChild(currentCategory);
                     categoryId++;
                 } else if (currentCategory && line.trim()) {
-                    // Добавляем трек в текущую категорию
                     const [title] = line.split(';');
                     if (title) {
                         const trackDiv = document.createElement('div');
@@ -292,12 +291,10 @@
 
         // Функция для переключения плейлистов
         function showTheme(themeId) {
-            // Скрываем все плейлисты
             document.querySelectorAll('.theme').forEach(theme => {
                 theme.classList.remove('active');
             });
 
-            // Показываем выбранный плейлист
             const selectedTheme = document.getElementById(`theme-${themeId}`);
             if (selectedTheme) {
                 selectedTheme.classList.add('active');
