@@ -17,9 +17,7 @@
         /* Стили для панели */
         .header {
             width: 100%;
-            background-color: #4CAF50; /* Зеленый цвет */
-            /* background-color: #1565c0; */
-            /* background-color: #00bcd4;  */
+            background-color: #4CAF50; /* Зеленый */
             color: white;
             padding: 20px 0;
             text-align: center;
@@ -42,19 +40,28 @@
             cursor: pointer;
             border: none;
             border-radius: 25px;
-           /* background-color: #4CAF50; */
             background-color: #00bcd4; /* Светло-бирюзовый */
             color: white;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 
+                0 4px 6px rgba(0, 0, 0, 0.2), /* Основная тень */
+                0 6px 12px rgba(0, 0, 0, 0.15), /* Вторая тень для глубины */
+                0 8px 16px rgba(0, 0, 0, 0.1); /* Третья тень для еще большей глубины */
         }
         .menu button:hover {
-            /* background-color: #45a049; */
             background-color: #0097a7; /* Темнее бирюзовый */
             transform: translateY(-2px);
+            box-shadow: 
+                0 6px 8px rgba(0, 0, 0, 0.25), /* Увеличиваем тени при наведении */
+                0 10px 20px rgba(0, 0, 0, 0.2),
+                0 12px 24px rgba(0, 0, 0, 0.15);
         }
         .menu button:active {
             transform: translateY(0);
+            box-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.2), /* Уменьшаем тени при нажатии */
+                0 4px 8px rgba(0, 0, 0, 0.15),
+                0 6px 12px rgba(0, 0, 0, 0.1);
         }
 
         /* Стили для плейлистов */
@@ -87,7 +94,7 @@
         .category h2 {
             margin: 0 0 10px 0;
             font-size: 20px;
-            color: #4CAF50;
+            color: #4CAF50; /* Зеленый */
         }
         .category img {
             width: 100px;
@@ -124,30 +131,42 @@
             padding: 8px 16px;
             font-size: 14px;
             color: white;
-            background-color: #4CAF50;
+            background-color: #00bcd4; /* Светло-бирюзовый */
             border: none;
             border-radius: 25px;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 
+                0 4px 6px rgba(0, 0, 0, 0.2),
+                0 6px 12px rgba(0, 0, 0, 0.15),
+                0 8px 16px rgba(0, 0, 0, 0.1);
         }
         .details-button:hover {
-            background-color: #45a049;
+            background-color: #0097a7; /* Темнее бирюзовый */
             transform: translateY(-2px);
+            box-shadow: 
+                0 6px 8px rgba(0, 0, 0, 0.25),
+                0 10px 20px rgba(0, 0, 0, 0.2),
+                0 12px 24px rgba(0, 0, 0, 0.15);
         }
         .details-button:active {
             transform: translateY(0);
+            box-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.2),
+                0 4px 8px rgba(0, 0, 0, 0.15),
+                0 6px 12px rgba(0, 0, 0, 0.1);
         }
 
         /* Современные стили для гиперссылок */
         a {
-            color: #4CAF50; /* Цвет ссылки */
+            color: #00bcd4; /* Светло-бирюзовый */
             text-decoration: none; /* Убираем подчеркивание */
             position: relative;
             transition: color 0.3s ease; /* Плавный переход цвета */
         }
 
         a:hover {
-            color: #45a049; /* Цвет при наведении */
+            color: #0097a7; /* Темнее бирюзовый */
         }
 
         a::after {
@@ -155,7 +174,7 @@
             position: absolute;
             width: 100%;
             height: 2px;
-            background: #4CAF50;
+            background: #00bcd4;
             left: 0;
             bottom: -5px;
             transform: scaleX(0);
@@ -200,31 +219,38 @@
 
     <script>
         // Ссылки на плейлисты
-    const playlistUrls = [
-    {
-        title: "Інші музичні збірки",
-        url: "https://ruyriy.github.io/Audio-christ/playlist/ico-playlist.txt"
-    },
-    {
-        title: "ЄХБ Дім Євангелія, м. Суми",
-        url: "https://ruyriy.github.io/Audio-christ/playlist/ico-playlist1.txt"
-    },
-    {
-        title: "Збірка проповідей, ЄХБ Дім Євангелія, м. Суми",
-        url: "https://ruyriy.github.io/Audio-christ/playlist/ico-playlist2.txt" // Замените на реальный URL
-    }
-    ];
+        const playlistUrls = [
+            {
+                title: "Інші музичні збірки",
+                url: "https://ruyriy.github.io/Audio-christ/playlist/ico-playlist.txt"
+            },
+            {
+                title: "ЄХБ Дім Євангелія, м. Суми",
+                url: "https://ruyriy.github.io/Audio-christ/playlist/ico-playlist1.txt"
+            },
+            {
+                title: "Збірка проповідей, ЄХБ Дім Євангелія, м. Суми",
+                url: "https://ruyriy.github.io/Audio-christ/playlist/ico-playlist2.txt" // Замените на реальный URL
+            }
+        ];
 
         const menuContainer = document.getElementById('menu');
         const themesContainer = document.getElementById('themes');
 
         // Функция для загрузки плейлиста
         async function loadPlaylist(playlistUrl) {
-            const response = await fetch(playlistUrl);
-            if (!response.ok) {
-                throw new Error(`Ошибка загрузки плейлиста: ${response.status}`);
+            try {
+                const response = await fetch(playlistUrl);
+                if (!response.ok) {
+                    throw new Error(`Ошибка загрузки плейлиста: ${response.status}`);
+                }
+                const text = await response.text();
+                console.log(`Загружен плейлист: ${playlistUrl}`, text); // Логируем содержимое
+                return text;
+            } catch (error) {
+                console.error(`Ошибка при загрузке ${playlistUrl}:`, error);
+                return null;
             }
-            return await response.text();
         }
 
         // Функция для отображения плейлиста
@@ -312,17 +338,19 @@
         // Загружаем и отображаем все плейлисты
         async function loadAllPlaylists() {
             for (const playlist of playlistUrls) {
+                console.log(`Загрузка плейлиста: ${playlist.title}`); // Логируем процесс
                 try {
                     const playlistText = await loadPlaylist(playlist.url);
-                    renderPlaylist(playlist.title, playlistText, playlist.url);
+                    if (playlistText) {
+                        renderPlaylist(playlist.title, playlistText, playlist.url);
 
-                    // Добавляем кнопку в меню
-                    const button = document.createElement('button');
-                    button.textContent = playlist.title;
-                    button.onclick = () => showTheme(playlist.title.replace(/\s+/g, '-').toLowerCase());
-                    menuContainer.appendChild(button);
+                        const button = document.createElement('button');
+                        button.textContent = playlist.title;
+                        button.onclick = () => showTheme(playlist.title.replace(/\s+/g, '-').toLowerCase());
+                        menuContainer.appendChild(button);
+                    }
                 } catch (error) {
-                    console.error(error);
+                    console.error(`Ошибка при обработке плейлиста ${playlist.title}:`, error);
                 }
             }
 
