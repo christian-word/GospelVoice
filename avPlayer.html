@@ -93,15 +93,32 @@ header h3 {
     color: white;
     border: none;
     padding: 8px 16px;
-    border-radius: 20px; /* Круглі краї для десктопної версії */
+    border-radius: 20px; /* Круглі краї */
     cursor: pointer;
     font-size: 14px;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease; /* Плавна анімація для всіх змін */
     white-space: nowrap;
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.1), /* Перший шар тіні */
+        0 6px 12px rgba(0, 0, 0, 0.2), /* Другий шар тіні */
+        0 8px 18px rgba(0, 0, 0, 0.3); /* Третій шар тіні */
 }
 
 #playlistButton:hover {
     background-color: var(--hover-color);
+    box-shadow: 
+        0 6px 8px rgba(0, 0, 0, 0.15), /* Збільшена тінь при наведенні */
+        0 10px 20px rgba(0, 0, 0, 0.25), 
+        0 15px 30px rgba(0, 0, 0, 0.35);
+    transform: translateY(-2px); /* Легке підняття кнопки */
+}
+
+#playlistButton:active {
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.1), /* Зменшена тінь при натисканні */
+        0 4px 8px rgba(0, 0, 0, 0.2), 
+        0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(0); /* Повернення кнопки в початкове положення */
 }
 
 .track {
@@ -280,6 +297,26 @@ header h3 {
         width: 100%;
         margin-top: 10px;
         border-radius: 20px; /* Круглі краї для мобільної версії */
+        box-shadow: 
+            0 4px 6px rgba(0, 0, 0, 0.1), 
+            0 6px 12px rgba(0, 0, 0, 0.2), 
+            0 8px 18px rgba(0, 0, 0, 0.3);
+    }
+
+    #playlistButton:hover {
+        box-shadow: 
+            0 6px 8px rgba(0, 0, 0, 0.15), 
+            0 10px 20px rgba(0, 0, 0, 0.25), 
+            0 15px 30px rgba(0, 0, 0, 0.35);
+        transform: translateY(-2px);
+    }
+
+    #playlistButton:active {
+        box-shadow: 
+            0 2px 4px rgba(0, 0, 0, 0.1), 
+            0 4px 8px rgba(0, 0, 0, 0.2), 
+            0 6px 12px rgba(0, 0, 0, 0.3);
+        transform: translateY(0);
     }
 }
 
@@ -311,7 +348,7 @@ header h3 {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-} 
+}
  </style>        
 </head>
 <body>
