@@ -92,16 +92,26 @@ header h3 {
     background-color: var(--primary-color);
     color: white;
     border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
+    padding: 12px 24px;
+    border-radius: 25px; /* Закруглені краї */
     cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
+    font-size: 16px;
+    transition: all 0.3s ease;
     white-space: nowrap;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Тінь для 3D-ефекту */
+    transform: translateY(0);
 }
 
 #playlistButton:hover {
     background-color: var(--hover-color);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Збільшена тінь при наведенні */
+    transform: translateY(-2px); /* Легкий підйом кнопки */
+}
+
+#playlistButton:active {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Зменшена тінь при натисканні */
+    transform: translateY(0); /* Повернення в початкове положення */
 }
 
 .track {
@@ -277,10 +287,11 @@ header h3 {
     }
 
     #playlistButton {
-        width: calc(100% - 20px);
-        margin: 10px;
-        padding: 10px;
-        font-size: 16px;
+        width: calc(100% - 40px); /* Залишаємо відступи з боків */
+        margin: 10px 20px; /* Відступи зверху та знизу */
+        padding: 12px 24px; /* Збільшуємо внутрішні відступи */
+        font-size: 16px; /* Збільшуємо розмір тексту */
+        border-radius: 25px; /* Закруглені краї */
     }
 }
 
@@ -312,7 +323,8 @@ header h3 {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-}  
+}
+        
  </style>        
 </head>
 <body>
