@@ -19,11 +19,13 @@
             width: 100%;
             background-color: #4CAF50; /* Зеленый */
             color: white;
-            padding: 20px 0;
+            padding: 2px 0; /* Уменьшили отступы для тоньшей панели */
             text-align: center;
-            font-size: 28px;
+            font-size: 14px; /* Уменьшили размер шрифта */
             font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-family: 'Montserrat', sans-serif; /* Шрифт заголовка */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Уменьшили тень для панелей */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7), 2px 2px 4px rgba(0, 0, 0, 0.5); /* Уменьшили тень текста */
         }
 
         /* Стили для меню */
@@ -34,6 +36,7 @@
             flex-wrap: wrap;
             justify-content: center;
         }
+
         .menu button {
             padding: 10px 20px;
             font-size: 16px;
@@ -48,6 +51,7 @@
                 0 6px 12px rgba(0, 0, 0, 0.15), /* Вторая тень для глубины */
                 0 8px 16px rgba(0, 0, 0, 0.1); /* Третья тень для еще большей глубины */
         }
+
         .menu button:hover {
             background-color: #0097a7; /* Темнее бирюзовый */
             transform: translateY(-2px);
@@ -56,6 +60,7 @@
                 0 10px 20px rgba(0, 0, 0, 0.2),
                 0 12px 24px rgba(0, 0, 0, 0.15);
         }
+
         .menu button:active {
             transform: translateY(0);
             box-shadow: 
@@ -64,20 +69,41 @@
                 0 6px 12px rgba(0, 0, 0, 0.1);
         }
 
-        /* Стили для плейлистов */
+        /* Стили для кнопки "На головну" */
+        .menu button.home-button {
+            background-color: #ff5722; /* Оранжевый */
+        }
+
+        .menu button.home-button:hover {
+            background-color: #e64a19; /* Темнее оранжевый */
+        }
+
+        /* Стили для кнопки "Родіо онлайн" */
+        .menu button.radio-button {
+            background-color: #4CAF50; /* Зеленый */
+        }
+
+        .menu button.radio-button:hover {
+            background-color: #45a049; /* Темнее зеленый */
+        }
+
+        /* Остальные стили остаются без изменений */
         .theme {
             margin-bottom: 40px;
             display: none; /* Скрываем плейлисты по умолчанию */
         }
+
         .theme.active {
             display: block; /* Показываем активный плейлист */
         }
+
         .theme h1 {
             margin: 0 0 20px 0;
             color: #333;
             font-size: 24px;
             text-align: center;
         }
+
         .category {
             margin-bottom: 20px;
             padding: 15px;
@@ -87,15 +113,18 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
         .category:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
+
         .category h2 {
             margin: 0 0 10px 0;
             font-size: 20px;
             color: #4CAF50; /* Зеленый */
         }
+
         .category img {
             width: 100px;
             height: 100px;
@@ -104,15 +133,18 @@
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         .tracks-container {
             margin-left: 20px;
             display: none; /* Скрываем треки по умолчанию */
             overflow: hidden;
             transition: max-height 0.5s ease-out;
         }
+
         .tracks-container.show {
             display: block; /* Показываем треки */
         }
+
         .track {
             margin-bottom: 5px;
             padding: 5px;
@@ -120,6 +152,7 @@
             border-radius: 5px;
             transition: background-color 0.3s ease;
         }
+
         .track:hover {
             background-color: #e0e0e0;
         }
@@ -141,6 +174,7 @@
                 0 6px 12px rgba(0, 0, 0, 0.15),
                 0 8px 16px rgba(0, 0, 0, 0.1);
         }
+
         .details-button:hover {
             background-color: #0097a7; /* Темнее бирюзовый */
             transform: translateY(-2px);
@@ -149,6 +183,7 @@
                 0 10px 20px rgba(0, 0, 0, 0.2),
                 0 12px 24px rgba(0, 0, 0, 0.15);
         }
+
         .details-button:active {
             transform: translateY(0);
             box-shadow: 
@@ -198,6 +233,7 @@
             .tracks-container {
                 column-count: 1; /* Одна колонка */
             }
+            
             .menu button {
                 width: 100%;
                 margin-bottom: 10px;
@@ -208,11 +244,16 @@
 <body>
     <!-- Панель с названием -->
     <div class="header">
-        Інтерактивний Медіаплеєр: Плейлисти
+        <h1 class="header-title">Інтерактивний Медіаплеєр: Плейлисти</h1>
     </div>
 
     <!-- Меню тематик -->
-    <div class="menu" id="menu"></div>
+    <div class="menu" id="menu">
+        <!-- Кнопка "На головну" -->
+        <button class="home-button" onclick="alert('Проводяться технічні роботи');">На головну</button>
+        <!-- Кнопка "Родіо онлайн" -->
+        <button class="radio-button" onclick="window.open('https://ruyriy.github.io/Radio-online/', '_blank')">Родіо онлайн</button>
+    </div>
 
     <!-- Контейнер для плейлистов -->
     <div id="themes"></div>
