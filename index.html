@@ -123,6 +123,9 @@
             transform: translateY(-2px); /* Легкий подъем элемента */
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Увеличение тени */
         }
+        .content .decorative-element:active {
+            transform: translateY(1px); /* Легкое смещение при нажатии */
+        }
         .content .decorative-element h2 {
             margin: 0 0 10px;
             font-size: 1.5em;
@@ -147,6 +150,17 @@
         }
         footer a:hover {
             text-decoration: underline;
+        }
+
+        /* Анимация для мобильного режима */
+        @media (max-width: 768px) {
+            .content .decorative-element {
+                border: 2px solid transparent; /* Добавляем границу для визуализации */
+                transition: border-color 0.3s; /* Плавный переход для границы */
+            }
+            .content .decorative-element:hover {
+                border-color: #4a90e2; /* Цвет границы при наведении */
+            }
         }
     </style>
 </head>
