@@ -61,14 +61,6 @@
                 0 12px 24px rgba(0, 0, 0, 0.15);
         }
 
-        .menu button:active {
-            transform: translateY(0);
-            box-shadow: 
-                0 2px 4px rgba(0, 0, 0, 0.2), /* Уменьшаем тени при нажатии */
-                0 4px 8px rgba(0, 0, 0, 0.15),
-                0 6px 12px rgba(0, 0, 0, 0.1);
-        }
-
         /* Стили для кнопки "На головну" */
         .menu button.home-button {
             background-color: #ff5722; /* Оранжевый */
@@ -184,14 +176,6 @@
                 0 12px 24px rgba(0, 0, 0, 0.15);
         }
 
-        .details-button:active {
-            transform: translateY(0);
-            box-shadow: 
-                0 2px 4px rgba(0, 0, 0, 0.2),
-                0 4px 8px rgba(0, 0, 0, 0.15),
-                0 6px 12px rgba(0, 0, 0, 0.1);
-        }
-
         /* Современные стили для гиперссылок */
         a {
             color: #00bcd4; /* Светло-бирюзовый */
@@ -233,7 +217,7 @@
             .tracks-container {
                 column-count: 1; /* Одна колонка */
             }
-            
+
             .menu button {
                 width: 100%;
                 margin-bottom: 10px;
@@ -286,7 +270,6 @@
                     throw new Error(`Ошибка загрузки плейлиста: ${response.status}`);
                 }
                 const text = await response.text();
-                console.log(`Загружен плейлист: ${playlistUrl}`, text); // Логируем содержимое
                 return text;
             } catch (error) {
                 console.error(`Ошибка при загрузке ${playlistUrl}:`, error);
@@ -379,7 +362,6 @@
         // Загружаем и отображаем все плейлисты
         async function loadAllPlaylists() {
             for (const playlist of playlistUrls) {
-                console.log(`Загрузка плейлиста: ${playlist.title}`); // Логируем процесс
                 try {
                     const playlistText = await loadPlaylist(playlist.url);
                     if (playlistText) {
@@ -395,8 +377,11 @@
                 }
             }
 
-            // Показываем первый плейлист по умолчанию
-            if (playlistUrls.length > 0) {
+            // Обработка URL-параметра для плейлистов
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                showTheme(hash);
+            } else {
                 showTheme(playlistUrls[0].title.replace(/\s+/g, '-').toLowerCase());
             }
         }
