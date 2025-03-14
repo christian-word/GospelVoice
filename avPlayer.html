@@ -587,59 +587,43 @@ header h3 {
             videoContainer.scrollIntoView({ behavior: "smooth", block: "start" });
         }
 
-        function playTrack(index, category) {
-            stopAllMedia(); // Зупиняємо всі медіа перед відтворенням нового треку
+function playTrack(index, category) {
+    stopAllMedia(); // Зупиняємо всі медіа перед відтворенням нового треку
 
-            const tracks = categories[category].tracks;
-            if (index >= tracks.length) index = 0;
-            currentTrack = index;
+    const tracks = categories[category].tracks;
+    if (index >= tracks.length) index = 0;
+    currentTrack = index;
 
-            const trackElements = document.querySelectorAll("#playlist .track");
-            const icons = document.querySelectorAll("#playlist i");
+    const trackUrl = tracks[index].url;
 
-            trackElements.forEach((track, i) => {
-                if (i === index) {
-                    track.classList.add("playing");
-                    icons[i].classList.remove("fa-music");
-                    icons[i].classList.add("fa-pause");
-                } else {
-                    track.classList.remove("playing");
-                    icons[i].classList.remove("fa-pause");
-                    icons[i].classList.add("fa-music");
-                }
-            });
+    if (trackUrl.includes("youtube.com") || trackUrl.includes("youtu.be")) {
+        // YouTube відео
+        const videoId = extractYouTubeId(trackUrl);
+        youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+        youtubePlayer.style.display = "block";
+        videoPlayer.style.display = "none";
+        videoPlayerContainer.style.display = "block";
+        audioPlayer.style.display = "none";
+    } else if (trackUrl.endsWith(".mp4") || trackUrl.endsWith(".webm") || trackUrl.endsWith(".ogg")) {
+        // Локальне відео
+        youtubePlayer.style.display = "none";
+        videoPlayer.src = trackUrl;
+        videoPlayer.style.display = "block";
+        videoPlayerContainer.style.display = "block";
+        audioPlayer.style.display = "none";
+        videoPlayer.play();
+    } else {
+        // Аудіо
+        videoPlayerContainer.style.display = "none";
+        audioPlayer.src = trackUrl;
+        audioPlayer.style.display = "block";
+        audioPlayer.play();
+    }
 
-            const trackUrl = tracks[index].url;
-
-            if (trackUrl.includes("youtube.com") || trackUrl.includes("youtu.be")) {
-                // Якщо це YouTube посилання
-                const videoId = extractYouTubeId(trackUrl);
-                youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-                youtubePlayer.style.display = "block";
-                videoPlayer.style.display = "none";
-                videoPlayerContainer.style.display = "block";
-                audioPlayer.style.display = "none"; // Приховуємо аудіоплеєр
-                scrollToVideo(); // Плавно прокручуємо до відеоплеєра
-            } else if (trackUrl.endsWith(".mp4") || trackUrl.endsWith(".webm") || trackUrl.endsWith(".ogg")) {
-                // Якщо це відеофайл
-                youtubePlayer.style.display = "none";
-                videoPlayer.src = trackUrl;
-                videoPlayer.style.display = "block";
-                videoPlayerContainer.style.display = "block";
-                audioPlayer.style.display = "none"; // Приховуємо аудіоплеєр
-                videoPlayer.play();
-                scrollToVideo(); // Плавно прокручуємо до відеоплеєра
-            } else {
-                // Якщо це аудіофайл
-                videoPlayerContainer.style.display = "none";
-                audioPlayer.src = trackUrl;
-                audioPlayer.style.display = "block"; // Показуємо аудіоплеєр
-                audioPlayer.play();
-            }
-
-            document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
-            document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
-        }
+    // Оновлюємо іконку кнопки
+    document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
+    document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
+}
 
         function extractYouTubeId(url) {
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
