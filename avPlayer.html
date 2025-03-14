@@ -358,7 +358,7 @@
             background-clip: text;
             color: transparent;
         }
-    </style>           
+    </style>        
 </head>
 <body>
     <header>
@@ -651,9 +651,13 @@
         function playRandomTrack() {
             isShuffleMode = !isShuffleMode; // Перемикаємо режим випадкового відтворення
             const shuffleButton = document.querySelector(".controls button:nth-child(4)");
+
             if (isShuffleMode) {
-                shuffleButton.style.backgroundColor = "rgba(255, 255, 255, 0.7)"; // Підсвічуємо кнопку
-                shuffleButton.style.borderColor = "rgba(0, 0, 0, 0.9)";
+                shuffleButton.style.backgroundColor = "var(--primary-color)"; // Змінюємо колір фону
+                shuffleButton.style.color = "white"; // Змінюємо колір тексту
+                shuffleButton.style.borderColor = "var(--hover-color)"; // Змінюємо колір рамки
+                shuffleButton.innerHTML = '<i class="fas fa-random"></i> ON'; // Додаємо текст "ON"
+                shuffleButton.title = "Режим випадкового відтворення увімкнено"; // Додаємо підказку
                 if (currentCategory && categories[currentCategory].tracks.length > 0) {
                     const tracks = categories[currentCategory].tracks;
                     const randomIndex = Math.floor(Math.random() * tracks.length);
@@ -661,7 +665,10 @@
                 }
             } else {
                 shuffleButton.style.backgroundColor = "rgba(255, 255, 255, 0.3)"; // Повертаємо стандартний стиль
+                shuffleButton.style.color = "black";
                 shuffleButton.style.borderColor = "rgba(0, 0, 0, 0.5)";
+                shuffleButton.innerHTML = '<i class="fas fa-random"></i>'; // Повертаємо стандартну іконку
+                shuffleButton.title = "Режим випадкового відтворення вимкнено"; // Додаємо підказку
             }
         }
 
