@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Християнське онлайн аудіо - збірка духовних пісень та проповідей церкви ЄХБ 'Дім Євангелія' м. Суми, Україна.">
+    <meta name="description" content="Християнське онлайн аудіо - збірка духовних пісень та проповіді церкви ЄХБ 'Дім Євангелія' м. Суми, Україна.">
     <meta name="keywords" content="християнське аудіо, духовні пісні, проповіді, церква ЄХБ, Суми, Україна">
     <title>Християнське онлайн аудіо</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -45,17 +45,17 @@
             font-size: 24px;
             transition: transform 0.3s ease;
         }
-        .social-icons a:hover {
-            transform: scale(1.2);
-        }
         .social-icons a.youtube {
-            color: #ff0000;
+            color: #ff0000; /* Червоний колір для YouTube */
         }
         .social-icons a.facebook {
-            color: #1877f2;
+            color: #1877f2; /* Синій колір для Facebook */
         }
         .social-icons a.instagram {
-            color: #e4405f;
+            color: #e4405f; /* Рожевий колір для Instagram */
+        }
+        .social-icons a:hover {
+            transform: scale(1.2);
         }
         nav {
             background: #6a11cb;
@@ -73,7 +73,6 @@
             justify-content: center;
         }
         nav ul li {
-            position: relative;
             margin: 5px 10px;
         }
         nav ul li a {
@@ -84,44 +83,52 @@
             align-items: center;
         }
         nav ul li a i {
-            margin-right: 8px;
+            margin-right: 8px; /* Отступ между иконкой и текстом */
         }
-        nav ul li ul {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: #4a90e2;
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 1;
+        .photo-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background: #fff;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        nav ul li:hover ul {
-            display: block;
+        .photo-container .photo {
+            flex: 1;
+            margin: 0 10px;
+            text-align: center;
         }
-        nav ul li ul li {
-            margin: 5px 0;
+        .photo-container .photo img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-        .content {
+        main.content {
             padding: 20px;
             text-align: center;
         }
-        .decorative-element {
+        .content .decorative-element {
             background: white;
             padding: 20px;
             margin: 20px auto;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             max-width: 600px;
-            text-align: center;
-            cursor: pointer;
+            cursor: pointer; /* Курсор для указания кликабельности */
+            transition: background 0.3s, transform 0.2s; /* Плавный переход */
         }
-        .decorative-element h2 {
+        .content .decorative-element:hover {
+            background: #e8f0fe; /* Изменение фона при наведении */
+            transform: translateY(-2px); /* Легкий подъем элемента */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Увеличение тени */
+        }
+        .content .decorative-element h2 {
             margin: 0 0 10px;
             font-size: 1.5em;
             color: #4a90e2;
         }
-        .decorative-element p {
+        .content .decorative-element p {
             margin: 0;
             font-size: 0.9em;
             color: #555;
@@ -141,80 +148,6 @@
         footer a:hover {
             text-decoration: underline;
         }
-        /* Стилі для модального вікна */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            overflow: auto;
-            padding: 20px;
-            text-align: center;
-            color: white;
-        }
-        .modal-content {
-            background-color: #fff;
-            margin: 10% auto;
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 600px;
-            color: #333;
-            position: relative;
-        }
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            color: #333;
-        }
-        .close:hover {
-            color: #ff0000;
-        }
-        .print-button {
-            background-color: #4a90e2;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-        .print-button:hover {
-            background-color: #6a11cb;
-        }
-        @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
-            nav ul li {
-                margin: 5px 0;
-            }
-            nav ul li ul {
-                position: static;
-                display: none;
-                background: transparent;
-                padding: 0;
-            }
-            nav ul li:hover ul {
-                display: block;
-            }
-        }
-        @media (max-width: 480px) {
-            header h1 {
-                font-size: 2em;
-            }
-            header h3 {
-                font-size: 1em;
-            }
-        }
     </style>
 </head>
 <body>
@@ -231,122 +164,44 @@
         <ul>
             <li>
                 <a href="#"><i class="fas fa-music"></i>Пісні віри</a>
-                <ul>
-                    <li><a href="#">Пісні наших служінь</a></li>
-                    <li><a href="#">Улюблені пісні церкви</a></li>
-                </ul>
             </li>
             <li>
                 <a href="#"><i class="fas fa-bible"></i>Живе слово</a>
-                <ul>
-                    <li><a href="#">Проповіді нашої церкви</a></li>
-                    <li><a href="#">Служіння через слово</a></li>
-                </ul>
             </li>
             <li><a href="#"><i class="fas fa-headphones"></i>Онлайн радіо</a></li>
             <li><a href="#"><i class="fas fa-video"></i>Відеозаписи служінь</a></li>
         </ul>
     </nav>
-    <div class="content">
-        <div class="decorative-element" onclick="openModal('modal1')">
+    <div class="photo-container">
+        <div class="photo">
+            <img src="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/475491615_933808568924228_1916544121520461264_n.jpg" alt="Фото 2">
+        </div>
+        <div class="photo">
+            <img src="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/475979448_933741755597576_8266872900530423270_n.jpg" alt="Фото 1">
+        </div>
+    </div>
+    <main class="content">
+        <div class="decorative-element" onclick="location.href='https://example.com/songs';">
             <h2>Пісні віри</h2>
             <p>Насолоджуйтесь улюбленими піснями нашої церкви. У нашій збірці ви знайдете духовні пісні, які надихають, зміцнюють віру та приносять радість у серце. Додавайте їх до своїх плейлистів!</p>
         </div>
-        <div class="decorative-element" onclick="openModal('modal2')">
-            <h2>Онлайн радіо</h2>
-            <p>Слухайте християнську музику та проповіді у прямому ефірі. Наше радіо транслює духовні пісні, молитви та навчання 24/7. Приєднуйтесь до нас і знаходьте натхнення у будь-який час!</p>
-        </div>
-        <div class="decorative-element" onclick="openModal('modal3')">
-            <h2>Відеозаписи служінь</h2>
-            <p>Переглядайте повні записи наших богослужінь, проповідей та особливих подій. Відео доступні для перегляду в будь-який час. Знаходьте для себе духовне натхнення та діліться ним з іншими.</p>
-        </div>
-        <div class="decorative-element" onclick="openModal('modal4')">
+        <div class="decorative-element" onclick="location.href='https://example.com/sermons';">
             <h2>Живе слово</h2>
             <p>Слухайте проповіді, які змінюють життя. Наші пастори та гості діляться глибокими біблійними істинами, які допомагають зростати у вірі та розумінні Божого Слова.</p>
         </div>
-    </div>
-    <!-- Модальні вікна -->
-    <div id="modal1" class="modal">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2>Пісні віри</h2>
-        <p>Слухайте улюблені пісні нашої церкви:</p>
-        <audio controls>
-            <source src="path/to/your/audio.mp3" type="audio/mpeg">
-            Ваш браузер не підтримує аудіо.
-        </audio>
-        <button class="print-button" onclick="printModal('modal1')">Друкувати</button>
-    </div>
-    <div id="modal2" class="modal">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2>Онлайн радіо</h2>
-        <p>Слухайте наше радіо онлайн:</p>
-        <audio controls>
-            <source src="path/to/your/radio.mp3" type="audio/mpeg">
-            Ваш браузер не підтримує аудіо.
-        </audio>
-        <button class="print-button" onclick="printModal('modal2')">Друкувати</button>
-    </div>
-    <div id="modal3" class="modal">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2>Відеозаписи служінь</h2>
-        <p>Переглядайте відео наших служінь:</p>
-        <video controls width="100%">
-            <source src="path/to/your/video.mp4" type="video/mp4">
-            Ваш браузер не підтримує відео.
-        </video>
-        <button class="print-button" onclick="printModal('modal3')">Друкувати</button>
-    </div>
-    <div id="modal4" class="modal">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2>Живе слово</h2>
-        <p>Читайте проповіді:</p>
-        <ul>
-            <li><a href="#">Проповідь 1</a></li>
-            <li><a href="#">Проповідь 2</a></li>
-            <li><a href="#">Проповідь 3</a></li>
-        </ul>
-        <button class="print-button" onclick="printModal('modal4')">Друкувати</button>
-    </div>
+        <div class="decorative-element" onclick="location.href='https://example.com/radio';">
+            <h2>Онлайн радіо</h2>
+            <p>Слухайте християнську музику та проповіді у прямому ефірі. Наше радіо транслює духовні пісні, молитви та навчання 24/7. Приєднуйтесь до нас і знаходьте натхнення у будь-який час!</p>
+        </div>
+        <div class="decorative-element" onclick="location.href='https://example.com/videos';">
+            <h2>Відеозаписи служінь</h2>
+            <p>Переглядайте повні записи наших богослужінь, проповідей та особливих подій. Відео доступні для перегляду в будь-який час. Знаходьте для себе духовне натхнення та діліться ним з іншими.</p>
+        </div>
+    </main>
     <footer>
         <p>Християнське онлайн аудіо – збірка духовних пісень та проповідей.</p>
         <p>м. Суми, версія збірки 1.0 : © 2025 р.</p>
         <a href="#">Політика конфіденційності</a>
     </footer>
-    <script>
-        // Функція для відкриття модального вікна
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.style.display = 'block';
-        }
-
-        // Функція для закриття модального вікна
-        function closeModal() {
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(modal => {
-                modal.style.display = 'none';
-            });
-        }
-
-        // Закриття модального вікна при кліку поза ним
-        window.onclick = function(event) {
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(modal => {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-        };
-
-        // Функція для друку вмісту модального вікна
-        function printModal(modalId) {
-            const modalContent = document.getElementById(modalId).innerHTML;
-            const printWindow = window.open('', '', 'height=600,width=800');
-            printWindow.document.write('<html><head><title>Друк</title></head><body>');
-            printWindow.document.write(modalContent);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.print();
-        }
-    </script>
 </body>
 </html>
