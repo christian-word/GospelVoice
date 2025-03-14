@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
@@ -41,7 +41,6 @@
         .social-icons a {
             margin: 0 10px;
             text-decoration: none;
-            color: white;
             font-size: 24px;
             transition: transform 0.3s ease;
         }
@@ -87,15 +86,16 @@
         }
         .photo-container {
             display: flex;
-            justify-content: space-between;
+            flex-wrap: wrap; /* Позволяет фото переноситься на новую строку */
+            justify-content: center; /* Центрирует фото */
             padding: 20px;
             background: #fff;
             max-width: 1200px;
             margin: 0 auto;
         }
         .photo-container .photo {
-            flex: 1;
-            margin: 0 10px;
+            flex: 1 1 300px; /* Основной размер с минимальной шириной 300px */
+            margin: 10px; /* Отступ между фото */
             text-align: center;
         }
         .photo-container .photo img {
@@ -177,7 +177,7 @@
             <img src="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/475491615_933808568924228_1916544121520461264_n.jpg" alt="Фото 2">
         </div>
         <div class="photo">
-            <img src="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/475979448_933741755597576_8266872900530423270_n.jpg" alt="Фото 1">
+            <img src="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/475751889_933740645597687_3287609968689100079_n.jpg" alt="Фото 1">
         </div>
     </div>
     <main class="content">
