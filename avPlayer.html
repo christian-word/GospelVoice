@@ -358,7 +358,7 @@
             background-clip: text;
             color: transparent;
         }
-    </style>        
+    </style>           
 </head>
 <body>
     <header>
@@ -435,6 +435,7 @@
         let currentTrack = 0;
         let categories = {};
         let currentCategory = null;
+        let isShuffleMode = false; // Змінна для режиму випадкового відтворення
 
         // Функція для отримання імені плейлиста з URL
         function getPlaylistNameFromURL() {
@@ -648,32 +649,34 @@
         }
 
         function playRandomTrack() {
-            if (currentCategory && categories[currentCategory].tracks.length > 0) {
-                const tracks = categories[currentCategory].tracks;
-                const randomIndex = Math.floor(Math.random() * tracks.length);
-                playTrack(randomIndex, currentCategory);
+            isShuffleMode = !isShuffleMode; // Перемикаємо режим випадкового відтворення
+            const shuffleButton = document.querySelector(".controls button:nth-child(4)");
+            if (isShuffleMode) {
+                shuffleButton.style.backgroundColor = "rgba(255, 255, 255, 0.7)"; // Підсвічуємо кнопку
+                shuffleButton.style.borderColor = "rgba(0, 0, 0, 0.9)";
+                if (currentCategory && categories[currentCategory].tracks.length > 0) {
+                    const tracks = categories[currentCategory].tracks;
+                    const randomIndex = Math.floor(Math.random() * tracks.length);
+                    playTrack(randomIndex, currentCategory);
+                }
             } else {
-                alert("Немає доступних треків для відтворення.");
+                shuffleButton.style.backgroundColor = "rgba(255, 255, 255, 0.3)"; // Повертаємо стандартний стиль
+                shuffleButton.style.borderColor = "rgba(0, 0, 0, 0.5)";
             }
         }
-
-        playlistElement.addEventListener("click", (e) => {
-            if (e.target.tagName === "A") {
-                e.preventDefault();
-                const trackElement = e.target.closest(".track");
-                if (trackElement) {
-                    const index = Array.from(trackElement.parentElement.children).indexOf(trackElement);
-                    const category = currentCategory;
-                    playTrack(index, category);
-                }
-            }
-        });
 
         function playNextTrack() {
             const tracks = categories[currentCategory].tracks;
             if (tracks && tracks.length > 0) {
-                currentTrack = (currentTrack + 1) % tracks.length;
-                playTrack(currentTrack, currentCategory);
+                if (isShuffleMode) {
+                    // Випадковий трек
+                    const randomIndex = Math.floor(Math.random() * tracks.length);
+                    playTrack(randomIndex, currentCategory);
+                } else {
+                    // Звичайний порядок
+                    currentTrack = (currentTrack + 1) % tracks.length;
+                    playTrack(currentTrack, currentCategory);
+                }
             }
         }
 
