@@ -135,11 +135,27 @@
             .video {
                 margin-left: 10px; /* Уменьшили отступ с 20px до 10px */
             }
+            /* Фиксируем строку с количеством видео вверху */
+            .stats {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background-color: #f9f9f9;
+                padding: 10px;
+                z-index: 1000;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+            /* Добавляем отступ для основного контента, чтобы он не перекрывался */
+            #playlist {
+                margin-top: 60px; /* Отступ для строки с количеством видео */
+            }
         }
     </style>
 </head>
 <body>
     <h1>Відеогалерея</h1>
+    <div class="stats" id="stats"></div>
     <div class="filters">
         <div>
             <label for="search"><i class="fas fa-search"></i> Пошук за назвою:</label>
@@ -162,7 +178,6 @@
             </select>
         </div>
     </div>
-    <div class="stats" id="stats"></div>
     <div id="playlist"></div>
     <div class="footer">
         &copy; 2023 Відеогалерея. Всі права захищені.
@@ -306,11 +321,6 @@
 
         sortBy.addEventListener('change', () => {
             renderPlaylist(originalPlaylist, searchInput.value.trim(), yearFilter.value, sortBy.value);
-        });
-
-        // Прокрутка к элементу с количеством видео при фокусе на поле ввода
-        searchInput.addEventListener('focus', () => {
-            document.getElementById('stats').scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
     </script>
 </body>
