@@ -58,6 +58,8 @@
         .video {
             margin-left: 20px;
             margin-top: 10px;
+            display: flex;
+            align-items: center;
         }
         a {
             text-decoration: none;
@@ -67,6 +69,11 @@
         a:hover {
             text-decoration: underline;
             color: #022b6b;
+        }
+        .youtube-icon {
+            color: red;
+            margin-right: 8px;
+            font-size: 18px;
         }
         .footer {
             text-align: center;
@@ -217,12 +224,20 @@
                         const videoDiv = document.createElement('div');
                         videoDiv.className = 'video';
 
+                        // Иконка YouTube
+                        const youtubeIcon = document.createElement('a');
+                        youtubeIcon.href = `https://www.youtube.com/watch?v=${video.id}`;
+                        youtubeIcon.target = "_blank";
+                        youtubeIcon.innerHTML = '<i class="fab fa-youtube youtube-icon"></i>';
+                        videoDiv.appendChild(youtubeIcon);
+
+                        // Ссылка на видео
                         const link = document.createElement('a');
                         link.href = `https://www.youtube.com/watch?v=${video.id}`;
                         link.target = "_blank";
                         link.textContent = `${index + 1}. ${video.title} (${video.date})`;
-
                         videoDiv.appendChild(link);
+
                         container.appendChild(videoDiv);
                     });
                 }
