@@ -7,6 +7,7 @@
     <!-- Подключаем Font Awesome для иконок -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Ваши стили из старого кода */
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -47,6 +48,14 @@
             border-radius: 5px;
             outline: none;
         }
+        .year {
+            font-weight: bold;
+            margin-top: 20px;
+            color: #4CAF50;
+            font-size: 20px;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 5px;
+        }
         .video {
             margin-left: 20px;
             margin-top: 10px;
@@ -73,7 +82,6 @@
             font-size: 14px;
             color: #777;
         }
-        /* Анимация для плавного появления и исчезновения */
         .stats {
             text-align: center;
             margin-bottom: 20px;
@@ -84,9 +92,8 @@
         .stats.hidden {
             opacity: 0;
             transform: translateY(-20px);
-            pointer-events: none; /* Отключаем взаимодействие с элементом */
+            pointer-events: none;
         }
-        /* Стили для кнопки "На головну" */
         .home-button {
             display: inline-block;
             padding: 8px 16px;
@@ -116,22 +123,20 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             transform: translateY(0);
         }
-        /* Стили для крестика очистки */
         #clear-search {
             color: #999;
             font-size: 16px;
             transition: color 0.3s ease;
             position: absolute;
-            right: 5px; /* Уменьшаем отступ справа для ПК */
+            right: 5px;
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
             display: none;
         }
         #clear-search:hover {
-            color: #555; /* Изменяем цвет при наведении */
+            color: #555;
         }
-        /* Адаптация для мобильных устройств */
         @media (max-width: 600px) {
             .filters {
                 flex-direction: column;
@@ -145,11 +150,9 @@
                 font-size: 12px;
                 padding: 6px 12px;
             }
-            /* Уменьшаем отступ слева для видео в мобильном режиме */
             .video {
-                margin-left: 10px; /* Уменьшили отступ с 20px до 10px */
+                margin-left: 10px;
             }
-            /* Фиксируем строку с количеством видео вверху */
             .stats {
                 position: fixed;
                 top: 0;
@@ -160,26 +163,16 @@
                 z-index: 1000;
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             }
-            /* Добавляем отступ для заголовка, чтобы он не перекрывался */
             h1 {
-                margin-top: 60px; /* Отступ для строки с количеством видео */
+                margin-top: 60px;
             }
-            /* Добавляем отступ для основного контента, чтобы он не перекрывался */
             #playlist {
-                margin-top: 20px; /* Отступ для строки с количеством видео */
+                margin-top: 20px;
             }
-            /* Уменьшаем отступ справа для крестика в мобильном режиме */
             #clear-search {
-                right: 5px; /* Уменьшаем отступ справа для мобильных */
+                right: 5px;
             }
         }
-        /* Лоадер */
-        #loader {
-            text-align: center;
-            margin-top: 20px;
-            display: none;
-        }
-        /* Пагинация */
         .pagination {
             text-align: center;
             margin-top: 20px;
@@ -197,40 +190,24 @@
             background-color: #ccc;
             cursor: not-allowed;
         }
-        /* Анимация для плавного появления плейлиста */
         #playlist {
             transition: opacity 0.3s ease;
         }
         #playlist.hidden {
             opacity: 0;
         }
-        /* Стили для разделительной полосы с годом */
-        .year-divider {
-            margin-top: 20px;
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #e0e0e0;
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            text-align: center;
-            border-radius: 5px;
-        }
     </style>
 </head>
 <body>
     <h1>Відеогалерея</h1>
     <div class="stats" id="stats"></div>
-    <div id="loader">
-        <i class="fas fa-spinner fa-spin"></i> Завантаження...
-    </div>
     <div class="filters">
         <div>
             <label for="search"><i class="fas fa-search"></i> Пошук за назвою:</label>
             <div style="position: relative; display: inline-block;">
                 <input type="text" id="search" placeholder="Введіть назву відео...">
                 <span id="clear-search">
-                    <i class="fas fa-times"></i> <!-- Иконка "×" -->
+                    <i class="fas fa-times"></i>
                 </span>
             </div>
         </div>
@@ -238,7 +215,6 @@
             <label for="year-filter"><i class="fas fa-calendar-alt"></i> Фільтр за роком:</label>
             <select id="year-filter">
                 <option value="all">Всі роки</option>
-                <!-- Годы будут добавлены динамически -->
             </select>
         </div>
         <div>
@@ -253,7 +229,7 @@
     </div>
     <div id="playlist"></div>
     <div class="footer">
-        &copy; 2025 Архів відео. Всі права захищені.
+        &copy; 2023 Відеогалерея. Всі права захищені.
     </div>
 
     <!-- Кнопка "На головну" -->
@@ -265,15 +241,12 @@
         // Функція для завантаження плейліста за URL
         async function loadPlaylist(url) {
             try {
-                document.getElementById('loader').style.display = 'block'; // Показуємо лоадер
                 const response = await fetch(url);
                 if (!response.ok) throw new Error(`Помилка завантаження: ${response.status}`);
                 const data = await response.text();
-                document.getElementById('loader').style.display = 'none'; // Ховаємо лоадер
                 return data;
             } catch (error) {
                 console.error('Не вдалося завантажити плейліст:', error);
-                document.getElementById('loader').style.display = 'none'; // Ховаємо лоадер
                 return null;
             }
         }
@@ -294,7 +267,7 @@
         // Функція для відображення плейліста
         function renderPlaylist(playlist, searchQuery = '', selectedYear = 'all', sortType = 'date-desc', page = 1, showAll = false) {
             const container = document.getElementById('playlist');
-            container.classList.add('hidden'); // Ховаємо контейнер перед оновленням
+            container.classList.add('hidden');
 
             setTimeout(() => {
                 container.innerHTML = '';
@@ -311,17 +284,16 @@
 
                 filteredVideos = sortVideos(filteredVideos, sortType);
 
-                let lastYear = null; // Для отслеживания изменения года
+                let lastYear = null;
 
                 // Отображение видео
                 filteredVideos.slice(startIndex, endIndex).forEach((video, index) => {
-                    // Если год изменился, добавляем разделитель
                     if (video.year !== lastYear) {
-                        const yearDivider = document.createElement('div');
-                        yearDivider.className = 'year-divider';
-                        yearDivider.textContent = video.year;
-                        container.appendChild(yearDivider);
-                        lastYear = video.year; // Обновляем последний год
+                        const yearDiv = document.createElement('div');
+                        yearDiv.className = 'year';
+                        yearDiv.textContent = `Рік: ${video.year}`;
+                        container.appendChild(yearDiv);
+                        lastYear = video.year;
                     }
 
                     totalVideos++;
@@ -345,24 +317,13 @@
 
                 document.getElementById('stats').textContent = `Знайдено відео: ${totalVideos}`;
 
-                // Добавляем пагинацию
+                // Пагинация
                 if (!showAll && filteredVideos.length > videosPerPage) {
                     renderPagination(filteredVideos.length, page);
                 }
 
-                // Добавляем кнопку "Показати всі", если видео больше, чем на одной странице
-                if (!showAll && filteredVideos.length > videosPerPage) {
-                    const showAllButton = document.createElement('button');
-                    showAllButton.textContent = 'Показати всі';
-                    showAllButton.style.marginTop = '10px';
-                    showAllButton.addEventListener('click', () => {
-                        renderPlaylist(originalPlaylist, searchInput.value.trim(), yearFilter.value, sortBy.value, 1, true);
-                    });
-                    container.appendChild(showAllButton);
-                }
-
-                container.classList.remove('hidden'); // Показуємо контейнер після оновлення
-            }, 300); // Затримка для анімації
+                container.classList.remove('hidden');
+            }, 300);
         }
 
         // Функція для сортування відео
@@ -386,13 +347,10 @@
             const totalPages = Math.ceil(totalVideos / videosPerPage);
             const paginationDiv = document.createElement('div');
             paginationDiv.className = 'pagination';
-            paginationDiv.style.textAlign = 'center';
-            paginationDiv.style.marginTop = '20px';
 
             for (let i = 1; i <= totalPages; i++) {
                 const pageButton = document.createElement('button');
                 pageButton.textContent = i;
-                pageButton.style.margin = '0 5px';
                 pageButton.disabled = i === currentPage;
                 pageButton.addEventListener('click', () => {
                     renderPlaylist(originalPlaylist, searchInput.value.trim(), yearFilter.value, sortBy.value, i);
@@ -403,9 +361,9 @@
             document.getElementById('playlist').appendChild(paginationDiv);
         }
 
-        // URL до плейліста (ваше посилання)
+        // URL до плейліста
         const playlistUrl = 'https://raw.githubusercontent.com/ruyriy/Audio-christ/refs/heads/main/filtered_video/filtered_video.txt';
-        const videosPerPage = 50; // Кількість відео на сторінці (теперь 50)
+        const videosPerPage = 50;
         let originalPlaylist = null;
 
         // Завантажуємо плейліст і відображаємо його
@@ -428,7 +386,7 @@
             }
         });
 
-        // Додаємо обробники для пошуку, фільтрації та сортування
+        // Обробники для пошуку, фільтрації та сортування
         const searchInput = document.getElementById('search');
         const yearFilter = document.getElementById('year-filter');
         const sortBy = document.getElementById('sort-by');
@@ -445,39 +403,17 @@
             renderPlaylist(originalPlaylist, searchInput.value.trim(), yearFilter.value, sortBy.value);
         });
 
-        // Функція для скриття рядка з кількістю відео при прокрутці
-        let lastScrollTop = 0;
-        const statsElement = document.getElementById('stats');
-
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-            if (scrollTop > lastScrollTop) {
-                // Прокрутка вниз — ховаємо рядок
-                statsElement.classList.add('hidden');
-            } else {
-                // Прокрутка вгору — показуємо рядок
-                statsElement.classList.remove('hidden');
-            }
-
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Оновлюємо значення прокрутки
-        });
-
-        // Обробник для відображення/скриття хрестика та очищення поля вводу
+        // Очищення поля пошуку
         const clearSearch = document.getElementById('clear-search');
 
         searchInput.addEventListener('input', () => {
-            if (searchInput.value.trim() !== '') {
-                clearSearch.style.display = 'block'; // Показуємо хрестик
-            } else {
-                clearSearch.style.display = 'none'; // Ховаємо хрестик
-            }
+            clearSearch.style.display = searchInput.value.trim() !== '' ? 'block' : 'none';
         });
 
         clearSearch.addEventListener('click', () => {
-            searchInput.value = ''; // Очищаємо поле вводу
-            clearSearch.style.display = 'none'; // Ховаємо хрестик
-            renderPlaylist(originalPlaylist, '', yearFilter.value, sortBy.value); // Оновлюємо плейліст
+            searchInput.value = '';
+            clearSearch.style.display = 'none';
+            renderPlaylist(originalPlaylist, '', yearFilter.value, sortBy.value);
         });
     </script>
 </body>
