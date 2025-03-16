@@ -124,6 +124,15 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             transform: translateY(0);
         }
+        /* Стили для крестика очистки */
+        #clear-search {
+            color: #999;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        #clear-search:hover {
+            color: #555; /* Изменяем цвет при наведении */
+        }
         /* Адаптация для мобильных устройств */
         @media (max-width: 600px) {
             .filters {
@@ -170,7 +179,12 @@
     <div class="filters">
         <div>
             <label for="search"><i class="fas fa-search"></i> Пошук за назвою:</label>
-            <input type="text" id="search" placeholder="Введіть назву відео...">
+            <div style="position: relative; display: inline-block;">
+                <input type="text" id="search" placeholder="Введіть назву відео...">
+                <span id="clear-search" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; display: none;">
+                    <i class="fas fa-times"></i> <!-- Иконка "×" -->
+                </span>
+            </div>
         </div>
         <div>
             <label for="year-filter"><i class="fas fa-calendar-alt"></i> Фільтр за роком:</label>
@@ -350,6 +364,23 @@
             }
 
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Обновляем значение прокрутки
+        });
+
+        // Обработчик для отображения/скрытия крестика и очистки поля ввода
+        const clearSearch = document.getElementById('clear-search');
+
+        searchInput.addEventListener('input', () => {
+            if (searchInput.value.trim() !== '') {
+                clearSearch.style.display = 'block'; // Показываем крестик
+            } else {
+                clearSearch.style.display = 'none'; // Скрываем крестик
+            }
+        });
+
+        clearSearch.addEventListener('click', () => {
+            searchInput.value = ''; // Очищаем поле ввода
+            clearSearch.style.display = 'none'; // Скрываем крестик
+            renderPlaylist(originalPlaylist, '', yearFilter.value, sortBy.value); // Обновляем плейлист
         });
     </script>
 </body>
