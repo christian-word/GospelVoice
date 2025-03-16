@@ -266,6 +266,7 @@
 
         // Функція для відображення плейліста
 
+
 function renderPlaylist(playlist, searchQuery = '', selectedYear = 'all', sortType = 'date-desc', page = 1, showAll = false) {
     const container = document.getElementById('playlist');
     container.classList.add('hidden');
@@ -274,6 +275,7 @@ function renderPlaylist(playlist, searchQuery = '', selectedYear = 'all', sortTy
         container.innerHTML = '';
 
         let totalVideos = 0;
+        let videosOnPage = 0;
         const startIndex = showAll ? 0 : (page - 1) * videosPerPage;
         const endIndex = showAll ? playlist.length : startIndex + videosPerPage;
 
@@ -298,6 +300,7 @@ function renderPlaylist(playlist, searchQuery = '', selectedYear = 'all', sortTy
             }
 
             totalVideos++;
+            videosOnPage++;
             const videoDiv = document.createElement('div');
             videoDiv.className = 'video';
 
@@ -316,7 +319,13 @@ function renderPlaylist(playlist, searchQuery = '', selectedYear = 'all', sortTy
             container.appendChild(videoDiv);
         });
 
-        document.getElementById('stats').textContent = `Знайдено відео: ${totalVideos}`;
+        // Обновляем статистику
+        const statsElement = document.getElementById('stats');
+        if (showAll) {
+            statsElement.textContent = `Знайдено відео: ${totalVideos}`;
+        } else {
+            statsElement.textContent = `Знайдено відео: ${totalVideos}/${videosOnPage} - на сторінці`;
+        }
 
         // Пагинация
         if (!showAll && filteredVideos.length > videosPerPage) {
@@ -340,9 +349,10 @@ function renderPlaylist(playlist, searchQuery = '', selectedYear = 'all', sortTy
             container.appendChild(showAllButton);
         }
 
-          container.classList.remove('hidden');
-       }, 300);
-      }
+        container.classList.remove('hidden');
+    }, 300);
+}
+        
         // Функція для сортування відео
         function sortVideos(videos, sortType) {
             switch (sortType) {
