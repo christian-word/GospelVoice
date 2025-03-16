@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -47,14 +46,6 @@
             border: 2px solid #4CAF50;
             border-radius: 5px;
             outline: none;
-        }
-        .year {
-            font-weight: bold;
-            margin-top: 20px;
-            color: #4CAF50;
-            font-size: 20px;
-            border-bottom: 2px solid #4CAF50;
-            padding-bottom: 5px;
         }
         .video {
             margin-left: 20px;
@@ -278,14 +269,11 @@
         // Функція для розбору плейліста
         function parsePlaylist(data) {
             const lines = data.trim().split('\n');
-            const playlist = {};
+            const playlist = [];
 
             lines.forEach(line => {
                 const [_, year, id, title, date] = line.split('§');
-                if (!playlist[year]) {
-                    playlist[year] = [];
-                }
-                playlist[year].push({ id, title, date });
+                playlist.push({ year, id, title, date });
             });
 
             return playlist;
@@ -303,50 +291,44 @@
                 const startIndex = showAll ? 0 : (page - 1) * videosPerPage;
                 const endIndex = showAll ? playlist.length : startIndex + videosPerPage;
 
-                Object.keys(playlist).sort((a, b) => b - a).forEach(year => {
-                    if (selectedYear === 'all' || year === selectedYear) {
-                        const yearDiv = document.createElement('div');
-                        yearDiv.className = 'year';
-                        yearDiv.textContent = `Рік: ${year}`;
-                        container.appendChild(yearDiv);
+                // Фильтрация и сортировка
+                let filteredVideos = playlist.filter(video => 
+                    video.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+                    (selectedYear === 'all' || video.year === selectedYear)
+                );
 
-                        const videos = playlist[year];
-                        const filteredVideos = videos.filter(video => 
-                            video.title.toLowerCase().includes(searchQuery.toLowerCase())
-                        );
-                        const sortedVideos = sortVideos(filteredVideos, sortType);
+                filteredVideos = sortVideos(filteredVideos, sortType);
 
-                        sortedVideos.slice(startIndex, endIndex).forEach((video, index) => {
-                            totalVideos++;
-                            const videoDiv = document.createElement('div');
-                            videoDiv.className = 'video';
+                // Отображение видео
+                filteredVideos.slice(startIndex, endIndex).forEach((video, index) => {
+                    totalVideos++;
+                    const videoDiv = document.createElement('div');
+                    videoDiv.className = 'video';
 
-                            const youtubeIcon = document.createElement('a');
-                            youtubeIcon.href = `https://www.youtube.com/watch?v=${video.id}`;
-                            youtubeIcon.target = "_blank";
-                            youtubeIcon.innerHTML = '<i class="fab fa-youtube youtube-icon"></i>';
-                            videoDiv.appendChild(youtubeIcon);
+                    const youtubeIcon = document.createElement('a');
+                    youtubeIcon.href = `https://www.youtube.com/watch?v=${video.id}`;
+                    youtubeIcon.target = "_blank";
+                    youtubeIcon.innerHTML = '<i class="fab fa-youtube youtube-icon"></i>';
+                    videoDiv.appendChild(youtubeIcon);
 
-                            const link = document.createElement('a');
-                            link.href = `https://www.youtube.com/watch?v=${video.id}`;
-                            link.target = "_blank";
-                            link.textContent = `${index + 1}. ${video.title} (${video.date})`;
-                            videoDiv.appendChild(link);
+                    const link = document.createElement('a');
+                    link.href = `https://www.youtube.com/watch?v=${video.id}`;
+                    link.target = "_blank";
+                    link.textContent = `${index + 1}. ${video.title} (${video.date})`;
+                    videoDiv.appendChild(link);
 
-                            container.appendChild(videoDiv);
-                        });
-                    }
+                    container.appendChild(videoDiv);
                 });
 
                 document.getElementById('stats').textContent = `Знайдено відео: ${totalVideos}`;
 
-                // Додаємо пагінацію
-                if (!showAll && totalVideos > videosPerPage) {
-                    renderPagination(totalVideos, page);
+                // Добавляем пагинацию
+                if (!showAll && filteredVideos.length > videosPerPage) {
+                    renderPagination(filteredVideos.length, page);
                 }
 
-                // Додаємо кнопку "Показати всі", якщо відео більше, ніж на одній сторінці
-                if (!showAll && totalVideos > videosPerPage) {
+                // Добавляем кнопку "Показати всі", если видео больше, чем на одной странице
+                if (!showAll && filteredVideos.length > videosPerPage) {
                     const showAllButton = document.createElement('button');
                     showAllButton.textContent = 'Показати всі';
                     showAllButton.style.marginTop = '10px';
@@ -400,7 +382,7 @@
 
         // URL до плейліста (ваше посилання)
         const playlistUrl = 'https://raw.githubusercontent.com/ruyriy/Audio-christ/refs/heads/main/filtered_video/filtered_video.txt';
-        const videosPerPage = 10; // Кількість відео на сторінці
+        const videosPerPage = 50; // Кількість відео на сторінці (теперь 50)
         let originalPlaylist = null;
 
         // Завантажуємо плейліст і відображаємо його
@@ -411,7 +393,8 @@
 
                 // Додаємо роки у фільтр
                 const yearFilter = document.getElementById('year-filter');
-                Object.keys(originalPlaylist).sort((a, b) => b - a).forEach(year => {
+                const years = [...new Set(originalPlaylist.map(video => video.year))].sort((a, b) => b - a);
+                years.forEach(year => {
                     const option = document.createElement('option');
                     option.value = year;
                     option.textContent = year;
