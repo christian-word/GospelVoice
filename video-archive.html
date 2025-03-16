@@ -266,18 +266,12 @@
 
         // Функція для відображення плейліста
 
-
 function renderPlaylist(playlist, searchQuery = '', selectedYear = 'all', sortType = 'date-desc', page = 1, showAll = false) {
     const container = document.getElementById('playlist');
     container.classList.add('hidden');
 
     setTimeout(() => {
         container.innerHTML = '';
-
-        let totalVideos = 0;
-        let videosOnPage = 0;
-        const startIndex = showAll ? 0 : (page - 1) * videosPerPage;
-        const endIndex = showAll ? playlist.length : startIndex + videosPerPage;
 
         // Фильтрация и сортировка
         let filteredVideos = playlist.filter(video => 
@@ -286,6 +280,14 @@ function renderPlaylist(playlist, searchQuery = '', selectedYear = 'all', sortTy
         );
 
         filteredVideos = sortVideos(filteredVideos, sortType);
+
+        // Общее количество найденных видео
+        const totalVideos = filteredVideos.length;
+
+        // Количество видео на текущей странице
+        const startIndex = showAll ? 0 : (page - 1) * videosPerPage;
+        const endIndex = showAll ? playlist.length : startIndex + videosPerPage;
+        const videosOnPage = filteredVideos.slice(startIndex, endIndex).length;
 
         let lastYear = null;
 
@@ -299,8 +301,6 @@ function renderPlaylist(playlist, searchQuery = '', selectedYear = 'all', sortTy
                 lastYear = video.year;
             }
 
-            totalVideos++;
-            videosOnPage++;
             const videoDiv = document.createElement('div');
             videoDiv.className = 'video';
 
