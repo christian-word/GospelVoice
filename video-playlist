@@ -1,1 +1,200 @@
 
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Плейліст</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        .search-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        #search {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+            outline: none;
+        }
+        #search::placeholder {
+            color: #999;
+        }
+        #search-label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #555;
+        }
+        .year {
+            font-weight: bold;
+            margin-top: 20px;
+            color: #4CAF50;
+            font-size: 20px;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 5px;
+        }
+        .video {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        a {
+            text-decoration: none;
+            color: #0645ad;
+            font-size: 16px;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: #022b6b;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+            color: #777;
+        }
+        /* Стили для кнопки "На головну" */
+        .home-button {
+            display: inline-block;
+            padding: 8px 16px; /* Уменьшили padding */
+            font-size: 14px; /* Уменьшили шрифт */
+            font-weight: bold;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 20px; /* Слегка уменьшили радиус */
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+        .home-button:hover {
+            background-color: #45a049;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+        .home-button:active {
+            background-color: #3d8b40;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <h1>Плейліст</h1>
+    <div class="search-container">
+        <label for="search" id="search-label">Пошук за назвою відео:</label>
+        <input type="text" id="search" placeholder="Введіть назву відео...">
+    </div>
+    <div id="playlist"></div>
+    <div class="footer">
+        &copy; 2023 Плейліст. Всі права захищені.
+    </div>
+
+    <!-- Кнопка "На головну" -->
+    <a href="#" class="home-button">На головну</a>
+
+    <script>
+        // Функція для завантаження плейліста за URL
+        async function loadPlaylist(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Помилка завантаження: ${response.status}`);
+                }
+                const data = await response.text();
+                return data;
+            } catch (error) {
+                console.error('Не вдалося завантажити плейліст:', error);
+                return null;
+            }
+        }
+
+        // Функція для розбору плейліста
+        function parsePlaylist(data) {
+            const lines = data.trim().split('\n');
+            const playlist = {};
+
+            lines.forEach(line => {
+                const [_, year, id, title, date] = line.split('§');
+                if (!playlist[year]) {
+                    playlist[year] = [];
+                }
+                playlist[year].push({ id, title, date });
+            });
+
+            return playlist;
+        }
+
+        // Функція для відображення плейліста
+        function renderPlaylist(playlist, searchQuery = '') {
+            const container = document.getElementById('playlist');
+            container.innerHTML = '';
+
+            Object.keys(playlist).sort((a, b) => b - a).forEach(year => {
+                const yearDiv = document.createElement('div');
+                yearDiv.className = 'year';
+                yearDiv.textContent = `Рік: ${year}`;
+                container.appendChild(yearDiv);
+
+                playlist[year].forEach((video, index) => {
+                    // Фільтрація за пошуковим запитом
+                    if (video.title.toLowerCase().includes(searchQuery.toLowerCase())) {
+                        const videoDiv = document.createElement('div');
+                        videoDiv.className = 'video';
+
+                        // Створюємо гіперпосилання
+                        const link = document.createElement('a');
+                        link.href = `https://www.youtube.com/watch?v=${video.id}`;
+                        link.target = "_blank"; // Відкривати у новій вкладці
+                        link.textContent = `${index + 1}. ${video.title} (${video.date})`;
+
+                        videoDiv.appendChild(link);
+                        container.appendChild(videoDiv);
+                    }
+                });
+            });
+        }
+
+        // URL до плейліста (ваше посилання)
+        const playlistUrl = 'https://raw.githubusercontent.com/ruyriy/Audio-christ/refs/heads/main/filtered_video/filtered_video.txt';
+
+        // Завантажуємо плейліст і відображаємо його
+        let originalPlaylist = null;
+
+        loadPlaylist(playlistUrl).then(data => {
+            if (data) {
+                originalPlaylist = parsePlaylist(data);
+                renderPlaylist(originalPlaylist);
+            } else {
+                document.getElementById('playlist').innerHTML = '<p>Не вдалося завантажити плейліст.</p>';
+            }
+        });
+
+        // Додаємо обробник для пошуку
+        const searchInput = document.getElementById('search');
+        searchInput.addEventListener('input', (event) => {
+            const searchQuery = event.target.value.trim();
+            if (originalPlaylist) {
+                renderPlaylist(originalPlaylist, searchQuery);
+            }
+        });
+    </script>
+</body>
+</html>
