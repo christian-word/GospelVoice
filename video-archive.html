@@ -307,6 +307,11 @@
         sortBy.addEventListener('change', () => {
             renderPlaylist(originalPlaylist, searchInput.value.trim(), yearFilter.value, sortBy.value);
         });
+
+        // Прокрутка к элементу с количеством видео при фокусе на поле ввода
+        searchInput.addEventListener('focus', () => {
+            document.getElementById('stats').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
     </script>
 </body>
 </html>
