@@ -181,11 +181,45 @@
                 right: 5px; /* Уменьшаем отступ справа для мобильных */
             }
         }
+        /* Лоадер */
+        #loader {
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+        /* Пагинация */
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .pagination button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .pagination button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        /* Анимация для плавного появления плейлиста */
+        #playlist {
+            transition: opacity 0.3s ease;
+        }
+        #playlist.hidden {
+            opacity: 0;
+        }
     </style>
 </head>
 <body>
     <h1>Відеогалерея</h1>
     <div class="stats" id="stats"></div>
+    <div id="loader">
+        <i class="fas fa-spinner fa-spin"></i> Завантаження...
+    </div>
     <div class="filters">
         <div>
             <label for="search"><i class="fas fa-search"></i> Пошук за назвою:</label>
@@ -227,12 +261,15 @@
         // Функція для завантаження плейліста за URL
         async function loadPlaylist(url) {
             try {
+                document.getElementById('loader').style.display = 'block'; // Показуємо лоадер
                 const response = await fetch(url);
                 if (!response.ok) throw new Error(`Помилка завантаження: ${response.status}`);
                 const data = await response.text();
+                document.getElementById('loader').style.display = 'none'; // Ховаємо лоадер
                 return data;
             } catch (error) {
                 console.error('Не вдалося завантажити плейліст:', error);
+                document.getElementById('loader').style.display = 'none'; // Ховаємо лоадер
                 return null;
             }
         }
@@ -254,51 +291,72 @@
         }
 
         // Функція для відображення плейліста
-        function renderPlaylist(playlist, searchQuery = '', selectedYear = 'all', sortType = 'date-desc') {
+        function renderPlaylist(playlist, searchQuery = '', selectedYear = 'all', sortType = 'date-desc', page = 1, showAll = false) {
             const container = document.getElementById('playlist');
-            container.innerHTML = '';
+            container.classList.add('hidden'); // Ховаємо контейнер перед оновленням
 
-            let totalVideos = 0;
+            setTimeout(() => {
+                container.innerHTML = '';
 
-            Object.keys(playlist).sort((a, b) => b - a).forEach(year => {
-                if (selectedYear === 'all' || year === selectedYear) {
-                    const yearDiv = document.createElement('div');
-                    yearDiv.className = 'year';
-                    yearDiv.textContent = `Рік: ${year}`;
-                    container.appendChild(yearDiv);
+                let totalVideos = 0;
+                const startIndex = showAll ? 0 : (page - 1) * videosPerPage;
+                const endIndex = showAll ? playlist.length : startIndex + videosPerPage;
 
-                    const videos = playlist[year];
-                    const filteredVideos = videos.filter(video => 
-                        video.title.toLowerCase().includes(searchQuery.toLowerCase())
-                    );
-                    const sortedVideos = sortVideos(filteredVideos, sortType);
+                Object.keys(playlist).sort((a, b) => b - a).forEach(year => {
+                    if (selectedYear === 'all' || year === selectedYear) {
+                        const yearDiv = document.createElement('div');
+                        yearDiv.className = 'year';
+                        yearDiv.textContent = `Рік: ${year}`;
+                        container.appendChild(yearDiv);
 
-                    sortedVideos.forEach((video, index) => {
-                        totalVideos++;
-                        const videoDiv = document.createElement('div');
-                        videoDiv.className = 'video';
+                        const videos = playlist[year];
+                        const filteredVideos = videos.filter(video => 
+                            video.title.toLowerCase().includes(searchQuery.toLowerCase())
+                        );
+                        const sortedVideos = sortVideos(filteredVideos, sortType);
 
-                        // Иконка YouTube
-                        const youtubeIcon = document.createElement('a');
-                        youtubeIcon.href = `https://www.youtube.com/watch?v=${video.id}`;
-                        youtubeIcon.target = "_blank";
-                        youtubeIcon.innerHTML = '<i class="fab fa-youtube youtube-icon"></i>';
-                        videoDiv.appendChild(youtubeIcon);
+                        sortedVideos.slice(startIndex, endIndex).forEach((video, index) => {
+                            totalVideos++;
+                            const videoDiv = document.createElement('div');
+                            videoDiv.className = 'video';
 
-                        // Ссылка на видео
-                        const link = document.createElement('a');
-                        link.href = `https://www.youtube.com/watch?v=${video.id}`;
-                        link.target = "_blank";
-                        link.textContent = `${index + 1}. ${video.title} (${video.date})`;
-                        videoDiv.appendChild(link);
+                            const youtubeIcon = document.createElement('a');
+                            youtubeIcon.href = `https://www.youtube.com/watch?v=${video.id}`;
+                            youtubeIcon.target = "_blank";
+                            youtubeIcon.innerHTML = '<i class="fab fa-youtube youtube-icon"></i>';
+                            videoDiv.appendChild(youtubeIcon);
 
-                        container.appendChild(videoDiv);
-                    });
+                            const link = document.createElement('a');
+                            link.href = `https://www.youtube.com/watch?v=${video.id}`;
+                            link.target = "_blank";
+                            link.textContent = `${index + 1}. ${video.title} (${video.date})`;
+                            videoDiv.appendChild(link);
+
+                            container.appendChild(videoDiv);
+                        });
+                    }
+                });
+
+                document.getElementById('stats').textContent = `Знайдено відео: ${totalVideos}`;
+
+                // Додаємо пагінацію
+                if (!showAll && totalVideos > videosPerPage) {
+                    renderPagination(totalVideos, page);
                 }
-            });
 
-            // Показуємо статистику
-            document.getElementById('stats').textContent = `Знайдено відео: ${totalVideos}`;
+                // Додаємо кнопку "Показати всі", якщо відео більше, ніж на одній сторінці
+                if (!showAll && totalVideos > videosPerPage) {
+                    const showAllButton = document.createElement('button');
+                    showAllButton.textContent = 'Показати всі';
+                    showAllButton.style.marginTop = '10px';
+                    showAllButton.addEventListener('click', () => {
+                        renderPlaylist(originalPlaylist, searchInput.value.trim(), yearFilter.value, sortBy.value, 1, true);
+                    });
+                    container.appendChild(showAllButton);
+                }
+
+                container.classList.remove('hidden'); // Показуємо контейнер після оновлення
+            }, 300); // Затримка для анімації
         }
 
         // Функція для сортування відео
@@ -317,12 +375,34 @@
             }
         }
 
+        // Функція для відображення пагінації
+        function renderPagination(totalVideos, currentPage) {
+            const totalPages = Math.ceil(totalVideos / videosPerPage);
+            const paginationDiv = document.createElement('div');
+            paginationDiv.className = 'pagination';
+            paginationDiv.style.textAlign = 'center';
+            paginationDiv.style.marginTop = '20px';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.textContent = i;
+                pageButton.style.margin = '0 5px';
+                pageButton.disabled = i === currentPage;
+                pageButton.addEventListener('click', () => {
+                    renderPlaylist(originalPlaylist, searchInput.value.trim(), yearFilter.value, sortBy.value, i);
+                });
+                paginationDiv.appendChild(pageButton);
+            }
+
+            document.getElementById('playlist').appendChild(paginationDiv);
+        }
+
         // URL до плейліста (ваше посилання)
         const playlistUrl = 'https://raw.githubusercontent.com/ruyriy/Audio-christ/refs/heads/main/filtered_video/filtered_video.txt';
-
-        // Завантажуємо плейліст і відображаємо його
+        const videosPerPage = 10; // Кількість відео на сторінці
         let originalPlaylist = null;
 
+        // Завантажуємо плейліст і відображаємо його
         loadPlaylist(playlistUrl).then(data => {
             if (data) {
                 originalPlaylist = parsePlaylist(data);
@@ -358,7 +438,7 @@
             renderPlaylist(originalPlaylist, searchInput.value.trim(), yearFilter.value, sortBy.value);
         });
 
-        // Функция для скрытия строки с количеством видео при прокрутке
+        // Функція для скриття рядка з кількістю відео при прокрутці
         let lastScrollTop = 0;
         const statsElement = document.getElementById('stats');
 
@@ -366,31 +446,31 @@
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
             if (scrollTop > lastScrollTop) {
-                // Прокрутка вниз — скрываем строку
+                // Прокрутка вниз — ховаємо рядок
                 statsElement.classList.add('hidden');
             } else {
-                // Прокрутка вверх — показываем строку
+                // Прокрутка вгору — показуємо рядок
                 statsElement.classList.remove('hidden');
             }
 
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Обновляем значение прокрутки
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Оновлюємо значення прокрутки
         });
 
-        // Обработчик для отображения/скрытия крестика и очистки поля ввода
+        // Обробник для відображення/скриття хрестика та очищення поля вводу
         const clearSearch = document.getElementById('clear-search');
 
         searchInput.addEventListener('input', () => {
             if (searchInput.value.trim() !== '') {
-                clearSearch.style.display = 'block'; // Показываем крестик
+                clearSearch.style.display = 'block'; // Показуємо хрестик
             } else {
-                clearSearch.style.display = 'none'; // Скрываем крестик
+                clearSearch.style.display = 'none'; // Ховаємо хрестик
             }
         });
 
         clearSearch.addEventListener('click', () => {
-            searchInput.value = ''; // Очищаем поле ввода
-            clearSearch.style.display = 'none'; // Скрываем крестик
-            renderPlaylist(originalPlaylist, '', yearFilter.value, sortBy.value); // Обновляем плейлист
+            searchInput.value = ''; // Очищаємо поле вводу
+            clearSearch.style.display = 'none'; // Ховаємо хрестик
+            renderPlaylist(originalPlaylist, '', yearFilter.value, sortBy.value); // Оновлюємо плейліст
         });
     </script>
 </body>
