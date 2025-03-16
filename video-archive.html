@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -64,7 +65,7 @@
             font-size: 14px;
             color: #777;
         }
-        /* Упрощённые стили для кнопки "На головну" */
+        /* Стили для кнопки "На головну" */
         .home-button {
             display: inline-block;
             padding: 8px 16px;
@@ -77,13 +78,22 @@
             cursor: pointer;
             text-align: center;
             text-decoration: none;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3); /* Увеличенная тень */
+            transition: all 0.3s ease;
             position: fixed;
             bottom: 20px;
             right: 20px;
-            z-index: 1000; /* Убедитесь, что кнопка поверх других элементов */
+            z-index: 1000;
         }
         .home-button:hover {
             background-color: #45a049;
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4); /* Увеличенная тень при наведении */
+            transform: translateY(-2px);
+        }
+        .home-button:active {
+            background-color: #3d8b40;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Увеличенная тень при нажатии */
+            transform: translateY(0);
         }
     </style>
 </head>
