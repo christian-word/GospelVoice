@@ -81,11 +81,18 @@
             font-size: 14px;
             color: #777;
         }
+        /* Анимация для плавного появления и исчезновения */
         .stats {
             text-align: center;
             margin-bottom: 20px;
             font-size: 16px;
             color: #555;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .stats.hidden {
+            opacity: 0;
+            transform: translateY(-20px);
+            pointer-events: none; /* Отключаем взаимодействие с элементом */
         }
         /* Стили для кнопки "На головну" */
         .home-button {
@@ -325,6 +332,24 @@
 
         sortBy.addEventListener('change', () => {
             renderPlaylist(originalPlaylist, searchInput.value.trim(), yearFilter.value, sortBy.value);
+        });
+
+        // Функция для скрытия строки с количеством видео при прокрутке
+        let lastScrollTop = 0;
+        const statsElement = document.getElementById('stats');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > lastScrollTop) {
+                // Прокрутка вниз — скрываем строку
+                statsElement.classList.add('hidden');
+            } else {
+                // Прокрутка вверх — показываем строку
+                statsElement.classList.remove('hidden');
+            }
+
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Обновляем значение прокрутки
         });
     </script>
 </body>
