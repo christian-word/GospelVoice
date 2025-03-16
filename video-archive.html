@@ -265,67 +265,84 @@
         }
 
         // Функція для відображення плейліста
-        function renderPlaylist(playlist, searchQuery = '', selectedYear = 'all', sortType = 'date-desc', page = 1, showAll = false) {
-            const container = document.getElementById('playlist');
-            container.classList.add('hidden');
 
-            setTimeout(() => {
-                container.innerHTML = '';
+function renderPlaylist(playlist, searchQuery = '', selectedYear = 'all', sortType = 'date-desc', page = 1, showAll = false) {
+    const container = document.getElementById('playlist');
+    container.classList.add('hidden');
 
-                let totalVideos = 0;
-                const startIndex = showAll ? 0 : (page - 1) * videosPerPage;
-                const endIndex = showAll ? playlist.length : startIndex + videosPerPage;
+    setTimeout(() => {
+        container.innerHTML = '';
 
-                // Фильтрация и сортировка
-                let filteredVideos = playlist.filter(video => 
-                    video.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
-                    (selectedYear === 'all' || video.year === selectedYear)
-                );
+        let totalVideos = 0;
+        const startIndex = showAll ? 0 : (page - 1) * videosPerPage;
+        const endIndex = showAll ? playlist.length : startIndex + videosPerPage;
 
-                filteredVideos = sortVideos(filteredVideos, sortType);
+        // Фильтрация и сортировка
+        let filteredVideos = playlist.filter(video => 
+            video.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+            (selectedYear === 'all' || video.year === selectedYear)
+        );
 
-                let lastYear = null;
+        filteredVideos = sortVideos(filteredVideos, sortType);
 
-                // Отображение видео
-                filteredVideos.slice(startIndex, endIndex).forEach((video, index) => {
-                    if (video.year !== lastYear) {
-                        const yearDiv = document.createElement('div');
-                        yearDiv.className = 'year';
-                        yearDiv.textContent = `Рік: ${video.year}`;
-                        container.appendChild(yearDiv);
-                        lastYear = video.year;
-                    }
+        let lastYear = null;
 
-                    totalVideos++;
-                    const videoDiv = document.createElement('div');
-                    videoDiv.className = 'video';
+        // Отображение видео
+        filteredVideos.slice(startIndex, endIndex).forEach((video, index) => {
+            if (video.year !== lastYear) {
+                const yearDiv = document.createElement('div');
+                yearDiv.className = 'year';
+                yearDiv.textContent = `Рік: ${video.year}`;
+                container.appendChild(yearDiv);
+                lastYear = video.year;
+            }
 
-                    const youtubeIcon = document.createElement('a');
-                    youtubeIcon.href = `https://www.youtube.com/watch?v=${video.id}`;
-                    youtubeIcon.target = "_blank";
-                    youtubeIcon.innerHTML = '<i class="fab fa-youtube youtube-icon"></i>';
-                    videoDiv.appendChild(youtubeIcon);
+            totalVideos++;
+            const videoDiv = document.createElement('div');
+            videoDiv.className = 'video';
 
-                    const link = document.createElement('a');
-                    link.href = `https://www.youtube.com/watch?v=${video.id}`;
-                    link.target = "_blank";
-                    link.textContent = `${startIndex + index + 1}. ${video.title} (${video.date})`;
-                    videoDiv.appendChild(link);
+            const youtubeIcon = document.createElement('a');
+            youtubeIcon.href = `https://www.youtube.com/watch?v=${video.id}`;
+            youtubeIcon.target = "_blank";
+            youtubeIcon.innerHTML = '<i class="fab fa-youtube youtube-icon"></i>';
+            videoDiv.appendChild(youtubeIcon);
 
-                    container.appendChild(videoDiv);
-                });
+            const link = document.createElement('a');
+            link.href = `https://www.youtube.com/watch?v=${video.id}`;
+            link.target = "_blank";
+            link.textContent = `${startIndex + index + 1}. ${video.title} (${video.date})`;
+            videoDiv.appendChild(link);
 
-                document.getElementById('stats').textContent = `Знайдено відео: ${totalVideos}`;
+            container.appendChild(videoDiv);
+        });
 
-                // Пагинация
-                if (!showAll && filteredVideos.length > videosPerPage) {
-                    renderPagination(filteredVideos.length, page);
-                }
+        document.getElementById('stats').textContent = `Знайдено відео: ${totalVideos}`;
 
-                container.classList.remove('hidden');
-            }, 300);
+        // Пагинация
+        if (!showAll && filteredVideos.length > videosPerPage) {
+            renderPagination(filteredVideos.length, page);
         }
 
+        // Кнопка "Показати всі"
+        if (!showAll && filteredVideos.length > videosPerPage) {
+            const showAllButton = document.createElement('button');
+            showAllButton.textContent = 'Показати всі';
+            showAllButton.style.marginTop = '10px';
+            showAllButton.style.padding = '10px 20px';
+            showAllButton.style.backgroundColor = '#4CAF50';
+            showAllButton.style.color = '#fff';
+            showAllButton.style.border = 'none';
+            showAllButton.style.borderRadius = '5px';
+            showAllButton.style.cursor = 'pointer';
+            showAllButton.addEventListener('click', () => {
+                renderPlaylist(originalPlaylist, searchInput.value.trim(), yearFilter.value, sortBy.value, 1, true);
+            });
+            container.appendChild(showAllButton);
+        }
+
+          container.classList.remove('hidden');
+       }, 300);
+      }
         // Функція для сортування відео
         function sortVideos(videos, sortType) {
             switch (sortType) {
