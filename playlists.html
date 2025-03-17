@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -85,6 +85,17 @@
 
         .menu button.radio-button:hover {
             background-color: #45a049; /* Темнее зеленый */
+        }
+
+        /* Стили для кнопок с одинаковым цветом */
+        .menu button.custom-button {
+            /* background-color: #9C27B0; Фиолетовый цвет */
+               background-color: #64B5F6; /* Светло-синий цвет */
+        }
+
+        .menu button.custom-button:hover {
+           /* background-color: #7B1FA2;  Темнее фиолетовый */
+              background-color: #42A5F5; /* Темнее светло-синий */
         }
 
         /* Остальные стили остаются без изменений */
@@ -239,13 +250,13 @@
         <h1 class="header-title">Інтерактивний Медіаплеєр: Плейлисти</h1>
     </div>
 
-<!-- Меню тематик --> 
-<div class="menu" id="menu">
-    <!-- Кнопка "На головну" -->
-    <button class="home-button" onclick="location.href='https://ruyriy.github.io/Audio-christ/'">На головну</button>
-    <!-- Кнопка "Радіо онлайн" -->
-    <button class="radio-button" onclick="location.href='https://ruyriy.github.io/Radio-online/'">Радіо онлайн</button>
-</div>
+    <!-- Меню тематик --> 
+    <div class="menu" id="menu">
+        <!-- Кнопка "На головну" -->
+        <button class="home-button" onclick="location.href='https://ruyriy.github.io/Audio-christ/'">На головну</button>
+        <!-- Кнопка "Радіо онлайн" -->
+        <button class="radio-button" onclick="location.href='https://ruyriy.github.io/Radio-online/'">Радіо онлайн</button>
+    </div>
 
     <!-- Контейнер для плейлистов -->
     <div id="themes"></div>
@@ -385,6 +396,13 @@
 
                         const button = document.createElement('button');
                         button.textContent = playlist.title;
+
+                        // Добавляем классы для кнопок
+                        if (playlist.title === "1. Збірка проповідей, ЄХБ Дім Євангелія, м. Суми" || 
+                            playlist.title === "2. Слово віри, збірка проповідей") {
+                            button.classList.add('custom-button');
+                        }
+
                         button.onclick = () => showTheme(playlist.title.replace(/\s+/g, '-').toLowerCase());
                         menuContainer.appendChild(button);
                     }
@@ -407,4 +425,3 @@
     </script>
 </body>
 </html>
-          
