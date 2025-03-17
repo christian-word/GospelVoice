@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
@@ -73,6 +73,7 @@
         }
         nav ul li {
             margin: 5px 10px;
+            position: relative;
         }
         nav ul li a {
             color: white;
@@ -83,6 +84,31 @@
         }
         nav ul li a i {
             margin-right: 8px; /* Отступ между иконкой и текстом */
+        }
+        nav ul li .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #6a11cb;
+            background: linear-gradient(135deg, #6a11cb, #4a90e2);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        nav ul li:hover .submenu {
+            display: block;
+        }
+        nav ul li .submenu li {
+            margin: 5px 0;
+        }
+        nav ul li .submenu li a {
+            padding: 8px 12px;
+            white-space: nowrap;
+        }
+        nav ul li .submenu li a i {
+            margin-right: 8px;
         }
         .photo-container {
             display: flex;
@@ -178,9 +204,18 @@
         <ul>
             <li>
                 <a href="https://ruyriy.github.io/Audio-christ/playlists.html#2"><i class="fas fa-music"></i>Пісні Віри</a>
+                <ul class="submenu">
+                    <li><a href="https://ruyriy.github.io/Audio-christ/playlists.html#3"><i class="fas fa-record-vinyl"></i>Записи церкви</a></li>
+                    <li><a href="https://ruyriy.github.io/Audio-christ/playlists.html#4"><i class="fas fa-compact-disc"></i>Музичні збірки</a></li>
+                </ul>
             </li>
             <li>
                 <a href="https://ruyriy.github.io/Audio-christ/playlists.html"><i class="fas fa-bible"></i>Живе Слово</a>
+                <ul class="submenu">
+                    <li><a href="https://ruyriy.github.io/Audio-christ/playlists.html#1"><i class="fas fa-record-vinyl"></i>Записи церкви</a></li>
+                    <li><a href="https://ruyriy.github.io/Audio-christ/playlists.html#2"><i class="fas fa-pray"></i>Слово віри</a></li>
+                    <li><a href="https://ruyriy.github.io/Audio-christ/bible-online.html"><i class="fas fa-book-open"></i>Біблія онлайн</a></li>
+                </ul>
             </li>
             <li><a href="https://ruyriy.github.io/Radio-online/"><i class="fas fa-headphones"></i>Онлайн Радіо</a></li>
             <li><a href="https://ruyriy.github.io/Audio-christ/video-archive.html"><i class="fas fa-video"></i>Архів Відеозаписів Служінь</a></li>
@@ -195,11 +230,11 @@
         </div>
     </div>
     <main class="content">
-        <div class="decorative-element" onclick="location.href='https://ruyriy.github.io/Audio-christ/playlists.html#2';">
+        <div class="decorative-element" onclick="location.href='https://ruyriy.github.io/Audio-christ/playlists.html#3';">
             <h2>Пісні Віри</h2>
             <p>Насолоджуйтесь улюбленими піснями християнських церков. У цих збірках ви знайдете духовні пісні, які надихають, зміцнюють віру та приносять радість у серце. Додавайте їх до своїх плейлистів!</p>
         </div>
-        <div class="decorative-element" onclick="location.href='https://ruyriy.github.io/Audio-christ/playlists.html';">
+        <div class="decorative-element" onclick="location.href='https://ruyriy.github.io/Audio-christ/playlists.html#1';">
             <h2>Живе Слово</h2>
             <p>Слухайте проповіді, які змінюють життя. Пастори та гості діляться глибокими біблійними істинами, які допомагають зростати у вірі та розумінні Божого Слова.</p>
         </div>
