@@ -75,14 +75,15 @@
             margin: 5px 10px;
             position: relative;
         }
-        nav ul li a {
+        nav ul li a, nav ul li span {
             color: white;
             text-decoration: none;
             padding: 10px 15px;
             display: flex;
             align-items: center;
+            cursor: pointer;
         }
-        nav ul li a i {
+        nav ul li a i, nav ul li span i {
             margin-right: 8px; /* Отступ между иконкой и текстом */
         }
         nav ul li .submenu {
@@ -203,14 +204,14 @@
     <nav>
         <ul>
             <li>
-                <a href=""><i class="fas fa-music"></i>Пісні Віри</a>
+                <span><i class="fas fa-music"></i>Пісні Віри</span>
                 <ul class="submenu">
                     <li><a href="https://ruyriy.github.io/Audio-christ/playlists.html#3"><i class="fas fa-record-vinyl"></i>Записи церкви</a></li>
                     <li><a href="https://ruyriy.github.io/Audio-christ/playlists.html#4"><i class="fas fa-compact-disc"></i>Музичні збірки</a></li>
                 </ul>
             </li>
             <li>
-                <a href=""><i class="fas fa-bible"></i>Живе Слово</a>
+                <span><i class="fas fa-bible"></i>Живе Слово</span>
                 <ul class="submenu">
                     <li><a href="https://ruyriy.github.io/Audio-christ/playlists.html#1"><i class="fas fa-record-vinyl"></i>Записи церкви</a></li>
                     <li><a href="https://ruyriy.github.io/Audio-christ/playlists.html#2"><i class="fas fa-pray"></i>Слово віри</a></li>
@@ -230,11 +231,11 @@
         </div>
     </div>
     <main class="content">
-        <div class="decorative-element" onclick="location.href='https://ruyriy.github.io/Audio-christ/playlists.html#3';">
+        <div class="decorative-element" onclick="location.href='https://ruyriy.github.io/Audio-christ/playlists.html#2';">
             <h2>Пісні Віри</h2>
             <p>Насолоджуйтесь улюбленими піснями християнських церков. У цих збірках ви знайдете духовні пісні, які надихають, зміцнюють віру та приносять радість у серце. Додавайте їх до своїх плейлистів!</p>
         </div>
-        <div class="decorative-element" onclick="location.href='https://ruyriy.github.io/Audio-christ/playlists.html#1';">
+        <div class="decorative-element" onclick="location.href='https://ruyriy.github.io/Audio-christ/playlists.html';">
             <h2>Живе Слово</h2>
             <p>Слухайте проповіді, які змінюють життя. Пастори та гості діляться глибокими біблійними істинами, які допомагають зростати у вірі та розумінні Божого Слова.</p>
         </div>
