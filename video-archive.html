@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Відеогалерея</title>
-   <!-- Open Graph для Viber, Facebook и других мессенджеров -->
+    <!-- Open Graph для Viber, Facebook и других мессенджеров -->
     <meta property="og:title" content="Відеогалерея, церква ЄХБ ''Дім Євангелія'' , м.Суми">
     <meta property="og:description" content="Архів відео ">
     <meta property="og:image" content="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/youtube.png">
@@ -17,7 +17,6 @@
     <!-- Подключаем Font Awesome для иконок -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Ваши стили из старого кода */
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -97,12 +96,6 @@
             margin-bottom: 20px;
             font-size: 16px;
             color: #555;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-        .stats.hidden {
-            opacity: 0;
-            transform: translateY(-20px);
-            pointer-events: none;
         }
         .home-button {
             display: inline-block;
@@ -147,6 +140,23 @@
         #clear-search:hover {
             color: #555;
         }
+        #suggestions {
+            position: absolute;
+            background: white;
+            border: 1px solid #ccc;
+            max-height: 150px;
+            overflow-y: auto;
+            z-index: 1000;
+            width: 300px;
+            display: none;
+        }
+        .suggestion {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .suggestion:hover {
+            background-color: #f0f0f0;
+        }
         @media (max-width: 600px) {
             .filters {
                 flex-direction: column;
@@ -183,29 +193,6 @@
                 right: 5px;
             }
         }
-        .pagination {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .pagination button {
-            margin: 0 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
-        .pagination button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-        #playlist {
-            transition: opacity 0.3s ease;
-        }
-        #playlist.hidden {
-            opacity: 0;
-        }
     </style>
 </head>
 <body>
@@ -219,6 +206,7 @@
                 <span id="clear-search">
                     <i class="fas fa-times"></i>
                 </span>
+                <div id="suggestions"></div>
             </div>
         </div>
         <div>
@@ -274,95 +262,6 @@
             return playlist;
         }
 
-        // Функція для відображення плейліста
-
-function renderPlaylist(playlist, searchQuery = '', selectedYear = 'all', sortType = 'date-desc', page = 1, showAll = false) {
-    const container = document.getElementById('playlist');
-    container.classList.add('hidden');
-
-    setTimeout(() => {
-        container.innerHTML = '';
-
-        // Фильтрация и сортировка
-        let filteredVideos = playlist.filter(video => 
-            video.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
-            (selectedYear === 'all' || video.year === selectedYear)
-        );
-
-        filteredVideos = sortVideos(filteredVideos, sortType);
-
-        // Общее количество найденных видео
-        const totalVideos = filteredVideos.length;
-
-        // Количество видео на текущей странице
-        const startIndex = showAll ? 0 : (page - 1) * videosPerPage;
-        const endIndex = showAll ? playlist.length : startIndex + videosPerPage;
-        const videosOnPage = filteredVideos.slice(startIndex, endIndex).length;
-
-        let lastYear = null;
-
-        // Отображение видео
-        filteredVideos.slice(startIndex, endIndex).forEach((video, index) => {
-            if (video.year !== lastYear) {
-                const yearDiv = document.createElement('div');
-                yearDiv.className = 'year';
-                yearDiv.textContent = `Рік: ${video.year}`;
-                container.appendChild(yearDiv);
-                lastYear = video.year;
-            }
-
-            const videoDiv = document.createElement('div');
-            videoDiv.className = 'video';
-
-            const youtubeIcon = document.createElement('a');
-            youtubeIcon.href = `https://www.youtube.com/watch?v=${video.id}`;
-            youtubeIcon.target = "_blank";
-            youtubeIcon.innerHTML = '<i class="fab fa-youtube youtube-icon"></i>';
-            videoDiv.appendChild(youtubeIcon);
-
-            const link = document.createElement('a');
-            link.href = `https://www.youtube.com/watch?v=${video.id}`;
-            link.target = "_blank";
-            link.textContent = `${startIndex + index + 1}. ${video.title} (${video.date})`;
-            videoDiv.appendChild(link);
-
-            container.appendChild(videoDiv);
-        });
-
-        // Обновляем статистику
-        const statsElement = document.getElementById('stats');
-        if (showAll) {
-            statsElement.textContent = `Знайдено відео: ${totalVideos}`;
-        } else {
-            statsElement.textContent = `Знайдено відео: ${totalVideos}/${videosOnPage} - на сторінці`;
-        }
-
-        // Пагинация
-        if (!showAll && filteredVideos.length > videosPerPage) {
-            renderPagination(filteredVideos.length, page);
-        }
-
-        // Кнопка "Показати всі"
-        if (!showAll && filteredVideos.length > videosPerPage) {
-            const showAllButton = document.createElement('button');
-            showAllButton.textContent = 'Показати всі';
-            showAllButton.style.marginTop = '10px';
-            showAllButton.style.padding = '10px 20px';
-            showAllButton.style.backgroundColor = '#4CAF50';
-            showAllButton.style.color = '#fff';
-            showAllButton.style.border = 'none';
-            showAllButton.style.borderRadius = '5px';
-            showAllButton.style.cursor = 'pointer';
-            showAllButton.addEventListener('click', () => {
-                renderPlaylist(originalPlaylist, searchInput.value.trim(), yearFilter.value, sortBy.value, 1, true);
-            });
-            container.appendChild(showAllButton);
-        }
-
-        container.classList.remove('hidden');
-    }, 300);
-}
-        
         // Функція для сортування відео
         function sortVideos(videos, sortType) {
             switch (sortType) {
@@ -379,29 +278,12 @@ function renderPlaylist(playlist, searchQuery = '', selectedYear = 'all', sortTy
             }
         }
 
-        // Функція для відображення пагінації
-        function renderPagination(totalVideos, currentPage) {
-            const totalPages = Math.ceil(totalVideos / videosPerPage);
-            const paginationDiv = document.createElement('div');
-            paginationDiv.className = 'pagination';
-
-            for (let i = 1; i <= totalPages; i++) {
-                const pageButton = document.createElement('button');
-                pageButton.textContent = i;
-                pageButton.disabled = i === currentPage;
-                pageButton.addEventListener('click', () => {
-                    renderPlaylist(originalPlaylist, searchInput.value.trim(), yearFilter.value, sortBy.value, i);
-                });
-                paginationDiv.appendChild(pageButton);
-            }
-
-            document.getElementById('playlist').appendChild(paginationDiv);
-        }
-
         // URL до плейліста
         const playlistUrl = 'https://raw.githubusercontent.com/ruyriy/Audio-christ/refs/heads/main/filtered_video/filtered_video.txt';
-        const videosPerPage = 50;
+        const videosPerPage = 20;
         let originalPlaylist = null;
+        let currentPage = 1;
+        let isLoading = false;
 
         // Завантажуємо плейліст і відображаємо його
         loadPlaylist(playlistUrl).then(data => {
@@ -427,16 +309,57 @@ function renderPlaylist(playlist, searchQuery = '', selectedYear = 'all', sortTy
         const searchInput = document.getElementById('search');
         const yearFilter = document.getElementById('year-filter');
         const sortBy = document.getElementById('sort-by');
+        const suggestionsDiv = document.getElementById('suggestions');
 
         searchInput.addEventListener('input', () => {
-            renderPlaylist(originalPlaylist, searchInput.value.trim(), yearFilter.value, sortBy.value);
+            const query = searchInput.value.trim().toLowerCase();
+
+            if (query === '') {
+                suggestionsDiv.style.display = 'none';
+                return;
+            }
+
+            const suggestions = originalPlaylist
+                .filter(video => video.title.toLowerCase().includes(query))
+                .map(video => video.title);
+
+            if (suggestions.length > 0) {
+                suggestionsDiv.innerHTML = suggestions
+                    .map(title => `<div class="suggestion">${title}</div>`)
+                    .join('');
+                suggestionsDiv.style.display = 'block';
+            } else {
+                suggestionsDiv.style.display = 'none';
+            }
+
+            currentPage = 1; // Скидаємо сторінку при новому пошуку
+            renderPlaylist(originalPlaylist, query, yearFilter.value, sortBy.value);
+        });
+
+        // Закриття підказок при кліку поза полем пошуку
+        document.addEventListener('click', (event) => {
+            if (event.target !== searchInput && event.target !== suggestionsDiv) {
+                suggestionsDiv.style.display = 'none';
+            }
+        });
+
+        // Вибір підказки
+        suggestionsDiv.addEventListener('click', (event) => {
+            if (event.target.classList.contains('suggestion')) {
+                searchInput.value = event.target.textContent;
+                suggestionsDiv.style.display = 'none';
+                currentPage = 1; // Скидаємо сторінку при виборі підказки
+                renderPlaylist(originalPlaylist, searchInput.value.trim(), yearFilter.value, sortBy.value);
+            }
         });
 
         yearFilter.addEventListener('change', () => {
+            currentPage = 1; // Скидаємо сторінку при зміні фільтра
             renderPlaylist(originalPlaylist, searchInput.value.trim(), yearFilter.value, sortBy.value);
         });
 
         sortBy.addEventListener('change', () => {
+            currentPage = 1; // Скидаємо сторінку при зміні сортування
             renderPlaylist(originalPlaylist, searchInput.value.trim(), yearFilter.value, sortBy.value);
         });
 
@@ -450,8 +373,78 @@ function renderPlaylist(playlist, searchQuery = '', selectedYear = 'all', sortTy
         clearSearch.addEventListener('click', () => {
             searchInput.value = '';
             clearSearch.style.display = 'none';
+            suggestionsDiv.style.display = 'none';
+            currentPage = 1; // Скидаємо сторінку при очищенні пошуку
             renderPlaylist(originalPlaylist, '', yearFilter.value, sortBy.value);
         });
+
+        // Обробник прокрутки для безкінечної прокрутки
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 && !isLoading) {
+                currentPage++;
+                renderPlaylist(originalPlaylist, searchInput.value.trim(), yearFilter.value, sortBy.value, currentPage, true);
+            }
+        });
+
+        // Функція для відображення плейліста
+        function renderPlaylist(playlist, searchQuery = '', selectedYear = 'all', sortType = 'date-desc', page = 1, append = false) {
+            if (isLoading) return;
+            isLoading = true;
+
+            const container = document.getElementById('playlist');
+            if (!append) {
+                container.innerHTML = '';
+            }
+
+            let filteredVideos = playlist.filter(video => 
+                video.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+                (selectedYear === 'all' || video.year === selectedYear)
+            );
+
+            filteredVideos = sortVideos(filteredVideos, sortType);
+
+            const startIndex = (page - 1) * videosPerPage;
+            const endIndex = startIndex + videosPerPage;
+            const videosToShow = filteredVideos.slice(startIndex, endIndex);
+
+            let lastYear = null;
+
+            videosToShow.forEach((video, index) => {
+                if (video.year !== lastYear) {
+                    const yearDiv = document.createElement('div');
+                    yearDiv.className = 'year';
+                    yearDiv.textContent = `Рік: ${video.year}`;
+                    container.appendChild(yearDiv);
+                    lastYear = video.year;
+                }
+
+                const videoDiv = document.createElement('div');
+                videoDiv.className = 'video';
+
+                const thumbnail = document.createElement('img');
+                thumbnail.src = `https://img.youtube.com/vi/${video.id}/0.jpg`;
+                thumbnail.alt = video.title;
+                thumbnail.style.width = '120px';
+                thumbnail.style.marginRight = '10px';
+                videoDiv.appendChild(thumbnail);
+
+                const link = document.createElement('a');
+                link.href = `https://www.youtube.com/watch?v=${video.id}`;
+                link.target = "_blank";
+                link.textContent = `${startIndex + index + 1}. ${video.title} (${video.date})`;
+                videoDiv.appendChild(link);
+
+                container.appendChild(videoDiv);
+            });
+
+            // Оновлення лічильника
+            const statsElement = document.getElementById('stats');
+            const totalVideos = filteredVideos.length;
+            const videosOnPage = videosToShow.length;
+            statsElement.textContent = `Знайдено відео: ${totalVideos} (показано: ${videosOnPage})`;
+
+            isLoading = false;
+        }
     </script>
 </body>
 </html>
