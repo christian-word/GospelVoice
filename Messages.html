@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отправка сообщений</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+    <!-- Подключаем Dropbox SDK -->
+    <script src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"></script>
+</head>
+<body>
+    <h1>Отправьте мне сообщение</h1>
+    <form id="messageForm">
+        <input type="text" id="name" placeholder="Ваше имя" required>
+        <input type="email" id="email" placeholder="Ваш email" required>
+        <textarea id="message" rows="5" placeholder="Ваше сообщение" required></textarea>
+        <button type="submit">Отправить</button>
+    </form>
+
+    <script>
+        const ACCESS_TOKEN = 'sl.u.AFm9IyQZx46JD1yHzUDKrHmwnXZT_dIk1QDET4hhMxYF7iLWb-cuOlqto09_iP8Ubzzg96Tyg39YN9lQ5x7b9lVrtdSFuE0lraOloeHddVkxbtmpyMVULQHo_C7HATVhEcuM8_6i_6L-dTibdDSZqWgOgkI0LaHd81sg35Bo5rUBFIFI2v4P4cjoznkFPeSCkjrnC91jWYSrycX578sS8F70d4atf3y__DOQkZ7hJTtmok8VZ-tCs5lcxfPv133ZbReCjTb2z1LcS_YRxDOwS6OVJF6fFEItFnOoIUVHGjNFJFe-uifrsK3IFgRp718ef7DvnwK2NAPrNtLH4P2Qk82K6kYykZrwouaLgmfvP1SozBnhU7cb1kiJjZFHzkeeyx6rkrYhC2Et5q0nhGO0KxroOcuIZF-aArlLMBqWCX5Gh6uktT8dezxIGJ5t5ECN_bZQb5Na1uysUdTw3byEQIMUqWmINph16yT2MGQN-oMdtsxz4y3Hy6S2go2bFkc4-cNXfFQJEPwqidBVsnFyYDc263AakDIhGuBQRRJL5QfbG5JwZDzKfCt77gHC_q10tr968szbGTx0h63T9PWoAqY1D58r_AR-IAW3Dj2T0oFyqfgK-vhP67hw8AHPf9BVeCIWcYKsebKaCrR8594UVDKCu6y7yuVrPzYCWuDw8ySjNHsHjO4lVVKAmwRxsh1FBvgCJz4TMDT0douWO1ZV_4lZD8ubsj4HjWUrwNPnpDe2wiPj78ebm6ky7LWSXhkCEfDL1-cx5uUlMsgyRaE_am45BXOhseBHt1lwRIF0LIi3Uc4FyrFCYpMA7H2kTjSbXl4RqniSTM4Z-drV0pqytmvD46pCrFlQgmD95bArMsBa6NRL3_dzyUBp0HGgGvD-vUWNYTfYAVNyc1aJvMT6ywlpKtGTjBcj6JVAGs57QQRP-LMKsTr3tOrogL5xYf2DccXY_mz6WaUiWalZJBstDRg2G6LWPpV6Mu_jhCaLjKwlvYA46jmChYZCldWApxk5h-QaxOd8TihZMXcV-Hs6ucyFaOctvp28WOjXxRluBuifN3sqYPyqbzuWjqbe3MpbGtNBNQNEr26_-KAnZYv2JC3t0hpJboDLiEyb2EbPSp2iTXJnIiIyBJuoHX3w11xvwuNDZ6iQkg5wohaOEEkZGBANkV1MLEz-ACGl1YmHRtSBnbsZ9eh28XaIMRPzivJ4X6hRoWA-3JcCjmHbrJ9NjPrtz5i2IAJSKN0IrpXEEH0MFNHKDeulW2YOPqlGR2pT3gec0Oc6ddcVd9-LS1Rvn8_V'; // Токен с доступом только к папке Messages
+        const FILE_PATH = '/test.txt'; // Путь к файлу в папке Messages
+
+        const dbx = new Dropbox.Dropbox({ accessToken: ACCESS_TOKEN });
+
+        // Отправить сообщение
+        async function sendMessage(event) {
+            event.preventDefault(); // Отменить отправку формы
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            if (!name || !email || !message) {
+                alert('Пожалуйста, заполните все поля.');
+                return;
+            }
+
+            try {
+                // Загружаем текущие сообщения
+                let currentContent = '';
+                try {
+                    const response = await dbx.filesDownload({ path: FILE_PATH });
+                    const fileBlob = response.result.fileBlob;
+                    currentContent = await fileBlob.text();
+                } catch (error) {
+                    // Если файл не существует, игнорируем ошибку
+                    console.log('Файл не найден, создаём новый.');
+                }
+
+                // Добавляем новое сообщение
+                const newMessage = `Имя: ${name}\nEmail: ${email}\nСообщение: ${message}\n\n`;
+                const newContent = currentContent + newMessage;
+
+                // Сохраняем обновлённый файл
+                await dbx.filesUpload({
+                    path: FILE_PATH,
+                    contents: newContent,
+                    mode: { '.tag': 'overwrite' } // Перезаписать файл
+                });
+
+                // Очищаем форму
+                document.getElementById('messageForm').reset();
+                alert('Сообщение успешно отправлено!');
+            } catch (error) {
+                console.error('Ошибка при отправке сообщения:', error);
+                alert('Ошибка при отправке сообщения: ' + (error.error || error.message || 'Неизвестная ошибка'));
+            }
+        }
+
+        // Назначить обработчик события для формы
+        document.getElementById('messageForm').addEventListener('submit', sendMessage);
+    </script>
+</body>
+</html>
