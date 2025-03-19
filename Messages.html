@@ -3,55 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Отправка сообщений</title>
+    <title>Отправьте мне сообщение</title>
     <style>
+        /* Основные стили */
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
-        form {
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             max-width: 400px;
-            margin: 0 auto;
-        }
-        input, textarea {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            font-size: 16px;
+            text-align: center;
         }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input, textarea, select {
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
         button {
-            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
             font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover:not(:disabled) {
+            background: #0056b3;
+        }
+
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Уведомления */
+        .alert {
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .alert.success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .alert.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .contact-option {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 15px;
+        }
+
+        .contact-option label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .contact-option input {
+            margin-right: 10px;
+        }
+
+        .loading {
+            position: relative;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
     </style>
     <!-- Подключаем Dropbox SDK -->
     <script src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"></script>
 </head>
 <body>
-    <h1>Отправьте мне сообщение</h1>
-    <form id="messageForm">
-        <input type="text" id="name" placeholder="Ваше имя" required>
-        <input type="email" id="email" placeholder="Ваш email" required>
-        <textarea id="message" rows="5" placeholder="Ваше сообщение" required></textarea>
-        <button type="submit">Отправить</button>
-    </form>
+    <div class="container">
+        <h1>Отправьте мне сообщение</h1>
+        <div id="alert" class="alert"></div>
+        <form id="messageForm">
+            <input type="text" id="name" placeholder="Ваше имя" required>
+            
+            <div class="contact-option">
+                <label>
+                    <input type="radio" name="contact" value="email" checked> Email
+                </label>
+                <label>
+                    <input type="radio" name="contact" value="phone"> Телефон
+                </label>
+            </div>
+
+            <input type="email" id="email" placeholder="Ваш email" required>
+            <input type="tel" id="phone" placeholder="Ваш телефон" style="display: none;" required>
+            
+            <textarea id="message" placeholder="Ваше сообщение" required></textarea>
+            <button type="submit" id="submitButton">Отправить</button>
+        </form>
+    </div>
 
     <script>
         const ACCESS_TOKEN = 'sl.u.AFm9IyQZx46JD1yHzUDKrHmwnXZT_dIk1QDET4hhMxYF7iLWb-cuOlqto09_iP8Ubzzg96Tyg39YN9lQ5x7b9lVrtdSFuE0lraOloeHddVkxbtmpyMVULQHo_C7HATVhEcuM8_6i_6L-dTibdDSZqWgOgkI0LaHd81sg35Bo5rUBFIFI2v4P4cjoznkFPeSCkjrnC91jWYSrycX578sS8F70d4atf3y__DOQkZ7hJTtmok8VZ-tCs5lcxfPv133ZbReCjTb2z1LcS_YRxDOwS6OVJF6fFEItFnOoIUVHGjNFJFe-uifrsK3IFgRp718ef7DvnwK2NAPrNtLH4P2Qk82K6kYykZrwouaLgmfvP1SozBnhU7cb1kiJjZFHzkeeyx6rkrYhC2Et5q0nhGO0KxroOcuIZF-aArlLMBqWCX5Gh6uktT8dezxIGJ5t5ECN_bZQb5Na1uysUdTw3byEQIMUqWmINph16yT2MGQN-oMdtsxz4y3Hy6S2go2bFkc4-cNXfFQJEPwqidBVsnFyYDc263AakDIhGuBQRRJL5QfbG5JwZDzKfCt77gHC_q10tr968szbGTx0h63T9PWoAqY1D58r_AR-IAW3Dj2T0oFyqfgK-vhP67hw8AHPf9BVeCIWcYKsebKaCrR8594UVDKCu6y7yuVrPzYCWuDw8ySjNHsHjO4lVVKAmwRxsh1FBvgCJz4TMDT0douWO1ZV_4lZD8ubsj4HjWUrwNPnpDe2wiPj78ebm6ky7LWSXhkCEfDL1-cx5uUlMsgyRaE_am45BXOhseBHt1lwRIF0LIi3Uc4FyrFCYpMA7H2kTjSbXl4RqniSTM4Z-drV0pqytmvD46pCrFlQgmD95bArMsBa6NRL3_dzyUBp0HGgGvD-vUWNYTfYAVNyc1aJvMT6ywlpKtGTjBcj6JVAGs57QQRP-LMKsTr3tOrogL5xYf2DccXY_mz6WaUiWalZJBstDRg2G6LWPpV6Mu_jhCaLjKwlvYA46jmChYZCldWApxk5h-QaxOd8TihZMXcV-Hs6ucyFaOctvp28WOjXxRluBuifN3sqYPyqbzuWjqbe3MpbGtNBNQNEr26_-KAnZYv2JC3t0hpJboDLiEyb2EbPSp2iTXJnIiIyBJuoHX3w11xvwuNDZ6iQkg5wohaOEEkZGBANkV1MLEz-ACGl1YmHRtSBnbsZ9eh28XaIMRPzivJ4X6hRoWA-3JcCjmHbrJ9NjPrtz5i2IAJSKN0IrpXEEH0MFNHKDeulW2YOPqlGR2pT3gec0Oc6ddcVd9-LS1Rvn8_V'; // Токен с доступом только к папке Messages
-        const FILE_PATH = '/test.txt'; // Путь к файлу в папке Messages
+        const FILE_PATH = '/Messages/messages.txt'; // Путь к файлу в папке Messages
 
         const dbx = new Dropbox.Dropbox({ accessToken: ACCESS_TOKEN });
+
+        // Функция для отображения уведомлений
+        function showAlert(message, type) {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = `alert ${type}`;
+            alert.style.display = 'block';
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 3000);
+        }
+
+        // Переключение между email и телефоном
+        const contactOptions = document.querySelectorAll('input[name="contact"]');
+        const emailInput = document.getElementById('email');
+        const phoneInput = document.getElementById('phone');
+
+        contactOptions.forEach(option => {
+            option.addEventListener('change', (e) => {
+                if (e.target.value === 'email') {
+                    emailInput.style.display = 'block';
+                    phoneInput.style.display = 'none';
+                    emailInput.required = true;
+                    phoneInput.required = false;
+                } else {
+                    emailInput.style.display = 'none';
+                    phoneInput.style.display = 'block';
+                    emailInput.required = false;
+                    phoneInput.required = true;
+                }
+            });
+        });
 
         // Отправить сообщение
         async function sendMessage(event) {
             event.preventDefault(); // Отменить отправку формы
 
+            const submitButton = document.getElementById('submitButton');
+            submitButton.disabled = true; // Блокируем кнопку
+            submitButton.classList.add('loading'); // Добавляем индикатор загрузки
+
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
             const message = document.getElementById('message').value;
 
-            if (!name || !email || !message) {
-                alert('Пожалуйста, заполните все поля.');
+            if (!name || !message || (!email && !phone)) {
+                showAlert('Пожалуйста, заполните все поля.', 'error');
+                submitButton.disabled = false; // Разблокируем кнопку
+                submitButton.classList.remove('loading'); // Убираем индикатор загрузки
                 return;
             }
 
@@ -68,7 +246,8 @@
                 }
 
                 // Добавляем новое сообщение
-                const newMessage = `Имя: ${name}\nEmail: ${email}\nСообщение: ${message}\n\n`;
+                const contactInfo = email ? `Email: ${email}` : `Телефон: ${phone}`;
+                const newMessage = `Имя: ${name}\n${contactInfo}\nСообщение: ${message}\n\n`;
                 const newContent = currentContent + newMessage;
 
                 // Сохраняем обновлённый файл
@@ -80,10 +259,13 @@
 
                 // Очищаем форму
                 document.getElementById('messageForm').reset();
-                alert('Сообщение успешно отправлено!');
+                showAlert('Сообщение успешно отправлено!', 'success');
             } catch (error) {
                 console.error('Ошибка при отправке сообщения:', error);
-                alert('Ошибка при отправке сообщения: ' + (error.error || error.message || 'Неизвестная ошибка'));
+                showAlert('Ошибка при отправке сообщения: ' + (error.error || error.message || 'Неизвестная ошибка'), 'error');
+            } finally {
+                submitButton.disabled = false; // Разблокируем кнопку
+                submitButton.classList.remove('loading'); // Убираем индикатор загрузки
             }
         }
 
