@@ -1,4 +1,4 @@
-const token = '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';  // Замініть на ваш токен GitHub
+const token = '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';  // Замініть на ваш токен GitHub
 const gistId = '41455a1e1bd25df1b1a76656a058f3b7';  // ID вашого Gist
 const gistUrl = `https://api.github.com/gists/${gistId}`;
 
