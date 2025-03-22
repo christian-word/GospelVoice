@@ -718,22 +718,25 @@ function updateProgressBar() {
     }
 }
 
-// Оновлюємо прогрессбар кожну секунду
-audioPlayer.addEventListener("timeupdate", updateProgressBar);
-videoPlayer.addEventListener("timeupdate", updateProgressBar);
-
 // Додаємо обробник для перемотування
 document.querySelectorAll(".progress-container").forEach(container => {
     container.addEventListener("click", (e) => {
         const rect = container.getBoundingClientRect();
         const clickX = e.clientX - rect.left;
         const width = rect.width;
-        const seekTime = (clickX / width) * (videoPlayerContainer.style.display === "block" ? videoPlayer.duration : audioPlayer.duration);
-        if (videoPlayerContainer.style.display === "block") {
-            videoPlayer.currentTime = seekTime;
-        } else {
-            audioPlayer.currentTime = seekTime;
-        }
+
+        // Визначаємо, який плеєр використовується (аудіо чи відео)
+        const isVideo = videoPlayerContainer.style.display === "block";
+        const mediaElement = isVideo ? videoPlayer : audioPlayer;
+
+        // Розраховуємо час для перемотування
+        const seekTime = (clickX / width) * mediaElement.duration;
+
+        // Встановлюємо новий час відтворення
+        mediaElement.currentTime = seekTime;
+
+        // Оновлюємо прогрессбар
+        updateProgressBar();
     });
 });
 
