@@ -6,7 +6,7 @@
     <title>Інтерактивний Медіаплеєр</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        :root {
+       :root {
     --primary-color: #007bff;
     --hover-color: #0056b3;
     --background-color: #f4f4f4;
@@ -114,7 +114,7 @@ header h3 {
 
 .track {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     margin: 5px 0;
     padding: 8px;
     border-radius: 5px;
@@ -137,7 +137,6 @@ header h3 {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 70%;
 }
 
 .track i {
@@ -196,32 +195,24 @@ header h3 {
     margin-top: 5px;
 }
 
-.track-progress input[type="range"] {
+.progress-container {
     width: 100%;
     height: 5px;
     background-color: #ddd;
     border-radius: 5px;
     cursor: pointer;
-    appearance: none;
+    position: relative;
 }
 
-.track-progress input[type="range"]::-webkit-slider-runnable-track {
-    height: 5px;
+.progress-bar {
+    height: 100%;
     background-color: var(--primary-color);
+    width: 0%;
     border-radius: 5px;
+    transition: width 0.1s ease;
 }
 
-.track-progress input[type="range"]::-webkit-slider-thumb {
-    appearance: none;
-    width: 12px;
-    height: 12px;
-    background-color: var(--primary-color);
-    border-radius: 50%;
-    cursor: pointer;
-    margin-top: -3.5px;
-}
-
-.track-progress .time-display {
+.time-display {
     display: flex;
     justify-content: space-between;
     font-size: 12px;
@@ -547,7 +538,9 @@ function renderPlaylist(category) {
                 <i class="fas fa-music"></i>
                 <a href="#" data-src="${track.url}">${track.title}</a>
                 <div class="track-progress" style="display: none;">
-                    <input type="range" class="progress-bar" value="0" min="0" max="100">
+                    <div class="progress-container">
+                        <div class="progress-bar"></div>
+                    </div>
                     <div class="time-display">
                         <span class="current-time">0:00</span>
                         <span class="duration">0:00</span>
@@ -713,24 +706,24 @@ function updateProgressBar() {
 
     if (videoPlayerContainer.style.display === "block") {
         const progress = (videoPlayer.currentTime / videoPlayer.duration) * 100;
-        progressBar.value = progress;
+        progressBar.style.width = `${progress}%`;
         currentTimeDisplay.textContent = formatTime(videoPlayer.currentTime);
         durationDisplay.textContent = formatTime(videoPlayer.duration);
     } else {
         const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-        progressBar.value = progress;
+        progressBar.style.width = `${progress}%`;
         currentTimeDisplay.textContent = formatTime(audioPlayer.currentTime);
         durationDisplay.textContent = formatTime(audioPlayer.duration);
     }
 }
 
 // Додаємо обробник для перемотування
-document.querySelectorAll(".progress-bar").forEach(progressBar => {
-    progressBar.addEventListener("input", (e) => {
-        const currentTrackElement = document.querySelector(".track.playing");
-        if (!currentTrackElement) return;
-
-        const seekTime = (e.target.value / 100) * (videoPlayerContainer.style.display === "block" ? videoPlayer.duration : audioPlayer.duration);
+document.querySelectorAll(".progress-container").forEach(container => {
+    container.addEventListener("click", (e) => {
+        const rect = container.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const width = rect.width;
+        const seekTime = (clickX / width) * (videoPlayerContainer.style.display === "block" ? videoPlayer.duration : audioPlayer.duration);
         if (videoPlayerContainer.style.display === "block") {
             videoPlayer.currentTime = seekTime;
         } else {
