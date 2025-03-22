@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -5,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Інтерактивний Медіаплеєр</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-       :root {
+    
+     <style>
+ :root {
     --primary-color: #007bff;
     --hover-color: #0056b3;
     --background-color: #f4f4f4;
@@ -27,7 +29,6 @@ body {
 }
 
 header {
-    background: #4a90e2;
     background: linear-gradient(135deg, #4a90e2, #6a11cb);
     color: white;
     padding: 20px 0;
@@ -114,7 +115,7 @@ header h3 {
 
 .track {
     display: flex;
-    flex-direction: column;
+    align-items: center;
     margin: 5px 0;
     padding: 8px;
     border-radius: 5px;
@@ -134,9 +135,10 @@ header h3 {
     margin-left: 8px;
     transition: color 0.3s ease;
     flex-grow: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+}
+
+.track a:hover {
+    color: var(--hover-color);
 }
 
 .track i {
@@ -189,19 +191,13 @@ header h3 {
     font-size: 16px;
 }
 
-.track-progress {
-    display: none;
-    width: 100%;
-    margin-top: 5px;
-}
-
 .progress-container {
     width: 100%;
     height: 5px;
     background-color: #ddd;
-    border-radius: 5px;
+    margin-top: 10px;
     cursor: pointer;
-    position: relative;
+    border-radius: 5px;
 }
 
 .progress-bar {
@@ -215,43 +211,26 @@ header h3 {
 .time-display {
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
-    color: #555;
     margin-top: 5px;
+    font-size: 14px;
+    color: #555;
 }
 
-#categorySelect {
+.track-progress-container {
     width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid var(--primary-color);
-    background-color: white;
-    color: var(--primary-color);
-    font-size: 16px;
-    margin-bottom: 20px;
+    height: 5px;
+    background-color: #ddd;
+    margin-top: 5px;
     cursor: pointer;
+    border-radius: 5px;
 }
 
-#categorySelect:hover {
-    border-color: var(--hover-color);
-}
-
-#categorySelect:focus {
-    outline: none;
-    border-color: var(--hover-color);
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-#categoryImageContainer {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-#categoryImage {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    display: none;
+.track-progress-bar {
+    height: 100%;
+    background-color: var(--primary-color);
+    width: 0%;
+    border-radius: 5px;
+    transition: width 0.1s ease;
 }
 
 @media (max-width: 600px) {
@@ -338,6 +317,7 @@ header h3 {
     color: transparent;
 }
     </style>
+
 </head>
 <body>
     <header>
@@ -361,46 +341,47 @@ header h3 {
         </select>
         <div id="playlist"></div>
 
-        <!-- Додаємо відеоплеєр -->
+        <!-- Відеоплеєр -->
         <div id="videoPlayerContainer" style="display: none;">
             <iframe id="youtubePlayer" width="100%" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <video id="videoPlayer" controls style="width: 100%; display: none;"></video>
         </div>
 
+        <!-- Елементи управління -->
         <div class="controls">
             <button onclick="playPrevTrack()"><i class="fas fa-backward"></i></button>
             <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
             <button onclick="playNextTrack()"><i class="fas fa-forward"></i></button>
         </div>
-        <audio id="audioPlayer" controls style="display: none;"></audio> <!-- Аудіоплеєр прихований за замовчуванням -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="time-display">
+            <span id="currentTime">0:00</span>
+            <span id="duration">0:00</span>
+        </div>
+        <audio id="audioPlayer" controls style="display: none;"></audio> <!-- Прихований аудіоплеєр -->
     </div>
 
-    <footer style="background-color: #f4f4f4; padding: 20px; text-align: center; border-top: 1px solid #ccc; margin-top: 50px;">
-        <a href="index.html" style="color: var(--primary-color); text-decoration: none; font-size: 1em;">
-            <i class="fas fa-home"></i> Головне меню
-        </a>
+    <footer>
+        <a href="index.html"><i class="fas fa-home"></i> Головне меню</a>
         <p>м. Суми, версія збірки 1.0 : © 2025 р.</p>
-
         <div class="social-icons">
-            <a href="https://www.youtube.com" target="_blank">
-                <i class="fab fa-youtube"></i>
-            </a>
-            <a href="https://www.facebook.com" target="_blank">
-                <i class="fab fa-facebook"></i>
-            </a>
-            <a href="https://www.instagram.com" target="_blank">
-                <i class="fab fa-instagram"></i>
-            </a>
+            <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
         </div>
     </footer>
 
     <script>
-
-  let audioPlayer = document.getElementById("audioPlayer");
+let audioPlayer = document.getElementById("audioPlayer");
 let videoPlayer = document.getElementById("videoPlayer");
 let youtubePlayer = document.getElementById("youtubePlayer");
 let videoPlayerContainer = document.getElementById("videoPlayerContainer");
 let playlistElement = document.getElementById("playlist");
+let progressBar = document.getElementById("progressBar");
+let currentTimeDisplay = document.getElementById("currentTime");
+let durationDisplay = document.getElementById("duration");
 let currentTrack = 0;
 let categories = {};
 let currentCategory = null;
@@ -473,14 +454,12 @@ async function loadPlaylist() {
         const categoryKeys = Object.keys(categories);
 
         if (categoryIndex !== null && categoryIndex >= 0 && categoryIndex < categoryKeys.length) {
-            // Якщо індекс валідний, вибираємо відповідну категорію
             currentCategory = categoryKeys[categoryIndex];
             selectCategory(currentCategory);
         } else {
-            // Якщо параметр #... відсутній, залишаємо вибір на "Оберіть альбом"
             const categorySelect = document.getElementById("categorySelect");
-            categorySelect.value = ""; // Встановлюємо значення за замовчуванням
-            updateAlbumInfo(null); // Оновлюємо інформацію про альбом
+            categorySelect.value = "";
+            updateAlbumInfo(null);
         }
     } catch (error) {
         console.error('Помилка завантаження плейлиста:', error);
@@ -502,7 +481,6 @@ function renderCategoryMenu() {
             categorySelect.appendChild(option);
         });
 
-        // Встановлюємо вибрану категорію, якщо вона вказана
         if (currentCategory) {
             categorySelect.value = currentCategory;
         }
@@ -512,7 +490,7 @@ function renderCategoryMenu() {
 }
 
 function selectCategory(category) {
-    stopAllMedia(); // Зупиняємо всі медіа при зміні категорії
+    stopAllMedia();
     currentCategory = category;
     const categoryImage = document.getElementById("categoryImage");
 
@@ -526,250 +504,11 @@ function selectCategory(category) {
     renderPlaylist(category);
     updateAlbumInfo(category);
 
-    // Оновлюємо вибір у <select>
     const categorySelect = document.getElementById("categorySelect");
     categorySelect.value = category;
 }
 
 function renderPlaylist(category) {
-    const tracks = categories[category].tracks;
-    if (tracks && tracks.length > 0) {
-        playlistElement.innerHTML = tracks.map((track, index) => `
-            <div class="track">
-                <i class="fas fa-music"></i>
-                <a href="#" data-src="${track.url}">${track.title}</a>
-            </div>
-        `).join('');
-    } else {
-        playlistElement.innerHTML = '<p style="color: red; text-align: center;">Немає треків у цій категорії.</p>';
-    }
-}
-
-function stopAllMedia() {
-    audioPlayer.pause();
-    videoPlayer.pause();
-    youtubePlayer.src = ""; // Зупиняємо YouTube відео
-}
-
-function scrollToVideo() {
-    const videoContainer = document.getElementById("videoPlayerContainer");
-    videoContainer.scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
-function playTrack(index, category) {
-    stopAllMedia(); // Зупиняємо всі медіа перед відтворенням нового треку
-
-    const tracks = categories[category].tracks;
-    if (index >= tracks.length) index = 0;
-    currentTrack = index;
-
-    const trackElements = document.querySelectorAll("#playlist .track");
-    const icons = document.querySelectorAll("#playlist i");
-
-    trackElements.forEach((track, i) => {
-        if (i === index) {
-            track.classList.add("playing");
-            icons[i].classList.remove("fa-music");
-            icons[i].classList.add("fa-pause");
-
-            // Додаємо нову строку з прогрессбаром
-            const progressRow = document.createElement("div");
-            progressRow.className = "progress-row";
-            progressRow.innerHTML = `
-                <div class="progress-container">
-                    <div class="progress-bar"></div>
-                </div>
-                <div class="time-display">
-                    <span class="current-time">0:00</span>
-                    <span class="duration">0:00</span>
-                </div>
-            `;
-            track.appendChild(progressRow);
-        } else {
-            track.classList.remove("playing");
-            icons[i].classList.remove("fa-pause");
-            icons[i].classList.add("fa-music");
-
-            // Видаляємо строку з прогрессбаром, якщо вона є
-            const progressRow = track.querySelector(".progress-row");
-            if (progressRow) {
-                progressRow.remove();
-            }
-        }
-    });
-
-    const trackUrl = tracks[index].url;
-
-    if (trackUrl.includes("youtube.com") || trackUrl.includes("youtu.be")) {
-        // Якщо це YouTube посилання
-        const videoId = extractYouTubeId(trackUrl);
-        youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-        youtubePlayer.style.display = "block";
-        videoPlayer.style.display = "none";
-        videoPlayerContainer.style.display = "block";
-        audioPlayer.style.display = "none"; // Приховуємо аудіоплеєр
-        scrollToVideo(); // Плавно прокручуємо до відеоплеєра
-    } else if (trackUrl.endsWith(".mp4") || trackUrl.endsWith(".webm") || trackUrl.endsWith(".ogg")) {
-        // Якщо це відеофайл
-        youtubePlayer.style.display = "none";
-        videoPlayer.src = trackUrl;
-        videoPlayer.style.display = "block";
-        videoPlayerContainer.style.display = "block";
-        audioPlayer.style.display = "none"; // Приховуємо аудіоплеєр
-        videoPlayer.play();
-        scrollToVideo(); // Плавно прокручуємо до відеоплеєра
-    } else {
-        // Якщо це аудіофайл
-        videoPlayerContainer.style.display = "none";
-        audioPlayer.src = trackUrl;
-        audioPlayer.style.display = "block"; // Показуємо аудіоплеєр
-        audioPlayer.play();
-    }
-
-    document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
-    document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
-}
-
-function extractYouTubeId(url) {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : null;
-}
-
-playlistElement.addEventListener("click", (e) => {
-    if (e.target.tagName === "A") {
-        e.preventDefault();
-        const trackElement = e.target.closest(".track");
-        if (trackElement) {
-            const index = Array.from(trackElement.parentElement.children).indexOf(trackElement);
-            const category = currentCategory;
-            playTrack(index, category);
-        }
-    }
-});
-
-function playNextTrack() {
-    const tracks = categories[currentCategory].tracks;
-    if (tracks && tracks.length > 0) {
-        currentTrack = (currentTrack + 1) % tracks.length;
-        playTrack(currentTrack, currentCategory);
-    }
-}
-
-function playPrevTrack() {
-    const tracks = categories[currentCategory].tracks;
-    if (tracks && tracks.length > 0) {
-        currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
-        playTrack(currentTrack, currentCategory);
-    }
-}
-
-function togglePlayPause() {
-    if (videoPlayerContainer.style.display === "block") {
-        if (youtubePlayer.style.display === "block") {
-            // Для YouTube відео
-            const iframeSrc = youtubePlayer.src;
-            if (iframeSrc.includes("autoplay=1")) {
-                youtubePlayer.src = iframeSrc.replace("autoplay=1", "autoplay=0");
-            } else {
-                youtubePlayer.src = iframeSrc + "&autoplay=1";
-            }
-        } else {
-            // Для локальних відео
-            if (videoPlayer.paused) {
-                videoPlayer.play();
-                document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
-                document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
-            } else {
-                videoPlayer.pause();
-                document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-pause");
-                document.querySelector(".controls button:nth-child(2) i").classList.add("fa-play");
-            }
-        }
-    } else {
-        // Для аудіо
-        if (audioPlayer.paused) {
-            audioPlayer.play();
-            document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-play");
-            document.querySelector(".controls button:nth-child(2) i").classList.add("fa-pause");
-        } else {
-            audioPlayer.pause();
-            document.querySelector(".controls button:nth-child(2) i").classList.remove("fa-pause");
-            document.querySelector(".controls button:nth-child(2) i").classList.add("fa-play");
-        }
-    }
-}
-
-function updateProgressBar() {
-    const currentTrackElement = document.querySelector(".track.playing");
-    if (!currentTrackElement) return;
-
-    const progressBar = currentTrackElement.querySelector(".progress-bar");
-    const currentTimeDisplay = currentTrackElement.querySelector(".current-time");
-    const durationDisplay = currentTrackElement.querySelector(".duration");
-
-    if (videoPlayerContainer.style.display === "block") {
-        const progress = (videoPlayer.currentTime / videoPlayer.duration) * 100;
-        progressBar.style.width = `${progress}%`;
-        currentTimeDisplay.textContent = formatTime(videoPlayer.currentTime);
-        durationDisplay.textContent = formatTime(videoPlayer.duration);
-    } else {
-        const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-        progressBar.style.width = `${progress}%`;
-        currentTimeDisplay.textContent = formatTime(audioPlayer.currentTime);
-        durationDisplay.textContent = formatTime(audioPlayer.duration);
-    }
-}
-
-// Оновлюємо прогрессбар під час відтворення
-audioPlayer.addEventListener("timeupdate", updateProgressBar);
-videoPlayer.addEventListener("timeupdate", updateProgressBar);
-
-// Додаємо обробник для перемотування
-document.querySelectorAll(".progress-container").forEach(container => {
-    container.addEventListener("click", (e) => {
-        const rect = container.getBoundingClientRect();
-        const clickX = e.clientX - rect.left;
-        const width = rect.width;
-
-        // Визначаємо, який плеєр використовується (аудіо чи відео)
-        const isVideo = videoPlayerContainer.style.display === "block";
-        const mediaElement = isVideo ? videoPlayer : audioPlayer;
-
-        // Розраховуємо час для перемотування
-        const seekTime = (clickX / width) * mediaElement.duration;
-
-        // Встановлюємо новий час відтворення
-        mediaElement.currentTime = seekTime;
-
-        // Оновлюємо прогрессбар
-        updateProgressBar();
-    });
-});
-
-function formatTime(seconds) {
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-}
-
-audioPlayer.addEventListener("ended", () => {
-    playNextTrack();
-});
-
-videoPlayer.addEventListener("ended", () => {
-    playNextTrack();
-});
-
-audioPlayer.addEventListener("error", () => {
-    alert("Не вдалося завантажити аудіофайл. Спробуйте ще раз.");
-});
-
-videoPlayer.addEventListener("error", () => {
-    alert("Не вдалося завантажити відеофайл. Спробуйте ще раз.");
-});
-
-window.onload = loadPlaylist;   
-    </script>
+   </script> 
 </body>
 </html>
