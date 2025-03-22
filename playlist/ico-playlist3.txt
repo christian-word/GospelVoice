@@ -1,76 +1,73 @@
-Категорія:1. (74 трека) Світлана Демко;https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png
-1. 100 пісень (feat. Діана Демко);https://holychords.pro/uploads/music/20210816/20210816211654.mp3
-2. Алелуя (feat. Лариса Кайдрис);https://holychords.pro/storage/music/XUvr3Ou9MgdQYBY2t1AgANZ9lPprIkytxaUKOIQ0.mp3
-4. Благослови Господь (feat. Руслан Члек, Lina Demchuk, Leonid Demchuk);https://holychords.pro/storage/music/nJHeSyDIoudbxbD1FgngKgtsjnK0N6kJUYvRb9VI.mp3
-5. Бог моя надія;https://holychords.pro/uploads/music/20210429/20210429131739.mp3
-6. В святу ніч;https://holychords.pro/uploads/music/20191218/2019121801565614.mp3
-7. Весільний день;https://holychords.pro/uploads/music/20210814/20210814102400.mp3
-8. Відрада;https://holychords.pro/uploads/music/20191123/201911231359469.mp3
-9. Він Живий;https://holychords.pro/uploads/music/20220409/20220409194430.mp3
-10. Віра;https://holychords.pro/uploads/music/20210408/20210408124120.mp3
-11. Вознесу я;https://holychords.pro/uploads/music/20200326/2020032622284270.mp3
-13. День уже минає (feat. Руслан Члек);https://holychords.pro/storage/music/NLN542LDTgDpQinPYdgfrr6uJrVhJlATMxcQlGev.mp3
-14. До Тебе, Боже мій;https://holychords.pro/uploads/music/20210215/20210215203821.mp3
-15. Доброта;https://holychords.pro/storage/music/h230OnO7ipaBDWBu5NHAeROdnMGcsOJkjnEDw7c4.mp3
-16. Досконалий Бог;https://holychords.pro/uploads/music/20200301/2020030120224218.mp3
-17. Дотик неба;https://holychords.pro/uploads/music/20191214/2019121412381071.mp3
-18. Дякую за все;https://holychords.pro/storage/music/sozMdPK0NlmFfcRttPtzWq4GTktzFzOR5Jidu117.mp3
-19. Зiронька;https://holychords.pro/uploads/music/20201212/20201212115735.mp3
-20. Засяй;https://holychords.pro/uploads/music/20200108/2020010809563190.mp3
-21. Затишна земля;https://holychords.pro/storage/music/4znKPb4yrAGIuMwIC43J4NRtqHmQvG8ByQ27Z68M.mp3
-22. Зірка Вифлеємська;https://holychords.pro/storage/music/5Bb7WCTAxMxPrcWiYF8Eo0HHvFBqZIhAe9Hyp0BX.mp3
-23. Золотий Хрест;https://holychords.pro/uploads/music/20191123/2019112313104540.mp3
-24. Коли закінчу я свою мандрівку;https://holychords.pro/storage/music/R5niI2FE4pjNFuW5y8kqssbwVpkl88XsJXw1vY6p.mp3
-25. Коли прийде нелегкий час в житті;https://holychords.pro/uploads/music/20200125/2020012510332746.mp3
-26. Любов (feat. Діана Демко);https://holychords.pro/uploads/music/20210604/20210604174238.mp3
-27. Ми молим Бога (feat. Edik Grek);https://holychords.pro/uploads/music/20191123/2019112313195048.mp3
-28. Миру дай Господь;https://holychords.pro/storage/music/oS2NMqaoFfTgARK2tFysDeRvZjTYXwOu2k73BxpG.mp3
-29. Мій захист (feat. Philia);https://holychords.pro/uploads/music/20220924/20220924130652.mp3
-30. Мій фаворит (feat. Діана Демко);https://holychords.pro/uploads/music/20210621/20210621100242.mp3
-31. Міліони раз;https://holychords.pro/storage/music/Flp2TyjocXweP94W2oG15JILnR5kId4hHKoVxMHf.mp3
-32. Місто чудове;https://holychords.pro/uploads/music/20211128/20211128205545.mp3
-33. Молитва за Україну;https://holychords.pro/uploads/music/20220307/20220307091134.mp3
-34. Молю;https://holychords.pro/uploads/music/20220722/20220722081325.mp3
-35. Моя рідненька мамо;https://holychords.pro/uploads/music/20200101/2020010118214361.mp3
-36. Моя Україна;https://holychords.pro/storage/music/FN78ND2mPZ8XWb5uF3MtR2Urz2TBArkI6l0N5pxN.mp3
-37. На Різдво (feat. Оксана Захарчук, Зоряна Соколова);https://holychords.pro/storage/music/rSXdKgCUSUf8an5aMKsl5cXF4wKzoS9RWJ1KHXN2.mp3
-38. Навіки живи, о моя Україно (feat. Світлана Демко);https://holychords.pro/uploads/music/20220910/20220910091541.mp3
-39. Навіки живи, о моя Україно;https://holychords.pro/uploads/music/20230826/20230826210611.mp3
-40. Нахили небеса;https://holychords.pro/uploads/music/20200119/2020011909542639.mp3
-41. Небеса (feat. Лариса Кайдрис, Світлана Демко, Юлия Поливода, Зоряна Соколова);https://holychords.pro/storage/music/WewTYoarTFzNSnQa71VlYGZXL2VqDCFpISwLKCiz.mp3
-42. Ніби вчора, рідна мамо;https://holychords.pro/uploads/music/20200509/2020050911414189.mp3
-43. О, не плач;https://holychords.pro/uploads/music/20210326/20210326081736.mp3
-44. Очі мами (feat. Виктория Березовская);https://holychords.pro/uploads/music/20230506/20230506131054.mp3
-45. Плаче мій народ;https://holychords.pro/uploads/music/20220317/20220317015456.mp3
-46. Подяка;https://holychords.pro/storage/music/mZKuu3b65FMYNQOXTMhSEtl75ZgO6FPgtfv0Sdrb.mp3
-47. Подякуй Богу;https://holychords.pro/uploads/music/20211030/20211030220439.mp3
-48. Подякуй Господу;https://holychords.pro/uploads/music/20221015/20221015114226.mp3
-49. Поможи мені, мій Боже;https://holychords.pro/uploads/music/20191123/2019112313255459.mp3
-50. Різдво (feat. Мелодія душі);https://holychords.pro/storage/music/6El7DEUhWRZFWuPN1cCYvZijCXLqhKrMKOJWoXkp.mp3
-51. Святий вечір, добрий вечір (feat. Аня Дашкевіч, Світлана Демко);https://holychords.pro/storage/music/ShI5St8FpbeoeKp29eFh0hhlXwPo6HYIlcZA5pfY.mp3
-52. Слава Тобі;https://holychords.pro/uploads/music/20191111/2019111109113529.mp3
-53. Слава Тобі (feat. Denis S, Світлана Демко, Діана Демко, Austin Patsula);https://holychords.pro/storage/music/gfzUm5ROUvTv6iVykvbH8WtaaYbGbCrFrDxSJNxJ.mp3
-54. Сотворен Тобой я;https://holychords.pro/uploads/music/20200808/20200808091611.mp3
-55. Співай душа моя (feat. Angelina Lutsyk);https://holychords.pro/storage/music/xbeox0DpYPp2XfOa9OKjzxoe5LXabQcnIRXRhWys.mp3
-56. Сяйво Різдва;https://holychords.pro/uploads/music/20221122/20221122222328.mp3
-57. Там зустріну Тебе (feat. Виктор Шатецкий);https://holychords.pro/uploads/music/20210408/20210408123944.mp3
-58. Таточку;https://holychords.pro/uploads/music/20191124/2019112408050922.mp3
-59. Ти зі мною Ісус (feat. Зоряна Соколова);https://holychords.pro/storage/music/o60VI5TL2wCBzIw2mj2LlxeRoljWgXQ3a13tEBar.mp3
-60. Ти моє щастя;https://holychords.pro/uploads/music/20200722/20200722095722.mp3
-61. Ти прости (feat. Анатолій Козек);https://holychords.pro/storage/music/UEOs38XWVOHGVEQwjw8EQHPHOnjo17pdmOsVpxLI.mp3
-62. Тримай мене (feat. Philia);https://holychords.pro/storage/music/06TklDqro20OnFTnBNYc1wAvu898aj7vg6BkRIGR.mp3
-64. Хай буде воля Твоя (feat. Трио Левит);https://holychords.pro/storage/music/CRuDjeCB0cYtfyUhWr3xHr2wxLmwMpc3Y6RbKrWS.mp3
-65. Хай лине хвала;https://holychords.pro/storage/music/UwygpovpAaSbuU2NDXu0gMmgDMQUt3Z4xNXCU7fi.mp3
-66. Хвала;https://holychords.pro/uploads/music/20210305/20210305111457.mp3
-67. Христос живий (feat. Діана Демко);https://holychords.pro/storage/music/C7EfaAJEJ5ll8mWWaPOkj9qCi2U2T36qj6lF3tnq.mp3
-68. Це життя є прекрасне;https://holychords.pro/storage/music/rXjyRQFBfPZGKepJSd1DaMeSQytPM8oVSr10aSCa.mp3
-69. Це життя, мій Господь;https://holychords.pro/storage/music/wdSvxtmPfWfMzKlMfv3GY7cxAQbDYOAixsKUUVw3.mp3
-70. Чудовий День Різдва;https://holychords.pro/uploads/music/20221218/20221218125109.mp3
-71. Щастя Назавжди;https://holychords.pro/uploads/music/20230125/20230125003645.mp3
-72. Я іду до мети;https://holychords.pro/uploads/music/20200206/2020020621122540.mp3
-73. Я Тобі Ісусе дякую;https://holychords.pro/uploads/music/20200219/202002190927059.mp3
-74. Як в дорозі ти знеміг (feat. Элани Москалу);https://holychords.pro/uploads/music/20220401/20220401013134.mp3
-
+Категорія:1. (69 трека) Світлана Демко;https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png
+1. Благослови Господь (feat. Руслан Члек, Lina Demchuk, Leonid Demchuk);https://holychords.pro/storage/music/nJHeSyDIoudbxbD1FgngKgtsjnK0N6kJUYvRb9VI.mp3
+2. Бог моя надія;https://holychords.pro/uploads/music/20210429/20210429131739.mp3
+3. В святу ніч;https://holychords.pro/uploads/music/20191218/2019121801565614.mp3
+4. Весільний день;https://holychords.pro/uploads/music/20210814/20210814102400.mp3
+5. Відрада;https://holychords.pro/uploads/music/20191123/201911231359469.mp3
+6. Він Живий;https://holychords.pro/uploads/music/20220409/20220409194430.mp3
+7. Віра;https://holychords.pro/uploads/music/20210408/20210408124120.mp3
+8. Вознесу я;https://holychords.pro/uploads/music/20200326/2020032622284270.mp3
+9. День уже минає (feat. Руслан Члек);https://holychords.pro/storage/music/NLN542LDTgDpQinPYdgfrr6uJrVhJlATMxcQlGev.mp3
+10. До Тебе, Боже мій;https://holychords.pro/uploads/music/20210215/20210215203821.mp3
+11. Доброта;https://holychords.pro/storage/music/h230OnO7ipaBDWBu5NHAeROdnMGcsOJkjnEDw7c4.mp3
+12. Досконалий Бог;https://holychords.pro/uploads/music/20200301/2020030120224218.mp3
+13. Дотик неба;https://holychords.pro/uploads/music/20191214/2019121412381071.mp3
+14. Дякую за все;https://holychords.pro/storage/music/sozMdPK0NlmFfcRttPtzWq4GTktzFzOR5Jidu117.mp3
+15. Зiронька;https://holychords.pro/uploads/music/20201212/20201212115735.mp3
+16. Засяй;https://holychords.pro/uploads/music/20200108/2020010809563190.mp3
+17. Затишна земля;https://holychords.pro/storage/music/4znKPb4yrAGIuMwIC43J4NRtqHmQvG8ByQ27Z68M.mp3
+18. Зірка Вифлеємська;https://holychords.pro/storage/music/5Bb7WCTAxMxPrcWiYF8Eo0HHvFBqZIhAe9Hyp0BX.mp3
+19. Золотий Хрест;https://holychords.pro/uploads/music/20191123/2019112313104540.mp3
+20. Коли закінчу я свою мандрівку;https://holychords.pro/storage/music/R5niI2FE4pjNFuW5y8kqssbwVpkl88XsJXw1vY6p.mp3
+21. Коли прийде нелегкий час в житті;https://holychords.pro/uploads/music/20200125/2020012510332746.mp3
+22. Любов (feat. Діана Демко);https://holychords.pro/uploads/music/20210604/20210604174238.mp3
+23. Ми молим Бога (feat. Edik Grek);https://holychords.pro/uploads/music/20191123/2019112313195048.mp3
+24. Миру дай Господь;https://holychords.pro/storage/music/oS2NMqaoFfTgARK2tFysDeRvZjTYXwOu2k73BxpG.mp3
+25. Мій захист (feat. Philia);https://holychords.pro/uploads/music/20220924/20220924130652.mp3
+26. Мій фаворит (feat. Діана Демко);https://holychords.pro/uploads/music/20210621/20210621100242.mp3
+27. Міліони раз;https://holychords.pro/storage/music/Flp2TyjocXweP94W2oG15JILnR5kId4hHKoVxMHf.mp3
+28. Місто чудове;https://holychords.pro/uploads/music/20211128/20211128205545.mp3
+29. Молитва за Україну;https://holychords.pro/uploads/music/20220307/20220307091134.mp3
+30. Молю;https://holychords.pro/uploads/music/20220722/20220722081325.mp3
+31. Моя рідненька мамо;https://holychords.pro/uploads/music/20200101/2020010118214361.mp3
+32. Моя Україна;https://holychords.pro/storage/music/FN78ND2mPZ8XWb5uF3MtR2Urz2TBArkI6l0N5pxN.mp3
+33. На Різдво (feat. Оксана Захарчук, Зоряна Соколова);https://holychords.pro/storage/music/rSXdKgCUSUf8an5aMKsl5cXF4wKzoS9RWJ1KHXN2.mp3
+34. Навіки живи, о моя Україно (feat. Світлана Демко);https://holychords.pro/uploads/music/20220910/20220910091541.mp3
+35. Навіки живи, о моя Україно;https://holychords.pro/uploads/music/20230826/20230826210611.mp3
+36. Нахили небеса;https://holychords.pro/uploads/music/20200119/2020011909542639.mp3
+37. Небеса (feat. Лариса Кайдрис, Світлана Демко, Юлия Поливода, Зоряна Соколова);https://holychords.pro/storage/music/WewTYoarTFzNSnQa71VlYGZXL2VqDCFpISwLKCiz.mp3
+38. Ніби вчора, рідна мамо;https://holychords.pro/uploads/music/20200509/2020050911414189.mp3
+39. О, не плач;https://holychords.pro/uploads/music/20210326/20210326081736.mp3
+40. Очі мами (feat. Виктория Березовская);https://holychords.pro/uploads/music/20230506/20230506131054.mp3
+41. Плаче мій народ;https://holychords.pro/uploads/music/20220317/20220317015456.mp3
+42. Подяка;https://holychords.pro/storage/music/mZKuu3b65FMYNQOXTMhSEtl75ZgO6FPgtfv0Sdrb.mp3
+43. Подякуй Богу;https://holychords.pro/uploads/music/20211030/20211030220439.mp3
+44. Подякуй Господу;https://holychords.pro/uploads/music/20221015/20221015114226.mp3
+45. Поможи мені, мій Боже;https://holychords.pro/uploads/music/20191123/2019112313255459.mp3
+46. Різдво (feat. Мелодія душі);https://holychords.pro/storage/music/6El7DEUhWRZFWuPN1cCYvZijCXLqhKrMKOJWoXkp.mp3
+47. Святий вечір, добрий вечір (feat. Аня Дашкевіч, Світлана Демко);https://holychords.pro/storage/music/ShI5St8FpbeoeKp29eFh0hhlXwPo6HYIlcZA5pfY.mp3
+48. Слава Тобі;https://holychords.pro/uploads/music/20191111/2019111109113529.mp3
+49. Слава Тобі (feat. Denis S, Світлана Демко, Діана Демко, Austin Patsula);https://holychords.pro/storage/music/gfzUm5ROUvTv6iVykvbH8WtaaYbGbCrFrDxSJNxJ.mp3
+50. Сотворен Тобой я;https://holychords.pro/uploads/music/20200808/20200808091611.mp3
+51. Співай душа моя (feat. Angelina Lutsyk);https://holychords.pro/storage/music/xbeox0DpYPp2XfOa9OKjzxoe5LXabQcnIRXRhWys.mp3
+52. Сяйво Різдва;https://holychords.pro/uploads/music/20221122/20221122222328.mp3
+53. Там зустріну Тебе (feat. Виктор Шатецкий);https://holychords.pro/uploads/music/20210408/20210408123944.mp3
+54. Таточку;https://holychords.pro/uploads/music/20191124/2019112408050922.mp3
+55. Ти зі мною Ісус (feat. Зоряна Соколова);https://holychords.pro/storage/music/o60VI5TL2wCBzIw2mj2LlxeRoljWgXQ3a13tEBar.mp3
+56. Ти моє щастя;https://holychords.pro/uploads/music/20200722/20200722095722.mp3
+57. Ти прости (feat. Анатолій Козек);https://holychords.pro/storage/music/UEOs38XWVOHGVEQwjw8EQHPHOnjo17pdmOsVpxLI.mp3
+58. Тримай мене (feat. Philia);https://holychords.pro/storage/music/06TklDqro20OnFTnBNYc1wAvu898aj7vg6BkRIGR.mp3
+59. Хай буде воля Твоя (feat. Трио Левит);https://holychords.pro/storage/music/CRuDjeCB0cYtfyUhWr3xHr2wxLmwMpc3Y6RbKrWS.mp3
+60. Хай лине хвала;https://holychords.pro/storage/music/UwygpovpAaSbuU2NDXu0gMmgDMQUt3Z4xNXCU7fi.mp3
+61. Хвала;https://holychords.pro/uploads/music/20210305/20210305111457.mp3
+62. Христос живий (feat. Діана Демко);https://holychords.pro/storage/music/C7EfaAJEJ5ll8mWWaPOkj9qCi2U2T36qj6lF3tnq.mp3
+63. Це життя є прекрасне;https://holychords.pro/storage/music/rXjyRQFBfPZGKepJSd1DaMeSQytPM8oVSr10aSCa.mp3
+64. Це життя, мій Господь;https://holychords.pro/storage/music/wdSvxtmPfWfMzKlMfv3GY7cxAQbDYOAixsKUUVw3.mp3
+65. Чудовий День Різдва;https://holychords.pro/uploads/music/20221218/20221218125109.mp3
+66. Щастя Назавжди;https://holychords.pro/uploads/music/20230125/20230125003645.mp3
+67. Я іду до мети;https://holychords.pro/uploads/music/20200206/2020020621122540.mp3
+68. Я Тобі Ісусе дякую;https://holychords.pro/uploads/music/20200219/202002190927059.mp3
+69. Як в дорозі ти знеміг (feat. Элани Москалу);https://holychords.pro/uploads/music/20220401/20220401013134.mp3
 
 Категорія:2. Олена Сидорчук;https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png
 1. Алілуя;https://holychords.pro/storage/music/STl88pGVwnnXcCRAgjfJFRQoeDPQEomYmJQ55K7q.mp3
