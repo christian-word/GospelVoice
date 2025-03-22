@@ -223,7 +223,7 @@
                 var fadeIn = setInterval(function() {
                     if (volume < 1) {
                         volume += 0.01; // Увеличиваем громкость на 0.1
-                        music.volume = Math.min(volume,1); // Ограничиваем максимум 1
+                        music.volume = Math.min(volume,0.5); // Ограничиваем максимум 1
                     } else {
                         clearInterval(fadeIn); // Останавливаем увеличение громкости
                     }
