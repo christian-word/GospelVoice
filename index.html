@@ -204,6 +204,36 @@
     </style>
 </head>
 <body>
+
+<audio id="background-music">
+    <source src="https://www.dropbox.com/scl/fi/1qgk0dlrgpk5tie0nveqj/.mp3?rlkey=zq6pw3vh3b1df3tr4oclvw7ox&st=l1wy5qyl&dl=1" type="audio/mpeg">
+    Ваш браузер не поддерживает аудио.
+</audio>
+
+<script>
+    var music = document.getElementById('background-music');
+    music.volume = 0; // Начальная громкость 0
+    var isPlaying = false; // Флаг, чтобы избежать повторного запуска
+
+    document.addEventListener('click', function() {
+        if (!isPlaying) {
+            music.play().then(() => {
+                isPlaying = true; // Устанавливаем флаг, что музыка играет
+                var volume = 0;
+                var fadeIn = setInterval(function() {
+                    if (volume < 1) {
+                        volume += 0.01; // Увеличиваем громкость на 0.1
+                        music.volume = Math.min(volume,0.1); // Ограничиваем максимум 1
+                    } else {
+                        clearInterval(fadeIn); // Останавливаем увеличение громкости
+                    }
+                }, 200); // Каждые 200 мс
+            }).catch(function(error) {
+                console.log("Ошибка воспроизведения: ", error);
+            });
+        }
+    });
+</script>
     <header>
         <h1>Християнський медіа портал</h1>
         <h3>Збірка (церква ЄХБ "Дім Євангелія", м.Суми, Україна)</h3>
