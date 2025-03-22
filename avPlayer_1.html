@@ -718,6 +718,10 @@ function updateProgressBar() {
     }
 }
 
+// Оновлюємо прогрессбар під час відтворення
+audioPlayer.addEventListener("timeupdate", updateProgressBar);
+videoPlayer.addEventListener("timeupdate", updateProgressBar);
+
 // Додаємо обробник для перемотування
 document.querySelectorAll(".progress-container").forEach(container => {
     container.addEventListener("click", (e) => {
