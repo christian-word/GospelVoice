@@ -395,7 +395,8 @@ header h3 {
     </footer>
 
     <script>
-       let audioPlayer = document.getElementById("audioPlayer");
+
+let audioPlayer = document.getElementById("audioPlayer");
 let videoPlayer = document.getElementById("videoPlayer");
 let youtubePlayer = document.getElementById("youtubePlayer");
 let videoPlayerContainer = document.getElementById("videoPlayerContainer");
@@ -717,6 +718,10 @@ function updateProgressBar() {
     }
 }
 
+// Оновлюємо прогрессбар кожну секунду
+audioPlayer.addEventListener("timeupdate", updateProgressBar);
+videoPlayer.addEventListener("timeupdate", updateProgressBar);
+
 // Додаємо обробник для перемотування
 document.querySelectorAll(".progress-container").forEach(container => {
     container.addEventListener("click", (e) => {
@@ -755,6 +760,7 @@ videoPlayer.addEventListener("error", () => {
 });
 
 window.onload = loadPlaylist;
+        
     </script>
 </body>
 </html>
