@@ -396,7 +396,7 @@ header h3 {
 
     <script>
 
-let audioPlayer = document.getElementById("audioPlayer");
+  let audioPlayer = document.getElementById("audioPlayer");
 let videoPlayer = document.getElementById("videoPlayer");
 let youtubePlayer = document.getElementById("youtubePlayer");
 let videoPlayerContainer = document.getElementById("videoPlayerContainer");
@@ -538,15 +538,6 @@ function renderPlaylist(category) {
             <div class="track">
                 <i class="fas fa-music"></i>
                 <a href="#" data-src="${track.url}">${track.title}</a>
-                <div class="track-progress" style="display: none;">
-                    <div class="progress-container">
-                        <div class="progress-bar"></div>
-                    </div>
-                    <div class="time-display">
-                        <span class="current-time">0:00</span>
-                        <span class="duration">0:00</span>
-                    </div>
-                </div>
             </div>
         `).join('');
     } else {
@@ -581,17 +572,29 @@ function playTrack(index, category) {
             icons[i].classList.remove("fa-music");
             icons[i].classList.add("fa-pause");
 
-            // Показуємо прогрессбар та таймери під поточним треком
-            const progressContainer = track.querySelector(".track-progress");
-            progressContainer.style.display = "block";
+            // Додаємо нову строку з прогрессбаром
+            const progressRow = document.createElement("div");
+            progressRow.className = "progress-row";
+            progressRow.innerHTML = `
+                <div class="progress-container">
+                    <div class="progress-bar"></div>
+                </div>
+                <div class="time-display">
+                    <span class="current-time">0:00</span>
+                    <span class="duration">0:00</span>
+                </div>
+            `;
+            track.appendChild(progressRow);
         } else {
             track.classList.remove("playing");
             icons[i].classList.remove("fa-pause");
             icons[i].classList.add("fa-music");
 
-            // Ховаємо прогрессбар та таймери під іншими треками
-            const progressContainer = track.querySelector(".track-progress");
-            progressContainer.style.display = "none";
+            // Видаляємо строку з прогрессбаром, якщо вона є
+            const progressRow = track.querySelector(".progress-row");
+            if (progressRow) {
+                progressRow.remove();
+            }
         }
     });
 
@@ -766,7 +769,7 @@ videoPlayer.addEventListener("error", () => {
     alert("Не вдалося завантажити відеофайл. Спробуйте ще раз.");
 });
 
-window.onload = loadPlaylist;        
+window.onload = loadPlaylist;   
     </script>
 </body>
 </html>
