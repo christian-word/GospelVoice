@@ -1,1 +1,23 @@
 
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches: ["main"]  # Workflow запустится при пуше в ветку main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # Использует виртуальную машину Ubuntu
+    steps:
+      # Шаг 1: Копирует код из репозитория
+      - uses: actions/checkout@v4
+
+      # Шаг 2: Подставляет токен в файлы (если нужно)
+      - name: Replace GitHub Token
+        run: |
+          sed -i "s|__GH_TOKEN__|${{ secrets.GH_TOKEN }}|g" index.html
+
+      # Шаг 3: Деплой на GitHub Pages
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Автоматический токен GitHub
+          publish_dir: .  # Публикует всю папку (можно указать подпапку, например, "dist")
