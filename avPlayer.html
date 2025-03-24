@@ -17,8 +17,213 @@
     
     <!-- Стили -->
     <style>
-        /* Стили будут вставлены ниже */
-    </style>
+    /* Основные стили */
+    body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #333;
+    }
+    
+    .player-container {
+        width: 90%;
+        max-width: 500px;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 25px;
+        box-sizing: border-box;
+    }
+    
+    .header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .header h1 {
+        margin: 0;
+        font-size: 24px;
+        color: #4a76a8;
+    }
+    
+    .current-track-info {
+        margin-top: 15px;
+    }
+    
+    .track-title {
+        font-size: 18px;
+        font-weight: 500;
+    }
+    
+    .track-artist {
+        font-size: 14px;
+        color: #666;
+    }
+    
+    /* Элементы управления */
+    .player-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        margin: 25px 0;
+    }
+    
+    .control-btn {
+        background: none;
+        border: none;
+        font-size: 20px;
+        color: #4a76a8;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.3s;
+    }
+    
+    .control-btn:hover {
+        background-color: #f0f4f8;
+    }
+    
+    .main-btn {
+        background-color: #4a76a8;
+        color: white;
+        font-size: 24px;
+        width: 60px;
+        height: 60px;
+    }
+    
+    .main-btn:hover {
+        background-color: #3a6698;
+    }
+    
+    /* Прогресс-бар */
+    .progress-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    
+    .progress-bar {
+        flex-grow: 1;
+        height: 6px;
+        -webkit-appearance: none;
+        appearance: none;
+        background: #e0e0e0;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    
+    .progress-bar::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 15px;
+        height: 15px;
+        background: #4a76a8;
+        border-radius: 50%;
+    }
+    
+    .time {
+        font-size: 12px;
+        color: #666;
+        min-width: 40px;
+    }
+    
+    /* Громкость */
+    .volume-control {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 25px;
+    }
+    
+    .volume-bar {
+        flex-grow: 1;
+        height: 4px;
+        -webkit-appearance: none;
+        appearance: none;
+        background: #e0e0e0;
+        border-radius: 2px;
+        cursor: pointer;
+    }
+    
+    .volume-bar::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 12px;
+        height: 12px;
+        background: #4a76a8;
+        border-radius: 50%;
+    }
+    
+    /* Плейлист */
+    .playlist-container {
+        max-height: 300px;
+        overflow-y: auto;
+        margin-bottom: 20px;
+        border-top: 1px solid #eee;
+        padding-top: 10px;
+    }
+    
+    .playlist-item {
+        padding: 12px 15px;
+        border-bottom: 1px solid #f0f0f0;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    
+    .playlist-item:hover {
+        background-color: #f5f9fc;
+    }
+    
+    .playlist-item.active {
+        background-color: #e1ebf5;
+        color: #4a76a8;
+        font-weight: 500;
+    }
+    
+    /* Кнопка назад */
+    .back-button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #f0f4f8;
+        border: none;
+        border-radius: 8px;
+        color: #4a76a8;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    
+    .back-button:hover {
+        background-color: #e0e8f0;
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 480px) {
+        .player-container {
+            width: 95%;
+            padding: 15px;
+        }
+        
+        .header h1 {
+            font-size: 20px;
+        }
+        
+        .player-controls {
+            gap: 15px;
+        }
+    }
+</style>
+   
 </head>
 <body>
     <div class="player-container">
@@ -62,8 +267,206 @@
     <audio id="audio-player"></audio>
 
     <!-- Скрипт будет вставлен ниже -->
-    <script>
-        // JavaScript код будет здесь
-    </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Элементы DOM
+        const audioPlayer = document.getElementById('audio-player');
+        const playBtn = document.getElementById('play-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const volumeBar = document.getElementById('volume-bar');
+        const playlistContainer = document.getElementById('playlist');
+        const trackTitle = document.querySelector('.track-title');
+        const trackArtist = document.querySelector('.track-artist');
+        const currentTimeEl = document.querySelector('.current-time');
+        const durationEl = document.querySelector('.duration');
+        
+        // Параметры URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const playlistUrl = urlParams.get('playlist') || 
+                          'https://christian-word.github.io/GospelVoice/playlist/default-playlist.txt';
+        const categoryId = window.location.hash.substring(1) || 0;
+        
+        // Переменные состояния
+        let tracks = [];
+        let currentTrackIndex = 0;
+        let isPlaying = false;
+        
+        // Загрузка плейлиста
+        async function loadPlaylist() {
+            try {
+                const response = await fetch(playlistUrl);
+                const text = await response.text();
+                const lines = text.split('\n');
+                
+                // Парсинг категорий (если есть)
+                let currentCategory = null;
+                let categoryCounter = -1;
+                
+                lines.forEach(line => {
+                    if (line.startsWith('Категорія:')) {
+                        categoryCounter++;
+                        if (categoryCounter == categoryId) {
+                            const parts = line.split(';');
+                            currentCategory = {
+                                name: parts[0].replace('Категорія:', '').trim(),
+                                thumbnail: parts[1] ? parts[1].trim() : ''
+                            };
+                        }
+                        return;
+                    }
+                    
+                    if (currentCategory && line.trim() && categoryCounter == categoryId) {
+                        const [title, artist, audioUrl] = line.split(';');
+                        if (title && audioUrl) {
+                            tracks.push({
+                                title: title.trim(),
+                                artist: artist ? artist.trim() : '',
+                                audioUrl: audioUrl.trim()
+                            });
+                        }
+                    }
+                });
+                
+                renderPlaylist();
+                
+                if (tracks.length > 0) {
+                    loadTrack(currentTrackIndex);
+                }
+            } catch (error) {
+                console.error('Помилка завантаження плейлиста:', error);
+                playlistContainer.innerHTML = '<div class="error">Не вдалося завантажити плейлист</div>';
+            }
+        }
+        
+        // Отрисовка плейлиста
+        function renderPlaylist() {
+            playlistContainer.innerHTML = '';
+            
+            tracks.forEach((track, index) => {
+                const trackElement = document.createElement('div');
+                trackElement.className = 'playlist-item';
+                trackElement.textContent = `${index + 1}. ${track.title}`;
+                trackElement.addEventListener('click', () => {
+                    currentTrackIndex = index;
+                    loadTrack(currentTrackIndex);
+                    playTrack();
+                });
+                
+                playlistContainer.appendChild(trackElement);
+            });
+        }
+        
+        // Загрузка трека
+        function loadTrack(index) {
+            if (tracks.length === 0) return;
+            
+            const track = tracks[index];
+            audioPlayer.src = track.audioUrl;
+            trackTitle.textContent = track.title;
+            trackArtist.textContent = track.artist || '';
+            
+            // Обновление активного элемента в плейлисте
+            document.querySelectorAll('.playlist-item').forEach((item, i) => {
+                if (i === index) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+        
+        // Воспроизведение трека
+        function playTrack() {
+            audioPlayer.play()
+                .then(() => {
+                    isPlaying = true;
+                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                })
+                .catch(error => {
+                    console.error('Помилка відтворення:', error);
+                });
+        }
+        
+        // Пауза
+        function pauseTrack() {
+            audioPlayer.pause();
+            isPlaying = false;
+            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        }
+        
+        // Следующий трек
+        function nextTrack() {
+            currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+            loadTrack(currentTrackIndex);
+            if (isPlaying) playTrack();
+        }
+        
+        // Предыдущий трек
+        function prevTrack() {
+            currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+            loadTrack(currentTrackIndex);
+            if (isPlaying) playTrack();
+        }
+        
+        // Обновление прогресса
+        function updateProgress() {
+            const { currentTime, duration } = audioPlayer;
+            const progressPercent = (currentTime / duration) * 100;
+            progressBar.value = progressPercent;
+            
+            // Форматирование времени
+            currentTimeEl.textContent = formatTime(currentTime);
+            
+            if (!isNaN(duration)) {
+                durationEl.textContent = formatTime(duration);
+            }
+        }
+        
+        // Форматирование времени (мм:сс)
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+        
+        // Установка прогресса
+        function setProgress() {
+            const progressPercent = progressBar.value;
+            const duration = audioPlayer.duration;
+            audioPlayer.currentTime = (progressPercent * duration) / 100;
+        }
+        
+        // Установка громкости
+        function setVolume() {
+            audioPlayer.volume = volumeBar.value;
+        }
+        
+        // События
+        playBtn.addEventListener('click', () => {
+            if (tracks.length === 0) return;
+            
+            if (isPlaying) {
+                pauseTrack();
+            } else {
+                playTrack();
+            }
+        });
+        
+        nextBtn.addEventListener('click', nextTrack);
+        prevBtn.addEventListener('click', prevTrack);
+        
+        audioPlayer.addEventListener('timeupdate', updateProgress);
+        audioPlayer.addEventListener('ended', nextTrack);
+        
+        progressBar.addEventListener('input', setProgress);
+        volumeBar.addEventListener('input', setVolume);
+        
+        // Инициализация
+        setVolume();
+        loadPlaylist();
+    });
+</script>
 </body>
 </html>
