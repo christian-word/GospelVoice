@@ -10,11 +10,11 @@
     <!-- Open Graph для соцсетей (Telegram, Viber, Facebook) -->
     <meta property="og:title" content="Християнський медіа портал">
     <meta property="og:description" content="Збірка духовних пісень та проповіді церкви ЄХБ 'Дім Євангелія' м. Суми, Україна.">
-    <meta property="og:image" content="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/transp.png">
+    <meta property="og:image" content="https://raw.githubusercontent.com/christian-word/GospelVoice/main/ICO/transp.png">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="300">
     <meta property="og:image:height" content="158">
-    <meta property="og:url" content="https://ruyriy.github.io/Audio-christ/">
+    <meta property="og:url" content="https://christian-word.github.io/GospelVoice/">
     <meta property="og:type" content="website">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -57,13 +57,13 @@
             transition: transform 0.3s ease;
         }
         .social-icons a.youtube {
-            color: #ff0000; /* Червоний колір для YouTube */
+            color: #ff0000;
         }
         .social-icons a.facebook {
-            color: #1877f2; /* Синій колір для Facebook */
+            color: #1877f2;
         }
         .social-icons a.instagram {
-            color: #e4405f; /* Рожевий колір для Instagram */
+            color: #e4405f;
         }
         .social-icons a:hover {
             transform: scale(1.2);
@@ -96,7 +96,7 @@
             cursor: pointer;
         }
         nav ul li a i, nav ul li span i {
-            margin-right: 8px; /* Отступ между иконкой и текстом */
+            margin-right: 8px;
         }
         nav ul li .submenu {
             display: none;
@@ -125,16 +125,16 @@
         }
         .photo-container {
             display: flex;
-            flex-wrap: wrap; /* Позволяет фото переноситься на новую строку */
-            justify-content: center; /* Центрирует фото */
+            flex-wrap: wrap;
+            justify-content: center;
             padding: 20px;
             background: #fff;
             max-width: 1200px;
             margin: 0 auto;
         }
         .photo-container .photo {
-            flex: 1 1 300px; /* Основной размер с минимальной шириной 300px */
-            margin: 10px; /* Отступ между фото */
+            flex: 1 1 300px;
+            margin: 10px;
             text-align: center;
         }
         .photo-container .photo img {
@@ -154,16 +154,16 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             max-width: 600px;
-            cursor: pointer; /* Курсор для указания кликабельности */
-            transition: background 0.3s, transform 0.2s; /* Плавный переход */
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
         }
         .content .decorative-element:hover {
-            background: #e8f0fe; /* Изменение фона при наведении */
-            transform: translateY(-2px); /* Легкий подъем элемента */
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Увеличение тени */
+            background: #e8f0fe;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
         .content .decorative-element:active {
-            transform: translateY(1px); /* Легкое смещение при нажатии */
+            transform: translateY(1px);
         }
         .content .decorative-element h2 {
             margin: 0 0 10px;
@@ -191,14 +191,13 @@
             text-decoration: underline;
         }
 
-        /* Анимация для мобильного режима */
         @media (max-width: 768px) {
             .content .decorative-element {
-                border: 2px solid transparent; /* Добавляем границу для визуализации */
-                transition: border-color 0.3s; /* Плавный переход для границы */
+                border: 2px solid transparent;
+                transition: border-color 0.3s;
             }
             .content .decorative-element:hover {
-                border-color: #4a90e2; /* Цвет границы при наведении */
+                border-color: #4a90e2;
             }
         }
     </style>
@@ -212,22 +211,22 @@
 
 <script>
     var music = document.getElementById('background-music');
-    music.volume = 0; // Начальная громкость 0
-    var isPlaying = false; // Флаг, чтобы избежать повторного запуска
+    music.volume = 0;
+    var isPlaying = false;
 
     document.addEventListener('click', function() {
         if (!isPlaying) {
             music.play().then(() => {
-                isPlaying = true; // Устанавливаем флаг, что музыка играет
+                isPlaying = true;
                 var volume = 0;
                 var fadeIn = setInterval(function() {
                     if (volume < 1) {
-                        volume += 0.01; // Увеличиваем громкость на 0.1
-                        music.volume = Math.min(volume,0.5); // Ограничиваем максимум 1
+                        volume += 0.01;
+                        music.volume = Math.min(volume,0.5);
                     } else {
-                        clearInterval(fadeIn); // Останавливаем увеличение громкости
+                        clearInterval(fadeIn);
                     }
-                }, 200); // Каждые 200 мс
+                }, 200);
             }).catch(function(error) {
                 console.log("Ошибка воспроизведения: ", error);
             });
@@ -248,46 +247,45 @@
             <li>
                 <span><i class="fas fa-music"></i>Пісні Віри</span>
                 <ul class="submenu">
-                    <li><a href="https://ruyriy.github.io/Audio-christ/playlists.html#3"><i class="fas fa-record-vinyl"></i>Записи церкви</a></li>
-                    <li><a href="https://ruyriy.github.io/Audio-christ/playlists.html#4"><i class="fas fa-compact-disc"></i>Музичні збірки</a></li>
+                    <li><a href="https://christian-word.github.io/GospelVoice/playlists.html#3"><i class="fas fa-record-vinyl"></i>Записи церкви</a></li>
+                    <li><a href="https://christian-word.github.io/GospelVoice/playlists.html#4"><i class="fas fa-compact-disc"></i>Музичні збірки</a></li>
                 </ul>
             </li>
             <li>
                 <span><i class="fas fa-bible"></i>Живе Слово</span>
                 <ul class="submenu">
-                    <li><a href="https://ruyriy.github.io/Audio-christ/playlists.html#1"><i class="fas fa-record-vinyl"></i>Записи церкви</a></li>
-                    <li><a href="https://ruyriy.github.io/Audio-christ/playlists.html#2"><i class="fas fa-pray"></i>Слово віри</a></li>
+                    <li><a href="https://christian-word.github.io/GospelVoice/playlists.html#1"><i class="fas fa-record-vinyl"></i>Записи церкви</a></li>
+                    <li><a href="https://christian-word.github.io/GospelVoice/playlists.html#2"><i class="fas fa-pray"></i>Слово віри</a></li>
                     <li><a href="https://only.bible/bible/ubio/"><i class="fas fa-book-open"></i>Біблія онлайн</a></li>
                 </ul>
             </li>
-            <li><a href="https://ruyriy.github.io/Radio-online/"><i class="fas fa-headphones"></i>Онлайн Радіо</a></li>
-            <li><a href="https://ruyriy.github.io/Audio-christ/video-archive.html"><i class="fas fa-video"></i>Архів Відеозаписів Служінь</a></li>
-            <!-- Новый пункт меню для Telegram -->
+            <li><a href="https://christian-word.github.io/GospelVoice/radio/"><i class="fas fa-headphones"></i>Онлайн Радіо</a></li>
+            <li><a href="https://christian-word.github.io/GospelVoice/video-archive.html"><i class="fas fa-video"></i>Архів Відеозаписів Служінь</a></li>
             <li><a href="https://t.me/yuriy_2868" target="_blank"><i class="fas fa-paper-plane"></i>Написати в Telegram</a></li>
         </ul>
     </nav>
     <div class="photo-container">
         <div class="photo">
-            <img src="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/475491615_933808568924228_1916544121520461264_n.jpg" alt="Фото 2">
+            <img src="https://raw.githubusercontent.com/christian-word/GospelVoice/main/ICO/475491615_933808568924228_1916544121520461264_n.jpg" alt="Фото 2">
         </div>
         <div class="photo">
-            <img src="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/475979448_933741755597576_8266872900530423270_n.jpg" alt="Фото 1">
+            <img src="https://raw.githubusercontent.com/christian-word/GospelVoice/main/ICO/475979448_933741755597576_8266872900530423270_n.jpg" alt="Фото 1">
         </div>
     </div>
     <main class="content">
-        <div class="decorative-element" onclick="location.href='https://ruyriy.github.io/Audio-christ/playlists.html#3';">
+        <div class="decorative-element" onclick="location.href='https://christian-word.github.io/GospelVoice/playlists.html#3';">
             <h2>Пісні Віри</h2>
             <p>Насолоджуйтесь улюбленими піснями християнських церков. У цих збірках ви знайдете духовні пісні, які надихають, зміцнюють віру та приносять радість у серце. Додавайте їх до своїх плейлистів!</p>
         </div>
-        <div class="decorative-element" onclick="location.href='https://ruyriy.github.io/Audio-christ/playlists.html';">
+        <div class="decorative-element" onclick="location.href='https://christian-word.github.io/GospelVoice/playlists.html';">
             <h2>Живе Слово</h2>
             <p>Слухайте проповіді, які змінюють життя. Пастори та гості діляться глибокими біблійними істинами, які допомагають зростати у вірі та розумінні Божого Слова.</p>
         </div>
-        <div class="decorative-element" onclick="location.href='https://ruyriy.github.io/Radio-online/';">
+        <div class="decorative-element" onclick="location.href='https://christian-word.github.io/GospelVoice/radio/';">
             <h2>Онлайн Радіо</h2>
             <p>Слухайте християнську музику та проповіді у прямому ефірі. Радіо транслює духовні пісні, молитви та навчання 24/7. Приєднуйтесь до нас і знаходьте натхнення у будь-який час!</p>
         </div>
-        <div class="decorative-element" onclick="location.href='https://ruyriy.github.io/Audio-christ/video-archive.html';">
+        <div class="decorative-element" onclick="location.href='https://christian-word.github.io/GospelVoice/video-archive.html';">
             <h2>Архів Відеозаписів Служінь</h2>
             <p>Переглядайте повні записи богослужінь, проповідей, музичних служінь та особливих подій. Відео доступні для перегляду в будь-який час. Знаходьте для себе духовне натхнення та діліться ним з іншими.</p>
         </div>
