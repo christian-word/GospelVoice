@@ -14,13 +14,14 @@
     <meta property="og:type" content="website">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-   <style>
+    <style>
 :root {
     --primary-color: #007bff;
     --hover-color: #0056b3;
     --background-color: #f4f4f4;
     --track-hover-color: #e9f5ff;
     --playing-color: #d0ebff;
+    --icon-size: 24px;
     --header-text-color: #ffffff;
     --button-color: #28a745;
     --button-hover-color: #218838;
@@ -35,11 +36,13 @@ body {
 }
 
 header {
-    background: linear-gradient(135deg, #4a90e2, #6a11cb);
+    background: #4a90e2; /* Fallback color */
+    background: linear-gradient(135deg, #4a90e2, #6a11cb); /* Градієнт */
     color: white;
     padding: 20px 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: relative;
+    text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -99,18 +102,32 @@ header h3 {
     color: white;
     border: none;
     padding: 8px 16px;
-    border-radius: 20px;
+    border-radius: 20px; /* Круглі краї */
     cursor: pointer;
     font-size: 14px;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease; /* Плавна анімація для всіх змін */
     white-space: nowrap;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 6px 12px rgba(0, 0, 0, 0.2), 0 8px 18px rgba(0, 0, 0, 0.3);
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.1), /* Перший шар тіні */
+        0 6px 12px rgba(0, 0, 0, 0.2), /* Другий шар тіні */
+        0 8px 18px rgba(0, 0, 0, 0.3); /* Третій шар тіні */
 }
 
 #playlistButton:hover {
     background-color: var(--hover-color);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.25), 0 15px 30px rgba(0, 0, 0, 0.35);
-    transform: translateY(-2px);
+    box-shadow: 
+        0 6px 8px rgba(0, 0, 0, 0.15), /* Збільшена тінь при наведенні */
+        0 10px 20px rgba(0, 0, 0, 0.25), 
+        0 15px 30px rgba(0, 0, 0, 0.35);
+    transform: translateY(-2px); /* Легке підняття кнопки */
+}
+
+#playlistButton:active {
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.1), /* Зменшена тінь при натисканні */
+        0 4px 8px rgba(0, 0, 0, 0.2), 
+        0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(0); /* Повернення кнопки в початкове положення */
 }
 
 .track {
@@ -137,9 +154,27 @@ header h3 {
     flex-grow: 1;
 }
 
+.track a:hover {
+    color: var(--hover-color);
+}
+
+.track i {
+    font-size: 14px;
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+}
+
 .playing {
     background-color: var(--playing-color);
     font-weight: bold;
+}
+
+.playing a {
+    color: var(--hover-color);
+}
+
+.playing i {
+    color: var(--hover-color);
 }
 
 .controls {
@@ -162,6 +197,15 @@ header h3 {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.controls button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(0, 0, 0, 0.7);
+}
+
+.controls button i {
+    font-size: 16px;
 }
 
 .progress-container {
@@ -201,6 +245,16 @@ header h3 {
     cursor: pointer;
 }
 
+#categorySelect:hover {
+    border-color: var(--hover-color);
+}
+
+#categorySelect:focus {
+    outline: none;
+    border-color: var(--hover-color);
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
 #categoryImageContainer {
     text-align: center;
     margin-bottom: 20px;
@@ -213,46 +267,20 @@ header h3 {
     display: none;
 }
 
-footer {
-    background-color: #f4f4f4;
-    padding: 20px;
-    text-align: center;
-    border-top: 1px solid #ccc;
-    margin-top: 50px;
-}
-
-.social-icons {
-    margin-top: 10px;
-}
-
-.social-icons a {
-    text-decoration: none;
-    margin: 0 10px;
-    font-size: 24px;
-    transition: opacity 0.3s ease;
-}
-
-.social-icons .fa-youtube {
-    color: #ff0000;
-}
-
-.social-icons .fa-facebook {
-    color: #1877f2;
-}
-
-.social-icons .fa-instagram {
-    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
 @media (max-width: 600px) {
     .container {
         max-width: 100%;
         padding: 10px;
         margin: 10px 0;
         border-radius: 0;
+    }
+
+    .track {
+        padding: 8px;
+    }
+
+    .track a {
+        font-size: 16px;
     }
 
     header h1 {
@@ -272,15 +300,66 @@ footer {
     #albumInfo {
         flex-direction: column;
         align-items: stretch;
-        font-size: 12px;
+        font-size: 12px; /* Зменшений розмір шрифту для мобільної версії */
     }
 
     #playlistButton {
         width: 100%;
         margin-top: 10px;
+        border-radius: 20px; /* Круглі краї для мобільної версії */
+        box-shadow: 
+            0 4px 6px rgba(0, 0, 0, 0.1), 
+            0 6px 12px rgba(0, 0, 0, 0.2), 
+            0 8px 18px rgba(0, 0, 0, 0.3);
+    }
+
+    #playlistButton:hover {
+        box-shadow: 
+            0 6px 8px rgba(0, 0, 0, 0.15), 
+            0 10px 20px rgba(0, 0, 0, 0.25), 
+            0 15px 30px rgba(0, 0, 0, 0.35);
+        transform: translateY(-2px);
+    }
+
+    #playlistButton:active {
+        box-shadow: 
+            0 2px 4px rgba(0, 0, 0, 0.1), 
+            0 4px 8px rgba(0, 0, 0, 0.2), 
+            0 6px 12px rgba(0, 0, 0, 0.3);
+        transform: translateY(0);
     }
 }
-</style>
+
+.social-icons {
+    margin-top: 10px;
+}
+
+.social-icons a {
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 24px;
+    transition: opacity 0.3s ease;
+}
+
+.social-icons a:hover {
+    opacity: 0.8;
+}
+
+.social-icons .fa-youtube {
+    color: #ff0000;
+}
+
+.social-icons .fa-facebook {
+    color: #1877f2;
+}
+
+.social-icons .fa-instagram {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+ </style>        
 </head>
 <body>
     <header>
