@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -7,8 +7,8 @@
 
    <meta property="og:title" content="Інтерактивний Медіаплеєр">
    <meta property="og:description" content=" Плейлисти : Проповіді, Музичне служіння ">
-   <meta property="og:image" content="https://ruyriy.github.io/Audio-christ/ICO/bible-book2.png">
-   <meta property="og:url" content="https://ruyriy.github.io/Audio-christ/?v=3">
+   <meta property="og:image" content="https://christian-word.github.io/GospelVoice/ICO/bible-book2.png">
+   <meta property="og:url" content="https://christian-word.github.io/GospelVoice/?v=3">
 
     <style>
         /* Общие стили */
@@ -259,9 +259,9 @@
     <!-- Меню тематик --> 
     <div class="menu" id="menu">
         <!-- Кнопка "На головну" -->
-        <button class="home-button" onclick="location.href='https://ruyriy.github.io/Audio-christ/'">На головну</button>
+        <button class="home-button" onclick="location.href='https://christian-word.github.io/GospelVoice/'">На головну</button>
         <!-- Кнопка "Радіо онлайн" -->
-        <button class="radio-button" onclick="location.href='https://ruyriy.github.io/Radio-online/'">Радіо онлайн</button>
+        <button class="radio-button" onclick="location.href='https://christian-word.github.io/GospelVoice/radio/'">Радіо онлайн</button>
     </div>
 
     <!-- Контейнер для плейлистов -->
@@ -272,23 +272,23 @@
         const playlistUrls = [
             {
                 title: "1. Збірка проповідей, ЄХБ Дім Євангелія, м. Суми",
-                url: "https://ruyriy.github.io/Audio-christ/playlist/ico-playlist2.txt" // Замените на реальный URL
+                url: "https://christian-word.github.io/GospelVoice/playlist/ico-playlist2.txt" // Замените на реальный URL
             },
             {
                 title: "2. Слово віри, збірка проповідей",
-                url: "https://ruyriy.github.io/Audio-christ/playlist/ico-playlist4.txt" // Замените на реальный URL
+                url: "https://christian-word.github.io/GospelVoice/playlist/ico-playlist4.txt" // Замените на реальный URL
             },            
             {
                 title: "3. Музичні збірки ЄХБ Дім Євангелія, м. Суми",
-                url: "https://ruyriy.github.io/Audio-christ/playlist/ico-playlist1.txt"
+                url: "https://christian-word.github.io/GospelVoice/playlist/ico-playlist1.txt"
             },
             {
                 title: "4. Інші музичні збірки",
-                url: "https://ruyriy.github.io/Audio-christ/playlist/ico-playlist.txt"
+                url: "https://christian-word.github.io/GospelVoice/playlist/ico-playlist.txt"
             },
             {
                 title: "5. Музична підбірка виконавців",
-                url: "https://ruyriy.github.io/Audio-christ/playlist/ico-playlist3.txt"
+                url: "https://christian-word.github.io/GospelVoice/playlist/ico-playlist3.txt"
             }
         ];
 
@@ -337,7 +337,7 @@
                     // Название категории (ссылка на плеер)
                     const categoryTitle = document.createElement('h2');
                     const link = document.createElement('a');
-                    link.href = `https://ruyriy.github.io/Audio-christ/avPlayer.html?playlist=${playlistUrl}#${categoryId}`; 
+                    link.href = `https://christian-word.github.io/GospelVoice/avPlayer.html?playlist=${playlistUrl}#${categoryId}`; 
                     link.textContent = categoryName.replace('Категорія:', '').trim();
                     categoryTitle.appendChild(link);
                     currentCategory.appendChild(categoryTitle);
