@@ -1,4 +1,6 @@
 name: Deploy to GitHub Pages
+permissions:
+  contents: write  # Даём права на запись
 on:
   push:
     branches: ["main"]
@@ -7,8 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Deploy
+        with:
+          fetch-depth: 0  # Важно для правильной работы git history
+          
+      - name: Setup Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: .
+          force_orphan: true  # Очищает историю ветки gh-pages
