@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інтерактивний аудіоплеєр</title>
+    <style>
+        /* Стили остаются без изменений */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .header-info {
+            font-size: 14px;
+            color: #ccc;
+            margin-top: 5px;
+        }
+
+        .logo {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        select, button, input {
+            margin: 5px;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid green;
+            border-radius: 5px;
+        }
+
+        select:focus {
+            border-color: orange;
+            outline: none;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 5px 0;
+            cursor: pointer;
+            padding: 5px;
+            transition: background-color 0.3s;
+        }
+
+        li.active {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .player-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .track-player {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+        }
+
+        .playlist-header {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .playlist-header p {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            color: gray;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: auto;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            border: 1px solid #000;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            transition: width 0.5s;
+        }
+
+        .timer {
+            font-size: 16px;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .control-button {
+            width: 35px;
+            height: 30px;
+            border: 1px solid #000;
+            background-color: transparent;
+            color: #000;
+            font-size: 18px;
+            border-radius: 5px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .control-button:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+            color: #fff;
+        }
+
+        #loadingIndicator {
+            display: none;
+            text-align: center;
+            font-size: 18px;
+            color: gray;
+        }
+
+        @media (min-width: 600px) {
+            .player-container {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            .track-player {
+                margin-left: 20px;
+                margin-top: 0;
+            }
+
+            img {
+                width: 400px;
+            }
+
+            select, button, input {
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/logo.png" alt="Логотип">
+        </div>
+        <h1>Інтерактивний аудіоплеєр</h1>
+        <div class="header-info">
+            <span id="currentCategory">Альбом : Не обрано</span> | 
+            <span id="trackCount">Треків: 0</span>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div id="loadingIndicator">Завантаження...</div>
+        <div class="player-container">
+            <img id="categoryImage" src="" alt="Category Image">
+            <div class="track-player">
+                <div class="playlist-header">
+                    <p>Плейлист <span>(Виберіть із відкриваючого списку)</span></p>
+                    <select id="categorySelect"></select>
+                </div>
+                <ul id="playlist"></ul>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div class="timer">
+                    <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+                </div>
+                <div class="controls">
+                    <button onclick="playPrevTrack()">⏮</button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="playNextTrack()">⏭</button>
+                </div>
+                <audio id="audioPlayer" controls playsinline></audio>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Версія 2005 | &copy; 2005 Інтерактивний аудіоплеєр | <a href="#">Політика конфіденційності</a></p>
+    </footer>
+
+    <script>
+        let audioPlayer = document.getElementById("audioPlayer");
+        let playlistElement = document.getElementById("playlist");
+        let categoryMenuElement = document.getElementById("categorySelect");
+        let progressBar = document.getElementById("progressBar");
+        let currentTimeDisplay = document.getElementById("currentTime");
+        let durationDisplay = document.getElementById("duration");
+        let currentTrack = 0;
+        let categories = {};
+        let currentCategory = null;
+
+        function getPlaylistNameFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('playlist') || 'playlist.txt';
+        }
+
+        async function loadPlaylist() {
+            const playlistName = getPlaylistNameFromURL();
+            try {
+                const response = await fetch(playlistName);
+                if (!response.ok) throw new Error(`Помилка завантаження: ${response.status} ${response.statusText}`);
+                const text = await response.text();
+                const lines = text.split('\n');
+
+                lines.forEach((line) => {
+                    if (line.trim() === "") return;
+                    if (line.startsWith("Категорія:")) {
+                        currentCategory = line.replace("Категорія:", "").trim();
+                        categories[currentCategory] = [];
+                    } else if (currentCategory) {
+                        const [title, url] = line.split(';');
+                        if (title && url) categories[currentCategory].push({ title: title.trim(), url: url.trim() });
+                    }
+                });
+                renderCategoryMenu();
+                if (Object.keys(categories).length) selectCategory(Object.keys(categories)[0]);
+            } catch (error) {
+                console.error('Помилка завантаження плейлиста:', error);
+                playlistElement.innerHTML = '<p style="color: red; text-align: center;">Не вдалося завантажити плейлист</p>';
+            }
+        }
+
+        function renderCategoryMenu() {
+            categoryMenuElement.innerHTML = Object.keys(categories).map(category => `<option value="${category}">${category}</option>`).join('');
+            categoryMenuElement.addEventListener("change", () => selectCategory(categoryMenuElement.value));
+        }
+
+        function selectCategory(category) {
+            currentCategory = category;
+            renderPlaylist(category);
+        }
+
+        function renderPlaylist(category) {
+            const tracks = categories[category] || [];
+            playlistElement.innerHTML = tracks.map((track, index) => `<li onclick="playTrack(${index}, '${category}')">${track.title}</li>`).join('');
+        }
+
+        function playTrack(index, category) {
+            const tracks = categories[category] || [];
+            if (index >= tracks.length) index = 0;
+            currentTrack = index;
+            audioPlayer.src = tracks[index].url;
+            audioPlayer.play();
+        }
+
+        function playNextTrack() {
+            const tracks = categories[currentCategory] || [];
+            if (tracks.length) playTrack((currentTrack + 1) % tracks.length, currentCategory);
+        }
+
+        function playPrevTrack() {
+            const tracks = categories[currentCategory] || [];
+            if (tracks.length) playTrack((currentTrack - 1 + tracks.length) % tracks.length, currentCategory);
+        }
+
+        function togglePlayPause() {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+            } else {
+                audioPlayer.pause();
+            }
+        }
+
+        audioPlayer.addEventListener("timeupdate", () => {
+            progressBar.style.width = `${(audioPlayer.currentTime / audioPlayer.duration) * 100}%`;
+            currentTimeDisplay.textContent = formatTime(audioPlayer.currentTime);
+            durationDisplay.textContent = formatTime(audioPlayer.duration);
+        });
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        audioPlayer.addEventListener("ended", playNextTrack);
+        window.onload = loadPlaylist;
+    </script>
+</body>
+</html>

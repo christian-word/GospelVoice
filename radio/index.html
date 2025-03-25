@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Християнське онлайн радіо</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SK4MQERC38"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-SK4MQERC38');
+    </script>
+    
+    <link rel="icon" type="image/png" href="from-radio.jpg">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        h3 {
+            margin: 5px 0 0;
+            font-size: 1.2em;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        a {
+            text-decoration: none;
+            color: #4CAF50;
+            font-size: 1.1em;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .category {
+            font-weight: bold;
+            margin-top: 20px;
+            display: block;
+            color: #4CAF50;
+        }
+        audio {
+            width: 100%;
+            margin-top: 20px;
+        }
+                .shortcut-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .shortcut-button {
+            width: 24px;
+            height: 24px;
+            background-color: #00A8A8;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 24px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Християнське онлайн радіо</h1>
+        <h3"font-size: 1.0em;">Збірка (церква ЄХБ "Дім Євангелія",</h3>
+        <h3"font-size: 1.0em;">м.Суми, Україна 2025 р.)</h3>
+    </header>
+    <div class="container">
+        <div class="shortcut-container">
+            <button class="shortcut-button" onclick="showShortcutInstructions()">+</button>
+            <span>Добавити на головний екран</span>
+        </div> 
+        <ul>
+          <!--  
+            <li><a href="https://ruyriy.github.io/Audio-christ/" style="color: #00A8A8;">Запис наших служінь (аудіо)>> Перейти</a></li> 
+          -->
+            <li><a href="#" onclick="playRadio('https://rs.radioslovo.net:4055/stream', 'Чтение Нового Завета', event)">1. Чтение Нового Завета</a></li>
+            <li><a href="#" onclick="playRadio('https://rs.radioslovo.net:4165/stream', 'Ветхий Завет', event)">2. Ветхий Завет</a></li>
+            <li><a href="#" onclick="playRadio('https://www.liveradio.es/http://radiopiligrim.ru:8000/bible', 'Пилигрим-Библия Новый Завет', event)">3. Пилигрим-Библия Новый Завет</a></li>
+            <li><a href="#" onclick="playRadio('https://online.svitle.org:6729/fm', 'СВІТЛЕ РАДІО ЕММАНУЇЛ', event)">4. СВІТЛЕ РАДІО ЕММАНУЇЛ</a></li>
+        </ul>
+        <p>Музыкальное, детское служение</p>
+        <ul>
+            <li><a href="#" onclick="playRadio('http://live2.detskoeradio.org/radio.mp3', 'Детское христианское радио', event)">5. Детское христианское радио</a></li>
+            <li><a href="#" onclick="playRadio('https://rt.radioslovo.net:4275/stream', 'Инструментальная Христианская музыка', event)">6. Инструментальная Христианская музыка</a></li>
+            <li><a href="#" onclick="playRadio('https://c13.radioboss.fm:18516/stream', 'Слово Благодати', event)">7. Слово Благодати</a></li>
+            <li><a href="#" onclick="playRadio('https://icecast.pereraadio.ee:9000/Semeinoje', 'Семейное Радио Эли', event)">8. Семейное Радио Эли</a></li>
+            <li><a href="#" onclick="playRadio('https://rt.radioslovo.net:4145/stream', '«Открытое Слово» Авто радио', event)">9. «Открытое Слово» Авто радио</a></li>
+            <li><a href="#" onclick="playRadio('https://rt.radioslovo.net:4395/radio?1714579709762', '«Открытое Слово» христианское радио', event)">10. «Открытое Слово» христианское радио</a></li>
+            <li><a href="#" onclick="playRadio('https://rt.radioslovo.net:5005/radio?1714621827960', '«Открытое Слово» христианское радио укр.', event)">11. «Открытое Слово» христианское радио укр.</a></li>
+            <li><a href="#" onclick="playRadio('https://d6ee837f-fdca-4f41-81b1-cfca577979f5.pub.instances.scw.cloud:8440/russian_music.mp3', 'RadioMV Музыка', event)">12. RadioMV Музыка</a></li>
+            <li><a href="#" onclick="playRadio('https://nlradio.stream:8000/nlradio-low.aac', 'Новая жизнь', event)">13. Новая жизнь</a></li>
+        </ul>
+  <div style="display: flex; align-items: center; gap: 16px;">
+  <a href="https://ruyriy.github.io/VideoYouTube/video_max.html" target="_blank" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: black;">
+    <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#FF0000"/></svg>
+    <span>YouTube</span>
+  </a>
+  
+  <a href="https://www.facebook.com/pravdachurch" target="_blank" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: black;">
+    <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.675 0h-21.35C.597 0 0 .597 0 1.325v21.351C0 23.403.597 24 1.325 24H12.82V14.706H9.692v-3.614h3.128V8.338c0-3.1 1.894-4.787 4.66-4.787 1.324 0 2.463.099 2.794.143v3.24l-1.916.001c-1.504 0-1.794.715-1.794 1.765v2.315h3.587l-.467 3.614h-3.12V24h6.117c.728 0 1.325-.597 1.325-1.324V1.325C24 .597 23.403 0 22.675 0z" fill="#1877F2"/></svg>
+    <span>Facebook</span>
+  </a>
+  
+  <a href="https://www.instagram.com/pravda.church" target="_blank" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: black;">
+    <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.146 4.771 1.691 4.917 4.917.058 1.266.069 1.646.069 4.85s-.012 3.584-.07 4.85c-.146 3.225-1.664 4.771-4.917 4.917-1.266.058-1.646.069-4.85.069s-3.584-.012-4.85-.07c-3.225-.146-4.771-1.692-4.917-4.917-.058-1.266-.069-1.646-.069-4.85s.012-3.584.07-4.85C2.46 3.925 4.006 2.379 7.23 2.233c1.266-.058 1.646-.07 4.77-.07m0-2.163C8.735 0 8.332.012 7.05.07 2.71.256.256 2.71.07 7.05.012 8.332 0 8.735 0 12s.012 3.668.07 4.95c.186 4.34 2.64 6.794 6.98 6.98C8.332 23.988 8.735 24 12 24s3.668-.012 4.95-.07c4.34-.186 6.794-2.64 6.98-6.98.058-1.282.07-1.685.07-4.95s-.012-3.668-.07-4.95c-.186-4.34-2.64-6.794-6.98-6.98C15.668.012 15.265 0 12 0zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm6.406-10.845c-.796 0-1.44.645-1.44 1.44s.644 1.44 1.44 1.44 1.44-.645 1.44-1.44-.645-1.44-1.44-1.44z" fill="#E4405F"/></svg>
+    <span>Instagram</span>
+  </a>
+</div>
+        <audio id="radioPlayer" controls>
+            Ваш браузер не поддерживает аудио элемент.
+        </audio>
+    </div>
+
+    <script>
+        let currentAudio = null;
+
+        function playRadio(url, title, event) {
+            event.preventDefault(); // Отменяем стандартное действие ссылки
+
+            if (currentAudio) {
+                currentAudio.pause(); // Останавливаем предыдущее радио
+            }
+
+            const audioPlayer = document.getElementById('radioPlayer');
+            audioPlayer.src = url;
+            audioPlayer.play();
+            currentAudio = audioPlayer;
+
+            // Обновляем заголовок страницы с названием радиостанции
+            document.title = title + " | Християнське онлайн радіо";
+        }
+            function showShortcutInstructions() {
+            alert("Щоб додати ярлик на головний екран:\n\nДля iPhone (Safari): Натисніть Поділитися -> Додати на головний екран.\n\nДля Android (Chrome): Натисніть меню (три крапки) -> Додати на головний екран.");
+        }
+    </script>
+</body>
+</html>

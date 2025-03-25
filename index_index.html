@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Християнський медіа портал - збірка духовних пісень та проповіді церкви ЄХБ 'Дім Євангелія' м. Суми, Україна.">
+    <meta name="keywords" content="християнське аудіо, духовні пісні, проповіді, церква ЄХБ, Суми, Україна">
+    <title>Християнський медіа портал</title>
+    
+    <!-- Open Graph для соцсетей (Telegram, Viber, Facebook) -->
+    <meta property="og:title" content="Християнський медіа портал">
+    <meta property="og:description" content="Збірка духовних пісень та проповіді церкви ЄХБ 'Дім Євангелія' м. Суми, Україна.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/christian-word/GospelVoice/main/ICO/transp.png">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="300">
+    <meta property="og:image:height" content="158">
+    <meta property="og:url" content="https://christian-word.github.io/GospelVoice/">
+    <meta property="og:type" content="website">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: #4a90e2;
+            background: linear-gradient(135deg, #4a90e2, #6a11cb);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        header h3 {
+            margin: 5px 0 0;
+            font-size: 1.2em;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .social-icons a {
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 24px;
+            transition: transform 0.3s ease;
+        }
+        .social-icons a.youtube {
+            color: #ff0000;
+        }
+        .social-icons a.facebook {
+            color: #1877f2;
+        }
+        .social-icons a.instagram {
+            color: #e4405f;
+        }
+        .social-icons a:hover {
+            transform: scale(1.2);
+        }
+        nav {
+            background: #6a11cb;
+            background: linear-gradient(135deg, #6a11cb, #4a90e2);
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 5px 10px;
+            position: relative;
+        }
+        nav ul li a, nav ul li span {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        nav ul li a i, nav ul li span i {
+            margin-right: 8px;
+        }
+        nav ul li .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #6a11cb;
+            background: linear-gradient(135deg, #6a11cb, #4a90e2);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        nav ul li:hover .submenu {
+            display: block;
+        }
+        nav ul li .submenu li {
+            margin: 5px 0;
+        }
+        nav ul li .submenu li a {
+            padding: 8px 12px;
+            white-space: nowrap;
+        }
+        nav ul li .submenu li a i {
+            margin-right: 8px;
+        }
+        .photo-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            background: #fff;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .photo-container .photo {
+            flex: 1 1 300px;
+            margin: 10px;
+            text-align: center;
+        }
+        .photo-container .photo img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        main.content {
+            padding: 20px;
+            text-align: center;
+        }
+        .content .decorative-element {
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .content .decorative-element:hover {
+            background: #e8f0fe;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        .content .decorative-element:active {
+            transform: translateY(1px);
+        }
+        .content .decorative-element h2 {
+            margin: 0 0 10px;
+            font-size: 1.5em;
+            color: #4a90e2;
+        }
+        .content .decorative-element p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #555;
+            line-height: 1.6;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9em;
+        }
+        footer a {
+            color: #4a90e2;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .content .decorative-element {
+                border: 2px solid transparent;
+                transition: border-color 0.3s;
+            }
+            .content .decorative-element:hover {
+                border-color: #4a90e2;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<audio id="background-music">
+    <source src="https://www.dropbox.com/scl/fi/wrm5q37dpbki9q49a9t02/mix.mp3?rlkey=q4hb680qjvqb0oyke7qa6voyq&st=be032pay&dl=1" type="audio/mpeg">
+    Ваш браузер не поддерживает аудио.
+</audio>
+
+<script>
+    var music = document.getElementById('background-music');
+    music.volume = 0;
+    var isPlaying = false;
+
+    document.addEventListener('click', function() {
+        if (!isPlaying) {
+            music.play().then(() => {
+                isPlaying = true;
+                var volume = 0;
+                var fadeIn = setInterval(function() {
+                    if (volume < 1) {
+                        volume += 0.01;
+                        music.volume = Math.min(volume,0.5);
+                    } else {
+                        clearInterval(fadeIn);
+                    }
+                }, 200);
+            }).catch(function(error) {
+                console.log("Ошибка воспроизведения: ", error);
+            });
+        }
+    });
+</script>
+    <header>
+        <h1>Християнський медіа портал</h1>
+        <h3>Збірка (церква ЄХБ "Дім Євангелія", м.Суми, Україна)</h3>
+        <div class="social-icons">
+            <a href="https://www.youtube.com/@pravdachurch" class="youtube" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com/pravdachurch" class="facebook" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/pravda.church" class="instagram" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li>
+                <span><i class="fas fa-music"></i>Пісні Віри</span>
+                <ul class="submenu">
+                    <li><a href="https://christian-word.github.io/GospelVoice/playlists.html#3"><i class="fas fa-record-vinyl"></i>Записи церкви</a></li>
+                    <li><a href="https://christian-word.github.io/GospelVoice/playlists.html#4"><i class="fas fa-compact-disc"></i>Музичні збірки</a></li>
+                </ul>
+            </li>
+            <li>
+                <span><i class="fas fa-bible"></i>Живе Слово</span>
+                <ul class="submenu">
+                    <li><a href="https://christian-word.github.io/GospelVoice/playlists.html#1"><i class="fas fa-record-vinyl"></i>Записи церкви</a></li>
+                    <li><a href="https://christian-word.github.io/GospelVoice/playlists.html#2"><i class="fas fa-pray"></i>Слово віри</a></li>
+                    <li><a href="https://only.bible/bible/ubio/"><i class="fas fa-book-open"></i>Біблія онлайн</a></li>
+                </ul>
+            </li>
+            <li><a href="https://christian-word.github.io/GospelVoice/radio/"><i class="fas fa-headphones"></i>Онлайн Радіо</a></li>
+            <li><a href="https://christian-word.github.io/GospelVoice/video-archive.html"><i class="fas fa-video"></i>Архів Відеозаписів Служінь</a></li>
+            <li><a href="https://t.me/yuriy_2868" target="_blank"><i class="fas fa-paper-plane"></i>Написати в Telegram</a></li>
+        </ul>
+    </nav>
+    <div class="photo-container">
+        <div class="photo">
+            <img src="https://raw.githubusercontent.com/christian-word/GospelVoice/main/ICO/475491615_933808568924228_1916544121520461264_n.jpg" alt="Фото 2">
+        </div>
+        <div class="photo">
+            <img src="https://raw.githubusercontent.com/christian-word/GospelVoice/main/ICO/475979448_933741755597576_8266872900530423270_n.jpg" alt="Фото 1">
+        </div>
+    </div>
+    <main class="content">
+        <div class="decorative-element" onclick="location.href='https://christian-word.github.io/GospelVoice/playlists.html#3';">
+            <h2>Пісні Віри</h2>
+            <p>Насолоджуйтесь улюбленими піснями християнських церков. У цих збірках ви знайдете духовні пісні, які надихають, зміцнюють віру та приносять радість у серце. Додавайте їх до своїх плейлистів!</p>
+        </div>
+        <div class="decorative-element" onclick="location.href='https://christian-word.github.io/GospelVoice/playlists.html';">
+            <h2>Живе Слово</h2>
+            <p>Слухайте проповіді, які змінюють життя. Пастори та гості діляться глибокими біблійними істинами, які допомагають зростати у вірі та розумінні Божого Слова.</p>
+        </div>
+        <div class="decorative-element" onclick="location.href='https://christian-word.github.io/GospelVoice/radio/';">
+            <h2>Онлайн Радіо</h2>
+            <p>Слухайте християнську музику та проповіді у прямому ефірі. Радіо транслює духовні пісні, молитви та навчання 24/7. Приєднуйтесь до нас і знаходьте натхнення у будь-який час!</p>
+        </div>
+        <div class="decorative-element" onclick="location.href='https://christian-word.github.io/GospelVoice/video-archive.html';">
+            <h2>Архів Відеозаписів Служінь</h2>
+            <p>Переглядайте повні записи богослужінь, проповідей, музичних служінь та особливих подій. Відео доступні для перегляду в будь-який час. Знаходьте для себе духовне натхнення та діліться ним з іншими.</p>
+        </div>
+    </main>
+    <footer>
+        <p>Християнське онлайн аудіо та відео – збірка духовних пісень та проповідей.</p>
+        <p>м. Суми, версія збірки 2.0 : © 2025 р.</p>
+        <a href="#">Політика конфіденційності</a>
+    </footer>
+    <script src="js/client.js"></script>
+</body>
+</html>

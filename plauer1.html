@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Медіа Аудіо Плеєр</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+:root {
+    --primary-color: #4a90e2; /* Синій колір залишається основним */
+    --hover-color: #6a11cb;
+    --background-color: #f4f4f4;
+    --track-hover-color: #e9f5ff;
+    --playing-color: #d0ebff;
+    --icon-size: 24px;
+    --header-text-color: #ffffff;
+    --button-color: #28a745; /* Зелений для кнопок */
+    --button-hover-color: #218838; /* Темніший зелений для hover */
+    --icon-color: #28a745; /* Зелений для іконок */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+header {
+    background: linear-gradient(135deg, #4a90e2, #6a11cb);
+    color: var(--header-text-color);
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: 600;
+}
+
+#playlistSelector {
+    margin: 20px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 2px solid var(--primary-color);
+    width: 300px;
+    max-width: 100%;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+#playlistSelector:hover {
+    border-color: var(--hover-color);
+}
+
+#categoryList {
+    list-style: none;
+    padding: 0;
+    margin: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+#categoryList li {
+    padding: 10px 20px;
+    background-color: white;
+    color: #333;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    flex: 0 0 auto;
+    width: 200px;
+    text-align: center;
+    font-weight: 500;
+}
+
+#categoryList li:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-3px);
+}
+
+#playlistContainer {
+    display: none;
+    margin: 20px;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+#playlist {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+#playlist li {
+    margin: 5px 10px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, opacity 0.5s ease;
+    opacity: 1;
+}
+
+#playlist li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background-color: var(--track-hover-color);
+}
+
+#playlist li.fade-out {
+    opacity: 0;
+}
+
+#playlist a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+    font-weight: 400;
+}
+
+#playlist a:hover {
+    background-color: #f8f8f8;
+}
+
+#playlist a.playing {
+    background: linear-gradient(135deg, var(--primary-color), var(--hover-color));
+    color: white;
+    border-left: 4px solid var(--primary-color);
+}
+
+#playlist a i {
+    font-size: 18px;
+    margin-right: 10px;
+    transition: color 0.3s ease;
+    color: var(--icon-color);
+}
+
+#playlist a.music i {
+    color: #4a90e2;
+}
+
+#playlist a.audiobook i {
+    color: #28a745;
+}
+
+#playlist a.podcast i {
+    color: #ff6f61;
+}
+
+#playlist a.playing i {
+    color: white;
+}
+
+#audioControls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+#audioControls button {
+    background-color: var(--button-color); /* Зелений колір для кнопок */
+    border: 2px solid var(--button-color); /* Зелений колір для рамки */
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#audioControls button:hover {
+    background-color: var(--button-hover-color); /* Темніший зелений при наведенні */
+    border-color: var(--button-hover-color);
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+#audioControls button:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#controlsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px 0;
+    gap: 20px;
+}
+
+#timeDisplay {
+    font-size: 14px;
+    color: #666;
+    min-width: 50px;
+    text-align: left;
+}
+
+#progressContainer {
+    flex-grow: 1;
+    background-color: #ddd;
+    border-radius: 5px;
+    height: 6px; /* Тонкий прогрессбар */
+    cursor: pointer;
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#progressBar {
+    width: 0%;
+    height: 100%;
+    background-color: var(--button-color); /* Зелений колір для прогрессбару */
+    border-radius: 5px;
+    transition: width 0.1s ease;
+}
+
+#volumeControl {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 120px;
+}
+
+#volumeControl input[type="range"] {
+    width: 100px;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: none; /* Убираем границу */
+    height: 6px; /* Тонкий регулятор громкости */
+    margin: 0;
+    padding: 0;
+}
+
+#volumeControl input[type="range"]::-webkit-slider-runnable-track {
+    background: #ddd;
+    height: 6px; /* Тонкая дорожка */
+    border-radius: 5px;
+}
+
+#volumeControl input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px; /* Уменьшенный ползунок */
+    height: 16px;
+    background: var(--button-color); /* Зелений колір для повзунка гучності */
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -5px; /* Центрируем ползунок */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#volumeControl input[type="range"]::-moz-range-track {
+    background: #ddd;
+    height: 6px; /* Тонкая дорожка */
+    border-radius: 5px;
+}
+
+#volumeControl input[type="range"]::-moz-range-thumb {
+    width: 16px; /* Уменьшенный ползунок */
+    height: 16px;
+    background: var(--button-color); /* Зелений колір для повзунка гучності */
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#volumeControl i {
+    font-size: 20px;
+    color: var(--primary-color);
+}
+
+footer {
+    background-color: #f4f4f4;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #ccc;
+    margin-top: 50px;
+}
+
+footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 1em;
+}
+
+footer .social-icons a {
+    margin: 0 10px;
+    font-size: 1.5em;
+    color: initial; /* Сброс цвета */
+}
+
+footer .social-icons a .fa-facebook { color: #1877F2; } /* Синий Facebook */
+footer .social-icons a .fa-instagram { color: #E4405F; } /* Розовый Instagram */
+footer .social-icons a .fa-youtube { color: #FF0000; }   /* Красный YouTube */
+
+.promo-box {
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2), 
+              -5px -5px 15px rgba(255, 255, 255, 0.7);
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  margin: 20px auto;
+  transform: perspective(1000px) rotateX(5deg) rotateY(2deg);
+  transition: transform 0.3s ease;
+}
+
+.promo-box:hover {
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+}
+
+.promo-box ul {
+  list-style: none;
+  padding: 0;
+  color: gray;
+  font-size: 1em;
+}
+
+.promo-box li {
+  margin: 8px 0;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Медиа-запрос для мобильных устройств */
+@media (max-width: 600px) {
+    #controlsContainer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    #timeDisplay {
+        text-align: center;
+    }
+
+    #progressContainer {
+        width: calc(100% - 40px); /* Уменьшаем ширину на 40px (20px с каждой стороны) */
+        margin: 0 20px; /* Отступы справа и слева */
+    }
+
+    #volumeControl {
+        justify-content: center;
+        margin-top: 20px; /* Отступ сверху для регулятора громкости */
+  
+    .promo-box {
+    width: 90%;
+    padding: 10px;
+    margin: 10px auto;
+  }
+
+  .promo-box ul {
+    font-size: 0.9em;
+  }
+
+  .promo-box li {
+    margin: 6px 0;
+  }
+}
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <h1>Інтерактивний аудіоплеєр</h1>
+    </header>
+    <div id="loading">Завантаження...</div>
+<p style="text-align: center;">
+    Плейлист<span style="color: gray;">(Виберіть із відкриваючого списку)</span>
+</p>
+    <select id="playlistSelector">
+        <option value="">Виберіть плейлист</option>
+        <option value="playlist1.txt">Плейлист 1 (Музичне служіння)</option>
+        <option value="playlist2.txt">Плейлист 2 (Християнська музика)</option>
+    </select>
+    <ul id="categoryList"></ul>
+<p>Список відтворювань</p>
+    <div id="playlistContainer">
+        <ul id="playlist"></ul>
+    </div>
+    <div id="audioControls">
+        <button id="prevButton"><i class="fas fa-step-backward"></i></button>
+        <button id="playPauseButton"><i class="fas fa-play"></i></button>
+        <button id="nextButton"><i class="fas fa-step-forward"></i></button>
+    </div>
+    <div id="controlsContainer">
+        <div id="timeDisplay">
+            <span id="currentTime">0:00</span>
+        </div>
+        <div id="progressContainer">
+            <div id="progressBar"></div>
+        </div>
+        <div id="volumeControl">
+            <i class="fas fa-volume-up"></i>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+        </div>
+    </div>
+    <audio id="audioPlayer"></audio>
+
+<div id="playerDescription">
+
+<div class="promo-box">
+  <ul>
+    <li>Вибір плейлиста з кількох категорій</li>
+    <li>Інтуїтивне управління відтворенням</li>
+    <li>Адаптивний дизайн для мобільних пристроїв</li>
+    <li>Стилизований інтерфейс</li>
+  </ul>
+</div>
+
+    
+    <footer>
+        <a href="index.html"><i class="fas fa-home"></i> Головне меню</a>
+        <p>м. Суми, версія збірки 1.0 : © 2025 р.</p>
+        <div class="social-icons">
+            <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playlistSelector = document.getElementById('playlistSelector');
+        const categoryList = document.getElementById('categoryList');
+        const playlistContainer = document.getElementById('playlistContainer');
+        const playlist = document.getElementById('playlist');
+        const loadingElement = document.getElementById('loading');
+        const playPauseButton = document.getElementById('playPauseButton');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressBar = document.getElementById('progressBar');
+        const currentTime = document.getElementById('currentTime');
+        const duration = document.getElementById('duration');
+        const volumeSlider = document.getElementById('volumeSlider');
+
+        let currentAudio = null;
+        let currentPlayingElement = null;
+        let currentTrackIndex = 0;
+        let tracks = [];
+
+        async function loadPlaylist(playlistFile) {
+            loadingElement.style.display = 'block';
+            try {
+                const response = await fetch(playlistFile);
+                if (!response.ok) throw new Error("Плейлист не знайдено");
+                const text = await response.text();
+                const lines = text.split('\n');
+                const categories = {};
+                let currentCategory = null;
+
+                lines.forEach((line) => {
+                    if (line.startsWith("Категорія:")) {
+                        currentCategory = line.replace("Категорія:", "").trim();
+                        categories[currentCategory] = [];
+                    } else if (/^\d+\./.test(line) && currentCategory) {
+                        const [title, url] = line.split(';');
+                        if (title && url) {
+                            categories[currentCategory].push({ title: title.trim(), url: url.trim() });
+                        }
+                    }
+                });
+
+                clearPlaylist();
+                categoryList.innerHTML = '';
+                Object.keys(categories).forEach((category) => {
+                    const li = document.createElement('li');
+                    li.textContent = category;
+                    li.onclick = () => {
+                        tracks = categories[category];
+                        displayPlaylist(tracks);
+                        playlistContainer.style.display = 'block';
+                        currentTrackIndex = 0;
+                    };
+                    categoryList.appendChild(li);
+                });
+            } catch (error) {
+                console.error("Помилка завантаження плейлиста:", error);
+                alert("Не вдалося завантажити плейлист.");
+            } finally {
+                loadingElement.style.display = 'none';
+            }
+        }
+
+        function clearPlaylist() {
+            playlist.innerHTML = '';
+            playlistContainer.style.display = 'none';
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+        }
+
+        function displayPlaylist(tracks) {
+            playlist.innerHTML = '';
+            tracks.forEach((track, index) => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#';
+                a.onclick = (event) => playAudio(track.url, track.title, event);
+                a.innerHTML = `<i class="fas fa-music"></i>${index + 1}. ${track.title}`; <!-- Иконка ноты -->
+                li.appendChild(a);
+                playlist.appendChild(li);
+            });
+        }
+
+        function playAudio(url, title, event) {
+            event.preventDefault();
+
+            if (currentPlayingElement === event.currentTarget) {
+                if (!audioPlayer.paused) {
+                    audioPlayer.pause();
+                    updatePlayPauseButton(false);
+                    updatePlayPauseIcon(currentPlayingElement, false);
+                    return;
+                } else {
+                    audioPlayer.play();
+                    updatePlayPauseButton(true);
+                    updatePlayPauseIcon(currentPlayingElement, true);
+                    return;
+                }
+            }
+
+            if (currentAudio) {
+                currentAudio.pause();
+                if (currentPlayingElement) {
+                    currentPlayingElement.classList.remove('playing');
+                    updatePlayPauseIcon(currentPlayingElement, false);
+                }
+            }
+
+            audioPlayer.src = url;
+            audioPlayer.play();
+            currentAudio = audioPlayer;
+            document.title = `${title} | Християнське онлайн аудіо`;
+
+            if (currentPlayingElement) {
+                currentPlayingElement.classList.remove('playing');
+                updatePlayPauseIcon(currentPlayingElement, false);
+            }
+            currentPlayingElement = event.currentTarget;
+            currentPlayingElement.classList.add('playing');
+            updatePlayPauseIcon(currentPlayingElement, true);
+
+            updatePlayPauseButton(true);
+        }
+
+        function updatePlayPauseButton(isPlaying) {
+            playPauseButton.innerHTML = `<i class="fas fa-${isPlaying ? 'pause' : 'play'}"></i>`;
+        }
+
+        function updatePlayPauseIcon(element, isPlaying) {
+            const icon = element.querySelector('i');
+            if (isPlaying) {
+                icon.classList.remove('fa-music', 'fa-play'); // Убираем ноту и треугольник
+                icon.classList.add('fa-pause'); // Добавляем паузу
+            } else {
+                icon.classList.remove('fa-pause'); // Убираем паузу
+                icon.classList.add('fa-music'); // Возвращаем ноту
+            }
+        }
+
+        function updateProgressBar() {
+            if (audioPlayer.duration) {
+                const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                progressBar.style.width = `${progress}%`;
+                currentTime.textContent = formatTime(audioPlayer.currentTime);
+                duration.textContent = formatTime(audioPlayer.duration);
+            }
+        }
+
+        function formatTime(time) {
+            const minutes = Math.floor(time / 60);
+            const seconds = Math.floor(time % 60);
+            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+
+        function playNextTrack() {
+            if (currentTrackIndex < tracks.length - 1) {
+                currentTrackIndex++;
+                const nextTrack = tracks[currentTrackIndex];
+                const currentTrackElement = playlist.children[currentTrackIndex - 1];
+                currentTrackElement.classList.add('fade-out');
+                setTimeout(() => {
+                    audioPlayer.src = nextTrack.url;
+                    audioPlayer.play();
+                    document.title = `${nextTrack.title} | Християнське онлайн аудіо`;
+                    updatePlayingTrack(currentTrackIndex);
+                    updatePlayPauseButton(true);
+                    currentTrackElement.classList.remove('fade-out');
+                }, 500);
+            }
+        }
+
+        function updatePlayingTrack(index) {
+            const trackElements = playlist.querySelectorAll('a');
+            if (currentPlayingElement) {
+                currentPlayingElement.classList.remove('playing');
+                updatePlayPauseIcon(currentPlayingElement, false);
+            }
+            currentPlayingElement = trackElements[index];
+            currentPlayingElement.classList.add('playing');
+            updatePlayPauseIcon(currentPlayingElement, true);
+        }
+
+        playlistSelector.addEventListener('change', (event) => {
+            const playlistFile = event.target.value;
+            if (playlistFile) loadPlaylist(playlistFile);
+        });
+
+        playPauseButton.addEventListener('click', () => {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                updatePlayPauseButton(true);
+                if (currentPlayingElement) updatePlayPauseIcon(currentPlayingElement, true);
+            } else {
+                audioPlayer.pause();
+                updatePlayPauseButton(false);
+                if (currentPlayingElement) updatePlayPauseIcon(currentPlayingElement, false);
+            }
+        });
+
+        prevButton.addEventListener('click', () => {
+            if (currentTrackIndex > 0) {
+                if (currentPlayingElement) {
+                    updatePlayPauseIcon(currentPlayingElement, false); // Возвращаем иконку к ноте
+                }
+                currentTrackIndex--;
+                const prevTrack = tracks[currentTrackIndex];
+                audioPlayer.src = prevTrack.url;
+                audioPlayer.play();
+                document.title = `${prevTrack.title} | Християнське онлайн аудіо`;
+                updatePlayingTrack(currentTrackIndex);
+                updatePlayPauseButton(true);
+            }
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (currentPlayingElement) {
+                updatePlayPauseIcon(currentPlayingElement, false); // Возвращаем иконку к ноте
+            }
+            playNextTrack();
+        });
+
+        audioPlayer.addEventListener('timeupdate', updateProgressBar);
+
+        progressContainer.addEventListener('click', (e) => {
+            const rect = e.target.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const width = rect.width;
+            const seekTime = (clickX / width) * audioPlayer.duration;
+            audioPlayer.currentTime = seekTime;
+        });
+
+        audioPlayer.addEventListener('ended', () => {
+            if (currentPlayingElement) {
+                updatePlayPauseIcon(currentPlayingElement, false); // Возвращаем иконку к ноте
+            }
+            playNextTrack();
+        });
+
+        volumeSlider.addEventListener('input', (e) => {
+            audioPlayer.volume = e.target.value;
+        });
+
+        const defaultPlaylist = 'playlist1.txt';
+        loadPlaylist(defaultPlaylist);
+    </script>
+</body>
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <!--  <title>Інтерактивний Медіаплеєр: Плейлисти</title>  Название страницы --> 
+
+   <meta property="og:title" content="Інтерактивний Медіаплеєр">
+   <meta property="og:description" content=" Плейлисти : Проповіді, Музичне служіння ">
+   <meta property="og:image" content="https://christian-word.github.io/GospelVoice/ICO/bible-book2.png">
+   <meta property="og:url" content="https://christian-word.github.io/GospelVoice/?v=3">
+
+    <style>
+        /* Общие стили */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Стили для панели */
+        .header {
+            width: 100%;
+            background-color: #4CAF50; /* Зеленый */
+            color: white;
+            padding: 2px 0; /* Уменьшили отступы для тоньшей панели */
+            text-align: center;
+            font-size: 14px; /* Уменьшили размер шрифта */
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif; /* Шрифт заголовка */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Уменьшили тень для панелей */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7), 2px 2px 4px rgba(0, 0, 0, 0.5); /* Уменьшили тень текста */
+        }
+
+        /* Стили для меню */
+        .menu {
+            display: flex;
+            gap: 10px;
+            margin: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .menu button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 25px;
+            background-color: #00bcd4; /* Светло-бирюзовый */
+            color: white;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 
+                0 4px 6px rgba(0, 0, 0, 0.2), /* Основная тень */
+                0 6px 12px rgba(0, 0, 0, 0.15), /* Вторая тень для глубины */
+                0 8px 16px rgba(0, 0, 0, 0.1); /* Третья тень для еще большей глубины */
+        }
+
+        .menu button:hover {
+            background-color: #0097a7; /* Темнее бирюзовый */
+            transform: translateY(-2px);
+            box-shadow: 
+                0 6px 8px rgba(0, 0, 0, 0.25), /* Увеличиваем тени при наведении */
+                0 10px 20px rgba(0, 0, 0, 0.2),
+                0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .menu button:active {
+            transform: translateY(0);
+            box-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.2), /* Уменьшаем тени при нажатии */
+                0 4px 8px rgba(0, 0, 0, 0.15),
+                0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Стили для кнопки "На головну" */
+        .menu button.home-button {
+            background-color: #ff5722; /* Оранжевый */
+        }
+
+        .menu button.home-button:hover {
+            background-color: #e64a19; /* Темнее оранжевый */
+        }
+
+        /* Стили для кнопки "Родіо онлайн" */
+        .menu button.radio-button {
+            background-color: #4CAF50; /* Зеленый */
+        }
+
+        .menu button.radio-button:hover {
+            background-color: #45a049; /* Темнее зеленый */
+        }
+
+        /* Стили для кнопок с одинаковым цветом */
+        .menu button.custom-button {
+            /* background-color: #9C27B0; Фиолетовый цвет */
+               background-color: #64B5F6; /* Светло-синий цвет */
+        }
+
+        .menu button.custom-button:hover {
+           /* background-color: #7B1FA2;  Темнее фиолетовый */
+              background-color: #42A5F5; /* Темнее светло-синий */
+        }
+
+        /* Остальные стили остаются без изменений */
+        .theme {
+            margin-bottom: 40px;
+            display: none; /* Скрываем плейлисты по умолчанию */
+        }
+
+        .theme.active {
+            display: block; /* Показываем активный плейлист */
+        }
+
+        .theme h1 {
+            margin: 0 0 20px 0;
+            color: #333;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .category {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .category h2 {
+            margin: 0 0 10px 0;
+            font-size: 20px;
+            color: #4CAF50; /* Зеленый */
+        }
+
+        .category img {
+            width: 200px; /* Ширина изображения */
+            height: 150px; /* Высота изображения */
+            object-fit: cover; /* Сохраняем пропорции, обрезая изображение */
+            margin-bottom: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .tracks-container {
+            margin-left: 20px;
+            display: none; /* Скрываем треки по умолчанию */
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+
+        .tracks-container.show {
+            display: block; /* Показываем треки */
+        }
+
+        .track {
+            margin-bottom: 5px;
+            padding: 5px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .track:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Кнопка "Докладніше" */
+        .details-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            font-size: 14px;
+            color: white;
+            background-color: #00bcd4; /* Светло-бирюзовый */
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 
+                0 4px 6px rgba(0, 0, 0, 0.2),
+                0 6px 12px rgba(0, 0, 0, 0.15),
+                0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .details-button:hover {
+            background-color: #0097a7; /* Темнее бирюзовый */
+            transform: translateY(-2px);
+            box-shadow: 
+                0 6px 8px rgba(0, 0, 0, 0.25),
+                0 10px 20px rgba(0, 0, 0, 0.2),
+                0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Современные стили для гиперссылок */
+        a {
+            color: #00bcd4; /* Светло-бирюзовый */
+            text-decoration: none; /* Убираем подчеркивание */
+            position: relative;
+            transition: color 0.3s ease; /* Плавный переход цвета */
+        }
+
+        a:hover {
+            color: #0097a7; /* Темнее бирюзовый */
+        }
+
+        a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: #00bcd4;
+            left: 0;
+            bottom: -5px;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        a:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* Многоколоночный макет для ПК */
+        @media (min-width: 768px) {
+            .tracks-container {
+                column-count: 3; /* Три колонки */
+                column-gap: 20px; /* Расстояние между колонками */
+            }
+        }
+
+        /* Одноколоночный макет для мобильных устройств */
+        @media (max-width: 767px) {
+            .tracks-container {
+                column-count: 1; /* Одна колонка */
+            }
+            
+            .menu button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Панель с названием -->
+    <div class="header">
+        <h1 class="header-title">Інтерактивний Медіаплеєр: Плейлисти</h1>
+    </div>
+
+    <!-- Меню тематик --> 
+    <div class="menu" id="menu">
+        <!-- Кнопка "На головну" -->
+        <button class="home-button" onclick="location.href='https://christian-word.github.io/GospelVoice/'">На головну</button>
+        <!-- Кнопка "Радіо онлайн" -->
+        <button class="radio-button" onclick="location.href='https://christian-word.github.io/GospelVoice/radio/'">Радіо онлайн</button>
+    </div>
+
+    <!-- Контейнер для плейлистов -->
+    <div id="themes"></div>
+
+    <script>
+        // Ссылки на плейлисты
+        const playlistUrls = [
+            {
+                title: "1. Збірка проповідей, ЄХБ Дім Євангелія, м. Суми",
+                url: "https://christian-word.github.io/GospelVoice/playlist/ico-playlist2.txt" // Замените на реальный URL
+            },
+            {
+                title: "2. Слово віри, збірка проповідей",
+                url: "https://christian-word.github.io/GospelVoice/playlist/ico-playlist4.txt" // Замените на реальный URL
+            },            
+            {
+                title: "3. Музичні збірки ЄХБ Дім Євангелія, м. Суми",
+                url: "https://christian-word.github.io/GospelVoice/playlist/ico-playlist1.txt"
+            },
+            {
+                title: "4. Інші музичні збірки",
+                url: "https://christian-word.github.io/GospelVoice/playlist/ico-playlist.txt"
+            },
+            {
+                title: "5. Музична підбірка виконавців",
+                url: "https://christian-word.github.io/GospelVoice/playlist/ico-playlist3.txt"
+            }
+        ];
+
+        const menuContainer = document.getElementById('menu');
+        const themesContainer = document.getElementById('themes');
+
+        // Функция для загрузки плейлиста
+        async function loadPlaylist(playlistUrl) {
+            try {
+                const response = await fetch(playlistUrl);
+                if (!response.ok) {
+                    throw new Error(`Ошибка загрузки плейлиста: ${response.status}`);
+                }
+                const text = await response.text();
+                return text;
+            } catch (error) {
+                console.error(`Ошибка при загрузке ${playlistUrl}:`, error);
+                return null;
+            }
+        }
+
+        // Функция для отображения плейлиста
+        function renderPlaylist(title, playlistText, playlistUrl) {
+            const themeDiv = document.createElement('div');
+            themeDiv.className = 'theme';
+            themeDiv.id = `theme-${title.replace(/\s+/g, '-').toLowerCase()}`; 
+
+            const titleElement = document.createElement('h1');
+            titleElement.textContent = title;
+            themeDiv.appendChild(titleElement);
+
+            const lines = playlistText.split('\n');
+            let currentCategory = null;
+            let categoryId = 0;
+
+            lines.forEach(line => {
+                if (line.startsWith('Категорія:')) {
+                    const [categoryName, thumbnail] = line.split(';');
+                    currentCategory = document.createElement('div');
+                    currentCategory.className = 'category';
+
+                    const img = document.createElement('img');
+                    img.src = thumbnail.trim();
+                    currentCategory.appendChild(img);
+
+                    // Название категории (ссылка на плеер)
+                    const categoryTitle = document.createElement('h2');
+                    const link = document.createElement('a');
+                    link.href = `https://christian-word.github.io/GospelVoice/avPlayer.html?playlist=${playlistUrl}#${categoryId}`; 
+                    link.textContent = categoryName.replace('Категорія:', '').trim();
+                    categoryTitle.appendChild(link);
+                    currentCategory.appendChild(categoryTitle);
+
+                    // Добавляем обработчик клика на изображение
+                    img.onclick = () => {
+                        window.location.href = link.href; // Переход на страницу плеера
+                    };
+
+                    // Кнопка "Докладніше"
+                    const detailsButton = document.createElement('button');
+                    detailsButton.className = 'details-button';
+                    detailsButton.textContent = 'Докладніше';
+                    detailsButton.dataset.target = `tracks-${title.replace(/\s+/g, '-').toLowerCase()}-${categoryId}`;
+                    detailsButton.onclick = (event) => {
+                        const targetId = event.target.dataset.target;
+                        const tracksContainer = document.getElementById(targetId);
+                        tracksContainer.classList.toggle('show');
+                    };
+                    currentCategory.appendChild(detailsButton);
+
+                    const tracksContainer = document.createElement('div');
+                    tracksContainer.id = `tracks-${title.replace(/\s+/g, '-').toLowerCase()}-${categoryId}`;
+                    tracksContainer.className = 'tracks-container';
+                    currentCategory.appendChild(tracksContainer);
+
+                    themeDiv.appendChild(currentCategory);
+                    categoryId++;
+                } else if (currentCategory && line.trim()) {
+                    const [title] = line.split(';');
+                    if (title) {
+                        const trackDiv = document.createElement('div');
+                        trackDiv.className = 'track';
+                        trackDiv.textContent = title.trim();
+                        currentCategory.querySelector('.tracks-container').appendChild(trackDiv);
+                    }
+                }
+            });
+
+            themesContainer.appendChild(themeDiv);
+        }
+
+        // Функция для переключения плейлистов
+        function showTheme(themeId) {
+            document.querySelectorAll('.theme').forEach(theme => {
+                theme.classList.remove('active');
+            });
+
+            const selectedTheme = document.getElementById(`theme-${themeId}`);
+            if (selectedTheme) {
+                selectedTheme.classList.add('active');
+            }
+        }
+
+        // Загружаем и отображаем все плейлисты
+        async function loadAllPlaylists() {
+            for (const playlist of playlistUrls) {
+                try {
+                    const playlistText = await loadPlaylist(playlist.url);
+                    if (playlistText) {
+                        renderPlaylist(playlist.title, playlistText, playlist.url);
+
+                        const button = document.createElement('button');
+                        button.textContent = playlist.title;
+
+                        // Добавляем классы для кнопок
+                        if (playlist.title === "1. Збірка проповідей, ЄХБ Дім Євангелія, м. Суми" || 
+                            playlist.title === "2. Слово віри, збірка проповідей") {
+                            button.classList.add('custom-button');
+                        }
+
+                        button.onclick = () => showTheme(playlist.title.replace(/\s+/g, '-').toLowerCase());
+                        menuContainer.appendChild(button);
+                    }
+                } catch (error) {
+                    console.error(`Ошибка при обработке плейлиста ${playlist.title}:`, error);
+                }
+            }
+
+            // Обработка URL-параметра для плейлистов
+            const hash = window.location.hash.substring(1);
+            if (hash && hash <= playlistUrls.length) {
+                showTheme(playlistUrls[hash - 1].title.replace(/\s+/g, '-').toLowerCase());
+            } else {
+                showTheme(playlistUrls[0].title.replace(/\s+/g, '-').toLowerCase());
+            }
+        }
+
+        // Запускаем загрузку
+        loadAllPlaylists();
+    </script>
+</body>
+</html>
