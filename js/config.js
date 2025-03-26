@@ -1,6 +1,6 @@
 ﻿<script>
     const BIN_ID = "67e333528960c979a5786adb";
-    const API_KEY = "$2a$10$mDDT3WulGYrn5/gO1Alh1ebqf17XN/YTDPO3xAwVt3qAqxoEaK1Uq";
+    const API_KEY = "$2a$10$foT8lIkBZ.MYNt758MsuJuBvxxI750/hg4QyQXX.Q7b2vu/G0/irm";
     const API_WRITE_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
 
     async function sendVisitData() {
