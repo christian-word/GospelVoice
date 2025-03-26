@@ -63,7 +63,3 @@ async function sendVisitData() {
 
 sendVisitData();
 
-
-</body>
-</html>
-
