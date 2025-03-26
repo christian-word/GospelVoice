@@ -1,4 +1,3 @@
-
  const BIN_ID = "67e333528960c979a5786adb";  
  const API_KEY = "$2a$10$foT8lIkBZ.MYNt758MsuJuBvxxI750/hg4QyQXX.Q7b2vu/G0/irm";
 
