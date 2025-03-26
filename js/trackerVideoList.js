@@ -1,4 +1,4 @@
- const BIN_ID = "67e425b28a456b79667d2674";
+ const BIN_ID = "67e43b7f8561e97a50f3668e";
  const API_KEY = "$2a$10$foT8lIkBZ.MYNt758MsuJuBvxxI750/hg4QyQXX.Q7b2vu/G0/irm";
 
 async function sendVisitData() {
