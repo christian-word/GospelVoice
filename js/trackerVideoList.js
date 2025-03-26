@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сбор сведений</title>
-  
-</head>
-<body>
-    <h1>Сбор сведений</h1>
-  <script>
  const BIN_ID = "67e43b7f8561e97a50f3668e";
  const API_KEY = "$2a$10$foT8lIkBZ.MYNt758MsuJuBvxxI750/hg4QyQXX.Q7b2vu/G0/irm";
 
@@ -73,7 +62,3 @@ async function sendVisitData() {
 }
 
 sendVisitData();
-</script>
-
-</body>
-</html>
