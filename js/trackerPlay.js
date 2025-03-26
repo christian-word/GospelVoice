@@ -62,4 +62,3 @@ async function sendVisitData() {
 }
 
 sendVisitData();
-
