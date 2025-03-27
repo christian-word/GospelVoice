@@ -1,4 +1,4 @@
- const BIN_ID = "67e595a08a456b79667de7ca";  
+ const BIN_ID = "67e595a08a456b79667de7ca"; 
  const API_KEY = "$2a$10$foT8lIkBZ.MYNt758MsuJuBvxxI750/hg4QyQXX.Q7b2vu/G0/irm";
  const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
 
