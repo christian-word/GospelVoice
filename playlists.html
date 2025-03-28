@@ -16,7 +16,7 @@
     <style>
         /* Общие стили */
         html {
-            scroll-behavior: smooth;
+            scroll-behavior: auto; /* Отключаем стандартный smooth-scroll */
         }
 
         body {
@@ -25,6 +25,7 @@
             color: #333;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
 
         /* Стили для панели */
@@ -39,6 +40,9 @@
             font-family: 'Montserrat', sans-serif;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7), 2px 2px 4px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         /* Стили для меню */
@@ -413,6 +417,53 @@
         const menuContainer = document.getElementById('menu');
         const themesContainer = document.getElementById('themes');
 
+        // Функция для плавной прокрутки к элементу
+        function smoothScrollToElement(element, duration = 800) {
+            const start = window.pageYOffset;
+            const target = element.getBoundingClientRect().top + window.pageYOffset - 100; // Отступ 100px сверху
+            const distance = target - start;
+            let startTime = null;
+
+            function animation(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const progress = Math.min(timeElapsed / duration, 1);
+                const easeProgress = easeInOutQuad(progress);
+                window.scrollTo(0, start + distance * easeProgress);
+                
+                if (timeElapsed < duration) {
+                    requestAnimationFrame(animation);
+                }
+            }
+
+            function easeInOutQuad(t) {
+                return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+            }
+
+            requestAnimationFrame(animation);
+        }
+
+        // Функция для переключения плейлистов с плавной прокруткой
+        function showTheme(themeId) {
+            document.querySelectorAll('.theme').forEach(theme => {
+                theme.classList.remove('active');
+            });
+
+            const selectedTheme = document.getElementById(`theme-${themeId}`);
+            if (selectedTheme) {
+                selectedTheme.classList.add('active');
+                smoothScrollToElement(selectedTheme);
+                
+                // Обновляем URL с якорем
+                const playlistIndex = playlistUrls.findIndex(p => 
+                    p.title.replace(/\s+/g, '-').toLowerCase() === themeId
+                );
+                if (playlistIndex !== -1) {
+                    window.history.pushState(null, null, `#${playlistIndex + 1}`);
+                }
+            }
+        }
+
         // Функция для загрузки плейлиста
         async function loadPlaylist(playlistUrl) {
             try {
@@ -498,27 +549,6 @@
             themesContainer.appendChild(themeDiv);
         }
 
-        // Функция для переключения плейлистов с прокруткой
-        function showTheme(themeId) {
-            document.querySelectorAll('.theme').forEach(theme => {
-                theme.classList.remove('active');
-            });
-
-            const selectedTheme = document.getElementById(`theme-${themeId}`);
-            if (selectedTheme) {
-                selectedTheme.classList.add('active');
-                selectedTheme.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                
-                // Обновляем URL с якорем
-                const playlistIndex = playlistUrls.findIndex(p => 
-                    p.title.replace(/\s+/g, '-').toLowerCase() === themeId
-                );
-                if (playlistIndex !== -1) {
-                    window.history.pushState(null, null, `#${playlistIndex + 1}`);
-                }
-            }
-        }
-
         // Функция для переключения чата
         function toggleChat() {
             const modal = document.getElementById('chatModal');
@@ -547,8 +577,13 @@
         });
 
         // Фикс для скролла внутри iframe (чтобы не передавался на страницу)
-        document.querySelector('.chat-iframe').addEventListener('wheel', function(e) {
-            e.stopPropagation();
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatIframe = document.querySelector('.chat-iframe');
+            if (chatIframe) {
+                chatIframe.addEventListener('wheel', function(e) {
+                    e.stopPropagation();
+                });
+            }
         });
 
         // Загружаем и отображаем все плейлисты
@@ -576,10 +611,9 @@
                 }
             }
 
-            // Обработка URL-параметра для плейлистов (без прокрутки)
+            // Обработка URL-параметра для плейлистов
             const hash = window.location.hash.substring(1);
             if (hash && hash <= playlistUrls.length) {
-                // Активируем нужный плейлист без прокрутки
                 const themeId = playlistUrls[hash - 1].title.replace(/\s+/g, '-').toLowerCase();
                 const selectedTheme = document.getElementById(`theme-${themeId}`);
                 if (selectedTheme) {
@@ -587,15 +621,23 @@
                         theme.classList.remove('active');
                     });
                     selectedTheme.classList.add('active');
+                    // Добавляем небольшую задержку для корректного позиционирования
+                    setTimeout(() => smoothScrollToElement(selectedTheme), 50);
                 }
             } else {
-                // По умолчанию показываем первый плейлист
                 document.getElementById(`theme-${playlistUrls[0].title.replace(/\s+/g, '-').toLowerCase()}`).classList.add('active');
             }
         }
 
-        // Запускаем загрузку
-        loadAllPlaylists();
+        // Запускаем загрузку после полной загрузки страницы
+        window.addEventListener('load', function() {
+            loadAllPlaylists();
+            
+            // Оптимизация для мобильных устройств
+            if ('ontouchstart' in window) {
+                document.documentElement.style.touchAction = 'manipulation';
+            }
+        });
     </script>
     <script src="js/trackerPlList.js"></script>
 </body>
