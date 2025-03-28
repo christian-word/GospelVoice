@@ -1,379 +1,289 @@
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Інтерактивний Медіаплеєр</title>
-
-    <!-- Open Graph метатеги -->
-    <meta property="og:title" content="Інтерактивний Медіаплеєр">
-    <meta property="og:description" content="Збірка (церква ЄХБ 'Дім Євангелія', м. Суми)">
-    <meta property="og:image" content="https://christian-word.github.io/GospelVoice/ICO/logo_title.png">
-    <meta property="og:url" content="https://christian-word.github.io/GospelVoice/avPlayer.html">
-    <meta property="og:type" content="website">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-:root {
-    --primary-color: #007bff;
-    --hover-color: #0056b3;
-    --background-color: #f4f4f4;
-    --track-hover-color: #e9f5ff;
-    --playing-color: #d0ebff;
-    --icon-size: 24px;
-    --header-text-color: #ffffff;
-    --button-color: #28a745;
-    --button-hover-color: #218838;
-}
+        :root {
+            --primary-color: #007bff;
+            --hover-color: #0056b3;
+            --background-color: #f4f4f4;
+            --track-hover-color: #e9f5ff;
+            --playing-color: #d0ebff;
+            --icon-size: 24px;
+            --header-text-color: #ffffff;
+            --button-color: #28a745;
+            --button-hover-color: #218838;
+        }
 
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: var(--background-color);
-    margin: 0;
-    padding: 0;
-}
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+        }
 
-header {
-    background: #4a90e2; /* Fallback color */
-    background: linear-gradient(135deg, #4a90e2, #6a11cb); /* Градієнт */
-    color: white;
-    padding: 20px 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: relative;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
+        header {
+            background: #000000;
+            color: var(--header-text-color);
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            text-align: center;
+        }
 
-.logo {
-    width: 60px;
-    height: 60px;
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-}
+        .logo {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
 
-header h1 {
-    margin: 0;
-    font-size: 2.5em;
-}
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
 
-header h3 {
-    margin: 5px 0;
-    font-size: 1.2em;
-}
+        header h3 {
+            margin: 5px 0;
+            font-size: 1.2em;
+        }
 
-.container {
-    max-width: 800px;
-    width: 100%;
-    margin: 20px auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-}
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
 
-#albumInfo {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    font-size: 16px;
-    color: black;
-    gap: 10px;
-}
+        .track {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: left;
+        }
 
-.album-selector {
-    flex: 1;
-    white-space: nowrap;
-}
+        .track:hover {
+            background-color: var(--track-hover-color);
+        }
 
-#playlistButton {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 20px; /* Круглі краї */
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.3s ease; /* Плавна анімація для всіх змін */
-    white-space: nowrap;
-    box-shadow: 
-        0 4px 6px rgba(0, 0, 0, 0.1), /* Перший шар тіні */
-        0 6px 12px rgba(0, 0, 0, 0.2), /* Другий шар тіні */
-        0 8px 18px rgba(0, 0, 0, 0.3); /* Третій шар тіні */
-}
+        .track a {
+            text-decoration: none;
+            color: black;
+            font-size: 18px;
+            margin-left: 8px;
+            transition: color 0.3s ease;
+            flex-grow: 1;
+        }
 
-#playlistButton:hover {
-    background-color: var(--hover-color);
-    box-shadow: 
-        0 6px 8px rgba(0, 0, 0, 0.15), /* Збільшена тінь при наведенні */
-        0 10px 20px rgba(0, 0, 0, 0.25), 
-        0 15px 30px rgba(0, 0, 0, 0.35);
-    transform: translateY(-2px); /* Легке підняття кнопки */
-}
+        .track a:hover {
+            color: var(--hover-color);
+        }
 
-#playlistButton:active {
-    box-shadow: 
-        0 2px 4px rgba(0, 0, 0, 0.1), /* Зменшена тінь при натисканні */
-        0 4px 8px rgba(0, 0, 0, 0.2), 
-        0 6px 12px rgba(0, 0, 0, 0.3);
-    transform: translateY(0); /* Повернення кнопки в початкове положення */
-}
+        .track i {
+            font-size: 14px;
+            color: var(--primary-color);
+            transition: color 0.3s ease;
+        }
 
-.track {
-    display: flex;
-    align-items: center;
-    margin: 5px 0;
-    padding: 8px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-align: left;
-}
+        .playing {
+            background-color: var(--playing-color);
+            font-weight: bold;
+        }
 
-.track:hover {
-    background-color: var(--track-hover-color);
-}
+        .playing a {
+            color: var(--hover-color);
+        }
 
-.track a {
-    text-decoration: none;
-    color: black;
-    font-size: 18px;
-    margin-left: 8px;
-    transition: color 0.3s ease;
-    flex-grow: 1;
-}
+        .playing i {
+            color: var(--hover-color);
+        }
 
-.track a:hover {
-    color: var(--hover-color);
-}
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
 
-.track i {
-    font-size: 14px;
-    color: var(--primary-color);
-    transition: color 0.3s ease;
-}
+        .controls button {
+            background-color: rgba(255, 255, 255, 0.3);
+            color: black;
+            border: 2px solid rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 10%;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            width: 40px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.playing {
-    background-color: var(--playing-color);
-    font-weight: bold;
-}
+        .controls button:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            border-color: rgba(0, 0, 0, 0.7);
+        }
 
-.playing a {
-    color: var(--hover-color);
-}
+        .controls button i {
+            font-size: 16px;
+        }
 
-.playing i {
-    color: var(--hover-color);
-}
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background-color: #ddd;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
-.controls {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+            border-radius: 5px;
+            transition: width 0.1s ease;
+        }
 
-.controls button {
-    background-color: rgba(255, 255, 255, 0.3);
-    color: black;
-    border: 2px solid rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    border-radius: 10%;
-    cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-    width: 40px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 14px;
+            color: #555;
+        }
 
-.controls button:hover {
-    background-color: rgba(255, 255, 255, 0.5);
-    border-color: rgba(0, 0, 0, 0.7);
-}
+        #categorySelect {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--primary-color);
+            background-color: white;
+            color: var(--primary-color);
+            font-size: 16px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
 
-.controls button i {
-    font-size: 16px;
-}
+        #categorySelect:hover {
+            border-color: var(--hover-color);
+        }
 
-.progress-container {
-    width: 100%;
-    height: 5px;
-    background-color: #ddd;
-    margin-top: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-}
+        #categorySelect:focus {
+            outline: none;
+            border-color: var(--hover-color);
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
 
-.progress-bar {
-    height: 100%;
-    background-color: var(--primary-color);
-    width: 0%;
-    border-radius: 5px;
-    transition: width 0.1s ease;
-}
+        #categoryImageContainer {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-.time-display {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5px;
-    font-size: 14px;
-    color: #555;
-}
+        #categoryImage {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            display: none;
+        }
 
-#categorySelect {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid var(--primary-color);
-    background-color: white;
-    color: var(--primary-color);
-    font-size: 16px;
-    margin-bottom: 20px;
-    cursor: pointer;
-}
+        #albumInfo {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: black;
+        }
 
-#categorySelect:hover {
-    border-color: var(--hover-color);
-}
+        @media (max-width: 600px) {
+            .container {
+                max-width: 100%;
+                padding: 10px;
+                margin: 10px 0;
+                border-radius: 0;
+            }
 
-#categorySelect:focus {
-    outline: none;
-    border-color: var(--hover-color);
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
+            .track {
+                padding: 8px;
+            }
 
-#categoryImageContainer {
-    text-align: center;
-    margin-bottom: 20px;
-}
+            .track a {
+                font-size: 16px;
+            }
 
-#categoryImage {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    display: none;
-}
+            header h1 {
+                font-size: 2em;
+            }
 
-@media (max-width: 600px) {
-    .container {
-        max-width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-        border-radius: 0;
-    }
+            header h3 {
+                font-size: 1em;
+            }
 
-    .track {
-        padding: 8px;
-    }
+            .logo {
+                width: 40px;
+                height: 40px;
+                left: 10px;
+            }
+        }
 
-    .track a {
-        font-size: 16px;
-    }
+        .social-icons {
+            margin-top: 10px;
+        }
 
-    header h1 {
-        font-size: 2em;
-    }
+        .social-icons a {
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 24px;
+            transition: opacity 0.3s ease;
+        }
 
-    header h3 {
-        font-size: 1em;
-    }
+        .social-icons a:hover {
+            opacity: 0.8;
+        }
 
-    .logo {
-        width: 50px;
-        height: 50px;
-        left: 10px;
-    }
+        .social-icons .fa-youtube {
+            color: #ff0000;
+        }
 
-    #albumInfo {
-        flex-direction: column;
-        align-items: stretch;
-        font-size: 12px; /* Зменшений розмір шрифту для мобільної версії */
-    }
+        .social-icons .fa-facebook {
+            color: #1877f2;
+        }
 
-    #playlistButton {
-        width: 100%;
-        margin-top: 10px;
-        border-radius: 20px; /* Круглі краї для мобільної версії */
-        box-shadow: 
-            0 4px 6px rgba(0, 0, 0, 0.1), 
-            0 6px 12px rgba(0, 0, 0, 0.2), 
-            0 8px 18px rgba(0, 0, 0, 0.3);
-    }
+        .social-icons .fa-instagram {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+    </style>
 
-    #playlistButton:hover {
-        box-shadow: 
-            0 6px 8px rgba(0, 0, 0, 0.15), 
-            0 10px 20px rgba(0, 0, 0, 0.25), 
-            0 15px 30px rgba(0, 0, 0, 0.35);
-        transform: translateY(-2px);
-    }
-
-    #playlistButton:active {
-        box-shadow: 
-            0 2px 4px rgba(0, 0, 0, 0.1), 
-            0 4px 8px rgba(0, 0, 0, 0.2), 
-            0 6px 12px rgba(0, 0, 0, 0.3);
-        transform: translateY(0);
-    }
-}
-
-.social-icons {
-    margin-top: 10px;
-}
-
-.social-icons a {
-    text-decoration: none;
-    margin: 0 10px;
-    font-size: 24px;
-    transition: opacity 0.3s ease;
-}
-
-.social-icons a:hover {
-    opacity: 0.8;
-}
-
-.social-icons .fa-youtube {
-    color: #ff0000;
-}
-
-.social-icons .fa-facebook {
-    color: #1877f2;
-}
-
-.social-icons .fa-instagram {
-    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
- </style>        
 </head>
 <body>
     <header>
-        <img src="https://christian-word.github.io/GospelVoice/ICO/logo.png" alt="Логотип" class="logo">
-        <h1>Інтерактивний Медіаплеєр</h1>
-        <h3>Збірка (церква ЄХБ "Дім Євангелія" , м.Суми)</h3>
+        <h1>Інтерактивний аудіо та відеоплеєр</h1>
+        <h3>Збірка (церква ЄХБ "Дім Євангелія")</h3>
     </header>
 
     <div class="container">
         <div id="albumInfo">
-            <div class="album-selector">
-                Альбом: <span id="albumName">Не обрано</span> | Треків: <span id="trackCount">0</span>
-            </div>
-            <button id="playlistButton" onclick="window.location.href='https://christian-word.github.io/GospelVoice/playlists.html'"> Змінити Плейлист </button>
+            Альбом: <span id="albumName">Не обрано</span> | Треків: <span id="trackCount">0</span>
         </div>
         <div id="categoryImageContainer">
             <img id="categoryImage" src="" alt="Фото категорії">
@@ -383,7 +293,7 @@ header h3 {
         </select>
         <div id="playlist"></div>
 
-        <!-- Видеоплеер -->
+        <!-- Додаємо відеоплеєр -->
         <div id="videoPlayerContainer" style="display: none;">
             <iframe id="youtubePlayer" width="100%" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <video id="videoPlayer" controls style="width: 100%; display: none;"></video>
@@ -401,29 +311,29 @@ header h3 {
             <span id="currentTime">0:00</span>
             <span id="duration">0:00</span>
         </div>
-        <audio id="audioPlayer" controls style="display: none;"></audio>
+        <audio id="audioPlayer" controls style="display: none;"></audio> <!-- Аудіоплеєр прихований за замовчуванням -->
     </div>
 
-    <footer>
-        <a href="https://christian-word.github.io/GospelVoice/" style="color: var(--primary-color); text-decoration: none; font-size: 1em;">
+    <footer style="background-color: #f4f4f4; padding: 20px; text-align: center; border-top: 1px solid #ccc; margin-top: 50px;">
+        <a href="index.html" style="color: var(--primary-color); text-decoration: none; font-size: 1em;">
             <i class="fas fa-home"></i> Головне меню
         </a>
         <p>м. Суми, версія збірки 1.0 : © 2025 р.</p>
 
         <div class="social-icons">
-            <a href="https://www.youtube.com/@pravdachurch" target="_blank">
+            <a href="https://www.youtube.com" target="_blank">
                 <i class="fab fa-youtube"></i>
             </a>
-            <a href="https://www.facebook.com/pravdachurch" target="_blank">
+            <a href="https://www.facebook.com" target="_blank">
                 <i class="fab fa-facebook"></i>
             </a>
-            <a href="https://www.instagram.com/pravda.church" target="_blank">
+            <a href="https://www.instagram.com" target="_blank">
                 <i class="fab fa-instagram"></i>
             </a>
         </div>
     </footer>
 
-   <script>
+    <script>
         let audioPlayer = document.getElementById("audioPlayer");
         let videoPlayer = document.getElementById("videoPlayer");
         let youtubePlayer = document.getElementById("youtubePlayer");
@@ -763,6 +673,5 @@ header h3 {
 
         window.onload = loadPlaylist;
     </script>
-    <script src="js/trackerPlay.js"></script>
 </body>
 </html>
