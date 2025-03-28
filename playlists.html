@@ -327,6 +327,7 @@
             width: 100%;
             height: 100%;
             border: none;
+            overscroll-behavior: contain;
         }
 
         @media (max-width: 480px) {
@@ -337,6 +338,14 @@
                 right: 0;
                 border-radius: 10px 10px 0 0;
             }
+        }
+
+        /* Блокировка скролла основной страницы при открытом чате */
+        body.no-scroll {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
@@ -365,7 +374,13 @@
         <div class="chat-modal" id="chatModal">
             <div class="chat-modal-content">
                 <span class="close-chat" onclick="toggleChat()">&times;</span>
-                <iframe src="https://christian-word.github.io/chat/" frameborder="0" class="chat-iframe"></iframe>
+                <iframe 
+                    src="https://christian-word.github.io/chat/" 
+                    frameborder="0" 
+                    class="chat-iframe"
+                    scrolling="yes" 
+                    allow="autoplay; fullscreen" 
+                ></iframe>
             </div>
         </div>
     </div>
@@ -507,20 +522,34 @@
         // Функция для переключения чата
         function toggleChat() {
             const modal = document.getElementById('chatModal');
+            const body = document.body;
+            
             if (modal.style.display === 'block') {
                 modal.style.display = 'none';
+                body.classList.remove('no-scroll');
             } else {
                 modal.style.display = 'block';
+                body.classList.add('no-scroll');
             }
         }
         
         // Закрытие модального окна при клике вне его
-        window.onclick = function(event) {
+        document.addEventListener('click', function(event) {
             const modal = document.getElementById('chatModal');
-            if (event.target === modal) {
-                modal.style.display = 'none';
+            const chatBtn = document.querySelector('.chat-button');
+            
+            if (modal.style.display === 'block' && 
+                !modal.contains(event.target) && 
+                event.target !== chatBtn
+            ) {
+                toggleChat();
             }
-        }
+        });
+
+        // Фикс для скролла внутри iframe (чтобы не передавался на страницу)
+        document.querySelector('.chat-iframe').addEventListener('wheel', function(e) {
+            e.stopPropagation();
+        });
 
         // Загружаем и отображаем все плейлисты
         async function loadAllPlaylists() {
