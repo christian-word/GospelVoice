@@ -1,0 +1,516 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GraceTune - Христианский медиа-плеер</title>
+    
+    <!-- Мета-теги -->
+    <meta name="description" content="GraceTune - плеер для христианской музыки и проповедей">
+    <link rel="icon" href="https://christian-word.github.io/GospelVoice/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="https://christian-word.github.io/GospelVoice/apple-touch-icon.png">
+    <meta name="theme-color" content="#00b3ff">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="GraceTune - Христианский медиа-плеер">
+    <meta property="og:description" content="Слушайте христианскую музыку и проповеди">
+    <meta property="og:image" content="https://christian-word.github.io/GospelVoice/og-image.jpg">
+    <meta property="og:url" content="https://christian-word.github.io/GospelVoice/">
+    <meta property="og:type" content="website">
+    
+    <!-- Стили -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
+    <style>
+        :root {
+            --track-padding: 12px 15px;
+            --track-min-height: 50px;
+            --title-font-size: 1em;
+            --album-font-size: 0.8em;
+            --album-margin-top: 3px;
+            --plyr-padding: 8px 15px 8px 12px;
+            --plyr-min-height: 44px;
+            --time-font-size: 12px;
+            --progress-margin: 5px 0;
+            --control-padding: 5px;
+            --volume-width: 80px;
+            --player-side-padding: 10px;
+            --track-border-radius: 8px;
+            --plyr-color-main: #00b3ff;
+            --plyr-audio-controls-background: #f8f9fa;
+            --plyr-audio-control-color: #333;
+        }
+        
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 15px 0;
+            background: linear-gradient(135deg, #00b3ff, #0066cc);
+            color: white;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 1.8em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            margin: 5px 0 0;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 var(--player-side-padding);
+        }
+        
+        .category {
+            margin-bottom: 15px;
+            background: white;
+            border-radius: var(--track-border-radius);
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .category-header {
+            padding: 15px;
+            background: #00b3ff;
+            color: white;
+            font-size: 1.1em;
+            border-radius: var(--track-border-radius) var(--track-border-radius) 0 0;
+        }
+        
+        .album-cover {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 0;
+        }
+        
+        .track {
+            cursor: pointer;
+            padding: var(--track-padding);
+            min-height: var(--track-min-height);
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            margin: 3px 0;
+            background: white;
+            border-radius: var(--track-border-radius);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .track:last-child {
+            border-bottom: none;
+        }
+        
+        @media (hover: hover) {
+            .track:hover {
+                background: #e0f7ff;
+                transform: translateY(-1px);
+                box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            }
+        }
+        
+        .track-number {
+            margin-right: 15px;
+            color: #666;
+            min-width: 20px;
+            font-size: 0.9em;
+            background: #f0f0f0;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .track-info {
+            flex-grow: 1;
+        }
+        
+        .track-title {
+            display: block;
+            font-size: var(--title-font-size);
+        }
+        
+        .track-album {
+            font-size: var(--album-font-size);
+            color: #888;
+            margin-top: var(--album-margin-top);
+        }
+        
+        .player-container {
+            display: none;
+            padding: 10px var(--player-side-padding);
+            background: #f9f9f9;
+            width: calc(100% - 2 * var(--player-side-padding));
+            border-radius: 0 0 var(--track-border-radius) var(--track-border-radius);
+            margin-top: -5px;
+        }
+        
+        .plyr--audio, .plyr--video {
+            width: 100%;
+            border-radius: var(--track-border-radius);
+        }
+        
+        .plyr--audio .plyr__controls, .plyr--video .plyr__controls {
+            padding: var(--plyr-padding) !important;
+            min-height: var(--plyr-min-height) !important;
+            justify-content: space-between;
+            border-radius: 0 0 var(--track-border-radius) var(--track-border-radius);
+        }
+        
+        .plyr__time {
+            font-size: var(--time-font-size) !important;
+        }
+        
+        .plyr--audio .plyr__progress__container, .plyr--video .plyr__progress__container {
+            margin: var(--progress-margin) !important;
+        }
+        
+        .plyr__control {
+            padding: var(--control-padding) !important;
+        }
+        
+        .plyr--audio .plyr__volume, .plyr--video .plyr__volume {
+            width: var(--volume-width) !important;
+            margin-right: 5px !important;
+        }
+        
+        .active {
+            background: #00b3ff !important;
+            color: white !important;
+            border-radius: var(--track-border-radius) var(--track-border-radius) 0 0 !important;
+        }
+        
+        .active .track-number {
+            background: rgba(255,255,255,0.2);
+            color: white !important;
+        }
+        
+        .active .track-album {
+            color: rgba(255,255,255,0.9) !important;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+        }
+        
+        .error {
+            color: red;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .video-badge {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 2px 6px;
+            background: #ff0000;
+            color: white;
+            border-radius: 4px;
+            font-size: 0.7em;
+            vertical-align: middle;
+        }
+        
+        .youtube-badge {
+            background: #ff0000;
+        }
+        
+        .video-thumbnail {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 15px;
+            display: none;
+        }
+        
+        .plyr__logo {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+        
+        .plyr__logo img {
+            height: 24px;
+        }
+        
+        @media (max-width: 768px) {
+            :root {
+                --track-padding: 8px 12px;
+                --track-min-height: 40px;
+                --title-font-size: 0.95em;
+                --album-font-size: 0.75em;
+                --album-margin-top: 2px;
+                --plyr-padding: 5px 10px 5px 8px;
+                --plyr-min-height: 36px;
+                --time-font-size: 11px;
+                --progress-margin: 3px 0;
+                --control-padding: 3px;
+                --volume-width: 60px;
+                --player-side-padding: 8px;
+                --track-border-radius: 6px;
+            }
+            
+            .video-thumbnail {
+                display: block;
+            }
+            
+            .header h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Інтерактивний Медіаплеєр</h1>
+        <p>Христианский медиа-плеер, для внутреннего пользования</p>
+    </div>
+    
+    <div class="container">
+        <div id="playlist-container">
+            <div class="loading">Загрузка плейлиста...</div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    
+    <script>
+function isMobileDevice() {
+    return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+}
+
+function escapeHtml(unsafe) {
+    return unsafe.replace(/[&<"'>]/g, function(m) {
+        return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+        }[m];
+    });
+}
+
+function getYouTubeId(url) {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+}
+
+function isYouTubeUrl(url) {
+    return url.includes('youtube.com') || url.includes('youtu.be');
+}
+
+function isVideoUrl(url) {
+    return url.match(/\.(mp4|webm|ogg|mov)$/i) || isYouTubeUrl(url);
+}
+
+$(document).ready(function() {
+    const playlistUrl = "https://christian-word.github.io/GospelVoice/playlist/ico-playlist1.txt";
+    const playlistContainer = $('#playlist-container');
+    let currentPlayer = null;
+    let currentTrackElement = null;
+    let youtubeIframe = null;
+
+    function destroyCurrentPlayer() {
+        if (currentPlayer) {
+            currentPlayer.destroy();
+            currentPlayer = null;
+        }
+        if (youtubeIframe) {
+            youtubeIframe.remove();
+            youtubeIframe = null;
+        }
+        $('.player-container').empty().hide();
+        $('.track').removeClass('active');
+    }
+
+    if (typeof Plyr === 'undefined') {
+        playlistContainer.html('<div class="error">Не удалось загрузить медиа плеер. Пожалуйста, обновите страницу.</div>');
+        return;
+    }
+
+    $.ajax({
+        url: playlistUrl,
+        dataType: 'text',
+        success: function(data) {
+            playlistContainer.empty();
+            const categories = data.split('Категорія:').slice(1);
+            
+            categories.forEach(category => {
+                const lines = category.trim().split('\n');
+                const firstLine = lines[0].split(';');
+                if (firstLine.length < 2) return;
+                
+                const categoryName = escapeHtml(firstLine[0].trim());
+                const categoryCover = escapeHtml(firstLine[1].trim());
+                
+                const categoryElement = $(`
+                    <div class="category">
+                        <div class="category-header">${categoryName}</div>
+                        <img src="${categoryCover}" class="album-cover" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 100 100\"%3E%3Crect fill=\"%23ddd\" width=\"100\" height=\"100\"/%3E%3Ctext fill=\"%23666\" font-family=\"sans-serif\" font-size=\"12\" dy=\"3.5\" text-anchor=\"middle\" x=\"50\" y=\"50\"%3EНет изображения%3C/text%3E%3C/svg%3E'" alt="Обложка альбома">
+                    </div>
+                `);
+                
+                const tracksContainer = $('<div></div>');
+                
+                lines.slice(1).forEach((line, index) => {
+                    line = line.trim();
+                    if (!line) return;
+                    
+                    const [title, mediaUrl] = line.split(';').map(item => item.trim());
+                    if (!title || !mediaUrl) return;
+                    
+                    const trackNumber = index + 1;
+                    const trackTitle = escapeHtml(title);
+                    const isVideo = isVideoUrl(mediaUrl);
+                    const isYouTube = isYouTubeUrl(mediaUrl);
+                    
+                    const trackElement = $(`
+                        <div>
+                            <div class="track" data-media="${escapeHtml(mediaUrl)}" data-type="${isVideo ? 'video' : 'audio'}">
+                                <span class="track-number">${trackNumber}</span>
+                                <img src="${categoryCover}" class="video-thumbnail" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 100 100\"%3E%3Crect fill=\"%23ddd\" width=\"100\" height=\"100\"/%3E%3Ctext fill=\"%23666\" font-family=\"sans-serif\" font-size=\"12\" dy=\"3.5\" text-anchor=\"middle\" x=\"50\" y=\"50\"%3EНет изображения%3C/text%3E%3C/svg%3E'">
+                                <div class="track-info">
+                                    <span class="track-title">${trackTitle}
+                                        ${isVideo ? `<span class="video-badge ${isYouTube ? 'youtube-badge' : ''}">${isYouTube ? 'YouTube' : 'VIDEO'}</span>` : ''}
+                                    </span>
+                                    <span class="track-album">${categoryName}</span>
+                                </div>
+                            </div>
+                            <div class="player-container" style="display: none;"></div>
+                        </div>
+                    `);
+                    
+                    tracksContainer.append(trackElement);
+                });
+                
+                categoryElement.append(tracksContainer);
+                playlistContainer.append(categoryElement);
+            });
+            
+            $('.track').on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const clickedTrack = $(this);
+                if (clickedTrack.hasClass('active')) {
+                    destroyCurrentPlayer();
+                    return;
+                }
+                
+                playTrack(clickedTrack);
+            });
+            
+            function playTrack(trackElement) {
+                if (!trackElement || !trackElement.length) return;
+                
+                const mediaUrl = trackElement.data('media');
+                const isVideo = trackElement.data('type') === 'video';
+                const isYouTube = isYouTubeUrl(mediaUrl);
+                const playerContainer = trackElement.next('.player-container');
+                
+                destroyCurrentPlayer();
+                
+                if (isYouTube && isMobileDevice()) {
+                    const videoId = getYouTubeId(mediaUrl);
+                    youtubeIframe = $(`
+                        <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--track-border-radius);">
+                            <iframe 
+                                src="https://www.youtube.com/embed/${videoId}?enablejsapi=1&playsinline=1" 
+                                frameborder="0" 
+                                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                                style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:var(--track-border-radius);"
+                            ></iframe>
+                        </div>
+                    `);
+                    
+                    playerContainer.html(youtubeIframe).slideDown();
+                    trackElement.addClass('active');
+                    currentTrackElement = trackElement;
+                    return;
+                }
+                
+                const mediaElement = $(`<${isVideo ? 'video' : 'audio'} class="media-player" controls playsinline></${isVideo ? 'video' : 'audio'}>`);
+                playerContainer.html(mediaElement).slideDown();
+                
+                currentPlayer = new Plyr(mediaElement[0], {
+                    invertTime: false,
+                    controls: [
+                        'play', 'progress', 'current-time', 'duration', 
+                        'mute', 'volume', ...(isVideo ? ['settings', 'fullscreen'] : [])
+                    ],
+                    settings: ['speed', ...(isVideo ? ['quality'] : [])],
+                    hideControls: false,
+                    displayDuration: true
+                });
+                
+                if (isYouTube) {
+                    currentPlayer.source = {
+                        type: 'video',
+                        sources: [{ src: mediaUrl, provider: 'youtube' }]
+                    };
+                } else {
+                    const ext = mediaUrl.split('.').pop().toLowerCase();
+                    currentPlayer.source = {
+                        type: isVideo ? 'video' : 'audio',
+                        sources: [{
+                            src: mediaUrl,
+                            type: isVideo ? `video/${ext === 'mov' ? 'mp4' : ext}` : `audio/${ext === 'ogg' ? 'ogg' : 'mp3'}`
+                        }]
+                    };
+                }
+                
+                currentPlayer.on('ready', function() {
+                    if (isVideo) {
+                        const thumbnail = trackElement.find('.video-thumbnail').attr('src');
+                        if (thumbnail) currentPlayer.poster = thumbnail;
+                        
+                        if (isYouTube && !isMobileDevice()) {
+                            currentPlayer.play().catch(e => console.log("YouTube autoplay blocked:", e));
+                        }
+                    } else {
+                        currentPlayer.play().catch(e => console.log("Audio autoplay blocked:", e));
+                    }
+                });
+                
+                currentPlayer.on('ended', () => {
+                    const nextTrack = trackElement.parent().next().find('.track');
+                    if (nextTrack.length) playTrack(nextTrack);
+                });
+                
+                trackElement.addClass('active');
+                currentTrackElement = trackElement;
+            }
+        },
+        error: function() {
+            playlistContainer.html('<div class="error">Не удалось загрузить плейлист. Пожалуйста, попробуйте позже.</div>');
+        }
+    });
+});
+    </script>
+</body>
+</html>
