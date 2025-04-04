@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gloria Player - Христианский медиа-плеер</title>
-    
-    <!-- Мета-теги -->
     <meta name="description" content="Gloria Player - плеер для христианской музыки и проповедей">
     <link rel="icon" href="https://christian-word.github.io/GospelVoice/favicon.jpg" type="image/x-icon">
     <meta name="theme-color" content="#5D8BF4">
     
-    <!-- Стили -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
     <style>
@@ -131,7 +128,6 @@ body {
     padding: 10px;
 }
 
-/* Десктопные стили треков (оригинальные) */
 .track {
     cursor: pointer;
     padding: 12px 15px;
@@ -340,7 +336,6 @@ body {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235D8BF4'%3E%3Cpath d='M6 19h4V5H6v14zm8-14v14h4V5h-4z'/%3E%3C/svg%3E");
 }
 
-/* Мобильные стили (только для экранов ≤768px) */
 @media (max-width: 768px) {
     .container {
         padding: 0 10px;
@@ -368,7 +363,6 @@ body {
         font-size: 1em;
     }
     
-    /* Компактные стили треков только для мобильных */
     .track {
         padding: 8px 10px;
         min-height: 40px;
@@ -397,7 +391,6 @@ body {
     }
 }
 
-/* Стили для маленьких смартфонов (≤480px) */
 @media (max-width: 480px) {
     .container {
         padding: 0 8px;
@@ -419,7 +412,6 @@ body {
         padding: 5px 2px !important;
     }
     
-    /* Ещё более компактные стили для маленьких экранов */
     .track {
         padding: 6px 8px;
         min-height: 36px;
@@ -464,70 +456,15 @@ body {
     <script src="https://www.youtube.com/iframe_api"></script>
     
     <script>
-        function isMobileDevice() {
-            return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
-        }
-
-        function escapeHtml(unsafe) {
-            return unsafe.replace(/[&<"'>]/g, function(m) {
-                return {
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    '"': '&quot;',
-                    "'": '&#39;'
-                }[m];
-            });
-        }
-
-        function getYouTubeId(url) {
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-            const match = url.match(regExp);
-            return (match && match[2].length === 11) ? match[2] : null;
-        }
-
-        function isYouTubeUrl(url) {
-            return url.includes('youtube.com') || url.includes('youtu.be');
-        }
-
-        function isVideoUrl(url) {
-            return url.match(/\.(mp4|webm|ogg|mov)$/i) || isYouTubeUrl(url);
-        }
-
         $(document).ready(function() {
             // Получаем параметры из URL
             const urlParams = new URLSearchParams(window.location.search);
-            const hashParam = window.location.hash.substring(1);
-            const playlistUrlParam = urlParams.get('playlist');
-            const trackParam = urlParams.get('track');
-            
-            // URL плейлиста по умолчанию, если не указан в параметрах
-            const defaultPlaylistUrl = "https://christian-word.github.io/GospelVoice/playlist/ico-playlist1.txt";
-            const playlistUrl = playlistUrlParam || defaultPlaylistUrl;
-            
+            const playlistUrl = urlParams.get('playlist') || 
+                              "https://christian-word.github.io/GospelVoice/playlist/ico-playlist1.txt";
+            const categoryIndex = parseInt(window.location.hash.substring(1)) || 0;
+
             const playlistContainer = $('#playlist-container');
             let currentPlayer = null;
-            let currentTrackElement = null;
-            let youtubeIframe = null;
-            let categoriesData = [];
-
-            function destroyCurrentPlayer() {
-                if (currentPlayer) {
-                    currentPlayer.destroy();
-                    currentPlayer = null;
-                }
-                if (youtubeIframe) {
-                    youtubeIframe.remove();
-                    youtubeIframe = null;
-                }
-                $('.player-container').empty().hide();
-                $('.track').removeClass('active');
-            }
-
-            if (typeof Plyr === 'undefined') {
-                playlistContainer.html('<div class="error">Не удалось загрузить медиа плеер. Пожалуйста, обновите страницу.</div>');
-                return;
-            }
 
             function loadPlaylist(url) {
                 $.ajax({
@@ -535,43 +472,36 @@ body {
                     dataType: 'text',
                     success: function(data) {
                         playlistContainer.empty();
-                        categoriesData = data.split('Категорія:').slice(1);
+                        const categories = data.split('Категорія:').slice(1);
                         
-                        categoriesData.forEach((category, categoryIndex) => {
+                        categories.forEach((category, index) => {
                             const lines = category.trim().split('\n');
-                            const firstLine = lines[0].split(';');
-                            if (firstLine.length < 2) return;
-                            
-                            const categoryName = escapeHtml(firstLine[0].trim());
-                            const categoryCover = escapeHtml(firstLine[1].trim());
+                            const [categoryName, categoryCover] = lines[0].split(';').map(s => s.trim());
                             
                             const categoryElement = $(`
-                                <div class="category" data-category-index="${categoryIndex}">
+                                <div class="category" data-category-index="${index}">
                                     <div class="category-header">${categoryName}</div>
-                                    <img src="${categoryCover}" class="album-cover" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 100 100\"%3E%3Crect fill=\"%23ddd\" width=\"100\" height=\"100\"/%3E%3Ctext fill=\"%23666\" font-family=\"sans-serif\" font-size=\"12\" dy=\"3.5\" text-anchor=\"middle\" x=\"50\" y=\"50\"%3EНет изображения%3C/text%3E%3C/svg%3E'" alt="Обложка альбома">
+                                    <img src="${categoryCover}" class="album-cover" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 100 100\"%3E%3Crect fill=\"%23ddd\" width=\"100\" height=\"100\"/%3E%3Ctext fill=\"%23666\" font-family=\"sans-serif\" font-size=\"12\" dy=\"3.5\" text-anchor=\"middle\" x=\"50\" y=\"50\"%3EНет изображения%3C/text%3E%3C/svg%3E'">
                                 </div>
                             `);
                             
                             const tracksContainer = $('<div></div>');
                             
-                            lines.slice(1).forEach((line, index) => {
-                                line = line.trim();
-                                if (!line) return;
-                                
-                                const [title, mediaUrl] = line.split(';').map(item => item.trim());
+                            lines.slice(1).forEach((line, trackNum) => {
+                                const [title, mediaUrl] = line.split(';').map(s => s.trim());
                                 if (!title || !mediaUrl) return;
                                 
-                                const trackNumber = index + 1;
-                                const trackTitle = escapeHtml(title);
-                                const isVideo = isVideoUrl(mediaUrl);
-                                const isYouTube = isYouTubeUrl(mediaUrl);
+                                const isVideo = mediaUrl.match(/\.(mp4|webm|ogg|mov)$/i) || 
+                                              mediaUrl.includes('youtube.com') || 
+                                              mediaUrl.includes('youtu.be');
+                                const isYouTube = mediaUrl.includes('youtube.com') || mediaUrl.includes('youtu.be');
                                 
-                                const trackElement = $(`
+                                tracksContainer.append(`
                                     <div>
-                                        <div class="track" data-media="${escapeHtml(mediaUrl)}" data-type="${isVideo ? 'video' : 'audio'}" data-track-index="${index}">
-                                            <span class="track-number">${trackNumber}</span>
+                                        <div class="track" data-media="${mediaUrl}" data-type="${isVideo ? 'video' : 'audio'}">
+                                            <span class="track-number">${trackNum + 1}</span>
                                             <div class="track-info">
-                                                <span class="track-title">${trackTitle}
+                                                <span class="track-title">${title}
                                                     ${isVideo ? `<span class="video-badge ${isYouTube ? 'youtube-badge' : ''}">${isYouTube ? 'YouTube' : 'VIDEO'}</span>` : ''}
                                                 </span>
                                                 <span class="track-album">${categoryName}</span>
@@ -580,136 +510,62 @@ body {
                                         <div class="player-container" style="display: none;"></div>
                                     </div>
                                 `);
-                                
-                                tracksContainer.append(trackElement);
                             });
                             
                             categoryElement.append(tracksContainer);
                             playlistContainer.append(categoryElement);
-                        });
-                        
-                        // Обработчики событий
-                        $('.track').on('click', function(e) {
-                            e.preventDefault();
-                            e.stopPropagation();
                             
-                            const clickedTrack = $(this);
-                            if (clickedTrack.hasClass('active')) {
-                                destroyCurrentPlayer();
-                                return;
-                            }
-                            
-                            playTrack(clickedTrack);
-                        });
-                        
-                        // Автоматическое воспроизведение при загрузке по параметрам
-                        if (hashParam || trackParam) {
-                            const categoryIndex = parseInt(hashParam) || 0;
-                            const trackIndex = parseInt(trackParam) || 0;
-                            
-                            if (categoriesData[categoryIndex]) {
-                                // Прокручиваем к выбранной категории
-                                const categoryElement = $(`.category[data-category-index="${categoryIndex}"]`);
-                                if (categoryElement.length) {
+                            // Автоматически прокручиваем к указанной категории
+                            if (index === categoryIndex) {
+                                setTimeout(() => {
                                     $('html, body').animate({
                                         scrollTop: categoryElement.offset().top - 20
                                     }, 500);
-                                    
-                                    // Находим и воспроизводим трек
-                                    const trackElement = categoryElement.find(`.track[data-track-index="${trackIndex}"]`);
-                                    if (trackElement.length) {
-                                        setTimeout(() => {
-                                            playTrack(trackElement);
-                                        }, 500);
-                                    }
-                                }
+                                }, 300);
                             }
-                        }
+                        });
+                        
+                        // Инициализация обработчиков событий
+                        $('.track').click(function() {
+                            const track = $(this);
+                            if (track.hasClass('active')) {
+                                if (currentPlayer) currentPlayer.destroy();
+                                track.removeClass('active');
+                                track.next('.player-container').hide().empty();
+                                return;
+                            }
+                            
+                            $('.track').removeClass('active');
+                            track.addClass('active');
+                            
+                            const mediaUrl = track.data('media');
+                            const isVideo = track.data('type') === 'video';
+                            const playerContainer = track.next('.player-container');
+                            
+                            if (currentPlayer) currentPlayer.destroy();
+                            
+                            if (isVideo && (mediaUrl.includes('youtube.com') || mediaUrl.includes('youtu.be'))) {
+                                const videoId = mediaUrl.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|youtu\.be\/)([^"&?\/\s]{11})/i)[1];
+                                playerContainer.html(`
+                                    <div style="padding:56.25% 0 0 0;position:relative;">
+                                        <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+                                    </div>
+                                `).show();
+                            } else {
+                                const mediaElement = $(`<${isVideo ? 'video' : 'audio'} controls></${isVideo ? 'video' : 'audio'}>`);
+                                mediaElement.attr('src', mediaUrl);
+                                playerContainer.html(mediaElement).show();
+                                currentPlayer = new Plyr(mediaElement[0]);
+                                currentPlayer.play();
+                            }
+                        });
                     },
                     error: function() {
-                        playlistContainer.html('<div class="error">Не удалось загрузить плейлист. Пожалуйста, попробуйте позже.</div>');
+                        playlistContainer.html('<div class="error">Не удалось загрузить плейлист</div>');
                     }
                 });
             }
 
-            function playTrack(trackElement) {
-                if (!trackElement || !trackElement.length) return;
-                
-                const mediaUrl = trackElement.data('media');
-                const isVideo = trackElement.data('type') === 'video';
-                const isYouTube = isYouTubeUrl(mediaUrl);
-                const playerContainer = trackElement.next('.player-container');
-                
-                destroyCurrentPlayer();
-                
-                if (isYouTube && isMobileDevice()) {
-                    const videoId = getYouTubeId(mediaUrl);
-                    youtubeIframe = $(`
-                        <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;width:100%;margin:0 auto;">
-                            <iframe 
-                                src="https://www.youtube.com/embed/${videoId}?enablejsapi=1&playsinline=1" 
-                                frameborder="0" 
-                                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen
-                                style="position:absolute;top:0;left:0;width:100%;height:100%;"
-                            ></iframe>
-                        </div>
-                    `);
-                    
-                    playerContainer.html(youtubeIframe).slideDown();
-                    trackElement.addClass('active');
-                    currentTrackElement = trackElement;
-                    return;
-                }
-                
-                const mediaElement = $(`<${isVideo ? 'video' : 'audio'} class="media-player" controls playsinline></${isVideo ? 'video' : 'audio'}>`);
-                playerContainer.html(mediaElement).slideDown();
-                
-                currentPlayer = new Plyr(mediaElement[0], {
-                    invertTime: false,
-                    controls: [
-                        'play', 'progress', 'current-time', 'duration', 
-                        'mute', 'volume', ...(isVideo ? ['settings', 'fullscreen'] : [])
-                    ],
-                    settings: ['speed', ...(isVideo ? ['quality'] : [])],
-                    hideControls: false,
-                    displayDuration: true
-                });
-                
-                if (isYouTube) {
-                    currentPlayer.source = {
-                        type: 'video',
-                        sources: [{ src: mediaUrl, provider: 'youtube' }]
-                    };
-                } else {
-                    const ext = mediaUrl.split('.').pop().toLowerCase();
-                    currentPlayer.source = {
-                        type: isVideo ? 'video' : 'audio',
-                        sources: [{
-                            src: mediaUrl,
-                            type: isVideo ? `video/${ext === 'mov' ? 'mp4' : ext}` : `audio/${ext === 'ogg' ? 'ogg' : 'mp3'}`
-                        }]
-                    };
-                }
-                
-                currentPlayer.on('ready', function() {
-                    if (isVideo && isYouTube && !isMobileDevice()) {
-                        currentPlayer.play().catch(e => console.log("YouTube autoplay blocked:", e));
-                    } else if (!isVideo) {
-                        currentPlayer.play().catch(e => console.log("Audio autoplay blocked:", e));
-                    }
-                });
-                
-                currentPlayer.on('ended', () => {
-                    const nextTrack = trackElement.parent().next().find('.track');
-                    if (nextTrack.length) playTrack(nextTrack);
-                });
-                
-                trackElement.addClass('active');
-                currentTrackElement = trackElement;
-            }
-
-            // Загружаем плейлист
             loadPlaylist(playlistUrl);
         });
     </script>
