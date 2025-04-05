@@ -124,7 +124,7 @@ body {
 .category {
     margin-bottom: 20px;
     background: var(--card-bg);
-    border-radius: var(--border-radius);
+    border-radius: 0;
     overflow: hidden;
     box-shadow: var(--shadow-sm);
     transition: var(--transition);
@@ -248,24 +248,25 @@ body {
     padding: 8px 0;
     background: var(--card-bg);
     border-top: 1px solid rgba(0,0,0,0.05);
-    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    border-radius: 0;
     width: 100%;
     box-sizing: border-box;
 }
 
 .plyr--audio {
-    border-radius: var(--border-radius-sm);
+    border-radius: 0;
     width: 100%;
     margin: 0 auto;
 }
 
 .plyr--full-ui.plyr--audio .plyr__controls {
     padding: 8px 5px !important;
+    border-radius: 0 !important;
 }
 
 .plyr--audio .plyr__controls {
     background: var(--card-bg) !important;
-    border-radius: 0 0 var(--border-radius-sm) var(--border-radius-sm) !important;
+    border-radius: 0 !important;
     border-top: 1px solid rgba(0,0,0,0.05);
     width: 100%;
     box-sizing: border-box;
@@ -293,7 +294,7 @@ body {
     bottom: 0;
     width: 3px;
     background: var(--primary-color);
-    border-radius: 2px 0 0 2px;
+    border-radius: 0;
 }
 
 .active .track-number {
@@ -328,7 +329,7 @@ body {
     padding: 30px;
     font-size: 1em;
     background: rgba(229, 62, 62, 0.1);
-    border-radius: var(--border-radius);
+    border-radius: 0;
     margin: 20px;
 }
 
