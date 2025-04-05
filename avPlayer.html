@@ -697,9 +697,9 @@ body {
                     let backButton = '';
                     if (showSingleAlbum) {
                         backButton = `
-                            <div class="back-button" onclick="window.location.href='${window.location.pathname}${window.location.search}'">
-                                ← Назад ко всем альбомам
-                            </div>
+			<button class="back-to-albums-btn" onclick="window.location.href='${window.location.pathname}${window.location.search}'">
+    				Всі альбоми
+			</button>
                         `;
                     }
                     
@@ -899,3 +899,4 @@ body {
     </script>
 </body>
 </html>
+
