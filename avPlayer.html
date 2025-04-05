@@ -32,6 +32,8 @@
     --plyr-audio-controls-background: var(--card-bg);
     --plyr-audio-control-color: var(--text-color);
     --plyr-range-fill-background: var(--primary-color);
+    --teal-color: #40E0D0;
+    --teal-dark: #30A89B;
 }
 
 body {
@@ -83,7 +85,7 @@ body {
     margin-top: 10px;
 }
 
-/* Компактная 3D-кнопка с закруглением */
+/* Кнопка "Змінити плейлист" */
 .change-playlist-btn {
     display: inline-block;
     padding: 8px 18px;
@@ -113,6 +115,37 @@ body {
     box-shadow: 0 1px 0 #2E7D32;
 }
 
+/* Новая кнопка "Всі альбоми" */
+.back-to-albums-btn {
+    display: block;
+    padding: 8px 18px;
+    background: var(--teal-color);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 0 auto 15px auto;
+    text-align: center;
+    box-shadow: 0 4px 0 var(--teal-dark), 0 4px 8px rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    width: fit-content;
+}
+
+.back-to-albums-btn:hover {
+    background: #38C8B8;
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--teal-dark), 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.back-to-albums-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 1px 0 var(--teal-dark);
+}
+
 .container {
     max-width: 900px;
     margin: 0 auto;
@@ -135,7 +168,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* Заголовки альбомов без закруглений */
 .category-header {
     padding: 12px 20px;
     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
@@ -385,22 +417,6 @@ body {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235D8BF4'%3E%3Cpath d='M6 19h4V5H6v14zm8-14v14h4V5h-4z'/%3E%3C/svg%3E");
 }
 
-.back-button {
-    padding: 10px 15px;
-    background: var(--primary-light);
-    color: white;
-    cursor: pointer;
-    font-size: 0.9em;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    transition: var(--transition);
-}
-
-.back-button:hover {
-    background: var(--primary-dark);
-}
-
 @media (max-width: 768px) {
     .container {
         padding: 0 10px;
@@ -455,12 +471,8 @@ body {
         margin-left: 5px;
     }
     
-    .back-button {
-        padding: 8px 12px;
-        font-size: 0.85em;
-    }
-    
-    .change-playlist-btn {
+    .change-playlist-btn,
+    .back-to-albums-btn {
         padding: 8px 16px;
         font-size: 13px;
     }
@@ -512,12 +524,8 @@ body {
         margin-left: 4px;
     }
     
-    .back-button {
-        padding: 6px 10px;
-        font-size: 0.8em;
-    }
-    
-    .change-playlist-btn {
+    .change-playlist-btn,
+    .back-to-albums-btn {
         padding: 7px 14px;
         font-size: 12px;
     }
