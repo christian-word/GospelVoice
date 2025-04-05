@@ -449,6 +449,14 @@ body {
     </div>
     
     <div class="container">
+        <div class="controls">
+            <input type="text" id="search-input" placeholder="Пошук у плейлисті..." class="search-input">
+            <button id="refresh-btn" class="refresh-btn" title="Оновити плейлист">
+                <svg viewBox="0 0 24 24" width="18" height="18">
+                    <path fill="currentColor" d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"/>
+                </svg>
+            </button>
+        </div>
         <div id="playlist-container">
             <div class="loading">Загрузка плейлиста...</div>
         </div>
@@ -459,78 +467,253 @@ body {
     <script src="https://www.youtube.com/iframe_api"></script>
     
     <script>
-        // Функция для проверки мобильного устройства
-        function isMobileDevice() {
-            return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
-        }
+        // Конфигурация приложения
+        const AppConfig = {
+            defaultPlaylistUrl: "https://christian-word.github.io/GospelVoice/playlist/ico-playlist1.txt",
+            cacheExpiry: 24 * 60 * 60 * 1000, // 24 часа
+            debounceTime: 300 // Задержка для поиска
+        };
 
-        // Функция для экранирования HTML
-        function escapeHtml(unsafe) {
-            return unsafe
+        // Состояние приложения
+        const AppState = {
+            currentPlayer: null,
+            currentTrackElement: null,
+            youtubeIframe: null,
+            categoriesData: [],
+            lastPlayedTrack: null
+        };
+
+        // Утилиты
+        const Utils = {
+            isMobileDevice: () => (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1,
+            
+            escapeHtml: (unsafe) => unsafe
                 .replace(/&/g, "&amp;")
                 .replace(/</g, "&lt;")
                 .replace(/>/g, "&gt;")
                 .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-
-        // Функция для получения ID YouTube видео
-        function getYouTubeId(url) {
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-            const match = url.match(regExp);
-            return (match && match[2].length === 11) ? match[2] : null;
-        }
-
-        // Функция для проверки YouTube ссылки
-        function isYouTubeUrl(url) {
-            return url.includes('youtube.com') || url.includes('youtu.be');
-        }
-
-        // Функция для проверки видео ссылки
-        function isVideoUrl(url) {
-            return url.match(/\.(mp4|webm|ogg|mov)$/i) || isYouTubeUrl(url);
-        }
-
-        $(document).ready(function() {
-            // Получаем параметры из URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const playlistUrlParam = urlParams.get('playlist');
-            const hashParam = window.location.hash.substring(1);
+                .replace(/'/g, "&#039;"),
+                
+            getYouTubeId: (url) => {
+                const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+                const match = url.match(regExp);
+                return (match && match[2].length === 11) ? match[2] : null;
+            },
             
-            // URL плейлиста по умолчанию
-            const defaultPlaylistUrl = "https://christian-word.github.io/GospelVoice/playlist/ico-playlist1.txt";
-            const playlistUrl = playlistUrlParam || defaultPlaylistUrl;
+            isYouTubeUrl: (url) => url.includes('youtube.com') || url.includes('youtu.be'),
             
-            const playlistContainer = $('#playlist-container');
-            let currentPlayer = null;
-            let currentTrackElement = null;
-            let youtubeIframe = null;
-            let categoriesData = [];
-
-            // Функция для уничтожения текущего плеера
-            function destroyCurrentPlayer() {
-                if (currentPlayer) {
-                    currentPlayer.destroy();
-                    currentPlayer = null;
+            isVideoUrl: (url) => url.match(/\.(mp4|webm|ogg|mov)$/i) || Utils.isYouTubeUrl(url),
+            
+            debounce: (func, wait) => {
+                let timeout;
+                return function() {
+                    const context = this, args = arguments;
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(context, args), wait);
+                };
+            },
+            
+            saveToLocalStorage: (key, value) => {
+                try {
+                    localStorage.setItem(key, JSON.stringify(value));
+                } catch (e) {
+                    console.error("Ошибка сохранения в localStorage:", e);
                 }
-                if (youtubeIframe) {
-                    youtubeIframe.remove();
-                    youtubeIframe = null;
+            },
+            
+            loadFromLocalStorage: (key) => {
+                try {
+                    const item = localStorage.getItem(key);
+                    return item ? JSON.parse(item) : null;
+                } catch (e) {
+                    console.error("Ошибка чтения из localStorage:", e);
+                    return null;
+                }
+            }
+        };
+
+        // Модуль плеера
+        const PlayerModule = {
+            init: function() {
+                this.bindEvents();
+            },
+            
+            bindEvents: function() {
+                $(document).on('click', '.track', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const clickedTrack = $(this);
+                    if (clickedTrack.hasClass('active')) {
+                        PlayerModule.destroyCurrentPlayer();
+                        return;
+                    }
+                    
+                    PlayerModule.playTrack(clickedTrack);
+                });
+            },
+            
+            destroyCurrentPlayer: function() {
+                if (AppState.currentPlayer) {
+                    AppState.currentPlayer.destroy();
+                    AppState.currentPlayer = null;
+                }
+                if (AppState.youtubeIframe) {
+                    AppState.youtubeIframe.remove();
+                    AppState.youtubeIframe = null;
                 }
                 $('.player-container').empty().hide();
                 $('.track').removeClass('active');
+            },
+            
+            playTrack: function(trackElement) {
+                if (!trackElement || !trackElement.length) return;
+                
+                const mediaUrl = trackElement.data('media');
+                const isVideo = trackElement.data('type') === 'video';
+                const isYouTube = Utils.isYouTubeUrl(mediaUrl);
+                const playerContainer = trackElement.next('.player-container');
+                
+                PlayerModule.destroyCurrentPlayer();
+                
+                // Сохраняем последний воспроизводимый трек
+                AppState.lastPlayedTrack = {
+                    mediaUrl,
+                    categoryIndex: trackElement.closest('.category').data('category-index'),
+                    trackIndex: trackElement.data('track-index')
+                };
+                Utils.saveToLocalStorage('lastPlayedTrack', AppState.lastPlayedTrack);
+                
+                // Для YouTube на мобильных устройствах используем iframe
+                if (isYouTube && Utils.isMobileDevice()) {
+                    const videoId = Utils.getYouTubeId(mediaUrl);
+                    AppState.youtubeIframe = $(`
+                        <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;width:100%;margin:0 auto;">
+                            <iframe 
+                                src="https://www.youtube.com/embed/${videoId}?enablejsapi=1&playsinline=1" 
+                                frameborder="0" 
+                                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                                style="position:absolute;top:0;left:0;width:100%;height:100%;"
+                            ></iframe>
+                        </div>
+                    `);
+                    
+                    playerContainer.html(AppState.youtubeIframe).slideDown();
+                    trackElement.addClass('active');
+                    AppState.currentTrackElement = trackElement;
+                    return;
+                }
+                
+                // Для других типов медиа используем Plyr
+                const mediaElement = $(`<${isVideo ? 'video' : 'audio'} class="media-player" controls playsinline></${isVideo ? 'video' : 'audio'}>`);
+                playerContainer.html(mediaElement).slideDown();
+                
+                AppState.currentPlayer = new Plyr(mediaElement[0], {
+                    invertTime: false,
+                    controls: [
+                        'play', 'progress', 'current-time', 'duration', 
+                        'mute', 'volume', ...(isVideo ? ['settings', 'fullscreen'] : [])
+                    ],
+                    settings: ['speed', ...(isVideo ? ['quality'] : [])],
+                    hideControls: false,
+                    displayDuration: true
+                });
+                
+                if (isYouTube) {
+                    AppState.currentPlayer.source = {
+                        type: 'video',
+                        sources: [{ src: mediaUrl, provider: 'youtube' }]
+                    };
+                } else {
+                    const ext = mediaUrl.split('.').pop().toLowerCase();
+                    AppState.currentPlayer.source = {
+                        type: isVideo ? 'video' : 'audio',
+                        sources: [{
+                            src: mediaUrl,
+                            type: isVideo ? `video/${ext === 'mov' ? 'mp4' : ext}` : `audio/${ext === 'ogg' ? 'ogg' : 'mp3'}`
+                        }]
+                    };
+                }
+                
+                AppState.currentPlayer.on('ready', function() {
+                    if (isVideo && isYouTube && !Utils.isMobileDevice()) {
+                        AppState.currentPlayer.play().catch(e => console.log("YouTube autoplay blocked:", e));
+                    } else if (!isVideo) {
+                        AppState.currentPlayer.play().catch(e => console.log("Audio autoplay blocked:", e));
+                    }
+                });
+                
+                AppState.currentPlayer.on('ended', () => {
+                    const nextTrack = trackElement.parent().next().find('.track');
+                    if (nextTrack.length) PlayerModule.playTrack(nextTrack);
+                });
+                
+                trackElement.addClass('active');
+                AppState.currentTrackElement = trackElement;
+            },
+            
+            restoreLastPlayedTrack: function() {
+                const lastPlayed = Utils.loadFromLocalStorage('lastPlayedTrack');
+                if (!lastPlayed) return;
+                
+                const category = $(`.category[data-category-index="${lastPlayed.categoryIndex}"]`);
+                if (!category.length) return;
+                
+                const track = category.find(`.track[data-track-index="${lastPlayed.trackIndex}"]`);
+                if (track.length) {
+                    // Прокручиваем к треку
+                    $('html, body').animate({
+                        scrollTop: track.offset().top - 100
+                    }, 500);
+                    
+                    // Воспроизводим трек
+                    setTimeout(() => PlayerModule.playTrack(track), 600);
+                }
             }
+        };
 
-            // Проверка загрузки Plyr
-            if (typeof Plyr === 'undefined') {
-                playlistContainer.html('<div class="error">Не удалось загрузить медиа плеер. Пожалуйста, обновите страницу.</div>');
-                return;
-            }
-
-            // Функция загрузки плейлиста
-            function loadPlaylist(url) {
-                // Добавляем параметр для избежания кэширования
-                const nocacheUrl = url + (url.includes('?') ? '&' : '?') + 'nocache=' + new Date().getTime();
+        // Модуль плейлиста
+        const PlaylistModule = {
+            init: function() {
+                this.bindEvents();
+                this.loadPlaylist();
+            },
+            
+            bindEvents: function() {
+                $('#refresh-btn').on('click', () => {
+                    this.clearCacheAndReload();
+                });
+                
+                $('#search-input').on('input', Utils.debounce(() => {
+                    this.filterPlaylist($('#search-input').val().trim());
+                }, AppConfig.debounceTime));
+            },
+            
+            clearCacheAndReload: function() {
+                // Очищаем кэш и перезагружаем плейлист
+                localStorage.removeItem('playlistCache');
+                localStorage.removeItem('playlistTimestamp');
+                this.loadPlaylist();
+            },
+            
+            loadPlaylist: function() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const playlistUrlParam = urlParams.get('playlist');
+                const hashParam = window.location.hash.substring(1);
+                const playlistUrl = playlistUrlParam || AppConfig.defaultPlaylistUrl;
+                
+                const playlistContainer = $('#playlist-container');
+                
+                // Проверяем кэш
+                const cachedData = this.getCachedPlaylist(playlistUrl);
+                if (cachedData) {
+                    this.processPlaylistData(cachedData);
+                    return;
+                }
+                
+                // Загружаем с сервера
+                const nocacheUrl = playlistUrl + (playlistUrl.includes('?') ? '&' : '?' + 'nocache=' + new Date().getTime();
                 
                 console.log("Загрузка плейлиста по URL:", nocacheUrl);
                 
@@ -538,57 +721,78 @@ body {
                     url: nocacheUrl,
                     dataType: 'text',
                     cache: false,
-                    timeout: 10000, // 10 секунд таймаут
-                    success: function(data) {
+                    timeout: 10000,
+                    success: (data) => {
                         console.log("Плейлист успешно загружен");
-                        processPlaylistData(data);
+                        this.processPlaylistData(data);
+                        this.cachePlaylist(playlistUrl, data);
                     },
-                    error: function(xhr, status, error) {
+                    error: (xhr, status, error) => {
                         console.error("Ошибка загрузки плейлиста:", status, error);
-                        showError("Не удалось загрузить плейлист. Пожалуйста, проверьте ссылку и попробуйте позже.");
+                        this.showError("Не удалось загрузить плейлист. Пожалуйста, проверьте ссылку и попробуйте позже.");
                     }
                 });
-            }
-
-            // Функция обработки данных плейлиста
-            function processPlaylistData(data) {
+            },
+            
+            getCachedPlaylist: function(playlistUrl) {
+                const cacheKey = `playlist_${btoa(playlistUrl)}`;
+                const cached = Utils.loadFromLocalStorage(cacheKey);
+                if (!cached) return null;
+                
+                const now = new Date().getTime();
+                if (now - cached.timestamp > AppConfig.cacheExpiry) {
+                    return null;
+                }
+                
+                return cached.data;
+            },
+            
+            cachePlaylist: function(playlistUrl, data) {
+                const cacheKey = `playlist_${btoa(playlistUrl)}`;
+                Utils.saveToLocalStorage(cacheKey, {
+                    data: data,
+                    timestamp: new Date().getTime()
+                });
+            },
+            
+            processPlaylistData: function(data) {
                 try {
+                    const playlistContainer = $('#playlist-container');
                     playlistContainer.empty();
-                    categoriesData = data.split('Категорія:').slice(1);
                     
-                    if (categoriesData.length === 0) {
+                    AppState.categoriesData = data.split('Категорія:').slice(1);
+                    
+                    if (AppState.categoriesData.length === 0) {
                         throw new Error("Плейлист пуст или имеет неправильный формат");
                     }
                     
-                    // Обрабатываем категории
-                    categoriesData.forEach((category, categoryIndex) => {
+                    AppState.categoriesData.forEach((category, categoryIndex) => {
                         const lines = category.trim().split('\n').filter(line => line.trim() !== '');
                         if (lines.length === 0) return;
                         
                         const firstLineParts = lines[0].split(';').map(part => part.trim());
                         if (firstLineParts.length < 2) return;
                         
-                        const categoryName = escapeHtml(firstLineParts[0]);
-                        const categoryCover = escapeHtml(firstLineParts[1]);
+                        const categoryName = Utils.escapeHtml(firstLineParts[0]);
+                        const categoryCover = Utils.escapeHtml(firstLineParts[1]);
                         
                         const categoryElement = $(`
                             <div class="category" data-category-index="${categoryIndex}">
                                 <div class="category-header">${categoryName}</div>
-                                <img src="${categoryCover}" class="album-cover" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 100 100\"%3E%3Crect fill=\"%23ddd\" width=\"100\" height=\"100\"/%3E%3Ctext fill=\"%23666\" font-family=\"sans-serif\" font-size=\"12\" dy=\"3.5\" text-anchor=\"middle\" x=\"50\" y=\"50\"%3EНет изображения%3C/text%3E%3C/svg%3E'">
+                                <img src="${categoryCover}" loading="lazy" class="album-cover" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 100 100\"%3E%3Crect fill=\"%23ddd\" width=\"100\" height=\"100\"/%3E%3Ctext fill=\"%23666\" font-family=\"sans-serif\" font-size=\"12\" dy=\"3.5\" text-anchor=\"middle\" x=\"50\" y=\"50\"%3EНет изображения%3C/text%3E%3C/svg%3E'">
                             </div>
                         `);
                         
                         const tracksContainer = $('<div></div>');
                         
-                        // Обрабатываем треки
                         lines.slice(1).forEach((line, trackIndex) => {
                             const parts = line.split(';').map(part => part.trim());
                             if (parts.length < 2) return;
                             
-                            const title = escapeHtml(parts[0]);
+                            const title = Utils.escapeHtml(parts[0]);
                             const mediaUrl = parts[1];
-                            const isVideo = isVideoUrl(mediaUrl);
-                            const isYouTube = isYouTubeUrl(mediaUrl);
+                            const isVideo = Utils.isVideoUrl(mediaUrl);
+                            const isYouTube = Utils.isYouTubeUrl(mediaUrl);
                             
                             tracksContainer.append(`
                                 <div>
@@ -619,123 +823,68 @@ body {
                         }
                     });
                     
-                    // Инициализация обработчиков событий
-                    initTrackHandlers();
+                    // Восстанавливаем последний воспроизводимый трек
+                    setTimeout(() => PlayerModule.restoreLastPlayedTrack(), 500);
                     
                 } catch (e) {
                     console.error("Ошибка обработки плейлиста:", e);
-                    showError("Ошибка формата плейлиста. Пожалуйста, проверьте содержимое файла.");
+                    this.showError("Ошибка формата плейлиста. Пожалуйста, проверьте содержимое файла.");
                 }
-            }
-
-            // Функция инициализации обработчиков треков
-            function initTrackHandlers() {
-                $('.track').off('click').on('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    const clickedTrack = $(this);
-                    if (clickedTrack.hasClass('active')) {
-                        destroyCurrentPlayer();
-                        return;
-                    }
-                    
-                    playTrack(clickedTrack);
-                });
-            }
-
-            // Функция воспроизведения трека
-            function playTrack(trackElement) {
-                if (!trackElement || !trackElement.length) return;
-                
-                const mediaUrl = trackElement.data('media');
-                const isVideo = trackElement.data('type') === 'video';
-                const isYouTube = isYouTubeUrl(mediaUrl);
-                const playerContainer = trackElement.next('.player-container');
-                
-                destroyCurrentPlayer();
-                
-                // Для YouTube на мобильных устройствах используем iframe
-                if (isYouTube && isMobileDevice()) {
-                    const videoId = getYouTubeId(mediaUrl);
-                    youtubeIframe = $(`
-                        <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;width:100%;margin:0 auto;">
-                            <iframe 
-                                src="https://www.youtube.com/embed/${videoId}?enablejsapi=1&playsinline=1" 
-                                frameborder="0" 
-                                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen
-                                style="position:absolute;top:0;left:0;width:100%;height:100%;"
-                            ></iframe>
-                        </div>
-                    `);
-                    
-                    playerContainer.html(youtubeIframe).slideDown();
-                    trackElement.addClass('active');
-                    currentTrackElement = trackElement;
+            },
+            
+            filterPlaylist: function(searchTerm) {
+                if (!searchTerm) {
+                    $('.category').show();
+                    $('.track').show();
                     return;
                 }
                 
-                // Для других типов медиа используем Plyr
-                const mediaElement = $(`<${isVideo ? 'video' : 'audio'} class="media-player" controls playsinline></${isVideo ? 'video' : 'audio'}>`);
-                playerContainer.html(mediaElement).slideDown();
-                
-                currentPlayer = new Plyr(mediaElement[0], {
-                    invertTime: false,
-                    controls: [
-                        'play', 'progress', 'current-time', 'duration', 
-                        'mute', 'volume', ...(isVideo ? ['settings', 'fullscreen'] : [])
-                    ],
-                    settings: ['speed', ...(isVideo ? ['quality'] : [])],
-                    hideControls: false,
-                    displayDuration: true
-                });
-                
-                if (isYouTube) {
-                    currentPlayer.source = {
-                        type: 'video',
-                        sources: [{ src: mediaUrl, provider: 'youtube' }]
-                    };
-                } else {
-                    const ext = mediaUrl.split('.').pop().toLowerCase();
-                    currentPlayer.source = {
-                        type: isVideo ? 'video' : 'audio',
-                        sources: [{
-                            src: mediaUrl,
-                            type: isVideo ? `video/${ext === 'mov' ? 'mp4' : ext}` : `audio/${ext === 'ogg' ? 'ogg' : 'mp3'}`
-                        }]
-                    };
-                }
-                
-                currentPlayer.on('ready', function() {
-                    if (isVideo && isYouTube && !isMobileDevice()) {
-                        currentPlayer.play().catch(e => console.log("YouTube autoplay blocked:", e));
-                    } else if (!isVideo) {
-                        currentPlayer.play().catch(e => console.log("Audio autoplay blocked:", e));
+                const term = searchTerm.toLowerCase();
+                $('.category').each(function() {
+                    const category = $(this);
+                    let hasMatches = false;
+                    
+                    category.find('.track').each(function() {
+                        const track = $(this);
+                        const title = track.find('.track-title').text().toLowerCase();
+                        const album = track.find('.track-album').text().toLowerCase();
+                        
+                        if (title.includes(term) || album.includes(term)) {
+                            track.show();
+                            hasMatches = true;
+                        } else {
+                            track.hide();
+                        }
+                    });
+                    
+                    if (hasMatches) {
+                        category.show();
+                    } else {
+                        category.hide();
                     }
                 });
-                
-                currentPlayer.on('ended', () => {
-                    const nextTrack = trackElement.parent().next().find('.track');
-                    if (nextTrack.length) playTrack(nextTrack);
-                });
-                
-                trackElement.addClass('active');
-                currentTrackElement = trackElement;
+            },
+            
+            showError: function(message) {
+                $('#playlist-container').html(`<div class="error">${message}</div>`);
             }
+        };
 
-            // Функция отображения ошибки
-            function showError(message) {
-                playlistContainer.html(`<div class="error">${message}</div>`);
+        // Инициализация приложения
+        $(document).ready(function() {
+            // Проверка загрузки Plyr
+            if (typeof Plyr === 'undefined') {
+                $('#playlist-container').html('<div class="error">Не удалось загрузить медиа плеер. Пожалуйста, обновите страницу.</div>');
+                return;
             }
-
-            // Загружаем плейлист
-            loadPlaylist(playlistUrl);
+            
+            PlayerModule.init();
+            PlaylistModule.init();
             
             // Проверка через 5 секунд, если плейлист не загрузился
             setTimeout(function() {
                 if ($('#playlist-container .loading').length) {
-                    showError("Плейлист загружается слишком долго. Проверьте интернет-соединение.");
+                    PlaylistModule.showError("Плейлист загружается слишком долго. Проверьте интернет-соединение.");
                 }
             }, 5000);
         });
