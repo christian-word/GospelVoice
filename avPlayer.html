@@ -84,35 +84,35 @@ body {
 }
 
 .change-playlist-btn {
-    display: inline-block;
-    padding: 12px 24px;
-    background: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 50px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    margin: 10px auto;
-    text-align: center;
-    box-shadow: 0 4px 0 #2E7D32, 
-                0 6px 10px rgba(0,0,0,0.2);
-    transition: all 0.2s ease;
-    text-transform: uppercase;
-    font-family: 'Montserrat', sans-serif;
+        display: inline-block;
+        padding: 10px 22px;
+        background: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        margin: 10px auto;
+        text-align: center;
+        box-shadow: 0 3px 0 #2E7D32, 
+                    0 4px 6px rgba(0,0,0,0.15);
+        transition: all 0.2s ease;
+        text-decoration: none;
+        font-family: 'Montserrat', sans-serif;
 }
 
-.change-playlist-btn:hover {
-    background: #43A047;
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 #2E7D32, 
-                0 4px 6px rgba(0,0,0,0.2);
-}
-
-.change-playlist-btn:active {
-    transform: translateY(4px);
-    box-shadow: 0 1px 0 #2E7D32;
-}
+    .change-playlist-btn:hover {
+        background: #43A047;
+        transform: translateY(1px);
+        box-shadow: 0 2px 0 #2E7D32, 
+                    0 3px 4px rgba(0,0,0,0.15);
+    }
+    
+    .change-playlist-btn:active {
+        transform: translateY(3px);
+        box-shadow: 0 1px 0 #2E7D32;
+    }
 
 .container {
     max-width: 900px;
@@ -527,9 +527,11 @@ body {
     <div class="header">
         <h1>Інтерактивний Медіаплеєр</h1>
         <p>"Християнський плеєр для використання всередині церкви"</p>
-        <div class="header-buttons">
-            <button class="change-playlist-btn" onclick="https://christian-word.github.io/GospelVoice/playlists.html#1">Змінити плейлист</button>
-        </div>
+<div class="header-buttons">
+    <a href="https://christian-word.github.io/GospelVoice/playlists.html" class="change-playlist-btn">
+        Змінити плейлист
+    </a>
+</div>
     </div>
     
     <div class="container">
