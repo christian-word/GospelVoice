@@ -13,6 +13,7 @@
     <!-- Стили -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
 :root {
     --primary-color: #5D8BF4;
@@ -65,40 +66,59 @@ body {
 }
 
 /* Стили для кнопок */
-.button {
-    display: inline-block;
-    padding: 6px 14px;
+.playlist-btn {
+    background-color: var(--btn-color, #007bff);
+    color: white;
     border: none;
-    border-radius: 16px;
-    font-size: 13px;
-    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 20px;
     cursor: pointer;
-    text-align: center;
-    transition: var(--transition);
-    font-family: 'Open Sans', sans-serif;
-    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
     white-space: nowrap;
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.1),
+        0 6px 12px rgba(0, 0, 0, 0.2),
+        0 8px 18px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.playlist-btn:hover {
+    background-color: var(--btn-hover-color, #0056b3);
+    box-shadow: 
+        0 6px 8px rgba(0, 0, 0, 0.15),
+        0 10px 20px rgba(0, 0, 0, 0.25),
+        0 15px 30px rgba(0, 0, 0, 0.35);
+    transform: translateY(-2px);
+}
+
+.playlist-btn:active {
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.1),
+        0 4px 8px rgba(0, 0, 0, 0.2),
+        0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(0);
+}
+
+.playlist-btn i {
+    font-size: 0.9em;
 }
 
 .change-playlist-btn {
-    background: #4CAF50;
-    color: white;
-    box-shadow: 0 2px 0 #2E7D32;
-    margin: 8px 0;
+    --btn-color: #007bff;
+    --btn-hover-color: #0056b3;
 }
 
 .back-to-albums-btn {
-    background: var(--teal-color);
-    color: white;
-    box-shadow: 0 2px 0 var(--teal-dark);
+    --btn-color: #20B2AA;
+    --btn-hover-color: #1E9C95;
     margin: 0 auto 12px auto;
     display: block;
     width: fit-content;
-}
-
-.button:hover {
-    transform: translateY(1px);
-    box-shadow: 0 1px 0;
 }
 
 .header-buttons {
@@ -247,9 +267,9 @@ body {
         font-size: 1.3em;
     }
     
-    .button {
-        padding: 5px 12px;
-        font-size: 12px;
+    .playlist-btn {
+        padding: 8px 14px;
+        font-size: 13px;
     }
     
     .track {
@@ -278,6 +298,11 @@ body {
     .track-title {
         font-size: 0.85em;
     }
+    
+    .playlist-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
 }
     </style>
 </head>
@@ -286,8 +311,8 @@ body {
         <h1>Інтерактивний Медіаплеєр</h1>
         <p>"Християнський плеєр для використання всередині церкви"</p>
         <div class="header-buttons">
-            <a href="https://christian-word.github.io/GospelVoice/playlists.html" class="change-playlist-btn">
-                Змінити плейлист
+            <a href="https://christian-word.github.io/GospelVoice/playlists.html" class="playlist-btn change-playlist-btn">
+                <i class="fas fa-exchange-alt"></i> Змінити плейлист
             </a>
         </div>
     </div>
@@ -446,9 +471,9 @@ body {
                     let backButton = '';
                     if (showSingleAlbum) {
                         backButton = `
-			<button class="back-to-albums-btn" onclick="window.location.href='${window.location.pathname}${window.location.search}'">
-    				Всі альбоми
-			</button>
+                        <a href="${window.location.pathname}${window.location.search}" class="playlist-btn back-to-albums-btn">
+                            <i class="fas fa-arrow-left"></i> Всі альбоми
+                        </a>
                         `;
                     }
                     
@@ -648,4 +673,3 @@ body {
     </script>
 </body>
 </html>
-
