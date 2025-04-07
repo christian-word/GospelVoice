@@ -65,41 +65,60 @@ body {
     padding: 0 15px;
 }
 
-/* Стили для кнопок (сохраняем закругления) */
-.button {
-    display: inline-block;
-    padding: 6px 14px;
+/* Стили для кнопок */
+.playlist-btn {
+    background-color: var(--btn-color, #007bff);
+    color: white;
     border: none;
-    border-radius: 16px; /* Закругленные углы */
-    font-size: 13px;
-    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 20px;
     cursor: pointer;
-    text-align: center;
-    transition: var(--transition);
-    font-family: 'Open Sans', sans-serif;
-    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
     white-space: nowrap;
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.1),
+        0 6px 12px rgba(0, 0, 0, 0.2),
+        0 8px 18px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.playlist-btn:hover {
+    background-color: var(--btn-hover-color, #0056b3);
+    box-shadow: 
+        0 6px 8px rgba(0, 0, 0, 0.15),
+        0 10px 20px rgba(0, 0, 0, 0.25),
+        0 15px 30px rgba(0, 0, 0, 0.35);
+    transform: translateY(-2px);
+}
+
+.playlist-btn:active {
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.1),
+        0 4px 8px rgba(0, 0, 0, 0.2),
+        0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(0);
+}
+
+.playlist-btn i {
+    font-size: 0.9em;
 }
 
 .change-playlist-btn {
-    background: #4CAF50;
-    color: white;
-    box-shadow: 0 2px 0 #2E7D32;
-    margin: 8px 0;
+    --btn-color: #007bff;
+    --btn-hover-color: #0056b3;
 }
 
 .back-to-albums-btn {
-    background: var(--teal-color);
-    color: white;
-    box-shadow: 0 2px 0 var(--teal-dark);
+    --btn-color: #20B2AA;
+    --btn-hover-color: #1E9C95;
     margin: 0 auto 12px auto;
     display: block;
     width: fit-content;
-}
-
-.button:hover {
-    transform: translateY(1px);
-    box-shadow: 0 1px 0;
 }
 
 .header-buttons {
@@ -120,19 +139,18 @@ body {
 .category {
     margin-bottom: 20px;
     background: var(--card-bg);
-    border-radius: 0; /* Прямоугольный контейнер */
+    border-radius: 0;
     overflow: hidden;
     box-shadow: var(--shadow-sm);
 }
 
-/* Закругленные углы ТОЛЬКО у синей шапки */
 .category-header {
     padding: 10px 16px;
     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: white;
     font-size: 1em;
     font-weight: 600;
-    border-radius: 8px 8px 0 0; /* Закругление только сверху */
+    border-radius: 8px 8px 0 0; /* Закругляем только верхние углы */
     display: flex;
     align-items: center;
 }
@@ -249,17 +267,13 @@ body {
         font-size: 1.3em;
     }
     
-    .button {
-        padding: 5px 12px;
-        font-size: 12px;
+    .playlist-btn {
+        padding: 8px 14px;
+        font-size: 13px;
     }
     
     .track {
         padding: 8px 12px;
-    }
-    
-    .category-header {
-        border-radius: 6px 6px 0 0; /* Меньший радиус на мобильных */
     }
 }
 
@@ -279,13 +293,17 @@ body {
     .category-header {
         padding: 8px 12px;
         font-size: 0.95em;
-        border-radius: 5px 5px 0 0; /* Еще меньше на маленьких экранах */
     }
     
     .track-title {
         font-size: 0.85em;
     }
-}  
+    
+    .playlist-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
     </style>
 </head>
 <body>
