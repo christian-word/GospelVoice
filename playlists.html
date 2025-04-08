@@ -5,18 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <!--  <title>Інтерактивний Медіаплеєр: Плейлисти</title>  Название страницы --> 
 
-   <meta property="og:title" content="Менеджер плейлистів">
+   <meta property="og:title" content="Інтерактивний Медіаплеєр">
    <meta property="og:description" content=" Плейлисти : Проповіді, Музичне служіння ">
-   <meta property="og:image" content="https://christian-word.github.io/GospelVoice/ICO/mixer.jpg">
+   <meta property="og:image" content="https://christian-word.github.io/GospelVoice/ICO/bible-book2.png">
    <meta property="og:url" content="https://christian-word.github.io/GospelVoice/?v=3">
-
-    <!-- Добавляем Font Awesome для иконки чата -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <style>
         /* Общие стили */
         html {
-            scroll-behavior: auto; /* Отключаем стандартный smooth-scroll */
+            scroll-behavior: smooth;
         }
 
         body {
@@ -25,7 +22,6 @@
             color: #333;
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
         }
 
         /* Стили для панели */
@@ -33,16 +29,13 @@
             width: 100%;
             background-color: #4CAF50; /* Зеленый */
             color: white;
-            padding: 2px 0;
+            padding: 2px 0; /* Уменьшили отступы для тоньшей панели */
             text-align: center;
-            font-size: 14px;
+            font-size: 14px; /* Уменьшили размер шрифта */
             font-weight: bold;
-            font-family: 'Montserrat', sans-serif;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7), 2px 2px 4px rgba(0, 0, 0, 0.5);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            font-family: 'Montserrat', sans-serif; /* Шрифт заголовка */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Уменьшили тень для панелей */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7), 2px 2px 4px rgba(0, 0, 0, 0.5); /* Уменьшили тень текста */
         }
 
         /* Стили для меню */
@@ -60,20 +53,20 @@
             cursor: pointer;
             border: none;
             border-radius: 25px;
-            background-color: #00bcd4;
+            background-color: #00bcd4; /* Светло-бирюзовый */
             color: white;
             transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
             box-shadow: 
-                0 4px 6px rgba(0, 0, 0, 0.2),
-                0 6px 12px rgba(0, 0, 0, 0.15),
-                0 8px 16px rgba(0, 0, 0, 0.1);
+                0 4px 6px rgba(0, 0, 0, 0.2), /* Основная тень */
+                0 6px 12px rgba(0, 0, 0, 0.15), /* Вторая тень для глубины */
+                0 8px 16px rgba(0, 0, 0, 0.1); /* Третья тень для еще большей глубины */
         }
 
         .menu button:hover {
-            background-color: #0097a7;
+            background-color: #0097a7; /* Темнее бирюзовый */
             transform: translateY(-2px);
             box-shadow: 
-                0 6px 8px rgba(0, 0, 0, 0.25),
+                0 6px 8px rgba(0, 0, 0, 0.25), /* Увеличиваем тени при наведении */
                 0 10px 20px rgba(0, 0, 0, 0.2),
                 0 12px 24px rgba(0, 0, 0, 0.15);
         }
@@ -81,47 +74,47 @@
         .menu button:active {
             transform: translateY(0);
             box-shadow: 
-                0 2px 4px rgba(0, 0, 0, 0.2),
+                0 2px 4px rgba(0, 0, 0, 0.2), /* Уменьшаем тени при нажатии */
                 0 4px 8px rgba(0, 0, 0, 0.15),
                 0 6px 12px rgba(0, 0, 0, 0.1);
         }
 
         /* Стили для кнопки "На головну" */
         .menu button.home-button {
-            background-color: #ff5722;
+            background-color: #ff5722; /* Оранжевый */
         }
 
         .menu button.home-button:hover {
-            background-color: #e64a19;
+            background-color: #e64a19; /* Темнее оранжевый */
         }
 
         /* Стили для кнопки "Родіо онлайн" */
         .menu button.radio-button {
-            background-color: #4CAF50;
+            background-color: #4CAF50; /* Зеленый */
         }
 
         .menu button.radio-button:hover {
-            background-color: #45a049;
+            background-color: #45a049; /* Темнее зеленый */
         }
 
         /* Стили для кнопок с одинаковым цветом */
         .menu button.custom-button {
-            background-color: #64B5F6;
+            background-color: #64B5F6; /* Светло-синий цвет */
         }
 
         .menu button.custom-button:hover {
-            background-color: #42A5F5;
+            background-color: #42A5F5; /* Темнее светло-синий */
         }
 
-        /* Остальные стили */
+        /* Остальные стили остаются без изменений */
         .theme {
             margin-bottom: 40px;
-            display: none;
-            scroll-margin-top: 100px;
+            display: none; /* Скрываем плейлисты по умолчанию */
+            scroll-margin-top: 100px; /* Отступ сверху при прокрутке */
         }
 
         .theme.active {
-            display: block;
+            display: block; /* Показываем активный плейлист */
         }
 
         .theme h1 {
@@ -149,13 +142,13 @@
         .category h2 {
             margin: 0 0 10px 0;
             font-size: 20px;
-            color: #4CAF50;
+            color: #4CAF50; /* Зеленый */
         }
 
         .category img {
-            width: 200px;
-            height: 150px;
-            object-fit: cover;
+            width: 200px; /* Ширина изображения */
+            height: 150px; /* Высота изображения */
+            object-fit: cover; /* Сохраняем пропорции, обрезая изображение */
             margin-bottom: 10px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -163,13 +156,13 @@
 
         .tracks-container {
             margin-left: 20px;
-            display: none;
+            display: none; /* Скрываем треки по умолчанию */
             overflow: hidden;
             transition: max-height 0.5s ease-out;
         }
 
         .tracks-container.show {
-            display: block;
+            display: block; /* Показываем треки */
         }
 
         .track {
@@ -191,7 +184,7 @@
             padding: 8px 16px;
             font-size: 14px;
             color: white;
-            background-color: #00bcd4;
+            background-color: #00bcd4; /* Светло-бирюзовый */
             border: none;
             border-radius: 25px;
             cursor: pointer;
@@ -203,7 +196,7 @@
         }
 
         .details-button:hover {
-            background-color: #0097a7;
+            background-color: #0097a7; /* Темнее бирюзовый */
             transform: translateY(-2px);
             box-shadow: 
                 0 6px 8px rgba(0, 0, 0, 0.25),
@@ -213,14 +206,14 @@
 
         /* Современные стили для гиперссылок */
         a {
-            color: #00bcd4;
-            text-decoration: none;
+            color: #00bcd4; /* Светло-бирюзовый */
+            text-decoration: none; /* Убираем подчеркивание */
             position: relative;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease; /* Плавный переход цвета */
         }
 
         a:hover {
-            color: #0097a7;
+            color: #0097a7; /* Темнее бирюзовый */
         }
 
         a::after {
@@ -242,114 +235,21 @@
         /* Многоколоночный макет для ПК */
         @media (min-width: 768px) {
             .tracks-container {
-                column-count: 3;
-                column-gap: 20px;
+                column-count: 3; /* Три колонки */
+                column-gap: 20px; /* Расстояние между колонками */
             }
         }
 
         /* Одноколоночный макет для мобильных устройств */
         @media (max-width: 767px) {
             .tracks-container {
-                column-count: 1;
+                column-count: 1; /* Одна колонка */
             }
             
             .menu button {
                 width: 100%;
                 margin-bottom: 10px;
             }
-        }
-
-        /* Стили для кнопки чата */
-        .chat-button-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 999;
-        }
-        
-        .chat-button {
-            background: linear-gradient(135deg, #4a90e2, #6a11cb);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 12px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            display: flex;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-        
-        .chat-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .chat-button i {
-            margin-right: 8px;
-            font-size: 18px;
-        }
-
-        /* Стили для модального окна чата */
-        .chat-modal {
-            display: none;
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            width: 350px;
-            height: 500px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            overflow: hidden;
-        }
-        
-        .chat-modal-content {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .close-chat {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            color: #aaa;
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 1001;
-        }
-        
-        .close-chat:hover {
-            color: #555;
-        }
-        
-        .chat-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            overscroll-behavior: contain;
-        }
-
-        @media (max-width: 480px) {
-            .chat-modal {
-                width: 100%;
-                height: 70vh;
-                bottom: 0;
-                right: 0;
-                border-radius: 10px 10px 0 0;
-            }
-        }
-
-        /* Блокировка скролла основной страницы при открытом чате */
-        body.no-scroll {
-            overflow: hidden;
-            position: fixed;
-            width: 100%;
-            height: 100%;
         }
     </style>
 </head>
@@ -370,35 +270,16 @@
     <!-- Контейнер для плейлистов -->
     <div id="themes"></div>
 
-    <!-- Кнопка чата и модальное окно -->
-    <div class="chat-button-container">
-        <button class="chat-button" onclick="toggleChat()">
-            <i class="fas fa-comment-dots"></i> Чат
-        </button>
-        <div class="chat-modal" id="chatModal">
-            <div class="chat-modal-content">
-                <span class="close-chat" onclick="toggleChat()">&times;</span>
-                <iframe 
-                    src="https://christian-word.github.io/chat/" 
-                    frameborder="0" 
-                    class="chat-iframe"
-                    scrolling="yes" 
-                    allow="autoplay; fullscreen" 
-                ></iframe>
-            </div>
-        </div>
-    </div>
-
     <script>
         // Ссылки на плейлисты
         const playlistUrls = [
             {
                 title: "1. Збірка проповідей, ЄХБ Дім Євангелія, м. Суми",
-                url: "https://christian-word.github.io/GospelVoice/playlist/ico-playlist2.txt"
+                url: "https://christian-word.github.io/GospelVoice/playlist/ico-playlist2.txt" // Замените на реальный URL
             },
             {
                 title: "2. Слово віри, збірка проповідей",
-                url: "https://christian-word.github.io/GospelVoice/playlist/ico-playlist4.txt"
+                url: "https://christian-word.github.io/GospelVoice/playlist/ico-playlist4.txt" // Замените на реальный URL
             },            
             {
                 title: "3. Музичні збірки ЄХБ Дім Євангелія, м. Суми",
@@ -416,53 +297,6 @@
 
         const menuContainer = document.getElementById('menu');
         const themesContainer = document.getElementById('themes');
-
-        // Функция для плавной прокрутки к элементу
-        function smoothScrollToElement(element, duration = 800) {
-            const start = window.pageYOffset;
-            const target = element.getBoundingClientRect().top + window.pageYOffset - 100; // Отступ 100px сверху
-            const distance = target - start;
-            let startTime = null;
-
-            function animation(currentTime) {
-                if (startTime === null) startTime = currentTime;
-                const timeElapsed = currentTime - startTime;
-                const progress = Math.min(timeElapsed / duration, 1);
-                const easeProgress = easeInOutQuad(progress);
-                window.scrollTo(0, start + distance * easeProgress);
-                
-                if (timeElapsed < duration) {
-                    requestAnimationFrame(animation);
-                }
-            }
-
-            function easeInOutQuad(t) {
-                return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-            }
-
-            requestAnimationFrame(animation);
-        }
-
-        // Функция для переключения плейлистов с плавной прокруткой
-        function showTheme(themeId) {
-            document.querySelectorAll('.theme').forEach(theme => {
-                theme.classList.remove('active');
-            });
-
-            const selectedTheme = document.getElementById(`theme-${themeId}`);
-            if (selectedTheme) {
-                selectedTheme.classList.add('active');
-                smoothScrollToElement(selectedTheme);
-                
-                // Обновляем URL с якорем
-                const playlistIndex = playlistUrls.findIndex(p => 
-                    p.title.replace(/\s+/g, '-').toLowerCase() === themeId
-                );
-                if (playlistIndex !== -1) {
-                    window.history.pushState(null, null, `#${playlistIndex + 1}`);
-                }
-            }
-        }
 
         // Функция для загрузки плейлиста
         async function loadPlaylist(playlistUrl) {
@@ -513,7 +347,7 @@
 
                     // Добавляем обработчик клика на изображение
                     img.onclick = () => {
-                        window.location.href = link.href;
+                        window.location.href = link.href; // Переход на страницу плеера
                     };
 
                     // Кнопка "Докладніше"
@@ -549,96 +383,72 @@
             themesContainer.appendChild(themeDiv);
         }
 
-        // Функция для переключения чата
-        function toggleChat() {
-            const modal = document.getElementById('chatModal');
-            const body = document.body;
-            
-            if (modal.style.display === 'block') {
-                modal.style.display = 'none';
-                body.classList.remove('no-scroll');
-            } else {
-                modal.style.display = 'block';
-                body.classList.add('no-scroll');
+        // Функция для переключения плейлистов
+        function showTheme(themeId) {
+            document.querySelectorAll('.theme').forEach(theme => {
+                theme.classList.remove('active');
+            });
+
+            const selectedTheme = document.getElementById(`theme-${themeId}`);
+            if (selectedTheme) {
+                selectedTheme.classList.add('active');
+                
+                // Прокручиваем к выбранному плейлисту
+                selectedTheme.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Обновляем URL с якорем
+                const playlistIndex = playlistUrls.findIndex(p => 
+                    p.title.replace(/\s+/g, '-').toLowerCase() === themeId
+                );
+                if (playlistIndex !== -1) {
+                    window.history.pushState(null, null, `#${playlistIndex + 1}`);
+                }
             }
         }
-        
-        // Закрытие модального окна при клике вне его
-        document.addEventListener('click', function(event) {
-            const modal = document.getElementById('chatModal');
-            const chatBtn = document.querySelector('.chat-button');
-            
-            if (modal.style.display === 'block' && 
-                !modal.contains(event.target) && 
-                event.target !== chatBtn
-            ) {
-                toggleChat();
-            }
-        });
-
-        // Фикс для скролла внутри iframe (чтобы не передавался на страницу)
-        document.addEventListener('DOMContentLoaded', function() {
-            const chatIframe = document.querySelector('.chat-iframe');
-            if (chatIframe) {
-                chatIframe.addEventListener('wheel', function(e) {
-                    e.stopPropagation();
-                });
-            }
-        });
 
         // Загружаем и отображаем все плейлисты
-        async function loadAllPlaylists() {
-            for (const playlist of playlistUrls) {
-                try {
-                    const playlistText = await loadPlaylist(playlist.url);
-                    if (playlistText) {
-                        renderPlaylist(playlist.title, playlistText, playlist.url);
+// Загружаем и отображаем все плейлисты
+async function loadAllPlaylists() {
+    for (const playlist of playlistUrls) {
+        try {
+            const playlistText = await loadPlaylist(playlist.url);
+            if (playlistText) {
+                renderPlaylist(playlist.title, playlistText, playlist.url);
 
-                        const button = document.createElement('button');
-                        button.textContent = playlist.title;
+                const button = document.createElement('button');
+                button.textContent = playlist.title;
 
-                        // Добавляем классы для кнопок
-                        if (playlist.title === "1. Збірка проповідей, ЄХБ Дім Євангелія, м. Суми" || 
-                            playlist.title === "2. Слово віри, збірка проповідей") {
-                            button.classList.add('custom-button');
-                        }
-
-                        button.onclick = () => showTheme(playlist.title.replace(/\s+/g, '-').toLowerCase());
-                        menuContainer.appendChild(button);
-                    }
-                } catch (error) {
-                    console.error(`Ошибка при обработке плейлиста ${playlist.title}:`, error);
+                // Добавляем классы для кнопок
+                if (playlist.title === "1. Збірка проповідей, ЄХБ Дім Євангелія, м. Суми" || 
+                    playlist.title === "2. Слово віри, збірка проповідей") {
+                    button.classList.add('custom-button');
                 }
-            }
 
-            // Обработка URL-параметра для плейлистов
-            const hash = window.location.hash.substring(1);
-            if (hash && hash <= playlistUrls.length) {
-                const themeId = playlistUrls[hash - 1].title.replace(/\s+/g, '-').toLowerCase();
-                const selectedTheme = document.getElementById(`theme-${themeId}`);
-                if (selectedTheme) {
-                    document.querySelectorAll('.theme').forEach(theme => {
-                        theme.classList.remove('active');
-                    });
-                    selectedTheme.classList.add('active');
-                    // Добавляем небольшую задержку для корректного позиционирования
-                    setTimeout(() => smoothScrollToElement(selectedTheme), 50);
-                }
-            } else {
-                document.getElementById(`theme-${playlistUrls[0].title.replace(/\s+/g, '-').toLowerCase()}`).classList.add('active');
+                button.onclick = () => showTheme(playlist.title.replace(/\s+/g, '-').toLowerCase());
+                menuContainer.appendChild(button);
             }
+        } catch (error) {
+            console.error(`Ошибка при обработке плейлиста ${playlist.title}:`, error);
         }
+    }
 
-        // Запускаем загрузку после полной загрузки страницы
-        window.addEventListener('load', function() {
-            loadAllPlaylists();
-            
-            // Оптимизация для мобильных устройств
-            if ('ontouchstart' in window) {
-                document.documentElement.style.touchAction = 'manipulation';
-            }
-        });
+    // Обработка URL-параметра для плейлистов
+    const hash = window.location.hash.substring(1);
+    if (hash && hash <= playlistUrls.length) {
+        // Только активируем плейлист, но не прокручиваем к нему
+        const selectedTheme = document.getElementById(`theme-${playlistUrls[hash - 1].title.replace(/\s+/g, '-').toLowerCase()}`);
+        if (selectedTheme) {
+            selectedTheme.classList.add('active');
+        }
+    } else {
+        // По умолчанию показываем первый плейлист без прокрутки
+        document.getElementById(`theme-${playlistUrls[0].title.replace(/\s+/g, '-').toLowerCase()}`).classList.add('active');
+    }
+}
+
+        // Запускаем загрузку
+        loadAllPlaylists();
     </script>
-    <script src="js/trackerPlList.js"></script>
+     <script src="js/trackerPlList.js"></script>
 </body>
 </html>
