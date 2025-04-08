@@ -122,6 +122,8 @@
             color: #333;
             font-size: 24px;
             text-align: center;
+            padding-top: 70px; /* Добавляем отступ сверху, равный высоте меню */
+            margin-top: -50px; /* Компенсируем этот отступ */
         }
 
         .category {
@@ -393,8 +395,16 @@
             if (selectedTheme) {
                 selectedTheme.classList.add('active');
                 
-                // Прокручиваем к выбранному плейлисту
-                selectedTheme.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Находим заголовок плейлиста внутри выбранной темы
+                const themeTitle = selectedTheme.querySelector('h1');
+                if (themeTitle) {
+                    // Прокручиваем к заголовку с небольшим отступом сверху
+                    themeTitle.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start',
+                        inline: 'nearest'
+                    });
+                }
                 
                 // Обновляем URL с якорем
                 const playlistIndex = playlistUrls.findIndex(p => 
@@ -407,44 +417,53 @@
         }
 
         // Загружаем и отображаем все плейлисты
-// Загружаем и отображаем все плейлисты
-async function loadAllPlaylists() {
-    for (const playlist of playlistUrls) {
-        try {
-            const playlistText = await loadPlaylist(playlist.url);
-            if (playlistText) {
-                renderPlaylist(playlist.title, playlistText, playlist.url);
+        async function loadAllPlaylists() {
+            for (const playlist of playlistUrls) {
+                try {
+                    const playlistText = await loadPlaylist(playlist.url);
+                    if (playlistText) {
+                        renderPlaylist(playlist.title, playlistText, playlist.url);
 
-                const button = document.createElement('button');
-                button.textContent = playlist.title;
+                        const button = document.createElement('button');
+                        button.textContent = playlist.title;
 
-                // Добавляем классы для кнопок
-                if (playlist.title === "1. Збірка проповідей, ЄХБ Дім Євангелія, м. Суми" || 
-                    playlist.title === "2. Слово віри, збірка проповідей") {
-                    button.classList.add('custom-button');
+                        // Добавляем классы для кнопок
+                        if (playlist.title === "1. Збірка проповідей, ЄХБ Дім Євангелія, м. Суми" || 
+                            playlist.title === "2. Слово віри, збірка проповідей") {
+                            button.classList.add('custom-button');
+                        }
+
+                        button.onclick = () => showTheme(playlist.title.replace(/\s+/g, '-').toLowerCase());
+                        menuContainer.appendChild(button);
+                    }
+                } catch (error) {
+                    console.error(`Ошибка при обработке плейлиста ${playlist.title}:`, error);
                 }
-
-                button.onclick = () => showTheme(playlist.title.replace(/\s+/g, '-').toLowerCase());
-                menuContainer.appendChild(button);
             }
-        } catch (error) {
-            console.error(`Ошибка при обработке плейлиста ${playlist.title}:`, error);
-        }
-    }
 
-    // Обработка URL-параметра для плейлистов
-    const hash = window.location.hash.substring(1);
-    if (hash && hash <= playlistUrls.length) {
-        // Только активируем плейлист, но не прокручиваем к нему
-        const selectedTheme = document.getElementById(`theme-${playlistUrls[hash - 1].title.replace(/\s+/g, '-').toLowerCase()}`);
-        if (selectedTheme) {
-            selectedTheme.classList.add('active');
+            // Обработка URL-параметра для плейлистов
+            const hash = window.location.hash.substring(1);
+            if (hash && hash <= playlistUrls.length) {
+                const selectedTheme = document.getElementById(`theme-${playlistUrls[hash - 1].title.replace(/\s+/g, '-').toLowerCase()}`);
+                if (selectedTheme) {
+                    selectedTheme.classList.add('active');
+                    // Добавляем небольшую задержку, чтобы DOM успел обновиться
+                    setTimeout(() => {
+                        const themeTitle = selectedTheme.querySelector('h1');
+                        if (themeTitle) {
+                            themeTitle.scrollIntoView({ 
+                                behavior: 'smooth', 
+                                block: 'start',
+                                inline: 'nearest'
+                            });
+                        }
+                    }, 100);
+                }
+            } else {
+                // По умолчанию показываем первый плейлист
+                document.getElementById(`theme-${playlistUrls[0].title.replace(/\s+/g, '-').toLowerCase()}`).classList.add('active');
+            }
         }
-    } else {
-        // По умолчанию показываем первый плейлист без прокрутки
-        document.getElementById(`theme-${playlistUrls[0].title.replace(/\s+/g, '-').toLowerCase()}`).classList.add('active');
-    }
-}
 
         // Запускаем загрузку
         loadAllPlaylists();
