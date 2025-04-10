@@ -1,14 +1,9 @@
-{
+﻿{
   "categories": [
     {
       "name": "1. (Дитячий) Гурт Схід",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/GroupEast.png",
       "tracks": [
-        {
-          "title": "▶️ YouTube Мій Бог - моє багатство",
-          "url": "https://youtu.be/9qCQmKslA3k?si=SG24g5v9oqBMDjGW",
-          "duration": 180
-        },
         {
           "title": "Мій Бог - моє багатство",
           "url": "https://holychords.pro/storage/music/yHS9hvSjNmMDkkHkUw9B47yHDdOtTmk6eRfKMlWS.mp3",
@@ -75,11 +70,6 @@
       "name": "2. (Дитячий) Гурт Арфочки",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/arfo.png",
       "tracks": [
-        {
-          "title": "▶️ YouTube Без Тебя",
-          "url": "https://youtu.be/15zdieUcdFk?si=JErM8slL-7Kt2UPv",
-          "duration": 180
-        },
         {
           "title": "Без Тебя",
           "url": "https://holychords.pro/storage/music/iCCae2rscZ5dNlYyLFCvKU5GW49h04gUOh1rXKaI.mp3",
@@ -151,17 +141,7 @@
       "name": "3. Группа \"Мелодия\"",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/gurt-melodia.png",
       "tracks": [
-        {
-          "title": "▶️ YouTube Поклонись Царю",
-          "url": "https://youtu.be/k21YUlly7rc?si=0S18XX3t2En1KxSG",
-          "duration": 180
-        },
-        {
-          "title": "▶️ YouTube Він моє життя / Дайте мені крила",
-          "url": "https://youtu.be/mNUF6-zJssc?si=unSe7Q-WNHH8N_ZV",
-          "duration": 180
-        },
-        {
+         {
           "title": "Дайте мені крила",
           "url": "https://kg-music.club/wp-content/uploads/2023/09/dayte-meni-krila-gurt-melodiya-kg-music.club_.mp3",
           "duration": 245
