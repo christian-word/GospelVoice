@@ -27,6 +27,7 @@
       margin: 12px 0;
       font-weight: bold;
       padding: 0 5px;
+      min-height: 20px;
     }
     #broadcastInfo {
       color: #666;
@@ -36,7 +37,7 @@
     .audio-container {
       position: relative;
       width: 100%;
-      margin: 12px 0 5px 0; /* Зменшений відступ знизу */
+      margin: 12px 0 5px 0;
     }
     #audioPlayer {
       width: 100%;
@@ -58,7 +59,7 @@
       justify-content: center;
       align-items: flex-end;
       height: 50px;
-      margin: 10px 0 15px 0; /* Додано відступ знизу */
+      margin: 10px 0 15px 0;
       display: none;
     }
     .eq-bar {
@@ -67,6 +68,7 @@
       background: #4CAF50;
       border-radius: 3px;
       animation: eqAnimation 1s infinite ease-in-out;
+      display: none;
     }
     @keyframes eqAnimation {
       0%, 100% { height: 8px; }
@@ -76,7 +78,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 8px 0 15px 0; /* Відступи зверху та знизу */
+      margin: 8px 0 15px 0;
       padding: 0 10px;
     }
     .volume-control label {
@@ -89,7 +91,7 @@
       max-width: 250px;
       height: 4px;
     }
-    button {
+    #togglePlayBtn {
       background: #4CAF50;
       color: white;
       border: none;
@@ -100,9 +102,16 @@
       margin: 5px 0;
       width: 80%;
       max-width: 200px;
+      transition: background 0.3s;
     }
-    button:hover {
+    #togglePlayBtn:hover {
       background: #45a049;
+    }
+    #togglePlayBtn.playing {
+      background: #e74c3c;
+    }
+    #togglePlayBtn.playing:hover {
+      background: #c0392b;
     }
     .off-air {
       color: #e74c3c;
@@ -115,7 +124,6 @@
       font-size: 14px;
     }
 
-    /* Медіа-запити для мобільних пристроїв */
     @media (max-width: 480px) {
       body {
         padding: 10px;
@@ -130,7 +138,7 @@
       .volume-control input[type="range"] {
         width: 90%;
       }
-      button {
+      #togglePlayBtn {
         padding: 8px 16px;
         font-size: 14px;
       }
@@ -141,7 +149,7 @@
 
   <h1>GospelVoice Радіо</h1>
   <img id="logo" src="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/GroupEast.png" alt="Лого">
-  <div id="nowPlaying">Завантаження програми...</div>
+  <div id="nowPlaying">Натисніть "Пуск" для запуску</div>
   <div id="broadcastInfo"></div>
   
   <div id="eqVisualizer">
@@ -157,14 +165,13 @@
     <div class="custom-progress" id="customProgress"></div>
   </div>
 
-  <!-- Регулятор гучності з доданими відступами -->
   <div class="volume-control">
     <label for="volumeSlider">Гучність</label>
     <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.7">
   </div>
   
   <div id="statusMessage"></div>
-  <button onclick="checkAndPlay()">▶ Слухати</button>
+  <button id="togglePlayBtn" onclick="togglePlayback()">▶ Пуск</button>
 
   <script>
     // Конфігурація
@@ -176,24 +183,20 @@
     let totalPlaylistDuration = 0;
     let updateInterval;
     let progressInterval;
+    let isPlaying = false;
 
     // Ініціалізація регулятора гучності
     function initVolumeControl() {
       const audio = document.getElementById("audioPlayer");
       const volumeSlider = document.getElementById("volumeSlider");
       
-      // Встановити початкову гучність
       audio.volume = volumeSlider.value;
       
-      // Обробник зміни гучності
       volumeSlider.addEventListener('input', function() {
         audio.volume = this.value;
-        
-        // Зберегти гучність в localStorage
         localStorage.setItem('radioVolume', this.value);
       });
       
-      // Відновити гучність з localStorage
       const savedVolume = localStorage.getItem('radioVolume');
       if (savedVolume !== null) {
         audio.volume = savedVolume;
@@ -318,7 +321,11 @@
       document.getElementById("nowPlaying").textContent = 
         `Зараз грає: ${currentTrack.title} (${currentTrack.group})`;
       
+      // Показати еквалайзер
       document.getElementById("eqVisualizer").style.display = 'flex';
+      document.querySelectorAll('.eq-bar').forEach(bar => {
+        bar.style.display = 'block';
+      });
       
       audio.src = currentTrack.url;
       audio.currentTime = trackData.position;
@@ -340,32 +347,62 @@
       });
     }
 
-    // Показати статус
-    function showStatus(message, isError = false) {
-      const statusEl = document.getElementById("statusMessage");
-      statusEl.textContent = message;
-      statusEl.className = isError ? "off-air" : "";
+    // Зупинити відтворення
+    function stopPlayback() {
+      const audio = document.getElementById("audioPlayer");
+      audio.pause();
+      
+      if (updateInterval) clearInterval(updateInterval);
+      if (progressInterval) clearInterval(progressInterval);
+      
+      document.getElementById("eqVisualizer").style.display = 'none';
+      document.querySelectorAll('.eq-bar').forEach(bar => {
+        bar.style.display = 'none';
+      });
+      
+      document.getElementById("nowPlaying").textContent = "Натисніть 'Пуск' для запуску";
+      document.getElementById('customProgress').style.width = '0%';
+      
+      isPlaying = false;
+      updateToggleButton();
     }
 
-    // Перевірити і запустити
-    async function checkAndPlay() {
+    // Оновити стан кнопки
+    function updateToggleButton() {
+      const btn = document.getElementById("togglePlayBtn");
+      if (isPlaying) {
+        btn.textContent = "⏹ Стоп";
+        btn.classList.add("playing");
+      } else {
+        btn.textContent = "▶ Пуск";
+        btn.classList.remove("playing");
+      }
+    }
+
+    // Перемикач відтворення
+    async function togglePlayback() {
       if (!allTracks.length) {
         showStatus("Завантаження плейлиста...");
         allTracks = await loadPlaylist();
+      }
+      
+      if (isPlaying) {
+        stopPlayback();
+        showStatus("Відтворення зупинено");
+        return;
       }
       
       updateBroadcastInfo();
       
       if (!isBroadcastTime()) {
         showStatus(`Ефір призупинено. Працює з ${BROADCAST_HOURS.start}:00 до ${BROADCAST_HOURS.end}:00`, true);
-        if (updateInterval) clearInterval(updateInterval);
-        if (progressInterval) clearInterval(progressInterval);
-        document.getElementById("eqVisualizer").style.display = 'none';
         return;
       }
       
       const current = getCurrentTrack(allTracks);
       if (current) {
+        isPlaying = true;
+        updateToggleButton();
         playTrack(current);
         showStatus("Радіо працює!");
       } else {
@@ -373,12 +410,17 @@
       }
     }
 
+    // Показати статус
+    function showStatus(message, isError = false) {
+      const statusEl = document.getElementById("statusMessage");
+      statusEl.textContent = message;
+      statusEl.className = isError ? "off-air" : "";
+    }
+
     // Ініціалізація при завантаженні
     window.onload = function() {
       initVolumeControl();
       updateBroadcastInfo();
-      checkAndPlay();
-      
       setInterval(updateBroadcastInfo, 60000);
     };
   </script>
