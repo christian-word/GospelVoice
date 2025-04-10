@@ -14,6 +14,11 @@
       margin: 0 auto;
       -webkit-tap-highlight-color: transparent;
     }
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
     #logo {
       width: 120px;
       height: 120px;
@@ -36,7 +41,7 @@
     .audio-container {
       position: relative;
       width: 100%;
-      margin: 12px 0 5px 0; /* Зменшений відступ знизу */
+      margin: 12px 0 5px 0;
     }
     #audioPlayer {
       width: 100%;
@@ -58,7 +63,7 @@
       justify-content: center;
       align-items: flex-end;
       height: 50px;
-      margin: 10px 0 15px 0; /* Додано відступ знизу */
+      margin: 10px 0 15px 0;
       display: none;
     }
     .eq-bar {
@@ -76,7 +81,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 8px 0 15px 0; /* Відступи зверху та знизу */
+      margin: 8px 0 15px 0;
       padding: 0 10px;
     }
     .volume-control label {
@@ -89,20 +94,33 @@
       max-width: 250px;
       height: 4px;
     }
+    .player-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 15px 0;
+    }
     button {
-      background: #4CAF50;
       color: white;
       border: none;
       padding: 10px 20px;
       font-size: 15px;
       border-radius: 5px;
       cursor: pointer;
-      margin: 5px 0;
-      width: 80%;
-      max-width: 200px;
+      width: 120px;
+      transition: background 0.3s;
     }
-    button:hover {
+    #playBtn {
+      background: #4CAF50;
+    }
+    #playBtn:hover {
       background: #45a049;
+    }
+    #stopBtn {
+      background: #e74c3c;
+    }
+    #stopBtn:hover {
+      background: #c0392b;
     }
     .off-air {
       color: #e74c3c;
@@ -115,10 +133,12 @@
       font-size: 14px;
     }
 
-    /* Медіа-запити для мобільних пристроїв */
     @media (max-width: 480px) {
       body {
         padding: 10px;
+      }
+      h1 {
+        font-size: 20px;
       }
       #logo {
         width: 100px;
@@ -133,6 +153,7 @@
       button {
         padding: 8px 16px;
         font-size: 14px;
+        width: 110px;
       }
     }
   </style>
@@ -157,14 +178,17 @@
     <div class="custom-progress" id="customProgress"></div>
   </div>
 
-  <!-- Регулятор гучності з доданими відступами -->
   <div class="volume-control">
     <label for="volumeSlider">Гучність</label>
     <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.7">
   </div>
   
+  <div class="player-controls">
+    <button id="playBtn">▶ Слухати</button>
+    <button id="stopBtn">■ Стоп</button>
+  </div>
+  
   <div id="statusMessage"></div>
-  <button onclick="checkAndPlay()">▶ Слухати</button>
 
   <script>
     // Конфігурація
@@ -176,24 +200,21 @@
     let totalPlaylistDuration = 0;
     let updateInterval;
     let progressInterval;
+    let isStopped = false;
+    let isPlaying = false;
 
     // Ініціалізація регулятора гучності
     function initVolumeControl() {
       const audio = document.getElementById("audioPlayer");
       const volumeSlider = document.getElementById("volumeSlider");
       
-      // Встановити початкову гучність
       audio.volume = volumeSlider.value;
       
-      // Обробник зміни гучності
       volumeSlider.addEventListener('input', function() {
         audio.volume = this.value;
-        
-        // Зберегти гучність в localStorage
         localStorage.setItem('radioVolume', this.value);
       });
       
-      // Відновити гучність з localStorage
       const savedVolume = localStorage.getItem('radioVolume');
       if (savedVolume !== null) {
         audio.volume = savedVolume;
@@ -266,7 +287,7 @@
 
     // Отримати поточний трек
     function getCurrentTrack(tracks) {
-      if (!tracks.length) return null;
+      if (!tracks.length || isStopped) return null;
       
       const now = new Date();
       const startOfDay = new Date(
@@ -310,7 +331,7 @@
 
     // Відтворити трек
     function playTrack(trackData) {
-      if (!trackData) return;
+      if (!trackData || isStopped) return;
       
       const audio = document.getElementById("audioPlayer");
       currentTrack = trackData.track;
@@ -323,21 +344,43 @@
       audio.src = currentTrack.url;
       audio.currentTime = trackData.position;
       
-      if (updateInterval) clearInterval(updateInterval);
-      if (progressInterval) clearInterval(progressInterval);
+      clearTimeout(updateInterval);
+      clearInterval(progressInterval);
       
       updateInterval = setTimeout(() => {
         checkAndPlay();
       }, trackData.remaining * 1000);
       
       progressInterval = setInterval(() => {
-        updateProgressBar(audio.currentTime, trackData.duration);
+        if (!isStopped) {
+          updateProgressBar(audio.currentTime, trackData.duration);
+        }
       }, 1000);
       
-      audio.play().catch(e => {
+      audio.play().then(() => {
+        isPlaying = true;
+      }).catch(e => {
         console.log("Автовідтворення заблоковано:", e);
         showStatus("Натисніть кнопку play для запуску");
       });
+    }
+
+    // Зупинити відтворення
+    function stopRadio() {
+      const audio = document.getElementById("audioPlayer");
+      audio.pause();
+      audio.currentTime = 0;
+      
+      clearTimeout(updateInterval);
+      clearInterval(progressInterval);
+      
+      document.getElementById("eqVisualizer").style.display = 'none';
+      document.getElementById('customProgress').style.width = '0%';
+      
+      isStopped = true;
+      isPlaying = false;
+      
+      showStatus("Відтворення зупинено", true);
     }
 
     // Показати статус
@@ -349,6 +392,8 @@
 
     // Перевірити і запустити
     async function checkAndPlay() {
+      if (isStopped) return;
+      
       if (!allTracks.length) {
         showStatus("Завантаження плейлиста...");
         allTracks = await loadPlaylist();
@@ -356,10 +401,10 @@
       
       updateBroadcastInfo();
       
-      if (!isBroadcastTime()) {
-        showStatus(`Ефір призупинено. Працює з ${BROADCAST_HOURS.start}:00 до ${BROADCAST_HOURS.end}:00`, true);
-        if (updateInterval) clearInterval(updateInterval);
-        if (progressInterval) clearInterval(progressInterval);
+      if (!isBroadcastTime() || isStopped) {
+        showStatus(`Ефір призупинено`, true);
+        clearTimeout(updateInterval);
+        clearInterval(progressInterval);
         document.getElementById("eqVisualizer").style.display = 'none';
         return;
       }
@@ -377,7 +422,13 @@
     window.onload = function() {
       initVolumeControl();
       updateBroadcastInfo();
-      checkAndPlay();
+      
+      document.getElementById("playBtn").addEventListener('click', function() {
+        isStopped = false;
+        checkAndPlay();
+      });
+      
+      document.getElementById("stopBtn").addEventListener('click', stopRadio);
       
       setInterval(updateBroadcastInfo, 60000);
     };
