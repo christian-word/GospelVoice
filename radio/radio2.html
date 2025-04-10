@@ -1,44 +1,48 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <title>GospelVoice Радіо</title>
+  <title>Gospel Voice Радіо</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      padding: 20px;
       background: #f5f5f5;
-    }
-    #player-container {
-      background: white;
-      border-radius: 10px;
       padding: 20px;
-      max-width: 500px;
+      max-width: 600px;
       margin: 0 auto;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
-    #now-playing {
-      font-weight: bold;
+    #logo {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 15px auto;
+      border: 3px solid #4CAF50;
+    }
+    #nowPlaying {
+      font-size: 18px;
       margin: 15px 0;
-      min-height: 50px;
+      font-weight: bold;
     }
-    #countdown {
+    #broadcastInfo {
       color: #666;
       margin-bottom: 15px;
     }
-    #broadcast-status {
-      margin-top: 10px;
-      font-size: 14px;
+    audio {
+      width: 100%;
+      margin: 15px 0;
     }
     button {
       background: #4CAF50;
       color: white;
       border: none;
       padding: 10px 20px;
+      font-size: 16px;
       border-radius: 5px;
       cursor: pointer;
-      font-size: 16px;
+      margin: 5px;
     }
     button:hover {
       background: #45a049;
@@ -46,73 +50,96 @@
     .off-air {
       color: #e74c3c;
       font-weight: bold;
+      margin: 20px 0;
     }
   </style>
 </head>
 <body>
-  <div id="player-container">
-    <h2>GospelVoice Радіо</h2>
-    <div id="now-playing">Завантаження...</div>
-    <div id="countdown"></div>
-    <audio id="audio-player" controls></audio>
-    <div id="broadcast-status"></div>
-    <button id="play-btn">▶ Запустити радіо</button>
-  </div>
+
+  <h1>GospelVoice Радіо</h1>
+  <img id="logo" src="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/GroupEast.png" alt="Лого">
+  <div id="nowPlaying">Завантаження програми...</div>
+  <div id="broadcastInfo"></div>
+  <audio id="audioPlayer" controls></audio>
+  <div id="statusMessage"></div>
+  <button onclick="checkAndPlay()">▶ Слухати</button>
 
   <script>
-    // Конфигурация
-    const PLAYLIST_URL = 'https://raw.githubusercontent.com/christian-word/GospelVoice/main/playlist/playlist-with-durations.json';
-    const BROADCAST_HOURS = { start: 7, end: 23 }; // 7:00-23:00
+    // Конфігурація
+    const PLAYLIST_URL = "https://raw.githubusercontent.com/christian-word/GospelVoice/main/playlist/playlist-with-durations.json";
+    const BROADCAST_HOURS = { start: 7, end: 23 }; // Ефір з 7:00 до 23:00
 
-    // Состояние плеера
-    let tracks = [];
+    let allTracks = [];
     let currentTrack = null;
-    let isPlaying = false;
+    let totalPlaylistDuration = 0;
+    let updateInterval;
 
-    // DOM элементы
-    const audioPlayer = document.getElementById('audio-player');
-    const playBtn = document.getElementById('play-btn');
-    const nowPlayingEl = document.getElementById('now-playing');
-    const countdownEl = document.getElementById('countdown');
-    const statusEl = document.getElementById('broadcast-status');
+    // Перевірити чи зараз час ефіру
+    function isBroadcastTime() {
+      const now = new Date();
+      const hours = now.getHours();
+      return hours >= BROADCAST_HOURS.start && hours < BROADCAST_HOURS.end;
+    }
 
-    // Загрузка плейлиста
+    // Оновити інформацію про ефір
+    function updateBroadcastInfo() {
+      const now = new Date();
+      const endTime = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate(),
+        BROADCAST_HOURS.end,
+        0, 0, 0
+      );
+      
+      const remaining = Math.floor((endTime - now) / 1000 / 60); // У хвилинах
+      
+      if (remaining > 0) {
+        document.getElementById("broadcastInfo").innerHTML = `
+          <p>Ефір триває до ${BROADCAST_HOURS.end}:00</p>
+          <p>Залишилось: ${Math.floor(remaining/60)} год ${remaining%60} хв</p>
+        `;
+      } else {
+        document.getElementById("broadcastInfo").innerHTML = `
+          <p class="off-air">Зараз ефір призупинено</p>
+          <p>Наступний ефір о ${BROADCAST_HOURS.start}:00</p>
+        `;
+      }
+    }
+
+    // Завантажити плейлист
     async function loadPlaylist() {
       try {
         const response = await fetch(PLAYLIST_URL);
         const data = await response.json();
+        const tracks = [];
         
-        // Собираем все треки в один массив
-        return data.categories.reduce((acc, category) => {
+        data.categories.forEach(category => {
           category.tracks.forEach(track => {
-            if (track.url && track.url.endsWith('.mp3')) {
-              acc.push({
+            if (track.url && track.url.endsWith(".mp3")) {
+              tracks.push({
                 title: track.title,
                 url: track.url,
-                duration: track.duration || 180, // 3 минуты по умолчанию
-                category: category.name
+                duration: track.duration || 180,
+                group: category.name
               });
             }
           });
-          return acc;
-        }, []);
+        });
         
+        // Розрахувати загальну тривалість плейлиста
+        totalPlaylistDuration = tracks.reduce((sum, track) => sum + track.duration, 0);
+        
+        return tracks;
       } catch (error) {
-        console.error('Ошибка загрузки плейлиста:', error);
-        statusEl.textContent = 'Помилка завантаження плейлиста';
-        statusEl.className = 'off-air';
+        console.error("Помилка завантаження:", error);
+        showStatus("Помилка завантаження плейлиста");
         return [];
       }
     }
 
-    // Проверка времени вещания
-    function isBroadcastTime() {
-      const hours = new Date().getHours();
-      return hours >= BROADCAST_HOURS.start && hours < BROADCAST_HOURS.end;
-    }
-
-    // Получение текущего трека
-    function getCurrentTrack() {
+    // Отримати поточний трек
+    function getCurrentTrack(tracks) {
       if (!tracks.length) return null;
       
       const now = new Date();
@@ -125,20 +152,23 @@
       );
       
       const secondsPassed = Math.floor((now - startOfDay) / 1000);
-      const totalDuration = tracks.reduce((sum, track) => sum + track.duration, 0);
       
-      // Если время вне эфира
-      if (secondsPassed < 0 || secondsPassed >= totalDuration) {
+      // Якщо поза ефіром
+      if (!isBroadcastTime()) {
         return null;
       }
       
+      // Циклічне відтворення плейлиста
+      const cyclePosition = secondsPassed % totalPlaylistDuration;
+      
       let accumulatedTime = 0;
-      for (const track of tracks) {
-        if (secondsPassed < accumulatedTime + track.duration) {
+      for (let i = 0; i < tracks.length; i++) {
+        const track = tracks[i];
+        if (cyclePosition < accumulatedTime + track.duration) {
           return {
-            track,
-            position: secondsPassed - accumulatedTime,
-            remaining: accumulatedTime + track.duration - secondsPassed
+            track: track,
+            position: cyclePosition - accumulatedTime,
+            remaining: accumulatedTime + track.duration - cyclePosition
           };
         }
         accumulatedTime += track.duration;
@@ -147,120 +177,72 @@
       return null;
     }
 
-    // Воспроизведение трека
+    // Відтворити трек
     function playTrack(trackData) {
       if (!trackData) return;
       
+      const audio = document.getElementById("audioPlayer");
       currentTrack = trackData.track;
       
-      // Обновляем интерфейс
-      nowPlayingEl.textContent = `${currentTrack.title} (${currentTrack.category})`;
-      updateCountdown(trackData.remaining);
-      updateBroadcastStatus();
+      document.getElementById("nowPlaying").textContent = 
+        `Зараз грає: ${currentTrack.title} (${currentTrack.group})`;
       
-      // Устанавливаем источник audio
-      if (audioPlayer.src !== currentTrack.url) {
-        audioPlayer.src = currentTrack.url;
+      audio.src = currentTrack.url;
+      audio.currentTime = trackData.position;
+      
+      // Очистити попередній інтервал
+      if (updateInterval) clearInterval(updateInterval);
+      
+      // Встановити таймер для перевірки наступного треку
+      updateInterval = setTimeout(() => {
+        checkAndPlay();
+      }, trackData.remaining * 1000);
+      
+      audio.play().catch(e => {
+        console.log("Автовідтворення заблоковано:", e);
+        showStatus("Натисніть кнопку play для запуску");
+      });
+    }
+
+    // Показати статус
+    function showStatus(message, isError = false) {
+      const statusEl = document.getElementById("statusMessage");
+      statusEl.textContent = message;
+      statusEl.className = isError ? "off-air" : "";
+    }
+
+    // Перевірити і запустити
+    async function checkAndPlay() {
+      if (!allTracks.length) {
+        showStatus("Завантаження плейлиста...");
+        allTracks = await loadPlaylist();
       }
       
-      // Устанавливаем позицию
-      audioPlayer.currentTime = trackData.position;
+      updateBroadcastInfo();
       
-      // Пытаемся запустить воспроизведение
-      audioPlayer.play()
-        .then(() => {
-          isPlaying = true;
-          playBtn.textContent = '⏸ Пауза';
-        })
-        .catch(error => {
-          console.log('Автовоспроизведение заблокировано:', error);
-          statusEl.textContent = 'Нажмите кнопку Play для запуска';
-        });
-    }
-
-    // Обновление таймера
-    function updateCountdown(seconds) {
-      const mins = Math.floor(seconds / 60);
-      const secs = seconds % 60;
-      countdownEl.textContent = `До следующего: ${mins}:${secs < 10 ? '0' : ''}${secs}`;
-    }
-
-    // Обновление статуса эфира
-    function updateBroadcastStatus() {
-      const now = new Date();
-      const endTime = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate(),
-        BROADCAST_HOURS.end,
-        0, 0, 0
-      );
-      
-      const remaining = Math.floor((endTime - now) / 1000);
-      if (remaining > 0) {
-        const hours = Math.floor(remaining / 3600);
-        const minutes = Math.floor((remaining % 3600) / 60);
-        statusEl.textContent = `Эфир до ${BROADCAST_HOURS.end}:00 (осталось ${hours}ч ${minutes}м)`;
-        statusEl.className = '';
-      } else {
-        statusEl.textContent = 'Эфир завершен на сегодня';
-        statusEl.className = 'off-air';
-      }
-    }
-
-    // Основная функция обновления
-    function updatePlayer() {
       if (!isBroadcastTime()) {
-        if (isPlaying) {
-          audioPlayer.pause();
-          isPlaying = false;
-          playBtn.textContent = '▶ Запустити радіо';
-        }
-        statusEl.textContent = `Эфир с ${BROADCAST_HOURS.start}:00 до ${BROADCAST_HOURS.end}:00`;
-        statusEl.className = 'off-air';
+        showStatus(`Ефір призупинено. Працює з ${BROADCAST_HOURS.start}:00 до ${BROADCAST_HOURS.end}:00`, true);
+        if (updateInterval) clearInterval(updateInterval);
         return;
       }
       
-      const current = getCurrentTrack();
-      if (!current) {
-        statusEl.textContent = 'Сейчас не время эфира';
-        return;
-      }
-      
-      if (!currentTrack || current.track.url !== currentTrack.url) {
+      const current = getCurrentTrack(allTracks);
+      if (current) {
         playTrack(current);
+        showStatus("Радіо працює!");
       } else {
-        updateCountdown(current.remaining);
-        updateBroadcastStatus();
+        showStatus("Не вдалося визначити поточний трек", true);
       }
     }
 
-    // Инициализация
-    async function init() {
-      tracks = await loadPlaylist();
+    // Ініціалізація при завантаженні
+    window.onload = function() {
+      updateBroadcastInfo();
+      checkAndPlay();
       
-      if (tracks.length) {
-        // Обновляем каждую секунду
-        setInterval(updatePlayer, 1000);
-        updatePlayer(); // Первое обновление
-        
-        // Обработчик кнопки play/pause
-        playBtn.addEventListener('click', () => {
-          if (audioPlayer.paused) {
-            updatePlayer();
-          } else {
-            audioPlayer.pause();
-            playBtn.textContent = '▶ Запустити радіо';
-          }
-        });
-      } else {
-        statusEl.textContent = 'Не удалось загрузить плейлист';
-        statusEl.className = 'off-air';
-      }
-    }
-
-    // Запуск при загрузке
-    window.addEventListener('DOMContentLoaded', init);
+      // Оновлювати інформацію про ефір кожну хвилину
+      setInterval(updateBroadcastInfo, 60000);
+    };
   </script>
 </body>
 </html>
