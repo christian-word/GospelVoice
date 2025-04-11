@@ -1,195 +1,27 @@
 {
-  "playlistName": "Основной плейлист",
-  "generatedAt": "2025-04-11 20:00",
+  "playlistName": "Основной плейлист (перемешанный)",
+  "generatedAt": "2025-04-11T21:06:44.766Z",
   "playlist": [
     {
-      "title": "Білі лебеді",
-      "url": "https://holychords.pro/storage/music/09ZWwO25vpscVjuNXYbLSR8patnPqY9rZ0yTTC2k.mp3",
+      "title": "Моїй бабусі",
+      "url": "https://holychords.pro/storage/music/wMUj2C3sE6gua7zl59w6ZyqzkHDC0hUu6lZ8E01t.mp3",
       "group": "3. Олена Сидорчук",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 169
+      "duration": 293
     },
     {
-      "title": "Благодать лей на меня",
-      "url": "https://holychords.pro/uploads/music/20210307/20210307004650.mp3",
-      "group": "6. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
-      "duration": 146
+      "title": "Разом ми брати і сестри",
+      "url": "https://holychords.pro/storage/music/xx8Y8rWJCswWib2v6scHWohByGhzm7jXwMxfM3F8.mp3",
+      "group": "4. Гурт, Дім Євангелія Рівне",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/rivne.jpg",
+      "duration": 211
     },
     {
-      "title": "Сяйво Різдва",
-      "url": "https://holychords.pro/uploads/music/20221122/20221122222328.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 267
-    },
-    {
-      "title": "Ніч Різдва",
-      "url": "https://holychords.pro/uploads/music/20200103/202001031151257.mp3",
-      "group": "5. Группа Вдохновение",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/vdohnoveniy.png",
-      "duration": 215
-    },
-    {
-      "title": "Не слышат, не видят",
-      "url": "https://holychords.pro/storage/music/Hwrlervs7O0gkCphCmyOVEEp4FsH9o2PpIgn6jJa.mp3",
-      "group": "8. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
-      "duration": 215
-    },
-    {
-      "title": "Любовью Праведной",
-      "url": "https://holychords.pro/storage/music/RViV0Pjs9I730Rbp9xXV23xu0s68q6fwFhClGFrF.mp3",
-      "group": "7. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
-      "duration": 158
-    },
-    {
-      "title": "Господи, Ти Цар царів",
-      "url": "https://holychords.pro/uploads/music/20220102/20220102225305.mp3",
-      "group": "4. Сім'я Денисюків",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
-      "duration": 229
-    },
-    {
-      "title": "Мой Ангел-хранитель",
-      "url": "https://holychords.pro/storage/music/14g869OVr1y0nFAk1P3SqckqtXuNSA3tKx4IHU3P.mp3",
-      "group": "8. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
-      "duration": 252
-    },
-    {
-      "title": "Це для тебе",
-      "url": "https://holychords.pro/storage/music/I0gl17QRY8XHiYwPtyISePRiTgCaWFSeOlAQucj6.mp3",
-      "group": "3. Олена Сидорчук",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 242
-    },
-    {
-      "title": "Надежда",
-      "url": "https://holychords.pro/uploads/music/20210508/20210508000826.mp3",
-      "group": "8. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
-      "duration": 202
-    },
-    {
-      "title": "Арфа",
-      "url": "https://holychords.pro/storage/music/QInZZNSRP9lvhkXI3FNs1QktgF4oplJetTIUqjIE.mp3",
-      "group": "6. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
-      "duration": 197
-    },
-    {
-      "title": "Різдво (feat. Мелодія душі)",
-      "url": "https://holychords.pro/storage/music/6El7DEUhWRZFWuPN1cCYvZijCXLqhKrMKOJWoXkp.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 250
-    },
-    {
-      "title": "Закон",
-      "url": "https://holychords.pro/uploads/music/20200625/2020062515140270.mp3",
-      "group": "7. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
-      "duration": 290
-    },
-    {
-      "title": "Небеса (feat. Лариса Кайдрис, Світлана Демко, Юлия Поливода, Зоряна Соколова)",
-      "url": "https://holychords.pro/storage/music/WewTYoarTFzNSnQa71VlYGZXL2VqDCFpISwLKCiz.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 316
-    },
-    {
-      "title": "Медсёстры",
-      "url": "https://holychords.pro/storage/music/gSkI6HqnLHsZ1hjAADA86ykhNiBTzJ7JeL4RozaA.mp3",
-      "group": "8. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
-      "duration": 272
-    },
-    {
-      "title": "Подякуй Богу",
-      "url": "https://holychords.pro/uploads/music/20211030/20211030220439.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 246
-    },
-    {
-      "title": "Чудовий День Різдва",
-      "url": "https://holychords.pro/uploads/music/20221218/20221218125109.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 227
-    },
-    {
-      "title": "Хай лине хвала",
-      "url": "https://holychords.pro/storage/music/UwygpovpAaSbuU2NDXu0gMmgDMQUt3Z4xNXCU7fi.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 182
-    },
-    {
-      "title": "Я іду до мети",
-      "url": "https://holychords.pro/uploads/music/20200206/2020020621122540.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 220
-    },
-    {
-      "title": "Як в дорозі ти знеміг (feat. Элани Москалу)",
-      "url": "https://holychords.pro/uploads/music/20220401/20220401013134.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 199
-    },
-    {
-      "title": "Причина Рождества",
-      "url": "https://holychords.pro/storage/music/QvWmlrp5fF3rjBcMeZEHbROTB3XcXpM7SdeSwNw9.mp3",
-      "group": "5. Группа Вдохновение",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/vdohnoveniy.png",
-      "duration": 284
-    },
-    {
-      "title": "А иначе не могу никак",
-      "url": "https://holychords.pro/storage/music/APTkt2kGJpIhE7X0LmS1LgRiUUDy8vA00CK7yE2k.mp3",
-      "group": "6. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
-      "duration": 250
-    },
-    {
-      "title": "Настало время",
-      "url": "https://holychords.pro/storage/music/KJAYFc1vnc15rjGAET9cUDD4YytQnhy3ieVltU8Q.mp3",
-      "group": "8. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
-      "duration": 248
-    },
-    {
-      "title": "Вторая заповедь",
-      "url": "https://holychords.pro/uploads/music/20200701/20200701164457_65_51_60.mp3",
-      "group": "6. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
-      "duration": 207
-    },
-    {
-      "title": "Засяй",
-      "url": "https://holychords.pro/uploads/music/20200108/2020010809563190.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 242
-    },
-    {
-      "title": "На Коленях У Отца",
-      "url": "https://holychords.pro/uploads/music/20190530/2019053008360298.mp3",
-      "group": "8. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
-      "duration": 275
-    },
-    {
-      "title": "Благослови Господь (feat. Руслан Члек, Lina Demchuk, Leonid Demchuk)",
-      "url": "https://holychords.pro/storage/music/nJHeSyDIoudbxbD1FgngKgtsjnK0N6kJUYvRb9VI.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 269
+      "title": "Раскаж об Исусе",
+      "url": "https://holychords.pro/storage/music/gTQSDO43B4Z14a40A5FQbf7boXaCKMul58cNhkvq.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/GroupEast.png",
+      "duration": 262
     },
     {
       "title": "Первая любовь",
@@ -199,62 +31,6 @@
       "duration": 236
     },
     {
-      "title": "Ти прости (feat. Анатолій Козек)",
-      "url": "https://holychords.pro/storage/music/UEOs38XWVOHGVEQwjw8EQHPHOnjo17pdmOsVpxLI.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 235
-    },
-    {
-      "title": "Руки Христа",
-      "url": "https://holychords.pro/storage/music/cOYzTDaRiSVyMYhXVURbzysR2hteBCpZHYKzIckK.mp3",
-      "group": "3. Олена Сидорчук",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 194
-    },
-    {
-      "title": "Бог моя надія",
-      "url": "https://holychords.pro/uploads/music/20210429/20210429131739.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 221
-    },
-    {
-      "title": "Моя рідненька мамо",
-      "url": "https://holychords.pro/uploads/music/20200101/2020010118214361.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 268
-    },
-    {
-      "title": "Камертон",
-      "url": "https://holychords.pro/storage/music/D0kMmcEvF77v01lFWCT4L7BzUPOj1IvpzDRgiQuJ.mp3",
-      "group": "7. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
-      "duration": 207
-    },
-    {
-      "title": "Радість Різдва",
-      "url": "https://holychords.pro/storage/music/2Qt3Txk4pu8prPrAoAWeIBu7FVbe8UOLSGPBuFJf.mp3",
-      "group": "3. Олена Сидорчук",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 235
-    },
-    {
-      "title": "Голгофа",
-      "url": "https://holychords.pro/uploads/music/20220404/20220404211029.mp3",
-      "group": "7. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
-      "duration": 196
-    },
-    {
-      "title": "Дух Святой",
-      "url": "https://holychords.pro/uploads/music/20220404/20220404210734.mp3",
-      "group": "6. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
-      "duration": 256
-    },
-    {
       "title": "Хвали достойне",
       "url": "https://holychords.pro/uploads/music/20200527/2020052723000637.mp3",
       "group": "4. Сім'я Денисюків",
@@ -262,53 +38,46 @@
       "duration": 217
     },
     {
-      "title": "Коли закінчу я свою мандрівку",
-      "url": "https://holychords.pro/storage/music/R5niI2FE4pjNFuW5y8kqssbwVpkl88XsJXw1vY6p.mp3",
+      "title": "Да",
+      "url": "https://holychords.pro/uploads/music/20200701/20200701164515_75.mp3",
+      "group": "7. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
+      "duration": 225
+    },
+    {
+      "title": "Любовью Праведной",
+      "url": "https://holychords.pro/storage/music/RViV0Pjs9I730Rbp9xXV23xu0s68q6fwFhClGFrF.mp3",
+      "group": "7. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
+      "duration": 158
+    },
+    {
+      "title": "Благодать Господа Ісуса Христа",
+      "url": "https://holychords.pro/storage/music/Npym6QBBAFTjfIIp6ZnZpzayzHPSA488AObndqT9.mp3",
+      "group": "4. Гурт, Дім Євангелія Рівне",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/rivne.jpg",
+      "duration": 158
+    },
+    {
+      "title": "Играй На Мне, Господь",
+      "url": "https://holychords.pro/uploads/music/20200606/2020060621400560.mp3",
+      "group": "7. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
+      "duration": 261
+    },
+    {
+      "title": "О, не плач",
+      "url": "https://holychords.pro/uploads/music/20210326/20210326081736.mp3",
       "group": "2. (69 треків) Світлана Демко",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 366
+      "duration": 245
     },
     {
-      "title": "Міліони раз",
-      "url": "https://holychords.pro/storage/music/Flp2TyjocXweP94W2oG15JILnR5kId4hHKoVxMHf.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 277
-    },
-    {
-      "title": "Там зустріну Тебе (feat. Виктор Шатецкий)",
-      "url": "https://holychords.pro/uploads/music/20210408/20210408123944.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 201
-    },
-    {
-      "title": "Співай душа моя (feat. Angelina Lutsyk)",
-      "url": "https://holychords.pro/storage/music/xbeox0DpYPp2XfOa9OKjzxoe5LXabQcnIRXRhWys.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 238
-    },
-    {
-      "title": "ТИ НАДІЯ ЄДИНА",
-      "url": "https://holychords.pro/storage/music/t4xpMhiJsFJRWkJAlRATIK8FImU84zcwmD4u3gem.mp3",
-      "group": "1. Yana Kolesnik",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kolesnik.png",
-      "duration": 237
-    },
-    {
-      "title": "Чотири сина",
-      "url": "https://holychords.pro/storage/music/zWTifekFTyC3Qi324BfbDdkEp8lDhiLxbG1495KH.mp3",
-      "group": "3. Олена Сидорчук",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 194
-    },
-    {
-      "title": "Всего на миг свой бег остановлю",
-      "url": "https://holychords.pro/uploads/music/20210507/20210507235605.mp3",
-      "group": "6. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
-      "duration": 229
+      "title": "Крылья Веры",
+      "url": "https://holychords.pro/uploads/music/20200606/2020060621443137.mp3",
+      "group": "7. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
+      "duration": 222
     },
     {
       "title": "Хвала Тебе Господь",
@@ -318,18 +87,18 @@
       "duration": 300
     },
     {
-      "title": "Новогодняя молитва",
-      "url": "https://holychords.pro/uploads/music/20200701/20200701164515_93.mp3",
-      "group": "8. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
-      "duration": 241
+      "title": "Ванесса Андрощук, Гурт Арфочки, Лиш с тобою Господь",
+      "url": "https://holychords.pro/uploads/music/20200228/2020022810290083.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/arfo.png",
+      "duration": 228
     },
     {
-      "title": "Иду вперёд по Божьему пути",
-      "url": "https://holychords.pro/uploads/music/20200701/20200701164457_93.mp3",
-      "group": "7. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
-      "duration": 231
+      "title": "Все молитвы сердца",
+      "url": "https://holychords.pro/uploads/music/20210507/20210507234857.mp3",
+      "group": "6. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
+      "duration": 301
     },
     {
       "title": "Бог есть любовь",
@@ -339,74 +108,81 @@
       "duration": 155
     },
     {
-      "title": "День уже минає (feat. Руслан Члек)",
-      "url": "https://holychords.pro/storage/music/NLN542LDTgDpQinPYdgfrr6uJrVhJlATMxcQlGev.mp3",
+      "title": "Хай лине хвала",
+      "url": "https://holychords.pro/storage/music/UwygpovpAaSbuU2NDXu0gMmgDMQUt3Z4xNXCU7fi.mp3",
       "group": "2. (69 треків) Світлана Демко",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 244
+      "duration": 182
     },
     {
-      "title": "Твоя любов",
-      "url": "https://holychords.pro/uploads/music/20210127/20210127182008.mp3",
-      "group": "4. Сім'я Денисюків",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
-      "duration": 208
+      "title": "Свеча",
+      "url": "https://kg-music.club/wp-content/uploads/2019/10/%D0%A1%D0%B2%D0%B5%D1%87%D0%B0-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/gurt-melodia.png",
+      "duration": 266
     },
     {
-      "title": "Поможи мені, мій Боже",
-      "url": "https://holychords.pro/uploads/music/20191123/2019112313255459.mp3",
+      "title": "А Небо кричит",
+      "url": "https://holychords.pro/uploads/music/20200701/20200701164457_25_20.mp3",
+      "group": "6. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
+      "duration": 297
+    },
+    {
+      "title": "Благодать лей на меня",
+      "url": "https://holychords.pro/uploads/music/20210307/20210307004650.mp3",
+      "group": "6. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
+      "duration": 146
+    },
+    {
+      "title": "Любов прийшла",
+      "url": "https://holychords.pro/storage/music/ELKOhlYtYFClIJd3q64BpYr4ABmOPt7V1ELeaSjV.mp3",
+      "group": "3. Гурт з Володимирця",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/hq720.jpg",
+      "duration": 282
+    },
+    {
+      "title": "Нахили небеса",
+      "url": "https://holychords.pro/uploads/music/20200119/2020011909542639.mp3",
       "group": "2. (69 треків) Світлана Демко",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 285
+      "duration": 184
     },
     {
-      "title": "Доброе завтра",
-      "url": "https://holychords.pro/storage/music/X6i65u5kObkFfqM2LUgi85HsbmyhQeUG2IetliWw.mp3",
-      "group": "7. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
-      "duration": 207
+      "title": "Бог моя надія",
+      "url": "https://holychords.pro/uploads/music/20210429/20210429131739.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 221
     },
     {
-      "title": "Друзьям, с благодарностью",
-      "url": "https://holychords.pro/storage/music/mi3ZBZ1SbpGuWDuFYmJdth7GXODmS8WqWiee2UJ9.mp3",
-      "group": "7. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
-      "duration": 209
-    },
-    {
-      "title": "Алілуя",
-      "url": "https://holychords.pro/storage/music/STl88pGVwnnXcCRAgjfJFRQoeDPQEomYmJQ55K7q.mp3",
+      "title": "Це для тебе",
+      "url": "https://holychords.pro/storage/music/I0gl17QRY8XHiYwPtyISePRiTgCaWFSeOlAQucj6.mp3",
       "group": "3. Олена Сидорчук",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 210
+      "duration": 242
     },
     {
-      "title": "Ми молим Бога (feat. Edik Grek)",
-      "url": "https://holychords.pro/uploads/music/20191123/2019112313195048.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 290
+      "title": "Я в Твоїй Любові схований",
+      "url": "https://holychords.pro/storage/music/ZV5DMdFqaM4ezzs8KBPVoFogjBk599TMxrFKgprJ.mp3",
+      "group": "3. Гурт з Володимирця",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/hq720.jpg",
+      "duration": 256
     },
     {
-      "title": "Подякуй Господу",
-      "url": "https://holychords.pro/uploads/music/20221015/20221015114226.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 225
+      "title": "Люди как птицы",
+      "url": "https://holychords.pro/uploads/music/20200629/2020062922520497.mp3",
+      "group": "8. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
+      "duration": 234
     },
     {
-      "title": "Божа церква",
-      "url": "https://holychords.pro/storage/music/ruUJr7A7IFO40HwM6hD4z2eu7KWzPW8BbRJrtsf2.mp3",
-      "group": "3. Олена Сидорчук",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 287
-    },
-    {
-      "title": "Чи знала ти Марія?",
-      "url": "https://holychords.pro/storage/music/CvJRpYtLKV7BKaIL4X1q5gbaTm80pRSQJV7Am5f8.mp3",
-      "group": "3. Олена Сидорчук",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 141
+      "title": "Господь моє світло",
+      "url": "https://holychords.pro/storage/music/xkpOcNUrmEwiESSvM8xlo2WU9j7FUEG0KMoWb6LB.mp3",
+      "group": "12. Ольга Андрощук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/andi.jpg",
+      "duration": 371
     },
     {
       "title": "Суламіта",
@@ -416,102 +192,81 @@
       "duration": 270
     },
     {
-      "title": "Вера, надежда, любовь",
-      "url": "https://holychords.pro/storage/music/bAZDq43ECBei4QUI3RkhLrZhZICf7Cw7eufU2NP8.mp3",
+      "title": "Дух Святой",
+      "url": "https://holychords.pro/uploads/music/20220404/20220404210734.mp3",
       "group": "6. Светлана Малова",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
-      "duration": 299
+      "duration": 256
     },
     {
-      "title": "Я на Голгофі",
-      "url": "https://holychords.pro/uploads/music/20210604/20210604103521.mp3",
+      "title": "Боже благий",
+      "url": "https://holychords.pro/uploads/music/20201201/20201201215242.mp3",
       "group": "4. Сім'я Денисюків",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
-      "duration": 215
+      "duration": 281
     },
     {
-      "title": "Ніби вчора, рідна мамо",
-      "url": "https://holychords.pro/uploads/music/20200509/2020050911414189.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 317
+      "title": "Бог Ти сонце моє",
+      "url": "https://holychords.pro/uploads/music/20230426/20230426120058.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/GroupEast.png",
+      "duration": 246
     },
     {
-      "title": "Місто чудове",
-      "url": "https://holychords.pro/uploads/music/20211128/20211128205545.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 289
+      "title": "Услыш",
+      "url": "https://holychords.pro/storage/music/V6hWZ7Irz22fTvigvBJNbKApl5G0vsc6cxL0PFLB.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/arfo.png",
+      "duration": 356
     },
     {
-      "title": "Папа",
-      "url": "https://holychords.pro/storage/music/0YXua5S3MnNqjDdXTPB6RhEB69nCLh0F9pJaQeIi.mp3",
-      "group": "8. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
-      "duration": 286
+      "title": "Тобі я дякую",
+      "url": "https://kg-music.club/wp-content/uploads/2019/10/%D0%A2%D0%BE%D0%B1%D1%96-%D1%8F-%D0%B4%D1%8F%D0%BA%D1%83%D1%8E-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/gurt-melodia.png",
+      "duration": 212
     },
     {
-      "title": "Щаслива я",
-      "url": "https://holychords.pro/storage/music/d5tSl8Ttm3s4F3BpUAgKSqX6282tjlHzuP2VDUQz.mp3",
-      "group": "1. Yana Kolesnik",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kolesnik.png",
-      "duration": 260
+      "title": "Без любви",
+      "url": "https://holychords.pro/uploads/music/20190405/2019040517311961.mp3",
+      "group": "12. Ольга Андрощук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/andi.jpg",
+      "duration": 213
     },
     {
-      "title": "До Тебе, Боже мій",
-      "url": "https://holychords.pro/uploads/music/20210215/20210215203821.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 238
-    },
-    {
-      "title": "Різдвяна алілуя!",
-      "url": "https://holychords.pro/uploads/music/20201201/20201201222528.mp3",
-      "group": "4. Сім'я Денисюків",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
-      "duration": 239
-    },
-    {
-      "title": "Лебеді",
-      "url": "https://holychords.pro/storage/music/i5f3IKkbP5Pn42EHkApGYN0DICp0gSYR9mE3W58B.mp3",
-      "group": "3. Олена Сидорчук",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 359
-    },
-    {
-      "title": "Ти зі мною Ісус (feat. Зоряна Соколова)",
-      "url": "https://holychords.pro/storage/music/o60VI5TL2wCBzIw2mj2LlxeRoljWgXQ3a13tEBar.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 267
-    },
-    {
-      "title": "Молю",
-      "url": "https://holychords.pro/uploads/music/20220722/20220722081325.mp3",
+      "title": "Ти прости (feat. Анатолій Козек)",
+      "url": "https://holychords.pro/storage/music/UEOs38XWVOHGVEQwjw8EQHPHOnjo17pdmOsVpxLI.mp3",
       "group": "2. (69 треків) Світлана Демко",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
       "duration": 235
     },
     {
-      "title": "Зустрічайте Святе Різдво (feat. Арсен і Луїза Денисюки)",
-      "url": "https://holychords.pro/uploads/music/20220107/20220107112336.mp3",
-      "group": "4. Сім'я Денисюків",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
-      "duration": 204
+      "title": "Згадай Самарянку",
+      "url": "https://holychords.pro/storage/music/lCFEsJHoZyecpE9yVBrEuRRk5Huko1mcyUWT7vUy.mp3",
+      "group": "3. Олена Сидорчук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
+      "duration": 187
     },
     {
-      "title": "Ти мій Господь",
-      "url": "https://holychords.pro/storage/music/KXMCPVxRRNAc2sVV6ZutrnOukzREfJykYLuz0y7k.mp3",
-      "group": "1. Yana Kolesnik",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kolesnik.png",
-      "duration": 263
+      "title": "Кого из нас",
+      "url": "https://holychords.pro/storage/music/vr7q0gBkBbstStrZaUErE7LgtwvT6RQ4K6z8atHX.mp3",
+      "group": "7. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
+      "duration": 310
     },
     {
-      "title": "Такий великий Бог!",
-      "url": "https://holychords.pro/uploads/music/20221130/20221130153415.mp3",
-      "group": "4. Сім'я Денисюків",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
-      "duration": 287
+      "title": "Алілуя",
+      "url": "https://holychords.pro/storage/music/STl88pGVwnnXcCRAgjfJFRQoeDPQEomYmJQ55K7q.mp3",
+      "group": "3. Олена Сидорчук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
+      "duration": 210
+    },
+    {
+      "title": "Любов (feat. Діана Демко)",
+      "url": "https://holychords.pro/uploads/music/20210604/20210604174238.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 257
     },
     {
       "title": "Десятая заповедь",
@@ -521,46 +276,606 @@
       "duration": 263
     },
     {
-      "title": "Золотий Хрест",
-      "url": "https://holychords.pro/uploads/music/20191123/2019112313104540.mp3",
+      "title": "Радість Різдва",
+      "url": "https://holychords.pro/storage/music/2Qt3Txk4pu8prPrAoAWeIBu7FVbe8UOLSGPBuFJf.mp3",
+      "group": "3. Олена Сидорчук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
+      "duration": 235
+    },
+    {
+      "title": "Закон",
+      "url": "https://holychords.pro/uploads/music/20200625/2020062515140270.mp3",
+      "group": "7. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
+      "duration": 290
+    },
+    {
+      "title": "Рождественское попури 2",
+      "url": "https://holychords.pro/uploads/music/20211204/20211204215452.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/arfo.png",
+      "duration": 556
+    },
+    {
+      "title": "Блудний Син",
+      "url": "https://holychords.pro/uploads/music/20200827/20200827111459.mp3",
+      "group": "12. Ольга Андрощук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/andi.jpg",
+      "duration": 319
+    },
+    {
+      "title": "Міліони раз",
+      "url": "https://holychords.pro/storage/music/Flp2TyjocXweP94W2oG15JILnR5kId4hHKoVxMHf.mp3",
       "group": "2. (69 треків) Світлана Демко",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 277
+    },
+    {
+      "title": "Весільний день",
+      "url": "https://holychords.pro/uploads/music/20210814/20210814102400.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 265
+    },
+    {
+      "title": "Червоні маки",
+      "url": "https://holychords.pro/storage/music/27FajkkthX8vVyM8tVZMZptMWyBGdcPA0tgmSd1a.mp3",
+      "group": "12. Ольга Андрощук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/andi.jpg",
+      "duration": 214
+    },
+    {
+      "title": "Ты рядом",
+      "url": "https://holychords.pro/uploads/music/20220708/20220708122903.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/arfo.png",
+      "duration": 262
+    },
+    {
+      "title": "Я в бессмертье иду",
+      "url": "https://kg-music.club/wp-content/uploads/2020/11/%D0%AF-%D0%B2-%D0%B1%D0%B5%D1%81%D1%81%D0%BC%D0%B5%D1%80%D1%82%D1%8C%D0%B5-%D0%B8%D0%B4%D1%83-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-%D0%91%D1%80%D0%B0%D1%82%D1%8C%D1%8F-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/gurt-melodia.png",
+      "duration": 253
+    },
+    {
+      "title": "Ангелы в небе",
+      "url": "https://holychords.pro/storage/music/DuZTAubz4z5idxtkp9xArrt8eoSeKcU3dlrXwvTM.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/GroupEast.png",
+      "duration": 246
+    },
+    {
+      "title": "Не в тумані",
+      "url": "https://holychords.pro/storage/music/XCm72qWamaJkjIZY5t5peoYMxtTIkwS2vV3SXoMM.mp3",
+      "group": "3. Олена Сидорчук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
+      "duration": 357
+    },
+    {
+      "title": "Відлітають журавлі",
+      "url": "https://holychords.pro/storage/music/wNtNBbSezWGrrNJRrnZEXryRlkWXZUDCWwXgGS3X.mp3",
+      "group": "3. Олена Сидорчук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
+      "duration": 318
+    },
+    {
+      "title": "Божа церква",
+      "url": "https://holychords.pro/storage/music/ruUJr7A7IFO40HwM6hD4z2eu7KWzPW8BbRJrtsf2.mp3",
+      "group": "3. Олена Сидорчук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
+      "duration": 287
+    },
+    {
+      "title": "Всё так же кружит в космосе Земля",
+      "url": "https://holychords.pro/storage/music/hOK0dvmWXVFAHzbQ4IEHo0dp4SAWRhiE0apSTXBT.mp3",
+      "group": "6. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
+      "duration": 350
+    },
+    {
+      "title": "Голгофа",
+      "url": "https://holychords.pro/uploads/music/20220404/20220404211029.mp3",
+      "group": "7. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
+      "duration": 196
+    },
+    {
+      "title": "Настало время",
+      "url": "https://holychords.pro/storage/music/KJAYFc1vnc15rjGAET9cUDD4YytQnhy3ieVltU8Q.mp3",
+      "group": "8. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
+      "duration": 248
+    },
+    {
+      "title": "Остановись",
+      "url": "https://holychords.pro/uploads/music/20220308/20220308135107.mp3",
+      "group": "8. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
+      "duration": 205
+    },
+    {
+      "title": "Не слышат, не видят",
+      "url": "https://holychords.pro/storage/music/Hwrlervs7O0gkCphCmyOVEEp4FsH9o2PpIgn6jJa.mp3",
+      "group": "8. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
+      "duration": 215
+    },
+    {
+      "title": "Чудовий край",
+      "url": "https://holychords.pro/storage/music/gocjSgHcuZqYaY3XNTTqWqd8akVz3NGe4D5J22Ov.mp3",
+      "group": "3. Олена Сидорчук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
+      "duration": 245
+    },
+    {
+      "title": "Чи знала ти Марія?",
+      "url": "https://holychords.pro/storage/music/CvJRpYtLKV7BKaIL4X1q5gbaTm80pRSQJV7Am5f8.mp3",
+      "group": "3. Олена Сидорчук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
+      "duration": 141
+    },
+    {
+      "title": "Навіки живи, о моя Україно (feat. Світлана Демко)",
+      "url": "https://holychords.pro/uploads/music/20220910/20220910091541.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 318
+    },
+    {
+      "title": "О если бы увидел ты",
+      "url": "https://holychords.pro/uploads/music/20200701/20200701164549_2_10.mp3",
+      "group": "7. Brynza Brothers",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/Brynza.jpg",
+      "duration": 232
+    },
+    {
+      "title": "Церковь",
+      "url": "https://holychords.pro/uploads/music/20201026/20201026110821.mp3",
+      "group": "5. Группа Вдохновение",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/vdohnoveniy.png",
+      "duration": 287
+    },
+    {
+      "title": "Співає Богу небо",
+      "url": "https://holychords.pro/storage/music/g3hXgJorfx6kJGALa1s8H4wZs19zC1OkkYrpU8po.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/arfo.png",
+      "duration": 232
+    },
+    {
+      "title": "Ніби вчора, рідна мамо",
+      "url": "https://holychords.pro/uploads/music/20200509/2020050911414189.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 317
+    },
+    {
+      "title": "Мій Бог - моє багатство",
+      "url": "https://holychords.pro/storage/music/yHS9hvSjNmMDkkHkUw9B47yHDdOtTmk6eRfKMlWS.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/GroupEast.png",
+      "duration": 261
+    },
+    {
+      "title": "В жизни много путей",
+      "url": "https://holychords.pro/storage/music/OZl9cLKn4unaXZx34KEpwfdl9lsZkmEzR7bMzrdu.mp3",
+      "group": "6. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
+      "duration": 211
+    },
+    {
+      "title": "Ти мій Господь",
+      "url": "https://holychords.pro/storage/music/KXMCPVxRRNAc2sVV6ZutrnOukzREfJykYLuz0y7k.mp3",
+      "group": "1. Yana Kolesnik",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kolesnik.png",
+      "duration": 263
+    },
+    {
+      "title": "Завтра",
+      "url": "https://holychords.pro/uploads/music/20200701/20200701164515_20_9.mp3",
+      "group": "7. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
+      "duration": 273
+    },
+    {
+      "title": "Подякуй Богу",
+      "url": "https://holychords.pro/uploads/music/20211030/20211030220439.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 246
+    },
+    {
+      "title": "Папа",
+      "url": "https://holychords.pro/storage/music/0YXua5S3MnNqjDdXTPB6RhEB69nCLh0F9pJaQeIi.mp3",
+      "group": "8. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
+      "duration": 286
+    },
+    {
+      "title": "Чотири сина",
+      "url": "https://holychords.pro/storage/music/zWTifekFTyC3Qi324BfbDdkEp8lDhiLxbG1495KH.mp3",
+      "group": "3. Олена Сидорчук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
+      "duration": 194
+    },
+    {
+      "title": "А иначе не могу никак",
+      "url": "https://holychords.pro/storage/music/APTkt2kGJpIhE7X0LmS1LgRiUUDy8vA00CK7yE2k.mp3",
+      "group": "6. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
+      "duration": 250
+    },
+    {
+      "title": "Ти сил даєш",
+      "url": "https://holychords.pro/uploads/music/20190405/2019040520513778.mp3",
+      "group": "4. Сім'я Денисюків",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
+      "duration": 235
+    },
+    {
+      "title": "Зостановись, Авен Езер",
+      "url": "https://holychords.pro/storage/music/uJPTlaqSrtTNgyImoPY5tZLkPlIMgk2y7yI8hHT2.mp3",
+      "group": "1. Збірка пісень \"Ти живий Ісус\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/isus.jpg",
+      "duration": 283
+    },
+    {
+      "title": "Єрушалам Богу святому",
+      "url": "https://holychords.pro/storage/music/REPHie5wCgBZmpWAzgScrRY5JvK3VJhcp1pMpYvz.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/GroupEast.png",
+      "duration": 371
+    },
+    {
+      "title": "Дякую за все",
+      "url": "https://holychords.pro/storage/music/sozMdPK0NlmFfcRttPtzWq4GTktzFzOR5Jidu117.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 220
+    },
+    {
+      "title": "Остановись",
+      "url": "https://holychords.pro/uploads/music/20190405/2019040517425852.mp3",
+      "group": "12. Ольга Андрощук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/andi.jpg",
+      "duration": 247
+    },
+    {
+      "title": "Дыши",
+      "url": "https://holychords.pro/uploads/music/20200701/20200701164515_28_60.mp3",
+      "group": "7. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
+      "duration": 194
+    },
+    {
+      "title": "О, как я счастлива",
+      "url": "https://holychords.pro/storage/music/CyWw5uH9S2JP5mQNhdR7J6Zprz1gjGa76Wl1RcuB.mp3",
+      "group": "8. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
+      "duration": 332
+    },
+    {
+      "title": "Ісус Ти найкращий друг",
+      "url": "https://kg-music.club/wp-content/uploads/2022/10/%D0%86%D1%81%D1%83%D1%81-%D0%A2%D0%B8-%D0%BD%D0%B0%D0%B9%D0%BA%D1%80%D0%B0%D1%89%D0%B8%D0%B9-%D0%B4%D1%80%D1%83%D0%B3-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/gurt-melodia.png",
       "duration": 221
     },
     {
-      "title": "Коханий",
-      "url": "https://holychords.pro/storage/music/Acj3IZRyECo7psUyXepcLVRtSFMR8yUGaoBzCt0N.mp3",
+      "title": "Я дякую",
+      "url": "https://holychords.pro/storage/music/06lKF5AZsKYrl743CgM92AnaT4vofdjjuE5qSKsW.mp3",
       "group": "3. Олена Сидорчук",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 239
+      "duration": 226
     },
     {
-      "title": "Хвала",
-      "url": "https://holychords.pro/uploads/music/20210305/20210305111457.mp3",
+      "title": "Руки Христа",
+      "url": "https://holychords.pro/storage/music/cOYzTDaRiSVyMYhXVURbzysR2hteBCpZHYKzIckK.mp3",
+      "group": "3. Олена Сидорчук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
+      "duration": 194
+    },
+    {
+      "title": "Зустрічайте Святе Різдво (feat. Арсен і Луїза Денисюки)",
+      "url": "https://holychords.pro/uploads/music/20220107/20220107112336.mp3",
+      "group": "4. Сім'я Денисюків",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
+      "duration": 204
+    },
+    {
+      "title": "Прекрасен этот мир",
+      "url": "https://holychords.pro/storage/music/snOdpcLtJaWqFpGEvKXwRJ8GvwSZ8TJoP0xbXnel.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/GroupEast.png",
+      "duration": 321
+    },
+    {
+      "title": "Слава Тобі (feat. Denis S, Світлана Демко, Діана Демко, Austin Patsula)",
+      "url": "https://holychords.pro/storage/music/gfzUm5ROUvTv6iVykvbH8WtaaYbGbCrFrDxSJNxJ.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 296
+    },
+    {
+      "title": "Благослови Господь (feat. Руслан Члек, Lina Demchuk, Leonid Demchuk)",
+      "url": "https://holychords.pro/storage/music/nJHeSyDIoudbxbD1FgngKgtsjnK0N6kJUYvRb9VI.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 269
+    },
+    {
+      "title": "Коли прийде нелегкий час в житті",
+      "url": "https://holychords.pro/uploads/music/20200125/2020012510332746.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 230
+    },
+    {
+      "title": "Плаче дерево",
+      "url": "https://holychords.pro/storage/music/GHWwbHrGWAZeHYugUCydvanNmKgZtgvMIcuZDEHZ.mp3",
+      "group": "3. Олена Сидорчук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
+      "duration": 251
+    },
+    {
+      "title": "Він Живий",
+      "url": "https://holychords.pro/uploads/music/20220409/20220409194430.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 261
+    },
+    {
+      "title": "Много падал",
+      "url": "https://holychords.pro/uploads/music/20200701/20200701164549_9.mp3",
+      "group": "7. Brynza Brothers",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/Brynza.jpg",
+      "duration": 243
+    },
+    {
+      "title": "Щаслива я",
+      "url": "https://holychords.pro/storage/music/d5tSl8Ttm3s4F3BpUAgKSqX6282tjlHzuP2VDUQz.mp3",
+      "group": "1. Yana Kolesnik",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kolesnik.png",
+      "duration": 260
+    },
+    {
+      "title": "Темнесенька нічка",
+      "url": "https://holychords.pro/storage/music/Cb4nBn6tA7Iq1fl2Cyxw7bPaKNQjSoBI5gphcsC7.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/GroupEast.png",
+      "duration": 238
+    },
+    {
+      "title": "Господь - моя скеля!",
+      "url": "https://holychords.pro/uploads/music/20220421/20220421202131.mp3",
+      "group": "4. Сім'я Денисюків",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
+      "duration": 258
+    },
+    {
+      "title": "Поёт моё сердце",
+      "url": "https://kg-music.club/wp-content/uploads/2019/10/%D0%9F%D0%BE%D1%91%D1%82-%D0%BC%D0%BE%D1%91-%D1%81%D0%B5%D1%80%D0%B4%D1%86%D0%B5-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/gurt-melodia.png",
+      "duration": 272
+    },
+    {
+      "title": "Небеса (feat. Лариса Кайдрис, Світлана Демко, Юлия Поливода, Зоряна Соколова)",
+      "url": "https://holychords.pro/storage/music/WewTYoarTFzNSnQa71VlYGZXL2VqDCFpISwLKCiz.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 316
+    },
+    {
+      "title": "Мне приснился",
+      "url": "https://holychords.pro/storage/music/MvqY4ZLL49qwgVC7Akc3ieaYWzcQ11a5XRafM3pf.mp3",
+      "group": "8. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
+      "duration": 207
+    },
+    {
+      "title": "Папа мой",
+      "url": "https://holychords.pro/storage/music/DufziCSTDK589x4peI8pgRkgohzZ56zfVfVN8ARZ.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/arfo.png",
+      "duration": 301
+    },
+    {
+      "title": "Шумні води",
+      "url": "https://holychords.pro/storage/music/EiEBtYeZRxwTtt2iPEXqKT6rPh94td4evNnFUtcd.mp3",
+      "group": "1. Yana Kolesnik",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kolesnik.png",
+      "duration": 227
+    },
+    {
+      "title": "Новогодняя молитва",
+      "url": "https://holychords.pro/uploads/music/20200701/20200701164515_93.mp3",
+      "group": "8. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
+      "duration": 241
+    },
+    {
+      "title": "Сяйво Різдва",
+      "url": "https://holychords.pro/uploads/music/20221122/20221122222328.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 267
+    },
+    {
+      "title": "Якщо ти знеміг в путі",
+      "url": "https://holychords.pro/storage/music/fW4vTeF37cw9eN3y7UrOZqlCmWt8XZv2fKidwySJ.mp3",
+      "group": "3. Гурт з Володимирця",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/hq720.jpg",
+      "duration": 193
+    },
+    {
+      "title": "Ти зі мною Ісус (feat. Зоряна Соколова)",
+      "url": "https://holychords.pro/storage/music/o60VI5TL2wCBzIw2mj2LlxeRoljWgXQ3a13tEBar.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 267
+    },
+    {
+      "title": "Подякуй Господу",
+      "url": "https://holychords.pro/uploads/music/20221015/20221015114226.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 225
+    },
+    {
+      "title": "Я буду петь Тебе",
+      "url": "https://kg-music.club/wp-content/uploads/2021/10/%D0%AF-%D0%B1%D1%83%D0%B4%D1%83-%D0%BF%D0%B5%D1%82%D1%8C-%D0%A2%D0%B5%D0%B1%D0%B5-feat.-%D0%AE%D0%BB%D1%8F-%D0%B8-%D0%90%D0%BB%D0%B8%D0%BD%D0%B0-%D0%93%D0%B0%D0%BB%D1%83%D1%88%D0%BA%D0%B8%D0%BD%D1%8B-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/gurt-melodia.png",
+      "duration": 216
+    },
+    {
+      "title": "На Різдво (feat. Оксана Захарчук, Зоряна Соколова)",
+      "url": "https://holychords.pro/storage/music/rSXdKgCUSUf8an5aMKsl5cXF4wKzoS9RWJ1KHXN2.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 230
+    },
+    {
+      "title": "Алиллуйя",
+      "url": "https://holychords.pro/uploads/music/20221112/20221112185753.mp3",
+      "group": "5. Группа Вдохновение",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/vdohnoveniy.png",
+      "duration": 344
+    },
+    {
+      "title": "Ісус прийшов, помер за мене Він",
+      "url": "https://holychords.pro/storage/music/z6iNfRrEXNW3ULUSxEwQIQvGStkA37d7srxW0J01.mp3",
+      "group": "4. Гурт, Дім Євангелія Рівне",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/rivne.jpg",
+      "duration": 228
+    },
+    {
+      "title": "Самый лучший друг Исус",
+      "url": "https://holychords.pro/storage/music/xgS0H1lyLC3tFFvmn7WlcUGeXrKLebmgW7XzXRBt.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/GroupEast.png",
+      "duration": 232
+    },
+    {
+      "title": "Як в дорозі ти знеміг (feat. Элани Москалу)",
+      "url": "https://holychords.pro/uploads/music/20220401/20220401013134.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 199
+    },
+    {
+      "title": "Ты подаруй",
+      "url": "https://holychords.pro/storage/music/wSbti8dFwhwrijyeTHc0bkKcCir4FVudbbeRnBdy.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/arfo.png",
+      "duration": 269
+    },
+    {
+      "title": "Мій захист (feat. Philia)",
+      "url": "https://holychords.pro/uploads/music/20220924/20220924130652.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 276
+    },
+    {
+      "title": "День уже минає (feat. Руслан Члек)",
+      "url": "https://holychords.pro/storage/music/NLN542LDTgDpQinPYdgfrr6uJrVhJlATMxcQlGev.mp3",
       "group": "2. (69 треків) Світлана Демко",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
       "duration": 244
     },
     {
-      "title": "Зірка Вифлеємська",
-      "url": "https://holychords.pro/storage/music/5Bb7WCTAxMxPrcWiYF8Eo0HHvFBqZIhAe9Hyp0BX.mp3",
+      "title": "Серце моє",
+      "url": "https://holychords.pro/storage/music/CJnei1sVOmhWgLZqW2hsVD8NLf1jzJ9ZJdvZirTY.mp3",
+      "group": "1. Yana Kolesnik",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kolesnik.png",
+      "duration": 245
+    },
+    {
+      "title": "Иду вперёд по Божьему пути",
+      "url": "https://holychords.pro/uploads/music/20200701/20200701164457_93.mp3",
+      "group": "7. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
+      "duration": 231
+    },
+    {
+      "title": "Дім Євангелія Рівне",
+      "url": "https://holychords.pro/uploads/music/20230201/20230201000021.mp3",
+      "group": "4. Гурт, Дім Євангелія Рівне",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/rivne.jpg",
+      "duration": 234
+    },
+    {
+      "title": "Як птах до неба!",
+      "url": "https://holychords.pro/uploads/music/20220604/20220604232211.mp3",
+      "group": "4. Сім'я Денисюків",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
+      "duration": 226
+    },
+    {
+      "title": "Пусть земля вся утверждает",
+      "url": "https://kg-music.club/wp-content/uploads/2021/04/%D0%9F%D1%83%D1%81%D1%82%D1%8C-%D0%B7%D0%B5%D0%BC%D0%BB%D1%8F-%D0%B2%D1%81%D1%8F-%D1%83%D1%82%D0%B2%D0%B5%D1%80%D0%B6%D0%B4%D0%B0%D0%B5%D1%82-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-%D0%91%D1%80%D0%B0%D1%82%D1%8C%D1%8F-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/gurt-melodia.png",
+      "duration": 244
+    },
+    {
+      "title": "Без Тебя",
+      "url": "https://holychords.pro/storage/music/iCCae2rscZ5dNlYyLFCvKU5GW49h04gUOh1rXKaI.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/arfo.png",
+      "duration": 282
+    },
+    {
+      "title": "Зiронька",
+      "url": "https://holychords.pro/uploads/music/20201212/20201212115735.mp3",
       "group": "2. (69 треків) Світлана Демко",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
       "duration": 250
     },
     {
-      "title": "Це життя є прекрасне",
-      "url": "https://holychords.pro/storage/music/rXjyRQFBfPZGKepJSd1DaMeSQytPM8oVSr10aSCa.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 321
+      "title": "Лиш Ти дав людям надію",
+      "url": "https://holychords.pro/storage/music/3BT4pwRog8UYBkOnVC3BS1h3yQtk3xQmCq5lxmLN.mp3",
+      "group": "4. Гурт, Дім Євангелія Рівне",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/rivne.jpg",
+      "duration": 241
     },
     {
-      "title": "Осень",
-      "url": "https://holychords.pro/storage/music/0Lk2Wtkh97uiC8rJrHvFSC5dxDS4X6MwmA3xJg3Q.mp3",
+      "title": "Рождественское попури 3",
+      "url": "https://holychords.pro/uploads/music/20221212/20221212021548.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/arfo.png",
+      "duration": 618
+    },
+    {
+      "title": "Життя в Тобі",
+      "url": "https://holychords.pro/storage/music/mgOpUiT2gX14f4FGscKljoT5bUrIbt5jGIrm8zK3.mp3",
+      "group": "4. Гурт, Дім Євангелія Рівне",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/rivne.jpg",
+      "duration": 194
+    },
+    {
+      "title": "Не падай духом!",
+      "url": "https://holychords.pro/uploads/music/20221015/20221015154114.mp3",
       "group": "8. Светлана Малова",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
-      "duration": 244
+      "duration": 250
+    },
+    {
+      "title": "Молю",
+      "url": "https://holychords.pro/uploads/music/20220722/20220722081325.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 235
+    },
+    {
+      "title": "Христос живий (feat. Діана Демко)",
+      "url": "https://holychords.pro/storage/music/C7EfaAJEJ5ll8mWWaPOkj9qCi2U2T36qj6lF3tnq.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 193
     },
     {
       "title": "Слідом за зіркою",
@@ -570,10 +885,80 @@
       "duration": 251
     },
     {
-      "title": "Остановись!(2v)",
-      "url": "https://holychords.pro/storage/music/akvthxMVcw1HxVks5yMLPMHIooNvpcDCyfxuO1pv.mp3",
-      "group": "8. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
+      "title": "Молитва, Rooted in Christ",
+      "url": "https://holychords.pro/uploads/music/20220308/20220308202552.mp3",
+      "group": "1. Збірка пісень \"Ти живий Ісус\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/isus.jpg",
+      "duration": 272
+    },
+    {
+      "title": "Всё это сбудется",
+      "url": "https://holychords.pro/uploads/music/20200701/20200701164457_41_26.mp3",
+      "group": "6. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
+      "duration": 310
+    },
+    {
+      "title": "Досконалий Бог",
+      "url": "https://holychords.pro/uploads/music/20200301/2020030120224218.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 393
+    },
+    {
+      "title": "А ти шукай дорогу Бога",
+      "url": "https://holychords.pro/storage/music/A3lUJqZGGY91WIpd1XtUhDGudI3uT7s1O8CKadJc.mp3",
+      "group": "3. Гурт з Володимирця",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/hq720.jpg",
+      "duration": 237
+    },
+    {
+      "title": "Хрест",
+      "url": "https://holychords.pro/uploads/music/20190412/2019041209545793.mp3",
+      "group": "12. Ольга Андрощук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/andi.jpg",
+      "duration": 285
+    },
+    {
+      "title": "Ісус, візьми мене",
+      "url": "https://holychords.pro/storage/music/EOfVBz8hNXPHJxVORHgSNyoJnEYbGspdK3O8z3tl.mp3",
+      "group": "12. Ольга Андрощук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/andi.jpg",
+      "duration": 280
+    },
+    {
+      "title": "Бо Любов",
+      "url": "https://kg-music.club/wp-content/uploads/2020/12/%D0%91%D0%BE-%D0%9B%D1%8E%D0%B1%D0%BE%D0%B2-%D0%93%D1%83%D1%80%D1%82-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D1%96%D1%8F-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/gurt-melodia.png",
+      "duration": 280
+    },
+    {
+      "title": "Спішу до Тебе дні і ночі",
+      "url": "https://holychords.pro/storage/music/nZvFxMcpR2XWG9AdKIvCP1GW4r4YUYedotP3xUWh.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/arfo.png",
+      "duration": 272
+    },
+    {
+      "title": "Друзьям, с благодарностью",
+      "url": "https://holychords.pro/storage/music/mi3ZBZ1SbpGuWDuFYmJdth7GXODmS8WqWiee2UJ9.mp3",
+      "group": "7. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
+      "duration": 209
+    },
+    {
+      "title": "Подними меня",
+      "url": "https://kg-music.club/wp-content/uploads/2021/09/%D0%9F%D0%BE%D0%B4%D0%BD%D0%B8%D0%BC%D0%B8-%D0%BC%D0%B5%D0%BD%D1%8F-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/gurt-melodia.png",
+      "duration": 315
+    },
+    {
+      "title": "Я Тобі Ісусе дякую",
+      "url": "https://holychords.pro/uploads/music/20200219/202002190927059.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
       "duration": 208
     },
     {
@@ -584,648 +969,32 @@
       "duration": 227
     },
     {
-      "title": "Ти сил даєш",
-      "url": "https://holychords.pro/uploads/music/20190405/2019040520513778.mp3",
-      "group": "4. Сім'я Денисюків",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
-      "duration": 235
-    },
-    {
-      "title": "Мне приснился",
-      "url": "https://holychords.pro/storage/music/MvqY4ZLL49qwgVC7Akc3ieaYWzcQ11a5XRafM3pf.mp3",
-      "group": "8. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
-      "duration": 207
-    },
-    {
-      "title": "Затишна земля",
-      "url": "https://holychords.pro/storage/music/4znKPb4yrAGIuMwIC43J4NRtqHmQvG8ByQ27Z68M.mp3",
+      "title": "Зірка Вифлеємська",
+      "url": "https://holychords.pro/storage/music/5Bb7WCTAxMxPrcWiYF8Eo0HHvFBqZIhAe9Hyp0BX.mp3",
       "group": "2. (69 треків) Світлана Демко",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 261
-    },
-    {
-      "title": "Досконалий Бог",
-      "url": "https://holychords.pro/uploads/music/20200301/2020030120224218.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 393
-    },
-    {
-      "title": "Навіки живи, о моя Україно",
-      "url": "https://holychords.pro/uploads/music/20230826/20230826210611.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 316
-    },
-    {
-      "title": "Моїй бабусі",
-      "url": "https://holychords.pro/storage/music/wMUj2C3sE6gua7zl59w6ZyqzkHDC0hUu6lZ8E01t.mp3",
-      "group": "3. Олена Сидорчук",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 293
-    },
-    {
-      "title": "Це життя, мій Господь",
-      "url": "https://holychords.pro/storage/music/wdSvxtmPfWfMzKlMfv3GY7cxAQbDYOAixsKUUVw3.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 256
-    },
-    {
-      "title": "А звезды тоже гаснут",
-      "url": "https://holychords.pro/uploads/music/20200701/20200701164515_57_65.mp3",
-      "group": "6. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
-      "duration": 238
-    },
-    {
-      "title": "Шумні води",
-      "url": "https://holychords.pro/storage/music/EiEBtYeZRxwTtt2iPEXqKT6rPh94td4evNnFUtcd.mp3",
-      "group": "1. Yana Kolesnik",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kolesnik.png",
-      "duration": 227
-    },
-    {
-      "title": "Плаче дерево",
-      "url": "https://holychords.pro/storage/music/GHWwbHrGWAZeHYugUCydvanNmKgZtgvMIcuZDEHZ.mp3",
-      "group": "3. Олена Сидорчук",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 251
-    },
-    {
-      "title": "Миру дай Господь",
-      "url": "https://holychords.pro/storage/music/oS2NMqaoFfTgARK2tFysDeRvZjTYXwOu2k73BxpG.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 295
-    },
-    {
-      "title": "Вера",
-      "url": "https://holychords.pro/storage/music/3NW9dTDCOrKdhcpVSjUuQrahpyu08idvE1dQV3Hm.mp3",
-      "group": "6. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
-      "duration": 163
-    },
-    {
-      "title": "Беседа с Богом",
-      "url": "https://holychords.pro/storage/music/RZ4W5tLofkHjAVGWdETOWqmsyErX7vOQopWAuzOB.mp3",
-      "group": "6. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
-      "duration": 311
-    },
-    {
-      "title": "Спішу до Тебе",
-      "url": "https://holychords.pro/storage/music/5XTgAzYy0X6Tk1cPiu85SO69k35ug7s5lY4dOPy7.mp3",
-      "group": "1. Yana Kolesnik",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kolesnik.png",
-      "duration": 249
-    },
-    {
-      "title": "Хвалите Имя Господне",
-      "url": "https://holychords.pro/storage/music/aaYq6QB1S7FLXUqbtI3elrtFept8hWWXFjESI0MV.mp3",
-      "group": "5. Группа Вдохновение",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/vdohnoveniy.png",
-      "duration": 311
-    },
-    {
-      "title": "Подяка",
-      "url": "https://holychords.pro/storage/music/mZKuu3b65FMYNQOXTMhSEtl75ZgO6FPgtfv0Sdrb.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 312
-    },
-    {
-      "title": "Играй На Мне, Господь",
-      "url": "https://holychords.pro/uploads/music/20200606/2020060621400560.mp3",
-      "group": "7. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
-      "duration": 261
-    },
-    {
-      "title": "Дыши",
-      "url": "https://holychords.pro/uploads/music/20200701/20200701164515_28_60.mp3",
-      "group": "7. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
-      "duration": 194
-    },
-    {
-      "title": "Кого из нас",
-      "url": "https://holychords.pro/storage/music/vr7q0gBkBbstStrZaUErE7LgtwvT6RQ4K6z8atHX.mp3",
-      "group": "7. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
-      "duration": 310
-    },
-    {
-      "title": "Чудовий край",
-      "url": "https://holychords.pro/storage/music/gocjSgHcuZqYaY3XNTTqWqd8akVz3NGe4D5J22Ov.mp3",
-      "group": "3. Олена Сидорчук",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 245
-    },
-    {
-      "title": "Коли прийде нелегкий час в житті",
-      "url": "https://holychords.pro/uploads/music/20200125/2020012510332746.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 230
-    },
-    {
-      "title": "Очі мами (feat. Виктория Березовская)",
-      "url": "https://holychords.pro/uploads/music/20230506/20230506131054.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 322
-    },
-    {
-      "title": "Молитва за Україну",
-      "url": "https://holychords.pro/uploads/music/20220307/20220307091134.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 176
-    },
-    {
-      "title": "Дотик неба",
-      "url": "https://holychords.pro/uploads/music/20191214/2019121412381071.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 297
-    },
-    {
-      "title": "О, не плач",
-      "url": "https://holychords.pro/uploads/music/20210326/20210326081736.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 245
-    },
-    {
-      "title": "Весільний день",
-      "url": "https://holychords.pro/uploads/music/20210814/20210814102400.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 265
-    },
-    {
-      "title": "Спи, Ісусе, спи (feat. Darina Kolesnik)",
-      "url": "https://holychords.pro/storage/music/EjQdoL2a74jMKsUwDiC8XkoeW1bN0W26tbV6c2gF.mp3",
-      "group": "1. Yana Kolesnik",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kolesnik.png",
-      "duration": 300
-    },
-    {
-      "title": "Открой мои духовные глаза",
-      "url": "https://holychords.pro/storage/music/pKvVMpOYZUzBxBfLbkUOlD3uxkY0cu6740MAH6Bo.mp3",
-      "group": "8. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
-      "duration": 248
-    },
-    {
-      "title": "Люди как птицы",
-      "url": "https://holychords.pro/uploads/music/20200629/2020062922520497.mp3",
-      "group": "8. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
-      "duration": 234
-    },
-    {
-      "title": "На Різдво (feat. Оксана Захарчук, Зоряна Соколова)",
-      "url": "https://holychords.pro/storage/music/rSXdKgCUSUf8an5aMKsl5cXF4wKzoS9RWJ1KHXN2.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 230
-    },
-    {
-      "title": "Мій захист (feat. Philia)",
-      "url": "https://holychords.pro/uploads/music/20220924/20220924130652.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 276
-    },
-    {
-      "title": "Він Живий",
-      "url": "https://holychords.pro/uploads/music/20220409/20220409194430.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 261
-    },
-    {
-      "title": "Небо",
-      "url": "https://holychords.pro/storage/music/E3qavABVe9FXMyitrlByuGU8WkGyOehz0N3ffXa1.mp3",
-      "group": "3. Олена Сидорчук",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 286
-    },
-    {
-      "title": "Моя Україна",
-      "url": "https://holychords.pro/storage/music/FN78ND2mPZ8XWb5uF3MtR2Urz2TBArkI6l0N5pxN.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 216
-    },
-    {
-      "title": "Когда в Библии сердцем читаю",
-      "url": "https://holychords.pro/uploads/music/20230302/20230302114102.mp3",
-      "group": "7. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
-      "duration": 252
-    },
-    {
-      "title": "О, как я счастлива",
-      "url": "https://holychords.pro/storage/music/CyWw5uH9S2JP5mQNhdR7J6Zprz1gjGa76Wl1RcuB.mp3",
-      "group": "8. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
-      "duration": 332
-    },
-    {
-      "title": "Любов (feat. Діана Демко)",
-      "url": "https://holychords.pro/uploads/music/20210604/20210604174238.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 257
-    },
-    {
-      "title": "Доброе сердце",
-      "url": "https://holychords.pro/storage/music/6iktojpLp9IIe1Ng7KJghWVoL0DOyk79AbQE1JA5.mp3",
-      "group": "7. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
-      "duration": 216
-    },
-    {
-      "title": "Дякую за все",
-      "url": "https://holychords.pro/storage/music/sozMdPK0NlmFfcRttPtzWq4GTktzFzOR5Jidu117.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 220
-    },
-    {
-      "title": "Крылья Веры",
-      "url": "https://holychords.pro/uploads/music/20200606/2020060621443137.mp3",
-      "group": "7. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
-      "duration": 222
-    },
-    {
-      "title": "Вознесу я",
-      "url": "https://holychords.pro/uploads/music/20200326/2020032622284270.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 303
-    },
-    {
-      "title": "Навіки живи, о моя Україно (feat. Світлана Демко)",
-      "url": "https://holychords.pro/uploads/music/20220910/20220910091541.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 318
-    },
-    {
-      "title": "Все молитвы сердца",
-      "url": "https://holychords.pro/uploads/music/20210507/20210507234857.mp3",
-      "group": "6. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
-      "duration": 301
-    },
-    {
-      "title": "Завтра",
-      "url": "https://holychords.pro/uploads/music/20200701/20200701164515_20_9.mp3",
-      "group": "7. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
-      "duration": 273
-    },
-    {
-      "title": "Церковь",
-      "url": "https://holychords.pro/uploads/music/20201026/20201026110821.mp3",
-      "group": "5. Группа Вдохновение",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/vdohnoveniy.png",
-      "duration": 287
-    },
-    {
-      "title": "А что это такое небо",
-      "url": "https://holychords.pro/uploads/music/20190813/2019081320483029.mp3",
-      "group": "6. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
-      "duration": 132
-    },
-    {
-      "title": "Мій фаворит (feat. Діана Демко)",
-      "url": "https://holychords.pro/uploads/music/20210621/20210621100242.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 226
-    },
-    {
-      "title": "Новый год",
-      "url": "https://holychords.pro/uploads/music/20200701/20200701164535_50_27.mp3",
-      "group": "8. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
-      "duration": 238
-    },
-    {
-      "title": "Доброта",
-      "url": "https://holychords.pro/storage/music/h230OnO7ipaBDWBu5NHAeROdnMGcsOJkjnEDw7c4.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 290
-    },
-    {
-      "title": "Віра",
-      "url": "https://holychords.pro/uploads/music/20210408/20210408124120.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 268
-    },
-    {
-      "title": "Голубко моя",
-      "url": "https://holychords.pro/storage/music/ee3HjV78bKbGyw9SicR0KWBZmA7jvcyzpfW2hBIh.mp3",
-      "group": "3. Олена Сидорчук",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 257
-    },
-    {
-      "title": "Відрада",
-      "url": "https://holychords.pro/uploads/music/20191123/201911231359469.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 218
-    },
-    {
-      "title": "Відлітають журавлі",
-      "url": "https://holychords.pro/storage/music/wNtNBbSezWGrrNJRrnZEXryRlkWXZUDCWwXgGS3X.mp3",
-      "group": "3. Олена Сидорчук",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 318
-    },
-    {
-      "title": "Восьмая заповедь",
-      "url": "https://holychords.pro/uploads/music/20210724/20210724110638.mp3",
-      "group": "6. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
-      "duration": 310
-    },
-    {
-      "title": "Слава Тобі (feat. Denis S, Світлана Демко, Діана Демко, Austin Patsula)",
-      "url": "https://holychords.pro/storage/music/gfzUm5ROUvTv6iVykvbH8WtaaYbGbCrFrDxSJNxJ.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 296
-    },
-    {
-      "title": "Остановись",
-      "url": "https://holychords.pro/uploads/music/20220308/20220308135107.mp3",
-      "group": "8. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
-      "duration": 205
-    },
-    {
-      "title": "Всё это сбудется",
-      "url": "https://holychords.pro/uploads/music/20200701/20200701164457_41_26.mp3",
-      "group": "6. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
-      "duration": 310
-    },
-    {
-      "title": "Сім'я колиска",
-      "url": "https://holychords.pro/storage/music/lAM2juItWYzxntuWAcFrcyCDlKgD9ymzRVR4SQtD.mp3",
-      "group": "3. Олена Сидорчук",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 243
-    },
-    {
-      "title": "Радуюсь",
-      "url": "https://holychords.pro/storage/music/lCS4vnudTLeGq02NFjJq3iWnX5YMuGlUl8bo54eZ.mp3",
-      "group": "5. Группа Вдохновение",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/vdohnoveniy.png",
-      "duration": 263
-    },
-    {
-      "title": "Святий вечір, добрий вечір (feat. Аня Дашкевіч, Світлана Демко)",
-      "url": "https://holychords.pro/storage/music/ShI5St8FpbeoeKp29eFh0hhlXwPo6HYIlcZA5pfY.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 249
-    },
-    {
-      "title": "Ти моє щастя",
-      "url": "https://holychords.pro/uploads/music/20200722/20200722095722.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 272
-    },
-    {
-      "title": "Господь - моя скеля!",
-      "url": "https://holychords.pro/uploads/music/20220421/20220421202131.mp3",
-      "group": "4. Сім'я Денисюків",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
-      "duration": 258
-    },
-    {
-      "title": "Я дякую",
-      "url": "https://holychords.pro/storage/music/06lKF5AZsKYrl743CgM92AnaT4vofdjjuE5qSKsW.mp3",
-      "group": "3. Олена Сидорчук",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 226
-    },
-    {
-      "title": "Плаче мій народ",
-      "url": "https://holychords.pro/uploads/music/20220317/20220317015456.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 385
-    },
-    {
-      "title": "Не в тумані",
-      "url": "https://holychords.pro/storage/music/XCm72qWamaJkjIZY5t5peoYMxtTIkwS2vV3SXoMM.mp3",
-      "group": "3. Олена Сидорчук",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 357
-    },
-    {
-      "title": "Несправедливость опалила",
-      "url": "https://holychords.pro/storage/music/Xyga02m9pyPUHOgLroE7PPPrhgKtYtjmmabYIIHa.mp3",
-      "group": "8. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
-      "duration": 314
-    },
-    {
-      "title": "Взываю",
-      "url": "https://holychords.pro/storage/music/xPWiLSoVHiiGjNapMI05Gvl4JioVV1H8ehT8CoHW.mp3",
-      "group": "6. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
-      "duration": 257
-    },
-    {
-      "title": "Серце моє",
-      "url": "https://holychords.pro/storage/music/CJnei1sVOmhWgLZqW2hsVD8NLf1jzJ9ZJdvZirTY.mp3",
-      "group": "1. Yana Kolesnik",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kolesnik.png",
-      "duration": 245
-    },
-    {
-      "title": "Кто я Господь Мой для Тебя",
-      "url": "https://holychords.pro/uploads/music/20201119/20201119012659.mp3",
-      "group": "7. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
-      "duration": 191
-    },
-    {
-      "title": "Алиллуйя",
-      "url": "https://holychords.pro/uploads/music/20221112/20221112185753.mp3",
-      "group": "5. Группа Вдохновение",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/vdohnoveniy.png",
-      "duration": 344
-    },
-    {
-      "title": "Не завжди буде шумно в нашій хаті",
-      "url": "https://holychords.pro/storage/music/mIDxzTBcjhQOls5EzQmPyhjgJ5N7AYwiYeEqyOSF.mp3",
-      "group": "3. Олена Сидорчук",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 283
-    },
-    {
-      "title": "Да",
-      "url": "https://holychords.pro/uploads/music/20200701/20200701164515_75.mp3",
-      "group": "7. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
-      "duration": 225
-    },
-    {
-      "title": "Я Тобі Ісусе дякую",
-      "url": "https://holychords.pro/uploads/music/20200219/202002190927059.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 208
-    },
-    {
-      "title": "А Небо кричит",
-      "url": "https://holychords.pro/uploads/music/20200701/20200701164457_25_20.mp3",
-      "group": "6. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
-      "duration": 297
-    },
-    {
-      "title": "Як птах до неба!",
-      "url": "https://holychords.pro/uploads/music/20220604/20220604232211.mp3",
-      "group": "4. Сім'я Денисюків",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
-      "duration": 226
-    },
-    {
-      "title": "Боже благий",
-      "url": "https://holychords.pro/uploads/music/20201201/20201201215242.mp3",
-      "group": "4. Сім'я Денисюків",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
-      "duration": 281
-    },
-    {
-      "title": "Христос живий (feat. Діана Демко)",
-      "url": "https://holychords.pro/storage/music/C7EfaAJEJ5ll8mWWaPOkj9qCi2U2T36qj6lF3tnq.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 193
-    },
-    {
-      "title": "Сотворен Тобой я",
-      "url": "https://holychords.pro/uploads/music/20200808/20200808091611.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 190
-    },
-    {
-      "title": "Верую",
-      "url": "https://holychords.pro/uploads/music/20210119/20210119152008.mp3",
-      "group": "6. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
-      "duration": 203
-    },
-    {
-      "title": "Вы не бойтесь преткновений на пути",
-      "url": "https://holychords.pro/uploads/music/20210508/20210508000316.mp3",
-      "group": "7. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
-      "duration": 226
-    },
-    {
-      "title": "Тримай мене (feat. Philia)",
-      "url": "https://holychords.pro/storage/music/06TklDqro20OnFTnBNYc1wAvu898aj7vg6BkRIGR.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 225
-    },
-    {
-      "title": "Не падай духом!",
-      "url": "https://holychords.pro/uploads/music/20221015/20221015154114.mp3",
-      "group": "8. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
       "duration": 250
     },
     {
-      "title": "В жизни много путей",
-      "url": "https://holychords.pro/storage/music/OZl9cLKn4unaXZx34KEpwfdl9lsZkmEzR7bMzrdu.mp3",
-      "group": "6. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
-      "duration": 211
-    },
-    {
-      "title": "Щастя Назавжди",
-      "url": "https://holychords.pro/uploads/music/20230125/20230125003645.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 240
-    },
-    {
-      "title": "Авва",
-      "url": "https://holychords.pro/uploads/music/20220205/20220205152709.mp3",
-      "group": "4. Сім'я Денисюків",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
-      "duration": 237
-    },
-    {
-      "title": "Всё так же кружит в космосе Земля",
-      "url": "https://holychords.pro/storage/music/hOK0dvmWXVFAHzbQ4IEHo0dp4SAWRhiE0apSTXBT.mp3",
-      "group": "6. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
-      "duration": 350
-    },
-    {
-      "title": "В святу ніч",
-      "url": "https://holychords.pro/uploads/music/20191218/2019121801565614.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "title": "О небо, напитися дай",
+      "url": "https://holychords.pro/uploads/music/20231020/20231020110442.mp3",
+      "group": "12. Ольга Андрощук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/andi.jpg",
       "duration": 260
     },
     {
-      "title": "Таточку",
-      "url": "https://holychords.pro/uploads/music/20191124/2019112408050922.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 255
+      "title": "Я на Голгофі",
+      "url": "https://holychords.pro/uploads/music/20210604/20210604103521.mp3",
+      "group": "4. Сім'я Денисюків",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
+      "duration": 215
     },
     {
-      "title": "В житті буває час",
-      "url": "https://holychords.pro/storage/music/aR8OXahpo8QiZ0fbxsxpecTUN2S0lL8eGbP9AxUK.mp3",
-      "group": "3. Олена Сидорчук",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 237
-    },
-    {
-      "title": "Когда в Твои слова вникаю",
-      "url": "https://holychords.pro/uploads/music/20200701/20200701164457_17_55.mp3",
-      "group": "7. Светлана Малова",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
-      "duration": 214
-    },
-    {
-      "title": "Згадай Самарянку",
-      "url": "https://holychords.pro/storage/music/lCFEsJHoZyecpE9yVBrEuRRk5Huko1mcyUWT7vUy.mp3",
-      "group": "3. Олена Сидорчук",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
-      "duration": 187
-    },
-    {
-      "title": "Слава Тобі",
-      "url": "https://holychords.pro/uploads/music/20191111/2019111109113529.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 301
+      "title": "Причина Рождества",
+      "url": "https://holychords.pro/storage/music/QvWmlrp5fF3rjBcMeZEHbROTB3XcXpM7SdeSwNw9.mp3",
+      "group": "5. Группа Вдохновение",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/vdohnoveniy.png",
+      "duration": 284
     },
     {
       "title": "Хай буде воля Твоя (feat. Трио Левит)",
@@ -1235,11 +1004,865 @@
       "duration": 282
     },
     {
+      "title": "Диво те",
+      "url": "https://holychords.pro/storage/music/O4c8YiX7FdV5eBgdEvqL7U3LAtdSUjRGondjcg4m.mp3",
+      "group": "12. Ольга Андрощук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/andi.jpg",
+      "duration": 335
+    },
+    {
+      "title": "Прощение",
+      "url": "https://holychords.pro/uploads/music/20200701/20200701164549_84_60.mp3",
+      "group": "7. Brynza Brothers",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/Brynza.jpg",
+      "duration": 333
+    },
+    {
+      "title": "Я іду до мети",
+      "url": "https://holychords.pro/uploads/music/20200206/2020020621122540.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 220
+    },
+    {
+      "title": "Небо",
+      "url": "https://holychords.pro/storage/music/E3qavABVe9FXMyitrlByuGU8WkGyOehz0N3ffXa1.mp3",
+      "group": "3. Олена Сидорчук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
+      "duration": 286
+    },
+    {
+      "title": "Віра",
+      "url": "https://holychords.pro/uploads/music/20210408/20210408124120.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 268
+    },
+    {
+      "title": "А что это такое небо",
+      "url": "https://holychords.pro/uploads/music/20190813/2019081320483029.mp3",
+      "group": "6. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
+      "duration": 132
+    },
+    {
+      "title": "Подяка",
+      "url": "https://holychords.pro/storage/music/mZKuu3b65FMYNQOXTMhSEtl75ZgO6FPgtfv0Sdrb.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 312
+    },
+    {
+      "title": "Чудовий День Різдва",
+      "url": "https://holychords.pro/uploads/music/20221218/20221218125109.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 227
+    },
+    {
+      "title": "Новый год",
+      "url": "https://holychords.pro/uploads/music/20200701/20200701164535_50_27.mp3",
+      "group": "8. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
+      "duration": 238
+    },
+    {
+      "title": "Беседа с Богом",
+      "url": "https://holychords.pro/storage/music/RZ4W5tLofkHjAVGWdETOWqmsyErX7vOQopWAuzOB.mp3",
+      "group": "6. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
+      "duration": 311
+    },
+    {
+      "title": "Що буде завтра",
+      "url": "https://holychords.pro/storage/music/cjjRDVuLL2sAbwT7jlsCHfV98DINSwyIJPfYx4xV.mp3",
+      "group": "3. Гурт з Володимирця",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/hq720.jpg",
+      "duration": 292
+    },
+    {
+      "title": "Дайте мені крила",
+      "url": "https://kg-music.club/wp-content/uploads/2023/09/dayte-meni-krila-gurt-melodiya-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/gurt-melodia.png",
+      "duration": 246
+    },
+    {
+      "title": "Сотворен Тобой я",
+      "url": "https://holychords.pro/uploads/music/20200808/20200808091611.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 190
+    },
+    {
+      "title": "Бог мене відшукав!",
+      "url": "https://holychords.pro/storage/music/Auopq35cQPYMcV38LeTAYVTcvilsEObZipJO7euE.mp3",
+      "group": "4. Гурт, Дім Євангелія Рівне",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/rivne.jpg",
+      "duration": 141
+    },
+    {
+      "title": "Мій фаворит (feat. Діана Демко)",
+      "url": "https://holychords.pro/uploads/music/20210621/20210621100242.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 226
+    },
+    {
+      "title": "ТИ НАДІЯ ЄДИНА",
+      "url": "https://holychords.pro/storage/music/t4xpMhiJsFJRWkJAlRATIK8FImU84zcwmD4u3gem.mp3",
+      "group": "1. Yana Kolesnik",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kolesnik.png",
+      "duration": 237
+    },
+    {
+      "title": "Вторая заповедь",
+      "url": "https://holychords.pro/uploads/music/20200701/20200701164457_65_51_60.mp3",
+      "group": "6. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
+      "duration": 207
+    },
+    {
+      "title": "Я, Ісусе, співаю Тобі",
+      "url": "https://holychords.pro/storage/music/R37uvz23RK7GyBRcfquE4psqLtLKj0R5euQ0iogF.mp3",
+      "group": "4. Гурт, Дім Євангелія Рівне",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/rivne.jpg",
+      "duration": 170
+    },
+    {
+      "title": "Не завжди буде шумно в нашій хаті",
+      "url": "https://holychords.pro/storage/music/mIDxzTBcjhQOls5EzQmPyhjgJ5N7AYwiYeEqyOSF.mp3",
+      "group": "3. Олена Сидорчук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
+      "duration": 283
+    },
+    {
+      "title": "Арфа",
+      "url": "https://holychords.pro/storage/music/QInZZNSRP9lvhkXI3FNs1QktgF4oplJetTIUqjIE.mp3",
+      "group": "6. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
+      "duration": 197
+    },
+    {
+      "title": "Осень",
+      "url": "https://holychords.pro/storage/music/0Lk2Wtkh97uiC8rJrHvFSC5dxDS4X6MwmA3xJg3Q.mp3",
+      "group": "8. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
+      "duration": 244
+    },
+    {
+      "title": "Лебеді",
+      "url": "https://holychords.pro/storage/music/i5f3IKkbP5Pn42EHkApGYN0DICp0gSYR9mE3W58B.mp3",
+      "group": "3. Олена Сидорчук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
+      "duration": 359
+    },
+    {
+      "title": "Твоя любов",
+      "url": "https://holychords.pro/uploads/music/20210127/20210127182008.mp3",
+      "group": "4. Сім'я Денисюків",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
+      "duration": 208
+    },
+    {
+      "title": "Восьмая заповедь",
+      "url": "https://holychords.pro/uploads/music/20210724/20210724110638.mp3",
+      "group": "6. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
+      "duration": 310
+    },
+    {
+      "title": "Я верю",
+      "url": "https://holychords.pro/uploads/music/20200924/20200924094034.mp3",
+      "group": "12. Ольга Андрощук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/andi.jpg",
+      "duration": 271
+    },
+    {
+      "title": "На скрижалях сердца",
+      "url": "https://holychords.pro/uploads/music/20200701/20200701164549_65.mp3",
+      "group": "7. Brynza Brothers",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/Brynza.jpg",
+      "duration": 267
+    },
+    {
+      "title": "Когда в Твои слова вникаю",
+      "url": "https://holychords.pro/uploads/music/20200701/20200701164457_17_55.mp3",
+      "group": "7. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
+      "duration": 214
+    },
+    {
+      "title": "Золотий Хрест",
+      "url": "https://holychords.pro/uploads/music/20191123/2019112313104540.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 221
+    },
+    {
+      "title": "Приходжу мій Боже, Rooted in Christ",
+      "url": "https://holychords.pro/uploads/music/20220918/20220918175530.mp3",
+      "group": "1. Збірка пісень \"Ти живий Ісус\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/isus.jpg",
+      "duration": 289
+    },
+    {
+      "title": "Ти підіймаєш",
+      "url": "https://kg-music.club/wp-content/uploads/2020/01/You-raise-me-up-Cover-Version-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/gurt-melodia.png",
+      "duration": 207
+    },
+    {
+      "title": "Ти моє щастя",
+      "url": "https://holychords.pro/uploads/music/20200722/20200722095722.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 272
+    },
+    {
+      "title": "Моя рідненька мамо",
+      "url": "https://holychords.pro/uploads/music/20200101/2020010118214361.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 268
+    },
+    {
+      "title": "На землі живемо",
+      "url": "https://holychords.pro/storage/music/b7XWQjbdjeUzbzg2F05Ag8tCH5pbZOofPElf0Qrt.mp3",
+      "group": "3. Гурт з Володимирця",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/hq720.jpg",
+      "duration": 270
+    },
+    {
+      "title": "Дотик неба",
+      "url": "https://holychords.pro/uploads/music/20191214/2019121412381071.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 297
+    },
+    {
+      "title": "Камертон",
+      "url": "https://holychords.pro/storage/music/D0kMmcEvF77v01lFWCT4L7BzUPOj1IvpzDRgiQuJ.mp3",
+      "group": "7. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
+      "duration": 207
+    },
+    {
+      "title": "Там зустріну Тебе (feat. Виктор Шатецкий)",
+      "url": "https://holychords.pro/uploads/music/20210408/20210408123944.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 201
+    },
+    {
+      "title": "Моя Україна",
+      "url": "https://holychords.pro/storage/music/FN78ND2mPZ8XWb5uF3MtR2Urz2TBArkI6l0N5pxN.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 216
+    },
+    {
+      "title": "Слава Тобі, слава",
+      "url": "https://holychords.pro/uploads/music/20221118/20221118152353.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/GroupEast.png",
+      "duration": 213
+    },
+    {
+      "title": "Слава Тобі",
+      "url": "https://holychords.pro/uploads/music/20191111/2019111109113529.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 301
+    },
+    {
+      "title": "Різдвяна алілуя!",
+      "url": "https://holychords.pro/uploads/music/20201201/20201201222528.mp3",
+      "group": "4. Сім'я Денисюків",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
+      "duration": 239
+    },
+    {
+      "title": "Миру дай Господь",
+      "url": "https://holychords.pro/storage/music/oS2NMqaoFfTgARK2tFysDeRvZjTYXwOu2k73BxpG.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 295
+    },
+    {
+      "title": "Доброе завтра",
+      "url": "https://holychords.pro/storage/music/X6i65u5kObkFfqM2LUgi85HsbmyhQeUG2IetliWw.mp3",
+      "group": "7. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
+      "duration": 207
+    },
+    {
+      "title": "Говори спасибо",
+      "url": "https://holychords.pro/uploads/music/20210810/20210810062700.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/arfo.png",
+      "duration": 181
+    },
+    {
+      "title": "А звезды тоже гаснут",
+      "url": "https://holychords.pro/uploads/music/20200701/20200701164515_57_65.mp3",
+      "group": "6. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
+      "duration": 238
+    },
+    {
+      "title": "Святий вечір, добрий вечір (feat. Аня Дашкевіч, Світлана Демко)",
+      "url": "https://holychords.pro/storage/music/ShI5St8FpbeoeKp29eFh0hhlXwPo6HYIlcZA5pfY.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 249
+    },
+    {
+      "title": "В святу ніч",
+      "url": "https://holychords.pro/uploads/music/20191218/2019121801565614.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 260
+    },
+    {
+      "title": "Навіки живи, о моя Україно",
+      "url": "https://holychords.pro/uploads/music/20230826/20230826210611.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 316
+    },
+    {
+      "title": "Відрада",
+      "url": "https://holychords.pro/uploads/music/20191123/201911231359469.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 218
+    },
+    {
+      "title": "Спи, Ісусе, спи (feat. Darina Kolesnik)",
+      "url": "https://holychords.pro/storage/music/EjQdoL2a74jMKsUwDiC8XkoeW1bN0W26tbV6c2gF.mp3",
+      "group": "1. Yana Kolesnik",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kolesnik.png",
+      "duration": 300
+    },
+    {
+      "title": "Різдво (feat. Мелодія душі)",
+      "url": "https://holychords.pro/storage/music/6El7DEUhWRZFWuPN1cCYvZijCXLqhKrMKOJWoXkp.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 250
+    },
+    {
+      "title": "Ми молим Бога (feat. Edik Grek)",
+      "url": "https://holychords.pro/uploads/music/20191123/2019112313195048.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 290
+    },
+    {
+      "title": "Це життя є прекрасне",
+      "url": "https://holychords.pro/storage/music/rXjyRQFBfPZGKepJSd1DaMeSQytPM8oVSr10aSCa.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 321
+    },
+    {
+      "title": "Голубко моя",
+      "url": "https://holychords.pro/storage/music/ee3HjV78bKbGyw9SicR0KWBZmA7jvcyzpfW2hBIh.mp3",
+      "group": "3. Олена Сидорчук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
+      "duration": 257
+    },
+    {
       "title": "Хочу я з Тобою жить!",
       "url": "https://holychords.pro/storage/music/CJdeqjQ9VzhT1RXgGx7rptV22gL9cpg9skoAhURS.mp3",
       "group": "3. Олена Сидорчук",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
       "duration": 298
+    },
+    {
+      "title": "Вы не бойтесь преткновений на пути",
+      "url": "https://holychords.pro/uploads/music/20210508/20210508000316.mp3",
+      "group": "7. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
+      "duration": 226
+    },
+    {
+      "title": "Доброта",
+      "url": "https://holychords.pro/storage/music/h230OnO7ipaBDWBu5NHAeROdnMGcsOJkjnEDw7c4.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 290
+    },
+    {
+      "title": "Хвалите Имя Господне",
+      "url": "https://holychords.pro/storage/music/aaYq6QB1S7FLXUqbtI3elrtFept8hWWXFjESI0MV.mp3",
+      "group": "5. Группа Вдохновение",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/vdohnoveniy.png",
+      "duration": 311
+    },
+    {
+      "title": "Хвала",
+      "url": "https://holychords.pro/uploads/music/20210305/20210305111457.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 244
+    },
+    {
+      "title": "Ты воскрес",
+      "url": "https://holychords.pro/uploads/music/20220401/20220401164828.mp3",
+      "group": "12. Ольга Андрощук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/andi.jpg",
+      "duration": 251
+    },
+    {
+      "title": "Коханий",
+      "url": "https://holychords.pro/storage/music/Acj3IZRyECo7psUyXepcLVRtSFMR8yUGaoBzCt0N.mp3",
+      "group": "3. Олена Сидорчук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
+      "duration": 239
+    },
+    {
+      "title": "Я воскресну с Тобой",
+      "url": "https://holychords.pro/uploads/music/20190405/2019040517451465.mp3",
+      "group": "12. Ольга Андрощук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/andi.jpg",
+      "duration": 201
+    },
+    {
+      "title": "Мама моя люба",
+      "url": "https://holychords.pro/uploads/music/20230506/20230506204259.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/GroupEast.png",
+      "duration": 280
+    },
+    {
+      "title": "Білі лебеді",
+      "url": "https://holychords.pro/storage/music/09ZWwO25vpscVjuNXYbLSR8patnPqY9rZ0yTTC2k.mp3",
+      "group": "3. Олена Сидорчук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
+      "duration": 169
+    },
+    {
+      "title": "Когда в Библии сердцем читаю",
+      "url": "https://holychords.pro/uploads/music/20230302/20230302114102.mp3",
+      "group": "7. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
+      "duration": 252
+    },
+    {
+      "title": "Тримай мене (feat. Philia)",
+      "url": "https://holychords.pro/storage/music/06TklDqro20OnFTnBNYc1wAvu898aj7vg6BkRIGR.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 225
+    },
+    {
+      "title": "За Христом, Авен Езер",
+      "url": "https://holychords.pro/storage/music/A9uVWougCZeIZ6vZQRbUlpWYlIa7XceIzeZII7SI.mp3",
+      "group": "1. Збірка пісень \"Ти живий Ісус\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/isus.jpg",
+      "duration": 204
+    },
+    {
+      "title": "Просто дякуйте",
+      "url": "https://holychords.pro/uploads/music/20190405/2019040517172162.mp3",
+      "group": "12. Ольга Андрощук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/andi.jpg",
+      "duration": 244
+    },
+    {
+      "title": "Всего на миг свой бег остановлю",
+      "url": "https://holychords.pro/uploads/music/20210507/20210507235605.mp3",
+      "group": "6. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
+      "duration": 229
+    },
+    {
+      "title": "Мы будемо відпочивати",
+      "url": "https://holychords.pro/uploads/music/20211021/20211021084001.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/arfo.png",
+      "duration": 243
+    },
+    {
+      "title": "Почему",
+      "url": "https://holychords.pro/uploads/music/20190405/2019040518310441.mp3",
+      "group": "12. Ольга Андрощук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/andi.jpg",
+      "duration": 241
+    },
+    {
+      "title": "Поможи мені, мій Боже",
+      "url": "https://holychords.pro/uploads/music/20191123/2019112313255459.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 285
+    },
+    {
+      "title": "Вера, надежда, любовь",
+      "url": "https://holychords.pro/storage/music/bAZDq43ECBei4QUI3RkhLrZhZICf7Cw7eufU2NP8.mp3",
+      "group": "6. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
+      "duration": 299
+    },
+    {
+      "title": "В саду Гефсиманском",
+      "url": "https://holychords.pro/uploads/music/20200701/20200701164549_20_35.mp3",
+      "group": "7. Brynza Brothers",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/Brynza.jpg",
+      "duration": 301
+    },
+    {
+      "title": "В житті буває час",
+      "url": "https://holychords.pro/storage/music/aR8OXahpo8QiZ0fbxsxpecTUN2S0lL8eGbP9AxUK.mp3",
+      "group": "3. Олена Сидорчук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
+      "duration": 237
+    },
+    {
+      "title": "Моя дорога веде до Бога",
+      "url": "https://holychords.pro/storage/music/FcvqceltkqqMYNjVNS7TDuB3wZXziATBW6qhU086.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/GroupEast.png",
+      "duration": 280
+    },
+    {
+      "title": "Співай душа моя (feat. Angelina Lutsyk)",
+      "url": "https://holychords.pro/storage/music/xbeox0DpYPp2XfOa9OKjzxoe5LXabQcnIRXRhWys.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 238
+    },
+    {
+      "title": "Открой мои духовные глаза",
+      "url": "https://holychords.pro/storage/music/pKvVMpOYZUzBxBfLbkUOlD3uxkY0cu6740MAH6Bo.mp3",
+      "group": "8. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
+      "duration": 248
+    },
+    {
+      "title": "Медсёстры",
+      "url": "https://holychords.pro/storage/music/gSkI6HqnLHsZ1hjAADA86ykhNiBTzJ7JeL4RozaA.mp3",
+      "group": "8. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
+      "duration": 272
+    },
+    {
+      "title": "Засяй",
+      "url": "https://holychords.pro/uploads/music/20200108/2020010809563190.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 242
+    },
+    {
+      "title": "Вера",
+      "url": "https://holychords.pro/storage/music/3NW9dTDCOrKdhcpVSjUuQrahpyu08idvE1dQV3Hm.mp3",
+      "group": "6. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
+      "duration": 163
+    },
+    {
+      "title": "Доброе сердце",
+      "url": "https://holychords.pro/storage/music/6iktojpLp9IIe1Ng7KJghWVoL0DOyk79AbQE1JA5.mp3",
+      "group": "7. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
+      "duration": 216
+    },
+    {
+      "title": "Боже мій",
+      "url": "https://holychords.pro/uploads/music/20190405/201904051733375.mp3",
+      "group": "12. Ольга Андрощук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/andi.jpg",
+      "duration": 245
+    },
+    {
+      "title": "На Коленях У Отца",
+      "url": "https://holychords.pro/uploads/music/20190530/2019053008360298.mp3",
+      "group": "8. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
+      "duration": 275
+    },
+    {
+      "title": "Кто я Господь Мой для Тебя",
+      "url": "https://holychords.pro/uploads/music/20201119/20201119012659.mp3",
+      "group": "7. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova3.jpg",
+      "duration": 191
+    },
+    {
+      "title": "Ім'я Йому: Дивний",
+      "url": "https://holychords.pro/uploads/music/20230720/20230720162951.mp3",
+      "group": "4. Гурт, Дім Євангелія Рівне",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/rivne.jpg",
+      "duration": 217
+    },
+    {
+      "title": "Очі мами (feat. Виктория Березовская)",
+      "url": "https://holychords.pro/uploads/music/20230506/20230506131054.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 322
+    },
+    {
+      "title": "Мой Ангел-хранитель",
+      "url": "https://holychords.pro/storage/music/14g869OVr1y0nFAk1P3SqckqtXuNSA3tKx4IHU3P.mp3",
+      "group": "8. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
+      "duration": 252
+    },
+    {
+      "title": "На Різдво Я завітаю до Тебе в дім",
+      "url": "https://holychords.pro/storage/music/LirpAxnz4MgyE8hkF3mKFUeJzychnS9CicQR1Lga.mp3",
+      "group": "12. Ольга Андрощук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/andi.jpg",
+      "duration": 227
+    },
+    {
+      "title": "Він моє життя",
+      "url": "https://kg-music.club/wp-content/uploads/2023/09/vin-moe-zhittya-gurt-melodiya-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/gurt-melodia.png",
+      "duration": 263
+    },
+    {
+      "title": "Ти мій",
+      "url": "https://holychords.pro/storage/music/mmpIFmgvDhWsN489BfiFiKIzQmYGWaLsmdZ8AgyI.mp3",
+      "group": "12. Ольга Андрощук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/andi.jpg",
+      "duration": 242
+    },
+    {
+      "title": "Ми вам бажаємо добра",
+      "url": "https://holychords.pro/storage/music/0NVcxF3uowepsbkxUHKDsGReza9ACfr3Fa6Yo6Fl.mp3",
+      "group": "3. Гурт з Володимирця",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/hq720.jpg",
+      "duration": 285
+    },
+    {
+      "title": "Несправедливость опалила",
+      "url": "https://holychords.pro/storage/music/Xyga02m9pyPUHOgLroE7PPPrhgKtYtjmmabYIIHa.mp3",
+      "group": "8. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
+      "duration": 314
+    },
+    {
+      "title": "Авва",
+      "url": "https://holychords.pro/uploads/music/20220205/20220205152709.mp3",
+      "group": "4. Сім'я Денисюків",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
+      "duration": 237
+    },
+    {
+      "title": "Це життя, мій Господь",
+      "url": "https://holychords.pro/storage/music/wdSvxtmPfWfMzKlMfv3GY7cxAQbDYOAixsKUUVw3.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 256
+    },
+    {
+      "title": "Щастя Назавжди",
+      "url": "https://holychords.pro/uploads/music/20230125/20230125003645.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 240
+    },
+    {
+      "title": "Взываю",
+      "url": "https://holychords.pro/storage/music/xPWiLSoVHiiGjNapMI05Gvl4JioVV1H8ehT8CoHW.mp3",
+      "group": "6. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
+      "duration": 257
+    },
+    {
+      "title": "Сім'я колиска",
+      "url": "https://holychords.pro/storage/music/lAM2juItWYzxntuWAcFrcyCDlKgD9ymzRVR4SQtD.mp3",
+      "group": "3. Олена Сидорчук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png",
+      "duration": 243
+    },
+    {
+      "title": "Надежда",
+      "url": "https://holychords.pro/uploads/music/20210508/20210508000826.mp3",
+      "group": "8. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
+      "duration": 202
+    },
+    {
+      "title": "Господи, Ти Цар царів",
+      "url": "https://holychords.pro/uploads/music/20220102/20220102225305.mp3",
+      "group": "4. Сім'я Денисюків",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
+      "duration": 229
+    },
+    {
+      "title": "Holy, Holy, Holy",
+      "url": "https://holychords.pro/uploads/music/20220722/20220722194434.mp3",
+      "group": "7. Brynza Brothers",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/Brynza.jpg",
+      "duration": 353
+    },
+    {
+      "title": "Таточку",
+      "url": "https://holychords.pro/uploads/music/20191124/2019112408050922.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 255
+    },
+    {
+      "title": "Остановись!(2v)",
+      "url": "https://holychords.pro/storage/music/akvthxMVcw1HxVks5yMLPMHIooNvpcDCyfxuO1pv.mp3",
+      "group": "8. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova4.jpg",
+      "duration": 208
+    },
+    {
+      "title": "Затишна земля",
+      "url": "https://holychords.pro/storage/music/4znKPb4yrAGIuMwIC43J4NRtqHmQvG8ByQ27Z68M.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 261
+    },
+    {
+      "title": "Вознесу я",
+      "url": "https://holychords.pro/uploads/music/20200326/2020032622284270.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 303
+    },
+    {
+      "title": "Ти - мій Господь",
+      "url": "https://holychords.pro/storage/music/xRH1vgFIrheEVhnvvL2H4zLbpnBtZCWhKN7SHu5b.mp3",
+      "group": "3. Гурт з Володимирця",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/hq720.jpg",
+      "duration": 173
+    },
+    {
+      "title": "Господь моя сила",
+      "url": "https://kg-music.club/wp-content/uploads/2020/10/%D0%93%D0%BE%D1%81%D0%BF%D0%BE%D0%B4%D1%8C-%D0%BC%D0%BE%D1%8F-%D1%81%D0%B8%D0%BB%D0%B0-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/gurt-melodia.png",
+      "duration": 209
+    },
+    {
+      "title": "С ранней зари",
+      "url": "https://kg-music.club/wp-content/uploads/2021/05/%D0%A1-%D1%80%D0%B0%D0%BD%D0%BD%D0%B5%D0%B9-%D0%B7%D0%B0%D1%80%D0%B8-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/gurt-melodia.png",
+      "duration": 289
+    },
+    {
+      "title": "Шлях до спасіння",
+      "url": "https://holychords.pro/storage/music/2zyyCXgqn6OnppLwTcqsPdcd8CK4GY1HrgTaOHhL.mp3",
+      "group": "3. Гурт з Володимирця",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/hq720.jpg",
+      "duration": 204
+    },
+    {
+      "title": "Я Тобі Ісусе дякую",
+      "url": "https://kg-music.club/wp-content/uploads/2019/11/%D0%AF-%D0%A2%D0%BE%D0%B1%D1%96-%D0%86%D1%81%D1%83%D1%81%D0%B5-%D0%B4%D1%8F%D0%BA%D1%83%D1%8E-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-musicclub.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/gurt-melodia.png",
+      "duration": 211
+    },
+    {
+      "title": "Коли закінчу я свою мандрівку",
+      "url": "https://holychords.pro/storage/music/R5niI2FE4pjNFuW5y8kqssbwVpkl88XsJXw1vY6p.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 366
+    },
+    {
+      "title": "Молитва за Україну",
+      "url": "https://holychords.pro/uploads/music/20220307/20220307091134.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 176
+    },
+    {
+      "title": "Ми молимо за україну",
+      "url": "https://holychords.pro/uploads/music/20220414/20220414114232.mp3",
+      "group": "7. Brynza Brothers",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/Brynza.jpg",
+      "duration": 190
+    },
+    {
+      "title": "Плаче мій народ",
+      "url": "https://holychords.pro/uploads/music/20220317/20220317015456.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 385
+    },
+    {
+      "title": "Старый крест",
+      "url": "https://holychords.pro/uploads/music/20200701/20200701164549_34_20.mp3",
+      "group": "7. Brynza Brothers",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/Brynza.jpg",
+      "duration": 286
+    },
+    {
+      "title": "Я молюся за тебе моя україно",
+      "url": "https://holychords.pro/uploads/music/20220304/20220304125733.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/gurt-melodia.png",
+      "duration": 237
+    },
+    {
+      "title": "Радуюсь",
+      "url": "https://holychords.pro/storage/music/lCS4vnudTLeGq02NFjJq3iWnX5YMuGlUl8bo54eZ.mp3",
+      "group": "5. Группа Вдохновение",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/vdohnoveniy.png",
+      "duration": 263
+    },
+    {
+      "title": "Родився Цар!, Rooted in Christ",
+      "url": "https://holychords.pro/uploads/music/20211222/20211222083151.mp3",
+      "group": "1. Збірка пісень \"Ти живий Ісус\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/isus.jpg",
+      "duration": 203
+    },
+    {
+      "title": "До Тебе, Боже мій",
+      "url": "https://holychords.pro/uploads/music/20210215/20210215203821.mp3",
+      "group": "2. (69 треків) Світлана Демко",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 238
+    },
+    {
+      "title": "Солнышко моё",
+      "url": "https://holychords.pro/storage/music/5xPQkfbyIeVb6CdsO1acnuyxlVeSPyPDMkMci19M.mp3",
+      "group": "12. Ольга Андрощук",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/andi.jpg",
+      "duration": 220
+    },
+    {
+      "title": "Нежный голос",
+      "url": "https://kg-music.club/wp-content/uploads/2019/10/%D0%9D%D0%B5%D0%B6%D0%BD%D1%8B%D0%B9-%D0%B3%D0%BE%D0%BB%D0%BE%D1%81-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/gurt-melodia.png",
+      "duration": 255
+    },
+    {
+      "title": "Пусть молитва моя",
+      "url": "https://holychords.pro/uploads/music/20230514/20230514163633.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/arfo.png",
+      "duration": 231
+    },
+    {
+      "title": "Вера нужна",
+      "url": "https://holychords.pro/uploads/music/20200701/20200701164549_71.mp3",
+      "group": "7. Brynza Brothers",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/Brynza.jpg",
+      "duration": 235
+    },
+    {
+      "title": "Ніч Різдва",
+      "url": "https://holychords.pro/uploads/music/20200103/202001031151257.mp3",
+      "group": "5. Группа Вдохновение",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/vdohnoveniy.png",
+      "duration": 215
     },
     {
       "title": "Первая заповедь",
@@ -1249,22 +1872,63 @@
       "duration": 285
     },
     {
-      "title": "Нахили небеса",
-      "url": "https://holychords.pro/uploads/music/20200119/2020011909542639.mp3",
+      "title": "В Воскресінні першому",
+      "url": "https://holychords.pro/storage/music/8JDnlJcJhRuzpoW6IjKL7egdiaY6VnHJMqoLV108.mp3",
+      "group": "3. Гурт з Володимирця",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/hq720.jpg",
+      "duration": 248
+    },
+    {
+      "title": "Місто чудове",
+      "url": "https://holychords.pro/uploads/music/20211128/20211128205545.mp3",
       "group": "2. (69 треків) Світлана Демко",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
+      "duration": 289
+    },
+    {
+      "title": "Верую",
+      "url": "https://holychords.pro/uploads/music/20210119/20210119152008.mp3",
+      "group": "6. Светлана Малова",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/malova2.jpg",
+      "duration": 203
+    },
+    {
+      "title": "Спішу до Тебе",
+      "url": "https://holychords.pro/storage/music/5XTgAzYy0X6Tk1cPiu85SO69k35ug7s5lY4dOPy7.mp3",
+      "group": "1. Yana Kolesnik",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kolesnik.png",
+      "duration": 249
+    },
+    {
+      "title": "Найдорожчi люди Vika Polishchuk",
+      "url": "https://holychords.pro/storage/music/7pFHjB8dlzsZsL4R1hzzyim9XE9owHoF1pPmrowo.mp3",
+      "group": "1. Збірка пісень \"Ти живий Ісус\"",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/isus.jpg",
+      "duration": 264
+    },
+    {
+      "title": "Такий великий Бог!",
+      "url": "https://holychords.pro/uploads/music/20221130/20221130153415.mp3",
+      "group": "4. Сім'я Денисюків",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/denesyk.png",
+      "duration": 287
+    },
+    {
+      "title": "А на Різдво",
+      "url": "https://holychords.pro/storage/music/uW9Pqs8LIuqh9B0MyztigjkEPG6fpKYLiH4FVV13.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/GroupEast.png",
       "duration": 184
     },
     {
-      "title": "Зiронька",
-      "url": "https://holychords.pro/uploads/music/20201212/20201212115735.mp3",
-      "group": "2. (69 треків) Світлана Демко",
-      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
-      "duration": 250
+      "title": "Завтра Будет Поздно",
+      "url": "https://holychords.pro/uploads/music/20200701/20200701164536_22_15.mp3",
+      "group": "7. Brynza Brothers",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/Brynza.jpg",
+      "duration": 201
     }
   ],
   "settings": {
-    "pauseBetweenTracks": 1,
-    "generationMode": "daily"
+    "shuffleMode": "noRepeat"
   }
 }
