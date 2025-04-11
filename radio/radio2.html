@@ -2,436 +2,132 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <title>GospelVoice Радіо</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>GospelVoice Radio 5.1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background: #f5f5f5;
-      padding: 15px;
-      max-width: 600px;
-      margin: 0 auto;
-      -webkit-tap-highlight-color: transparent;
-    }
-    h1 {
-      color: #2c3e50;
-      margin-bottom: 10px;
-      font-size: 24px;
-    }
-    #logo {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin: 10px auto;
-      border: 3px solid #4CAF50;
-    }
-    #nowPlaying {
-      font-size: 16px;
-      margin: 12px 0;
-      font-weight: bold;
-      padding: 0 5px;
-    }
-    #broadcastInfo {
-      color: #666;
-      margin-bottom: 12px;
-      font-size: 14px;
-    }
-    .audio-container {
-      position: relative;
-      width: 100%;
-      margin: 12px 0 5px 0;
-    }
-    #audioPlayer {
-      width: 100%;
-      opacity: 0.7;
-      pointer-events: none;
-    }
-    .custom-progress {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      height: 4px;
-      background: #4CAF50;
-      width: 0%;
-      transition: width 0.1s linear;
-      z-index: 2;
-    }
-    #eqVisualizer {
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      height: 50px;
-      margin: 10px 0 15px 0;
-      display: none;
-    }
-    .eq-bar {
-      width: 6px;
-      margin: 0 1.5px;
-      background: #4CAF50;
-      border-radius: 3px;
-      animation: eqAnimation 1s infinite ease-in-out;
-    }
-    @keyframes eqAnimation {
-      0%, 100% { height: 8px; }
-      50% { height: 30px; }
-    }
-    .volume-control {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 8px 0 15px 0;
-      padding: 0 10px;
-    }
-    .volume-control label {
-      margin-bottom: 8px;
-      font-weight: bold;
-      font-size: 14px;
-    }
-    .volume-control input[type="range"] {
-      width: 80%;
-      max-width: 250px;
-      height: 4px;
-    }
-    .player-controls {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin: 15px 0;
-    }
-    button {
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      width: 120px;
-      transition: background 0.3s;
-    }
-    #playBtn {
-      background: #4CAF50;
-    }
-    #playBtn:hover {
-      background: #45a049;
-    }
-    #stopBtn {
-      background: #e74c3c;
-    }
-    #stopBtn:hover {
-      background: #c0392b;
-    }
-    .off-air {
-      color: #e74c3c;
-      font-weight: bold;
-      margin: 15px 0;
-      font-size: 14px;
-    }
-    #statusMessage {
-      margin: 10px 0;
-      font-size: 14px;
-    }
-
-    @media (max-width: 480px) {
-      body {
-        padding: 10px;
-      }
-      h1 {
-        font-size: 20px;
-      }
-      #logo {
-        width: 100px;
-        height: 100px;
-      }
-      #nowPlaying {
-        font-size: 15px;
-      }
-      .volume-control input[type="range"] {
-        width: 90%;
-      }
-      button {
-        padding: 8px 16px;
-        font-size: 14px;
-        width: 110px;
-      }
-    }
+    body { font-family: sans-serif; background: #f4f4f4; padding: 20px; text-align: center; }
+    .player { max-width: 400px; margin: auto; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 0 12px rgba(0,0,0,0.1); }
+    .logo { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; }
+    .title { font-size: 18px; font-weight: bold; }
+    .group { font-size: 14px; color: #666; margin-bottom: 10px; }
+    .eq { display: flex; justify-content: center; height: 24px; margin-bottom: 10px; }
+    .eq div { width: 4px; margin: 0 2px; background: green; opacity: 0; animation: eqAnim 1s infinite; }
+    .eq.playing div { opacity: 1; }
+    .eq div:nth-child(2){animation-delay: 0.1s;}
+    .eq div:nth-child(3){animation-delay: 0.2s;}
+    .eq div:nth-child(4){animation-delay: 0.3s;}
+    .eq div:nth-child(5){animation-delay: 0.4s;}
+    @keyframes eqAnim {0%,100%{height:20%;}50%{height:100%;}}
+    audio { width: 100%; margin-top: 5px; }
+    .countdown { font-size: 13px; color: #666; margin: 6px 0; }
+    .grid { font-size: 13px; color: #333; margin-top: 10px; }
+    button { margin-top: 15px; padding: 8px 14px; font-size: 14px; border: none; background: #008855; color: white; border-radius: 6px; cursor: pointer; }
   </style>
 </head>
 <body>
-
-  <h1>GospelVoice Радіо</h1>
-  <img id="logo" src="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/GroupEast.png" alt="Лого">
-  <div id="nowPlaying">Завантаження програми...</div>
-  <div id="broadcastInfo"></div>
-  
-  <div id="eqVisualizer">
-    <div class="eq-bar" style="animation-delay: 0s"></div>
-    <div class="eq-bar" style="animation-delay: 0.1s"></div>
-    <div class="eq-bar" style="animation-delay: 0.2s"></div>
-    <div class="eq-bar" style="animation-delay: 0.3s"></div>
-    <div class="eq-bar" style="animation-delay: 0.4s"></div>
+  <div class="player">
+    <img id="logo" class="logo" src="" alt="logo">
+    <div class="title" id="nowPlaying">Очікування...</div>
+    <div class="group" id="groupName">GospelVoice</div>
+    <div class="eq" id="eqAnim"><div></div><div></div><div></div><div></div><div></div></div>
+    <audio id="audioPlayer" controls autoplay></audio>
+    <div class="countdown" id="countdown"></div>
+    <div class="grid" id="nextTracks">Завантаження ...</div>
+    <button onclick="startRadio()">🔄 Оновити ефір</button>
   </div>
-  
-  <div class="audio-container">
-    <audio id="audioPlayer"></audio>
-    <div class="custom-progress" id="customProgress"></div>
-  </div>
-
-  <div class="volume-control">
-    <label for="volumeSlider">Гучність</label>
-    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.7">
-  </div>
-  
-  <div class="player-controls">
-    <button id="playBtn">▶ Слухати</button>
-    <button id="stopBtn">■ Стоп</button>
-  </div>
-  
-  <div id="statusMessage"></div>
 
   <script>
-    // Конфігурація
-    const PLAYLIST_URL = "https://raw.githubusercontent.com/christian-word/GospelVoice/main/playlist/playlist-with-durations.json";
-    const BROADCAST_HOURS = { start: 7, end: 23 };
-
+    const PLAYLIST_URL = "https://raw.githubusercontent.com/christian-word/GospelVoice/refs/heads/main/playlist/generated-playlist.json";
     let allTracks = [];
-    let currentTrack = null;
-    let totalPlaylistDuration = 0;
-    let updateInterval;
-    let progressInterval;
-    let isStopped = false;
-    let isPlaying = false;
+    let generatedAt = null;
+    let currentTrackIndex = -1;
+    let expectedTime = 0;
+    let intervalId;
 
-    // Ініціалізація регулятора гучності
-    function initVolumeControl() {
+    function updateCountdown(sec) {
+      const m = Math.floor(sec / 60), s = sec % 60;
+      document.getElementById("countdown").textContent = `До наступного треку: ${m} хв ${s < 10 ? "0" : ""}${s} сек`;
+    }
+
+    function updateNextTracks(index) {
+      const grid = document.getElementById("nextTracks");
+      let html = "<b>Наступні треки:</b><br>";
+      for (let i = 1; i <= 2; i++) {
+        const t = allTracks[(index + i) % allTracks.length];
+        html += `🔸 ${t.title} (${t.group})<br>`;
+      }
+      grid.innerHTML = html;
+    }
+
+    function playTrack(data) {
       const audio = document.getElementById("audioPlayer");
-      const volumeSlider = document.getElementById("volumeSlider");
-      
-      audio.volume = volumeSlider.value;
-      
-      volumeSlider.addEventListener('input', function() {
-        audio.volume = this.value;
-        localStorage.setItem('radioVolume', this.value);
-      });
-      
-      const savedVolume = localStorage.getItem('radioVolume');
-      if (savedVolume !== null) {
-        audio.volume = savedVolume;
-        volumeSlider.value = savedVolume;
-      }
+      const eq = document.getElementById("eqAnim");
+      expectedTime = data.offset;
+
+      audio.src = data.track.url;
+      audio.currentTime = expectedTime;
+      audio.play();
+      eq.classList.add("playing");
+
+      audio.onpause = () => eq.classList.remove("playing");
+      audio.onplay  = () => eq.classList.add("playing");
+
+      audio.ontimeupdate = () => {
+        if (Math.abs(audio.currentTime - expectedTime) > 3)
+          audio.currentTime = expectedTime;
+        expectedTime = audio.currentTime;
+      };
+
+      document.getElementById("nowPlaying").textContent = data.track.title;
+      document.getElementById("groupName").textContent = data.track.group;
+      document.getElementById("logo").src = data.track.image || "https://via.placeholder.com/80x80?text=🎵";
+      updateCountdown(data.remaining);
+      updateNextTracks(data.index);
     }
 
-    // Перевірити чи зараз час ефіру
-    function isBroadcastTime() {
-      const now = new Date();
-      const hours = now.getHours();
-      return hours >= BROADCAST_HOURS.start && hours < BROADCAST_HOURS.end;
-    }
+    function getCurrentTrack() {
+      const now = Date.now();
+      const start = Date.parse(generatedAt);
+      const elapsed = Math.floor((now - start) / 1000); // в секундах
 
-    // Оновити інформацію про ефір
-    function updateBroadcastInfo() {
-      const now = new Date();
-      const endTime = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate(),
-        BROADCAST_HOURS.end,
-        0, 0, 0
-      );
-      
-      const remaining = Math.floor((endTime - now) / 1000 / 60);
-      
-      if (remaining > 0) {
-        document.getElementById("broadcastInfo").innerHTML = `
-          <p>Ефір триває до ${BROADCAST_HOURS.end}:00</p>
-          <p>Залишилось: ${Math.floor(remaining/60)} год ${remaining%60} хв</p>
-        `;
-      } else {
-        document.getElementById("broadcastInfo").innerHTML = `
-          <p class="off-air">Зараз ефір призупинено</p>
-          <p>Наступний ефір о ${BROADCAST_HOURS.start}:00</p>
-        `;
-      }
-    }
-
-    // Завантажити плейлист
-    async function loadPlaylist() {
-      try {
-        const response = await fetch(PLAYLIST_URL);
-        const data = await response.json();
-        const tracks = [];
-        
-        data.categories.forEach(category => {
-          category.tracks.forEach(track => {
-            if (track.url && track.url.endsWith(".mp3")) {
-              tracks.push({
-                title: track.title,
-                url: track.url,
-                duration: track.duration || 180,
-                group: category.name
-              });
-            }
-          });
-        });
-        
-        totalPlaylistDuration = tracks.reduce((sum, track) => sum + track.duration, 0);
-        
-        return tracks;
-      } catch (error) {
-        console.error("Помилка завантаження:", error);
-        showStatus("Помилка завантаження плейлиста");
-        return [];
-      }
-    }
-
-    // Отримати поточний трек
-    function getCurrentTrack(tracks) {
-      if (!tracks.length || isStopped) return null;
-      
-      const now = new Date();
-      const startOfDay = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate(),
-        BROADCAST_HOURS.start,
-        0, 0, 0
-      );
-      
-      const secondsPassed = Math.floor((now - startOfDay) / 1000);
-      
-      if (!isBroadcastTime()) {
-        return null;
-      }
-      
-      const cyclePosition = secondsPassed % totalPlaylistDuration;
-      
-      let accumulatedTime = 0;
-      for (let i = 0; i < tracks.length; i++) {
-        const track = tracks[i];
-        if (cyclePosition < accumulatedTime + track.duration) {
+      let total = 0;
+      for (let i = 0; ; i++) {
+        const track = allTracks[i % allTracks.length];
+        total += track.duration;
+        if (elapsed < total) {
           return {
+            index: i % allTracks.length,
             track: track,
-            position: cyclePosition - accumulatedTime,
-            remaining: accumulatedTime + track.duration - cyclePosition,
-            duration: track.duration
+            offset: elapsed - (total - track.duration),
+            remaining: total - elapsed
           };
         }
-        accumulatedTime += track.duration;
       }
-      
-      return null;
     }
 
-    // Оновити прогрес-бар
-    function updateProgressBar(currentTime, duration) {
-      const progress = (currentTime / duration) * 100;
-      document.getElementById('customProgress').style.width = `${progress}%`;
-    }
+    async function startRadio() {
+      const res = await fetch(PLAYLIST_URL);
+      const json = await res.json();
+      generatedAt = json.generatedAt;
+      allTracks = json.playlist;
 
-    // Відтворити трек
-    function playTrack(trackData) {
-      if (!trackData || isStopped) return;
-      
-      const audio = document.getElementById("audioPlayer");
-      currentTrack = trackData.track;
-      
-      document.getElementById("nowPlaying").textContent = 
-        `Зараз грає: ${currentTrack.title} (${currentTrack.group})`;
-      
-      document.getElementById("eqVisualizer").style.display = 'flex';
-      
-      audio.src = currentTrack.url;
-      audio.currentTime = trackData.position;
-      
-      clearTimeout(updateInterval);
-      clearInterval(progressInterval);
-      
-      updateInterval = setTimeout(() => {
-        checkAndPlay();
-      }, trackData.remaining * 1000);
-      
-      progressInterval = setInterval(() => {
-        if (!isStopped) {
-          updateProgressBar(audio.currentTime, trackData.duration);
+      const data = getCurrentTrack();
+      currentTrackIndex = data.index;
+      playTrack(data);
+
+      clearInterval(intervalId);
+      intervalId = setInterval(() => {
+        const now = getCurrentTrack();
+        expectedTime = now.offset;
+        if (now.index !== currentTrackIndex) {
+          playTrack(now);
+          currentTrackIndex = now.index;
+        } else {
+          updateCountdown(now.remaining);
         }
       }, 1000);
-      
-      audio.play().then(() => {
-        isPlaying = true;
-      }).catch(e => {
-        console.log("Автовідтворення заблоковано:", e);
-        showStatus("Натисніть кнопку play для запуску");
-      });
     }
-
-    // Зупинити відтворення
-    function stopRadio() {
-      const audio = document.getElementById("audioPlayer");
-      audio.pause();
-      audio.currentTime = 0;
-      
-      clearTimeout(updateInterval);
-      clearInterval(progressInterval);
-      
-      document.getElementById("eqVisualizer").style.display = 'none';
-      document.getElementById('customProgress').style.width = '0%';
-      
-      isStopped = true;
-      isPlaying = false;
-      
-      showStatus("Відтворення зупинено", true);
-    }
-
-    // Показати статус
-    function showStatus(message, isError = false) {
-      const statusEl = document.getElementById("statusMessage");
-      statusEl.textContent = message;
-      statusEl.className = isError ? "off-air" : "";
-    }
-
-    // Перевірити і запустити
-    async function checkAndPlay() {
-      if (isStopped) return;
-      
-      if (!allTracks.length) {
-        showStatus("Завантаження плейлиста...");
-        allTracks = await loadPlaylist();
-      }
-      
-      updateBroadcastInfo();
-      
-      if (!isBroadcastTime() || isStopped) {
-        showStatus(`Ефір призупинено`, true);
-        clearTimeout(updateInterval);
-        clearInterval(progressInterval);
-        document.getElementById("eqVisualizer").style.display = 'none';
-        return;
-      }
-      
-      const current = getCurrentTrack(allTracks);
-      if (current) {
-        playTrack(current);
-        showStatus("Радіо працює!");
-      } else {
-        showStatus("Не вдалося визначити поточний трек", true);
-      }
-    }
-
-    // Ініціалізація при завантаженні
-    window.onload = function() {
-      initVolumeControl();
-      updateBroadcastInfo();
-      
-      document.getElementById("playBtn").addEventListener('click', function() {
-        isStopped = false;
-        checkAndPlay();
-      });
-      
-      document.getElementById("stopBtn").addEventListener('click', stopRadio);
-      
-      setInterval(updateBroadcastInfo, 60000);
-    };
   </script>
 </body>
 </html>
+
