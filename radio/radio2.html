@@ -2,7 +2,7 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <title>GospelVoice Radio 5.1</title>
+  <title>GospelVoice Radio v5.6</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body { font-family: sans-serif; background: #f4f4f4; padding: 20px; text-align: center; }
@@ -19,30 +19,87 @@
     .eq div:nth-child(5){animation-delay: 0.4s;}
     @keyframes eqAnim {0%,100%{height:20%;}50%{height:100%;}}
     audio { width: 100%; margin-top: 5px; }
-    .countdown { font-size: 13px; color: #666; margin: 6px 0; }
+    .countdown, .schedule { font-size: 13px; color: #666; margin: 6px 0; }
     .grid { font-size: 13px; color: #333; margin-top: 10px; }
     button { margin-top: 15px; padding: 8px 14px; font-size: 14px; border: none; background: #008855; color: white; border-radius: 6px; cursor: pointer; }
   </style>
 </head>
 <body>
   <div class="player">
+    <div class="schedule" id="scheduleInfo">🎙 Ефір з 07:00 до 23:00 (GMT+3)</div>
+    <div class="countdown" id="timeStatus">⏳ Перевірка часу...</div>
+
     <img id="logo" class="logo" src="" alt="logo">
     <div class="title" id="nowPlaying">Очікування...</div>
     <div class="group" id="groupName">GospelVoice</div>
+
     <div class="eq" id="eqAnim"><div></div><div></div><div></div><div></div><div></div></div>
     <audio id="audioPlayer" controls autoplay></audio>
+
     <div class="countdown" id="countdown"></div>
-    <div class="grid" id="nextTracks">Завантаження ...</div>
-    <button onclick="startRadio()">🔄 Запуск трансляції</button>
+    <div class="grid" id="nextTracks">Завантаження треків...</div>
+    <button onclick="startRadio()">🔄 Оновити ефір</button>
   </div>
 
   <script>
+    // === GospelVoice Radio v5.6 ===
     const PLAYLIST_URL = "https://raw.githubusercontent.com/christian-word/GospelVoice/refs/heads/main/playlist/generated-playlist.json";
+    const introUrl = "https://christian-word.github.io/GospelVoice/audio/gospel-voice-intro.mp3";
+    const broadcastStart = 7;
+    const broadcastEnd = 23;
+    const pausePerNight = 28800;
+
     let allTracks = [];
     let generatedAt = null;
     let currentTrackIndex = -1;
     let expectedTime = 0;
     let intervalId;
+    let introPlayed = false;
+
+    function getLocalHourUTC3(date) {
+      return (date.getUTCHours() + 3) % 24;
+    }
+
+    function isBroadcastTime() {
+      return getLocalHourUTC3(new Date()) >= broadcastStart && getLocalHourUTC3(new Date()) < broadcastEnd;
+    }
+
+    function getNightsElapsed() {
+      const start = new Date(generatedAt);
+      const now = new Date();
+      let nights = 0;
+      const d = new Date(start);
+      while (d < now) {
+        const h = getLocalHourUTC3(d);
+        if (h === broadcastEnd) nights++;
+        d.setHours(d.getHours() + 1);
+      }
+      return nights;
+    }
+
+    function updateScheduleInfo() {
+      const now = new Date();
+      const utc = now.getUTCHours();
+      const min = now.getUTCMinutes();
+      const localHour = getLocalHourUTC3(now);
+      let msg = "";
+
+      if (localHour < broadcastStart) {
+        const remaining = broadcastStart - localHour - 1;
+        const minutesLeft = 60 - min;
+        msg = `До початку ефіру: ${remaining} год ${minutesLeft < 10 ? "0" : ""}${minutesLeft} хв`;
+      } else if (localHour >= broadcastEnd) {
+        const remaining = 24 - localHour + broadcastStart - 1;
+        const minutesLeft = 60 - min;
+        msg = `До наступного ефіру: ${remaining} год ${minutesLeft < 10 ? "0" : ""}${minutesLeft} хв`;
+      } else {
+        const remaining = broadcastEnd - localHour - 1;
+        const minutesLeft = 60 - min;
+        msg = `До завершення ефіру: ${remaining} год ${minutesLeft < 10 ? "0" : ""}${minutesLeft} хв`;
+      }
+
+      document.getElementById("timeStatus").textContent = msg;
+    }
 
     function updateCountdown(sec) {
       const m = Math.floor(sec / 60), s = sec % 60;
@@ -63,15 +120,15 @@
       const audio = document.getElementById("audioPlayer");
       const eq = document.getElementById("eqAnim");
       expectedTime = data.offset;
-
-      audio.src = data.track.url;
+      let cleanUrl = data.track.url;
+      if (cleanUrl.includes(";")) cleanUrl = cleanUrl.split(";")[1].trim();
+      audio.src = cleanUrl;
       audio.currentTime = expectedTime;
       audio.play();
       eq.classList.add("playing");
 
       audio.onpause = () => eq.classList.remove("playing");
       audio.onplay  = () => eq.classList.add("playing");
-
       audio.ontimeupdate = () => {
         if (Math.abs(audio.currentTime - expectedTime) > 3)
           audio.currentTime = expectedTime;
@@ -88,45 +145,79 @@
     function getCurrentTrack() {
       const now = Date.now();
       const start = Date.parse(generatedAt);
-      const elapsed = Math.floor((now - start) / 1000); // в секундах
+      const rawElapsed = Math.floor((now - start) / 1000);
+      const nights = getNightsElapsed();
+      const adjustedElapsed = rawElapsed - (nights * pausePerNight);
 
       let total = 0;
       for (let i = 0; ; i++) {
         const track = allTracks[i % allTracks.length];
         total += track.duration;
-        if (elapsed < total) {
+        if (adjustedElapsed < total) {
           return {
             index: i % allTracks.length,
             track: track,
-            offset: elapsed - (total - track.duration),
-            remaining: total - elapsed
+            offset: adjustedElapsed - (total - track.duration),
+            remaining: total - adjustedElapsed
           };
         }
       }
     }
 
-    async function startRadio() {
+    async function startMainRadio() {
+      updateScheduleInfo();
       const res = await fetch(PLAYLIST_URL);
       const json = await res.json();
       generatedAt = json.generatedAt;
       allTracks = json.playlist;
-
       const data = getCurrentTrack();
       currentTrackIndex = data.index;
       playTrack(data);
 
       clearInterval(intervalId);
       intervalId = setInterval(() => {
+        updateScheduleInfo();
         const now = getCurrentTrack();
         expectedTime = now.offset;
-        if (now.index !== currentTrackIndex) {
+        const hour = getLocalHourUTC3(new Date());
+        const isWithin = hour >= broadcastStart && hour < broadcastEnd;
+
+        if (now.index !== currentTrackIndex && isWithin) {
           playTrack(now);
           currentTrackIndex = now.index;
+        } else if (!isWithin) {
+          updateCountdown(0);
         } else {
           updateCountdown(now.remaining);
         }
       }, 1000);
     }
+
+    async function startRadio() {
+      updateScheduleInfo();
+      if (!introPlayed) {
+        introPlayed = true;
+        const audio = document.getElementById("audioPlayer");
+        const eq = document.getElementById("eqAnim");
+
+        audio.src = introUrl;
+        audio.currentTime = 0;
+        audio.play();
+        eq.classList.add("playing");
+
+        audio.onended = () => {
+          eq.classList.remove("playing");
+          startMainRadio();
+        };
+
+        return;
+      }
+
+      startMainRadio();
+    }
+
+    setInterval(updateScheduleInfo, 60000);
+    updateScheduleInfo();
   </script>
 </body>
 </html>
