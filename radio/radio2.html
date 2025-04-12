@@ -103,7 +103,7 @@
 
     function updateCountdown(sec) {
       const m = Math.floor(sec / 60), s = sec % 60;
-      document.getElementById("countdown").textContent = `До наступного треку: ${m} хв ${s < 10 ? "0" : ""}${s} сек`;
+      document.getElementById("countdown").textContent = `До наступного відтворення: ${m} хв ${s < 10 ? "0" : ""}${s} сек`;
     }
 
     function updateNextTracks(index) {
