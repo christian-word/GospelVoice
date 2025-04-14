@@ -1726,7 +1726,7 @@
     }
   ],
   "settings": {
-    "shuffleMode": "noRepeat"
+    "shuffleMode": "noRepeat",
     "repetition": false
   }
 }
