@@ -1727,6 +1727,6 @@
   ],
   "settings": {
     "shuffleMode": "noRepeat",
-    "repetition": true
+    "repetition": false
   }
 }
