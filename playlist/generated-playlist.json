@@ -1727,5 +1727,8 @@
   ],
   "settings": {
     "shuffleMode": "noRepeat"
+    "pauseBetweenTracks": 1,
+    "generationMode": "manual",
+    "repetition": true
   }
 }
