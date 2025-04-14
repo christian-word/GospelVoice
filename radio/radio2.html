@@ -2,59 +2,146 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <title>GospelVoice Radio 5.1</title>
+  <title>GospelVoice Radio v5.7 Lite Fix</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: sans-serif; background: #f4f4f4; padding: 20px; text-align: center; }
-    .player { max-width: 400px; margin: auto; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 0 12px rgba(0,0,0,0.1); }
-    .logo { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; }
-    .title { font-size: 18px; font-weight: bold; }
-    .group { font-size: 14px; color: #666; margin-bottom: 10px; }
-    .eq { display: flex; justify-content: center; height: 24px; margin-bottom: 10px; }
-    .eq div { width: 4px; margin: 0 2px; background: green; opacity: 0; animation: eqAnim 1s infinite; }
+    body {
+      font-family: sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+      margin: 0;
+    }
+    .player {
+      max-width: 400px;
+      margin: 20px auto;
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .group {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    .eq {
+      display: flex;
+      justify-content: center;
+      height: 24px;
+      margin-bottom: 10px;
+    }
+    .eq div {
+      width: 4px;
+      margin: 0 2px;
+      background: green;
+      opacity: 0;
+      animation: eqAnim 1s infinite;
+    }
     .eq.playing div { opacity: 1; }
     .eq div:nth-child(2){animation-delay: 0.1s;}
     .eq div:nth-child(3){animation-delay: 0.2s;}
     .eq div:nth-child(4){animation-delay: 0.3s;}
     .eq div:nth-child(5){animation-delay: 0.4s;}
     @keyframes eqAnim {0%,100%{height:20%;}50%{height:100%;}}
-    audio { width: 100%; margin-top: 5px; }
-    .countdown { font-size: 13px; color: #666; margin: 6px 0; }
-    .grid { font-size: 13px; color: #333; margin-top: 10px; }
-    button { margin-top: 15px; padding: 8px 14px; font-size: 14px; border: none; background: #008855; color: white; border-radius: 6px; cursor: pointer; }
+
+    audio {
+      width: 100%;
+      margin-top: 5px;
+    }
+
+    .grid {
+      font-size: 13px;
+      color: #333;
+      margin-top: 10px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 15px;
+      border: none;
+      background: #008855;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    button:active {
+      transform: scale(0.97);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .marquee {
+      margin-top: 20px;
+      background: #006644;
+      color: white;
+      white-space: nowrap;
+      overflow: hidden;
+      border-radius: 8px;
+      padding: 6px 0;
+      font-size: 14px;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    }
+    .marquee span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll-left 15s linear infinite;
+    }
+    @keyframes scroll-left {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
   </style>
 </head>
 <body>
   <div class="player">
     <img id="logo" class="logo" src="" alt="logo">
-    <div class="title" id="nowPlaying">Очікування...</div>
+    <div class="title" id="nowPlaying">Очікування…</div>
     <div class="group" id="groupName">GospelVoice</div>
+
     <div class="eq" id="eqAnim"><div></div><div></div><div></div><div></div><div></div></div>
     <audio id="audioPlayer" controls autoplay></audio>
-    <div class="countdown" id="countdown"></div>
-    <div class="grid" id="nextTracks">Завантаження ...</div>
-    <button onclick="startRadio()">🔄 Підключити / Оновити ефір</button>
+
+    <div class="grid" id="nextTracks">Завантаження контенту ...</div>
+    <button onclick="startRadio()">▶️ Підключити / Оновити ефір</button>
+
+    <div class="marquee">
+      <span>📻 Gospel Voice Radio – цілодобовий ефір 🎙 У програмі: проповіді, псалми, пісні * Церква ЄХБ "Дім Євангелія", м.Суми, Україна *</span>
+    </div>
   </div>
+
+  <audio id="introPlayer" preload="auto" style="display: none;"></audio>
 
   <script>
     const PLAYLIST_URL = "https://raw.githubusercontent.com/christian-word/GospelVoice/refs/heads/main/playlist/generated-playlist.json";
+    const introUrl = "https://christian-word.github.io/GospelVoice/audio/gospel-voice-intro.mp3";
+
     let allTracks = [];
     let generatedAt = null;
     let currentTrackIndex = -1;
     let expectedTime = 0;
     let intervalId;
-
-    function updateCountdown(sec) {
-      const m = Math.floor(sec / 60), s = sec % 60;
-      document.getElementById("countdown").textContent = `До наступного треку: ${m} хв ${s < 10 ? "0" : ""}${s} сек`;
-    }
+    let introPlayed = false;
 
     function updateNextTracks(index) {
       const grid = document.getElementById("nextTracks");
-      let html = "<b>Наступні треки:</b><br>";
+      let html = "<b>Трансляція триває…</b><br>";
       for (let i = 1; i <= 2; i++) {
         const t = allTracks[(index + i) % allTracks.length];
-        html += `🔸 ${t.title} (${t.group})<br>`;
+        html += `🎵 ${t.title} (${t.group})<br>`;
       }
       grid.innerHTML = html;
     }
@@ -64,7 +151,7 @@
       const eq = document.getElementById("eqAnim");
       expectedTime = data.offset;
 
-      audio.src = data.track.url;
+      audio.src = data.track.url.split(";").pop().trim();
       audio.currentTime = expectedTime;
       audio.play();
       eq.classList.add("playing");
@@ -81,14 +168,13 @@
       document.getElementById("nowPlaying").textContent = data.track.title;
       document.getElementById("groupName").textContent = data.track.group;
       document.getElementById("logo").src = data.track.image || "https://via.placeholder.com/80x80?text=🎵";
-      updateCountdown(data.remaining);
       updateNextTracks(data.index);
     }
 
     function getCurrentTrack() {
       const now = Date.now();
       const start = Date.parse(generatedAt);
-      const elapsed = Math.floor((now - start) / 1000); // в секундах
+      const elapsed = Math.floor((now - start) / 1000);
 
       let total = 0;
       for (let i = 0; ; i++) {
@@ -113,7 +199,20 @@
 
       const data = getCurrentTrack();
       currentTrackIndex = data.index;
-      playTrack(data);
+
+      if (!introPlayed) {
+        const intro = document.getElementById("introPlayer");
+        intro.src = introUrl;
+        intro.volume = 1;
+        intro.play().then(() => {
+          introPlayed = true;
+          setTimeout(() => playTrack(data), intro.duration * 1000 || 6000);
+        }).catch(() => {
+          playTrack(data);
+        });
+      } else {
+        playTrack(data);
+      }
 
       clearInterval(intervalId);
       intervalId = setInterval(() => {
@@ -122,12 +221,9 @@
         if (now.index !== currentTrackIndex) {
           playTrack(now);
           currentTrackIndex = now.index;
-        } else {
-          updateCountdown(now.remaining);
         }
       }, 1000);
     }
   </script>
 </body>
 </html>
-
