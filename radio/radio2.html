@@ -2,7 +2,7 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <title>GospelVoice Radio v5.7 Lite Fix</title>
+  <title>GospelVoice Radio v5.8</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -130,6 +130,7 @@
     const introUrl = "https://christian-word.github.io/GospelVoice/audio/gospel-voice-intro.mp3";
 
     let allTracks = [];
+    let settings = { repetition: true };
     let generatedAt = null;
     let currentTrackIndex = -1;
     let expectedTime = 0;
@@ -138,6 +139,12 @@
 
     function updateNextTracks(index) {
       const grid = document.getElementById("nextTracks");
+
+      if (index === -1) {
+        grid.innerHTML = "<b>🔇 Немає трансляції</b>";
+        return;
+      }
+
       let html = "<b>Трансляція триває…</b><br>";
       for (let i = 1; i <= 2; i++) {
         const t = allTracks[(index + i) % allTracks.length];
@@ -177,18 +184,29 @@
       const elapsed = Math.floor((now - start) / 1000);
 
       let total = 0;
-      for (let i = 0; ; i++) {
-        const track = allTracks[i % allTracks.length];
-        total += track.duration;
-        if (elapsed < total) {
+      for (let i = 0; i < allTracks.length; i++) {
+        total += allTracks[i].duration;
+      }
+
+      if (!settings.repetition && elapsed >= total) {
+        return { index: -1 }; // эфир завершен
+      }
+
+      let position = settings.repetition ? elapsed % total : elapsed;
+      total = 0;
+
+      for (let i = 0; i < allTracks.length; i++) {
+        total += allTracks[i].duration;
+        if (position < total) {
           return {
-            index: i % allTracks.length,
-            track: track,
-            offset: elapsed - (total - track.duration),
-            remaining: total - elapsed
+            index: i,
+            track: allTracks[i],
+            offset: position - (total - allTracks[i].duration),
+            remaining: total - position
           };
         }
       }
+      return { index: -1 };
     }
 
     async function startRadio() {
@@ -196,9 +214,16 @@
       const json = await res.json();
       generatedAt = json.generatedAt;
       allTracks = json.playlist;
+      settings = json.settings || { repetition: true };
 
       const data = getCurrentTrack();
       currentTrackIndex = data.index;
+
+      if (data.index === -1) {
+        document.getElementById("nowPlaying").textContent = "Немає трансляції";
+        updateNextTracks(-1);
+        return;
+      }
 
       if (!introPlayed) {
         const intro = document.getElementById("introPlayer");
@@ -218,7 +243,11 @@
       intervalId = setInterval(() => {
         const now = getCurrentTrack();
         expectedTime = now.offset;
-        if (now.index !== currentTrackIndex) {
+        if (now.index === -1) {
+          document.getElementById("nowPlaying").textContent = "Немає трансляції";
+          updateNextTracks(-1);
+          clearInterval(intervalId);
+        } else if (now.index !== currentTrackIndex) {
           playTrack(now);
           currentTrackIndex = now.index;
         }
