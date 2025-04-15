@@ -79,7 +79,7 @@
 
     function updateNextTracks(index) {
       const grid = document.getElementById("nextTracks");
-      let html = "<b>Наступні треки:</b><br>";
+      let html = "<b>Наступні відтворення:</b><br>";
       for (let i = 1; i <= 2; i++) {
         const t = playlist[(index + i) % playlist.length];
         html += `🎵 ${t.title} (${t.group})<br>`;
