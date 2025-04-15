@@ -1,30 +1,30 @@
 ﻿{
   "generatedAt": "2025-04-14T23:55:00+03:00",
-  "totalDuration": 22061,
+  "totalDuration": 22063,
   "playlist": [
     {
       "title": "НЕ чини помсти (Матвія 538-42) Микола Марйоха, 16.02.2025",
       "url": "https://www.dropbox.com/scl/fi/zyfene0g3h3ui3dy2d7d9/538-42-16.02.2025.mp3?rlkey=77h5bhwk5umcmv4ffaja33vnz&st=twrgym1h&dl=1",
       "group": "1. Марйоха Микола Павлович",
-      "duration": 2288
+      "duration": 2290
     },
     {
       "title": "Місія Месії (Марка 151-47). Микола Марйоха, 02.02.2025",
       "url": "https://www.dropbox.com/scl/fi/0h9lgv7hmqdqdixmnjxuo/151-47-.-02.02.2025.mp3?rlkey=feku68kwj83vvfimwsveevh07&st=0bcgbe0n&dl=1",
       "group": "1. Марйоха Микола Павлович",
-      "duration": 977
+      "duration": 979
     },
     {
       "title": "\"Радісна Новина!\" (Іс. 61:1-9). Андрій Булигін, 23.03.2025",
       "url": "https://www.dropbox.com/scl/fi/ibcyoka0qhx55z23dixev/.-.-61.mp3?rlkey=2lo02e1hrgm8mxjzu1t822jhz&st=xjgw5zvg&dl=1",
       "group": "2. Булигін Андрій Петрович",
-      "duration": 2324
+      "duration": 2326
     },
     {
       "title": "\"Великий експеримент\" (Мал. 3:10). Андрій Булигін, 09.02.2025",
       "url": "https://www.dropbox.com/scl/fi/rw2yfg5ewsbmor2j2kw3u/R_20250209-..mp3?rlkey=7kn06c3f5xut4twam1ym3izdj&st=pvwpzx5x&dl=1",
       "group": "2. Булигін Андрій Петрович",
-      "duration": 2014
+      "duration": 2016
     },
     {
       "title": "\"Диявол в кайданах, два воскресіння і останній суд\" (Одкр. 20), Віктор Лаба, 09.02.2025",
@@ -50,6 +50,12 @@
       "group": "5. Сергій Комісар",
       "duration": 3214
     },
+    {
+      "title": "Христос - наш Учитель (Матвія 2819-20). Микола Марйоха, 06.10.2024",
+      "url": "https://www.dropbox.com/scl/fi/27cmwukb7lg3b4nkxovky/2819-20-.-06.10.2024.mp3?rlkey=upaedf1j5w8b6nwhiqk37gzvg&st=bucahsvn&dl=1",
+      "group": "Микола Марйоха",
+      "duration": 1342
+    },    
     {
       "title": "Андрій Парфило (Діяння 12)16.03.2025",
       "url": "https://www.dropbox.com/scl/fi/ew5mhx4ndg5v5gtf1blns/12-16.03.2025.mp3?rlkey=zje9l14jb9610v8myy4kqms2s&st=snpxnj4h&dl=1",
@@ -78,13 +84,13 @@
       "title": "Изменение сердец братьев Иосифа (Бытие 4333-34). Александр Кирсано",
       "url": "https://www.dropbox.com/scl/fi/c2by693ovw3u8edtknemk/4333-34-.-09.03.2025.mp3?rlkey=rls768bq44a992jogor5gvi31&st=dwndy9se&dl=1",
       "group": "7. Гості церкви",
-      "duration": 1755
+      "duration": 1758
     },
     {
       "title": "Пізнання Бога (Кол. 26-10). Анатолій Нінічук, 09.03.2025",
       "url": "https://www.dropbox.com/scl/fi/req05q9o0gtdc55v7jrag/.-26-10-.-09.03.2025.mp3?rlkey=9j7vmgkxtwhs7hb6kanq1eok8&st=iqkkewex&dl=1",
       "group": "7. Гості церкви",
-      "duration": 1373
+      "duration": 1375
     }
   ]
 }
