@@ -2,7 +2,7 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <title>GospelVoice Radio v6.4-dev</title>
+  <title>GospelVoice Radio v6.4.1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body { font-family: sans-serif; background: #f4f4f4; padding: 20px; margin: 0; }
@@ -39,31 +39,6 @@
       transform: scale(0.97);
       box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
     }
-
-    .marquee {
-      margin-top: 20px; background: #006644; color: white; white-space: nowrap;
-      overflow: hidden; border-radius: 8px; padding: 6px 0; font-size: 14px;
-      box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-    }
-    .marquee span {
-      display: inline-block; padding-left: 100%;
-      animation: scroll-left 15s linear infinite;
-    }
-    @keyframes scroll-left {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
-
-    #adminPanel {
-      display: none; position: absolute; top: 10px; right: 10px;
-      background: #eee; border: 1px solid #ccc; padding: 10px;
-      font-size: 13px; z-index: 10; border-radius: 6px;
-      max-height: 300px; overflow: auto;
-    }
-    #adminPanel button {
-      display: block; margin: 5px 0;
-      width: 100%; font-size: 13px;
-    }
   </style>
 </head>
 <body>
@@ -75,55 +50,15 @@
     <audio id="audioPlayer" controls autoplay></audio>
     <div class="grid" id="nextTracks">Завантаження контенту ...</div>
     <button onclick="startRadio()">▶️ Підключити / Оновити ефір</button>
-    <div class="marquee">
-      <span>📻 Gospel Voice Radio – цілодобовий ефір 🎙 У програмі: проповіді, псалми, пісні * Церква ЄХБ "Дім Євангелія", м.Суми, Україна *</span>
-    </div>
-
-    <div id="adminPanel">
-      <b>🔧 Панель адміністратора</b><br><br>
-      <button onclick="alert(log.join('\n'))">Показати лог</button>
-      <button onclick="downloadLog()">Завантажити лог-файл</button>
-      <button onclick="clearLog()">Очистити лог</button>
-    </div>
   </div>
 
   <script>
     const MAIN_PLAYLIST = "https://raw.githubusercontent.com/christian-word/GospelVoice/refs/heads/main/playlist/generated-playlist.json";
     const audio = document.getElementById("audioPlayer");
     const eq = document.getElementById("eqAnim");
-    const admin = document.getElementById("adminPanel");
     let currentUrl = "";
-    let interval;
-    let log = [];
-
-    function logEvent(msg) {
-      const time = new Date().toLocaleTimeString();
-      const entry = `[${time}] ${msg}`;
-      console.log(entry);
-      log.push(entry);
-      localStorage.setItem("radioLog", JSON.stringify(log));
-    }
-
-    function loadLog() {
-      const saved = localStorage.getItem("radioLog");
-      if (saved) log = JSON.parse(saved);
-    }
-
-    function clearLog() {
-      log = [];
-      localStorage.removeItem("radioLog");
-      logEvent("🗑️ Лог очищено");
-    }
-
-    function downloadLog() {
-      const blob = new Blob([log.join("\n")], { type: "text/plain" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "radio-log.txt";
-      a.click();
-      URL.revokeObjectURL(url);
-    }
+    let playlist = [];
+    let generatedAt = "";
 
     function updateUI(title, group, image) {
       document.getElementById("nowPlaying").textContent = title;
@@ -131,88 +66,60 @@
       document.getElementById("logo").src = image || "https://via.placeholder.com/80x80?text=🎵";
     }
 
-    function updateNextTracks(currentIndex, playlist) {
+    function playTrack(index, offset = 0) {
+      const track = playlist[index];
+      if (!track) return;
+      const url = track.url.split(";").pop().trim();
+      audio.src = url;
+      audio.currentTime = offset;
+      audio.play();
+      updateUI(track.title, track.group, track.image);
+      updateNextTracks(index);
+    }
+
+    function updateNextTracks(index) {
       const grid = document.getElementById("nextTracks");
       let html = "<b>Наступні треки:</b><br>";
       for (let i = 1; i <= 2; i++) {
-        const next = playlist[(currentIndex + i) % playlist.length];
-        html += `🎵 ${next.title} (${next.group})<br>`;
+        const t = playlist[(index + i) % playlist.length];
+        html += `🎵 ${t.title} (${t.group})<br>`;
       }
       grid.innerHTML = html;
     }
 
-    function isFutureGeneratedAt(generatedAt) {
-      return new Date(generatedAt) > new Date();
-    }
+    function startRadio() {
+      fetch(MAIN_PLAYLIST)
+        .then(res => res.json())
+        .then(json => {
+          playlist = json.playlist;
+          generatedAt = json.generatedAt;
+          const start = Date.parse(generatedAt);
+          const now = Date.now();
+          let elapsed = Math.floor((now - start) / 1000);
+          let total = 0;
 
-    function isAfterPlaylistEnd(generatedAt, playlist) {
-      const start = new Date(generatedAt).getTime();
-      const now = Date.now();
-      const totalDuration = playlist.reduce((acc, t) => acc + t.duration, 0) * 1000;
-      return now > start + totalDuration;
-    }
+          for (let i = 0; i < playlist.length; i++) {
+            total += playlist[i].duration;
+            if (elapsed < total) {
+              const offset = elapsed - (total - playlist[i].duration);
+              playTrack(i, offset);
+              audio.onended = () => {
+                startRadio();
+              };
+              return;
+            }
+          }
 
-    async function startRadio() {
-      clearInterval(interval);
-      try {
-        const res = await fetch(MAIN_PLAYLIST);
-        const json = await res.json();
-        const generatedAt = json.generatedAt;
-        const playlist = json.playlist;
-
-        if (isFutureGeneratedAt(generatedAt)) {
-          const startTime = new Date(generatedAt).toLocaleTimeString("uk-UA", { hour: '2-digit', minute: '2-digit' });
-          updateUI(`🕒 Ефір ще не розпочався – очікуйте початку о ${startTime}`, "", "https://via.placeholder.com/80x80?text=⏳");
-          interval = setInterval(startRadio, 15000);
-          logEvent("🕒 Очікування старту ефіру");
-          return;
-        }
-
-        if (isAfterPlaylistEnd(generatedAt, playlist)) {
           updateUI("🔚 Ефір завершено", "", "https://via.placeholder.com/80x80?text=🔇");
           document.getElementById("nextTracks").textContent = "Трансляцію завершено.";
-          logEvent("🛑 Ефір завершено");
-          return;
-        }
-
-        const start = Date.parse(generatedAt);
-        const now = Date.now();
-        let elapsed = Math.floor((now - start) / 1000);
-        let total = 0;
-
-        for (let i = 0; i < playlist.length; i++) {
-          total += playlist[i].duration;
-          if (elapsed < total) {
-            const offset = elapsed - (total - playlist[i].duration);
-            const url = playlist[i].url.split(";").pop().trim();
-            audio.src = url;
-            audio.currentTime = offset;
-            audio.play().catch(err => {
-              logEvent("❌ Помилка відтворення треку: " + err.message);
-            });
-            updateUI(playlist[i].title, playlist[i].group, playlist[i].image);
-            updateNextTracks(i, playlist);
-            logEvent("▶️ Ефір запущено (трек №" + (i + 1) + ")");
-            return;
-          }
-        }
-
-      } catch (e) {
-        console.error("Помилка:", e);
-        updateUI("❌ Помилка підключення", "", "https://via.placeholder.com/80x80?text=ERR");
-        logEvent("❌ Помилка підключення: " + e.message);
-      }
+        })
+        .catch(() => {
+          updateUI("❌ Помилка підключення", "", "https://via.placeholder.com/80x80?text=ERR");
+        });
     }
 
     audio.onplay  = () => eq.classList.add("playing");
     audio.onpause = () => eq.classList.remove("playing");
-
-    document.getElementById("logo").addEventListener("dblclick", () => {
-      const panel = document.getElementById("adminPanel");
-      panel.style.display = panel.style.display === "block" ? "none" : "block";
-    });
-
-    loadLog();
   </script>
 </body>
 </html>
