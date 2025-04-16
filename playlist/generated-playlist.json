@@ -1,0 +1,16 @@
+﻿{
+  "generatedAt": "2025-04-16T22:00:00.000Z",
+  "settings": {
+    "repetition": false,
+    "pauseBetweenTracks": 1
+  },
+  "playlist": [
+    {
+      "title": "тест",
+      "url": "https://www.dropbox.com/scl/fi/zyfene0g3h3ui3dy2d7d9/538-42-16.02.2025.mp3?rlkey=77h5bhwk5umcmv4ffaja33vnz&st=twrgym1h&dl=1",
+      "duration": 2289,
+      "group": "категория",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/sydorchuk.png"
+    }
+  ]
+}
