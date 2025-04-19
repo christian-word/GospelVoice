@@ -1,125 +1,870 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <title>GospelVoice Radio v6.4.1</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { font-family: sans-serif; background: #f4f4f4; padding: 20px; margin: 0; }
-    .player {
-      max-width: 400px; margin: 20px auto; background: white;
-      border-radius: 12px; padding: 20px; box-shadow: 0 0 12px rgba(0,0,0,0.1);
-      position: relative;
-    }
-    .logo { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; cursor: pointer; }
-    .title { font-size: 18px; font-weight: bold; }
-    .group { font-size: 14px; color: #666; margin-bottom: 10px; }
-    .eq { display: flex; justify-content: center; height: 24px; margin-bottom: 10px; }
-    .eq div {
-      width: 4px; margin: 0 2px; background: green; opacity: 0;
-      animation: eqAnim 1s infinite;
-    }
-    .eq.playing div { opacity: 1; }
-    .eq div:nth-child(2){animation-delay: 0.1s;}
-    .eq div:nth-child(3){animation-delay: 0.2s;}
-    .eq div:nth-child(4){animation-delay: 0.3s;}
-    .eq div:nth-child(5){animation-delay: 0.4s;}
-    @keyframes eqAnim {0%,100%{height:20%;}50%{height:100%;}}
-
-    audio { width: 100%; margin-top: 5px; }
-    .grid { font-size: 13px; color: #333; margin-top: 10px; }
-
-    button {
-      margin-top: 15px; padding: 10px 20px; font-size: 15px;
-      border: none; background: #008855; color: white; border-radius: 6px;
-      cursor: pointer; transition: transform 0.1s ease, box-shadow 0.1s ease;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-    button:active {
-      transform: scale(0.97);
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gospel Voice Radio v6.4.15</title>
+    <style>
+        :root {
+            --primary: #4a6fa5;
+            --secondary: #7d9cc5;
+            --dark: #1a1a2e;
+            --light: #f8f8f8;
+            --accent: #3c6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--dark), #16213e);
+            color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            touch-action: manipulation;
+        }
+        
+        .radio-container {
+            width: 100%;
+            max-width: 600px;
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .version {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .station-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .station-name {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+        
+        .song-info {
+            font-size: 22px;
+            margin-bottom: 5px;
+            min-height: 30px;
+        }
+        
+        .song-group {
+            font-size: 16px;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        
+        .broadcast-info {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .cover-art {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            background: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        .cover-art img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .play-btn {
+            width: 70px;
+            height: 70px;
+            background: var(--primary);
+            font-size: 28px;
+        }
+        
+        .progress-container {
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            height: 5px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin-bottom: 5px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.1s;
+        }
+        
+        .time-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+        
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        
+        .volume-container {
+            width: 120px;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .volume-slider {
+            width: 100%;
+            height: 5px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .volume-slider::-moz-range-thumb {
+            width: 15px;
+            height: 15px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .schedule {
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .schedule-item {
+            margin-bottom: 8px;
+            display: flex;
+        }
+        
+        .schedule-time {
+            min-width: 70px;
+        }
+        
+        .current-track {
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .waves {
+            position: absolute;
+            bottom: 60px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg"><path fill="rgba(74, 111, 165, 0.2)" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: -1;
+            animation: wave 10s linear infinite;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .waves.active {
+            opacity: 1;
+        }
+        
+        @keyframes wave {
+            0% { background-position-x: 0; }
+            100% { background-position-x: 1440px; }
+        }
+        
+        .visualizer {
+            position: absolute;
+            bottom: 80px;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 2px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .visualizer.active {
+            opacity: 1;
+        }
+        
+        .bar {
+            width: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+            animation: equalize 1.5s infinite alternate;
+        }
+        
+        @keyframes equalize {
+            0% { height: 5px; }
+            100% { height: 30px; }
+        }
+        
+        .load-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        
+        .load-btn {
+            padding: 10px 15px;
+            background: rgba(74, 111, 165, 0.5);
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .load-btn:hover {
+            background: var(--primary);
+        }
+        
+        .stations {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .station-btn {
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .station-btn.active {
+            background: var(--primary);
+            font-weight: bold;
+        }
+        
+        .station-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        #fileInput {
+            display: none;
+        }
+        
+        @media (max-width: 480px) {
+            .radio-container {
+                padding: 20px;
+                border-radius: 15px;
+            }
+            
+            .controls {
+                gap: 10px;
+            }
+            
+            .volume-container {
+                width: 100px;
+            }
+            
+            .cover-art {
+                width: 180px;
+                height: 180px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="player">
-    <img id="logo" class="logo" src="" alt="logo">
-    <div class="title" id="nowPlaying">Очікування…</div>
-    <div class="group" id="groupName">GospelVoice</div>
-    <div class="eq" id="eqAnim"><div></div><div></div><div></div><div></div><div></div></div>
-    <audio id="audioPlayer" controls autoplay></audio>
-    <div class="grid" id="nextTracks">Завантаження контенту ...</div>
-    <button onclick="startRadio()">▶️ Підключити / Оновити ефір</button>
-  </div>
+    <div class="radio-container">
+        <div class="version">v6.4.15</div>
+        
+        <div class="header">
+            <div class="logo">Gospel Voice Radio</div>
+            <div>
+                <button class="control-btn">⚙</button>
+            </div>
+        </div>
+        
+        <div class="station-info">
+            
+            <div class="song-info" id="trackTitle">Очікування...</div>
+            <div class="song-group" id="trackGroup">Завантаження ефіру...</div>
+        </div>
+        
+        <div class="broadcast-info">
+            <span id="statusText">Статус ефіру...</span>
+            <span id="listeners">🎧 Gospel</span>
+        </div>
+        
+        <div class="cover-art">
+            <img src="https://via.placeholder.com/200" alt="Обложка" id="coverImage">
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress" id="progressBar"></div>
+            </div>
+            <div class="time-info">
+                <span id="currentTime">0:00</span>
+                <span id="duration">0:00</span>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="control-btn" id="prevBtn" disabled>⏮</button>
+            <button class="control-btn play-btn" id="playBtn">▶</button>
+            <button class="control-btn" id="nextBtn" disabled>⏭</button>
+        </div>
+        
+        <div class="volume-control">
+            <button class="control-btn" id="volumeBtn">🔊</button>
+            <div class="volume-container">
+                <input type="range" min="0" max="1" step="0.01" value="0.7" 
+                       class="volume-slider" id="volumeSlider">
+            </div>
+        </div>
+        
+        <div class="stations">
+            <button class="station-btn active" data-station="gospel">Служіння</button>
+            <button class="station-btn" data-station="worship">Діти</button>
+            <button class="station-btn" data-station="praise">Пісні</button>
+        </div>
+        
+        <div class="schedule" id="scheduleList">
+            <div class="schedule-title">🕓 Розклад ефіру:</div>
+            <div id="scheduleItems">Завантаження розкладу...</div>
+        </div>
+        
+        <div class="load-buttons">
+            <button class="load-btn" id="loadOnlineBtn">▶️ Підключити ефір</button>
+            <button class="load-btn" id="loadFileBtn">📂 Завантажити плейлист</button>
+            <input type="file" id="fileInput" accept=".json">
+        </div>
+        
+        <div class="waves"></div>
+        <div class="visualizer" id="visualizer"></div>
+        <audio id="audioPlayer"></audio>
+    </div>
 
-  <script>
-    const MAIN_PLAYLIST = "https://raw.githubusercontent.com/christian-word/GospelVoice/refs/heads/main/playlist/generated-playlist.json";
-    const audio = document.getElementById("audioPlayer");
-    const eq = document.getElementById("eqAnim");
-    let currentUrl = "";
+<script>
+    // Версия плеера
+    const PLAYER_VERSION = "6.4.15";
+    
+    // Элементы интерфейса
+    const audioPlayer = document.getElementById('audioPlayer');
+    const playBtn = document.getElementById('playBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const volumeBtn = document.getElementById('volumeBtn');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const progressBar = document.getElementById('progressBar');
+    const trackTitle = document.getElementById('trackTitle');
+    const trackGroup = document.getElementById('trackGroup');
+    const statusText = document.getElementById('statusText');
+    const scheduleItems = document.getElementById('scheduleItems');
+    const currentTimeEl = document.getElementById('currentTime');
+    const durationEl = document.getElementById('duration');
+    const coverImage = document.getElementById('coverImage');
+    const loadOnlineBtn = document.getElementById('loadOnlineBtn');
+    const loadFileBtn = document.getElementById('loadFileBtn');
+    const fileInput = document.getElementById('fileInput');
+    const listenersEl = document.getElementById('listeners');
+    const stationButtons = document.querySelectorAll('.station-btn');
+    const visualizer = document.getElementById('visualizer');
+    const waves = document.querySelector('.waves');
+    
+    // Константы
+    const STATIONS = {
+        gospel: {
+            name: "Gospel",
+            url: "https://raw.githubusercontent.com/christian-word/GospelVoice/refs/heads/main/playlist/generated-playlist1.json"
+        },
+        worship: {
+            name: "Worship",
+            url: "https://raw.githubusercontent.com/christian-word/GospelVoice/refs/heads/main/playlist/playlist_KIDS.json"
+        },
+        praise: {
+            name: "Praise",
+            url: "https://raw.githubusercontent.com/christian-word/GospelVoice/refs/heads/main/playlist/generated-playlist2.json"
+        }
+    };
+    
+    // Переменные состояния
+    let isPlaying = false;
+    let currentIndex = -1;
     let playlist = [];
-    let generatedAt = "";
-
-    function updateUI(title, group, image) {
-      document.getElementById("nowPlaying").textContent = title;
-      document.getElementById("groupName").textContent = group;
-      document.getElementById("logo").src = image || "https://via.placeholder.com/80x80?text=🎵";
+    let generatedAt = null;
+    let totalDuration = 0;
+    let updateInterval;
+    let volume = 0.7;
+    let isMuted = false;
+    let savedVolume = volume;
+    let currentStation = 'gospel';
+    let globalImage = 'https://via.placeholder.com/200';
+    
+    // Инициализация
+    function init() {
+        setupEventListeners();
+        createVisualizer();
+        loadStation(currentStation);
+        updateVolumeUI();
+        
+        // Устанавливаем начальную громкость
+        audioPlayer.volume = volume;
+        volumeSlider.value = volume;
+        
+        // Обновляем отображение станции
+        updateStationInfo();
     }
-
-    function playTrack(index, offset = 0) {
-      const track = playlist[index];
-      if (!track) return;
-      const url = track.url.split(";").pop().trim();
-      audio.src = url;
-      audio.currentTime = offset;
-      audio.play();
-      updateUI(track.title, track.group, track.image);
-      updateNextTracks(index);
-    }
-
-    function updateNextTracks(index) {
-      const grid = document.getElementById("nextTracks");
-      let html = "<b>Наступні відтворення:</b><br>";
-      for (let i = 1; i <= 2; i++) {
-        const t = playlist[(index + i) % playlist.length];
-        html += `🎵 ${t.title} (${t.group})<br>`;
-      }
-      grid.innerHTML = html;
-    }
-
-    function startRadio() {
-      fetch(MAIN_PLAYLIST)
-        .then(res => res.json())
-        .then(json => {
-          playlist = json.playlist;
-          generatedAt = json.generatedAt;
-          const start = Date.parse(generatedAt);
-          const now = Date.now();
-          let elapsed = Math.floor((now - start) / 1000);
-          let total = 0;
-
-          for (let i = 0; i < playlist.length; i++) {
-            total += playlist[i].duration;
-            if (elapsed < total) {
-              const offset = elapsed - (total - playlist[i].duration);
-              playTrack(i, offset);
-              audio.onended = () => {
-                startRadio();
-              };
-              return;
-            }
-          }
-
-          updateUI("🔚 Ефір завершено", "", "https://via.placeholder.com/80x80?text=🔇");
-          document.getElementById("nextTracks").textContent = "Трансляцію завершено.";
-        })
-        .catch(() => {
-          updateUI("❌ Помилка підключення", "", "https://via.placeholder.com/80x80?text=ERR");
+    
+    // Настройка обработчиков событий
+    function setupEventListeners() {
+        playBtn.addEventListener('click', togglePlay);
+        
+        // Отключаем функционал перемотки для прямого эфира
+        prevBtn.addEventListener('click', () => {});
+        nextBtn.addEventListener('click', () => {});
+        
+        volumeBtn.addEventListener('click', toggleMute);
+        volumeSlider.addEventListener('input', handleVolumeInput);
+        
+        loadOnlineBtn.addEventListener('click', () => loadStation(currentStation));
+        loadFileBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', handleFileUpload);
+        
+        stationButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const station = btn.dataset.station;
+                loadStation(station);
+            });
+        });
+        
+        audioPlayer.addEventListener('play', () => {
+            isPlaying = true;
+            playBtn.textContent = '❚❚';
+            visualizer.classList.add('active');
+        });
+        
+        audioPlayer.addEventListener('pause', () => {
+            isPlaying = false;
+            playBtn.textContent = '▶';
+            visualizer.classList.remove('active');
+        });
+        
+        audioPlayer.addEventListener('timeupdate', updateProgress);
+        audioPlayer.addEventListener('ended', handleTrackEnd);
+        audioPlayer.addEventListener('volumechange', updateVolumeUI);
+        
+        // Активация визуализатора при появлении звука
+        audioPlayer.addEventListener('playing', () => {
+            visualizer.classList.add('active');
         });
     }
+    
+    // Создание визуализатора
+    function createVisualizer() {
+        for (let i = 0; i < 50; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'bar';
+            bar.style.animationDelay = `${i * 0.05}s`;
+            bar.style.animationDuration = `${1 + Math.random() * 2}s`;
+            visualizer.appendChild(bar);
+        }
+    }
+    
+    // Загрузка станции
+    function loadStation(station) {
+        currentStation = station;
+        
+        // Обновляем активную кнопку станции
+        stationButtons.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.station === station);
+        });
+        
+        // Показываем загрузку
+        statusText.textContent = "Завантаження ефіру...";
+        waves.classList.remove('active');
+        visualizer.classList.remove('active');
+        
+        fetch(STATIONS[station].url)
+            .then(res => res.json())
+            .then(json => {
+                playFromData(json);
+                waves.classList.add('active');
+                updateStationInfo();
+            })
+            .catch(err => {
+                statusText.textContent = "Помилка завантаження плейлиста";
+                console.error(err);
+            });
+    }
+    
+    // Обновление информации о станции
+    function updateStationInfo() {
+        listenersEl.textContent = `🎧 ${STATIONS[currentStation].name}`;
+    }
+    
+    function handleFileUpload(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = e => {
+            try {
+                const json = JSON.parse(e.target.result);
+                playFromData(json);
+                waves.classList.add('active');
+            } catch (err) {
+                statusText.textContent = "Помилка читання файлу";
+                console.error(err);
+            }
+        };
+        reader.readAsText(file);
+    }
+    
+    // Обработка данных плейлиста
+    function playFromData(json) {
+        playlist = json.playlist;
+        generatedAt = new Date(json.generatedAt);
+        totalDuration = playlist.reduce((sum, t) => sum + t.duration, 0);
+        globalImage = json.settings?.image || 'https://via.placeholder.com/200';
+        
+        // Сбрасываем текущий индекс
+        currentIndex = -1;
+        
+        updateBroadcastInfo();
+        updateSchedule();
+        startAutoUpdate();
+    }
+    
+    // Функция для вычисления текущего трека
+    function calculateCurrentTrack() {
+        if (!generatedAt || !playlist.length) return -1;
+        
+        const now = new Date();
+        const startTime = generatedAt;
+        
+        if (now < startTime) return -1; // Трансляция еще не началась
+        
+        const elapsedSeconds = Math.floor((now - startTime) / 1000);
+        
+        // Если трансляция закончилась
+        if (elapsedSeconds >= totalDuration) return playlist.length - 1;
+        
+        let accumulated = 0;
+        for (let i = 0; i < playlist.length; i++) {
+            if (elapsedSeconds < accumulated + playlist[i].duration) {
+                return i;
+            }
+            accumulated += playlist[i].duration;
+        }
+        
+        return -1;
+    }
+    
+    // Функция для получения времени начала трека
+    function getTrackStartTime(index) {
+        if (index < 0 || index >= playlist.length) return null;
+        
+        let accumulated = 0;
+        const startTime = new Date(generatedAt);
+        
+        for (let i = 0; i < index; i++) {
+            accumulated += playlist[i].duration;
+        }
+        
+        return new Date(startTime.getTime() + accumulated * 1000);
+    }
+    
+    // Обновленная функция updateBroadcastInfo
+    function updateBroadcastInfo() {
+        const now = new Date();
+        const startTime = generatedAt;
+        const endTime = new Date(startTime.getTime() + totalDuration * 1000);
+        
+        if (now < startTime) {
+            statusText.textContent = `🕒 Трансляція розпочнеться: ${startTime.toLocaleString()}`;
+            return;
+        }
+        
+        if (now >= endTime) {
+            statusText.textContent = `🔚 Трансляція закінчилася: ${endTime.toLocaleString()}`;
+            return;
+        }
+        
+        const elapsed = Math.floor((now - startTime) / 1000);
+        statusText.textContent = `🔊 Трансляція триває: ${formatTime(elapsed)}`;
+        
+        // Вычисляем текущий трек
+        const newIndex = calculateCurrentTrack();
+        
+        if (newIndex !== -1 && newIndex !== currentIndex) {
+            const trackStart = getTrackStartTime(newIndex);
+            const playPosition = Math.floor((now - trackStart) / 1000);
+            playTrack(newIndex, playPosition);
+        }
+        
+        // Всегда обновляем расписание
+        updateSchedule();
+    }
+    
+    // Обновленная функция playTrack
+    function playTrack(index, offset = 0) {
+        if (index < 0 || index >= playlist.length) return;
+        
+        const track = playlist[index];
+        currentIndex = index;
+        
+        // Устанавливаем источник
+        audioPlayer.src = track.url;
+        
+        // Ограничиваем offset продолжительностью трека
+        offset = Math.min(offset, track.duration - 1);
+        offset = Math.max(0, offset);
+        
+        audioPlayer.currentTime = offset;
+        
+        // Обновляем информацию о треке
+        updateTrackInfo(track);
+        updateSchedule();
+        
+        // Если плеер был в состоянии воспроизведения - продолжаем
+        if (isPlaying) {
+            audioPlayer.play().catch(err => {
+                console.error("Помилка відтворення:", err);
+            });
+        }
+    }
+    
+    // Обработка окончания трека
+    function handleTrackEnd() {
+        // В режиме прямого эфира это событие не должно вызывать переход к следующему треку
+        // Вместо этого мы полагаемся на updateBroadcastInfo для корректного переключения
+    }
+    
+    // Обновление информации о треке
+    function updateTrackInfo(track) {
+        trackTitle.textContent = track.title;
+        trackGroup.textContent = track.group;
+        
+        // Используем изображение трека, если есть, иначе глобальное изображение
+        coverImage.src = track.image || globalImage;
+        durationEl.textContent = formatTime(track.duration);
+    }
+    
+    // Обновленная функция updateSchedule
+    function updateSchedule() {
+        if (!playlist.length || !generatedAt) return;
+        
+        let html = '';
+        let accumulatedDuration = 0;
+        let startTime = new Date(generatedAt);
+        
+        // Находим текущий трек
+        let currentTrackIndex = calculateCurrentTrack();
+        if (currentTrackIndex === -1) {
+            // Если трансляция еще не началась, показываем первые треки
+            currentTrackIndex = 0;
+        }
+        
+        // Сначала посчитаем общую длину до текущего трека
+        for (let i = 0; i < currentTrackIndex; i++) {
+            accumulatedDuration += playlist[i].duration;
+        }
+        
+        // Теперь отобразим треки
+        for (let i = currentTrackIndex; i < Math.min(currentTrackIndex + 5, playlist.length); i++) {
+            const track = playlist[i];
+            const trackStart = new Date(startTime.getTime() + accumulatedDuration * 1000);
+            
+            const isCurrent = i === currentTrackIndex;
+            const currentClass = isCurrent ? 'current-track' : '';
+            
+            html += `<div class="schedule-item">
+                <div class="schedule-time ${currentClass}">${trackStart.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                <div class="${currentClass}">${track.title}</div>
+            </div>`;
+            
+            accumulatedDuration += track.duration;
+        }
+        
+        scheduleItems.innerHTML = html;
+    }
+    
+    // Автообновление
+    function startAutoUpdate() {
+        if (updateInterval) clearInterval(updateInterval);
+        updateInterval = setInterval(() => {
+            updateBroadcastInfo();
+        }, 1000);
+    }
+    
+    // Управление воспроизведением
+    function togglePlay() {
+        if (isPlaying) {
+            audioPlayer.pause();
+        } else {
+            if (currentIndex === -1 && playlist.length > 0) {
+                const now = new Date();
+                const elapsed = Math.floor((now - generatedAt) / 1000);
+                updateBroadcastInfo();
+            }
+            audioPlayer.play().catch(err => {
+                console.error("Помилка відтворення:", err);
+            });
+        }
+    }
+    
+    // Управление громкостью
+    function handleVolumeInput(e) {
+        volume = parseFloat(e.target.value);
+        audioPlayer.volume = volume;
+        updateVolumeUI();
+    }
+    
+    function toggleMute() {
+        isMuted = !isMuted;
+        if (isMuted) {
+            savedVolume = volume;
+            audioPlayer.volume = 0;
+            volumeSlider.value = 0;
+        } else {
+            audioPlayer.volume = savedVolume;
+            volume = savedVolume;
+            volumeSlider.value = savedVolume;
+        }
+        updateVolumeUI();
+    }
+    
+    function updateVolumeUI() {
+        volumeBtn.textContent = audioPlayer.volume === 0 ? '🔇' : '🔊';
+    }
+    
+    // Прогресс трека
+    function updateProgress() {
+        const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100 || 0;
+        progressBar.style.width = `${percent}%`;
+        currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+    }
+    
+    // Форматирование времени
+    function formatTime(seconds) {
+        if (isNaN(seconds)) return "0:00";
+        
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+    
+    // Запуск приложения
+    init();
+</script>
 
-    audio.onplay  = () => eq.classList.add("playing");
-    audio.onpause = () => eq.classList.remove("playing");
-  </script>
 </body>
 </html>
