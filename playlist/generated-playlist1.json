@@ -9,17 +9,23 @@
     {
       "title": "Як злі підходять дні  (гурт)",
       "url": "https://www.dropbox.com/scl/fi/k4z3i4csgyd6n3wg1vdrk/.mp3?rlkey=7g7bha880cs7hxzi27q2byyvn&st=v5sdukd9&dl=1",
-      "group": "1. Гурт",
+      "group": "Гурт",
       "duration": 210
     },
     {
       "title": "НЕ чини помсти (Матвія 538-42) Микола Марйоха, 16.02.2025",
       "url": "https://www.dropbox.com/scl/fi/zyfene0g3h3ui3dy2d7d9/538-42-16.02.2025.mp3?rlkey=77h5bhwk5umcmv4ffaja33vnz&st=twrgym1h&dl=1",
-      "group": "1. Марйоха Микола Павлович",
+      "group": "Марйоха Микола Павлович",
       "duration": 2292
     },
+    {
+      "title": "Охріменки",
+      "url": "https://www.dropbox.com/scl/fi/1x0q8tklowiyxzsmhja5t/.mp3?rlkey=los8axaay3ry25hnu4iurdo2r&st=a4zoexk9&dl=1",
+      "group": "Влад Тимофій Охріменки 20.04.25",
+      "duration": 243
+    },
      {
-      "title": "\"Охрим.дит_служ.\"  Тимофей Охрименки",
+      "title": "Охрим.дит_служ.\"  Тимофей Охрименки",
       "url": "https://www.dropbox.com/scl/fi/972v1hakxiig6ilyt0imi/.-_-..mp3?rlkey=a4x7wtf9br9ehu5senr05jaf3&st=kny5plac&dl=1",
       "group": "2. Тимофій та Влад Охріменки",
       "duration": 278
@@ -43,7 +49,7 @@
       "duration": 237
     },
     {
-      "title": "\"Радісна Новина!\" (Іс. 61:1-9). Андрій Булигін, 23.03.2025",
+      "title": "Радісна Новина!\" (Іс. 61:1-9). Андрій Булигін, 23.03.2025",
       "url": "https://www.dropbox.com/scl/fi/ibcyoka0qhx55z23dixev/.-.-61.mp3?rlkey=2lo02e1hrgm8mxjzu1t822jhz&st=xjgw5zvg&dl=1",
       "group": "2. Булигін Андрій Петрович",
       "duration": 2328
@@ -72,8 +78,14 @@
       "group": "1. Гурт",
       "duration": 186
     },
+     {
+      "title": "Хор",
+      "url": "https://www.dropbox.com/scl/fi/t3fvriewgacxlyounq06j/.mp3?rlkey=5dyhdh19ikxxtu3w4vbh06msm&st=vkz34it1&dl=1",
+      "group": "Вірим ми 20.04.25",
+      "duration": 262
+    },
     {
-      "title": "\"Диявол в кайданах, два воскресіння і останній суд\" (Одкр. 20), Віктор Лаба, 09.02.2025",
+      "title": "Диявол в кайданах, два воскресіння і останній суд\" (Одкр. 20), Віктор Лаба, 09.02.2025",
       "url": "https://www.dropbox.com/scl/fi/0poaeh1lakeaapbqnlwcg/R_20250209-..mp3?rlkey=p98jci5bqva6u3q4lujjnbpth&st=qlwgwvnt&dl=1",
       "group": "3. Лаба Віктор Васильович",
       "duration": 2293
@@ -137,7 +149,13 @@
       "url": "https://www.dropbox.com/scl/fi/3tu6hd6p2wvskw7for7fm/..mp3?rlkey=wiaqwya0pdvyrq9amp4mln3lq&st=1rmgpjsf&dl=1",
       "group": "2. Тимофій та Влад Охріменки",
       "duration": 225
-    },  
+    }, 
+       {
+      "title": "Лена Приходько  20.04.25",
+      "url": "https://www.dropbox.com/scl/fi/y4sjhb9cs5u66t3itq4k1/.mp3?rlkey=b3gt21k6pn6mfwhlb1rg81y22&st=a57w4h77&dl=1",
+      "group": "Приходько",
+      "duration": 215
+    },
     {
       "title": "Андрій Парфило (Діяння 12)16.03.2025",
       "url": "https://www.dropbox.com/scl/fi/ew5mhx4ndg5v5gtf1blns/12-16.03.2025.mp3?rlkey=zje9l14jb9610v8myy4kqms2s&st=snpxnj4h&dl=1",
@@ -185,6 +203,12 @@
       "url": "https://www.dropbox.com/scl/fi/oqau1x3jzm5osbju4s99m/.mp3?rlkey=gtmwhlbz0jbkuc669y10h681g&st=taqwxgb3&dl=1",
       "group": "2. Тимофій та Влад Охріменки",
       "duration": 217
+    },
+    {
+      "title": "Хор Навіки  20.04.25",
+      "url": "https://www.dropbox.com/scl/fi/se86qsryp21sn32tlzrvp/_.mp3?rlkey=i67cvpp1mn4oi9vt3lecu02ft&st=0j5a6get&dl=1",
+      "group": "Хор",
+      "duration": 212
     },
     {
       "title": "Изменение сердец братьев Иосифа (Бытие 4333-34). Александр Кирсано",
