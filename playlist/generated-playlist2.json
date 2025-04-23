@@ -1,7 +1,8 @@
 {
-  "playlistName": "Плейлист (перемешанный)",
-  "generatedAt": "2025-04-23T23:00:00+03:00",
-  "playlist": [
+  "generatedAt": "2025-04-23T23:10:00+03:00",
+  "settings": {
+    "repetition": false,
+    "pauseBetweenTracks": 0,
     {
       "title": "Молю",
       "url": "https://holychords.pro/uploads/music/20220722/20220722081325.mp3",
