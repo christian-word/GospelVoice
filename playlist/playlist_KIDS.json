@@ -1,7 +1,7 @@
 ﻿{
   "generatedAt": "2025-04-23T15:15:30+03:00",
   "settings": {
-    "repetition": false,
+    "repetition": true,
     "pauseBetweenTracks": 0,
     "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/GroupEast.png"
   },
