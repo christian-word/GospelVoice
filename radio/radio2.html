@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GospelVoice Radio v7.0</title>
-    <style>
+  <title>GospelVoice Radio v7.0.1</title>
+ <!-- Заставка для Вайбера и других соцсетей -->
+    <meta property="og:image" content="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/favicon.png" />
+
+ <style>
 :root {
     --primary: #4a6fa5;
     --secondary: #7d9cc5;
@@ -48,11 +51,22 @@ body {
 }
 
 .logo {
-    font-size: 24px;
-    font-weight: bold;
-    background: linear-gradient(to right, var(--primary), var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  font-size: 24px;
+  font-weight: bold;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.station-name {
+  font-size: 14px;
+  opacity: 0.7;
+  display: block;
+  margin-top: 2px;
+  -webkit-text-fill-color: initial; /* 🔧 Вот оно */
+  color: white; /* или другой читаемый цвет */
 }
 
 .cover-art {
@@ -250,7 +264,8 @@ body {
     }
 }
 
-    </style>
+
+ </style>
 </head>
 <body>
   <div class="player-container">
@@ -259,7 +274,10 @@ body {
       <button class="control-btn">⚙</button>
     </div>
 
-    <div class="cover-art"><img id="coverImage" src="https://via.placeholder.com/200" alt="Обкладинка" /></div>
+    <div class="cover-art">
+      <img id="coverImage" src="https://via.placeholder.com/200" alt="Обкладинка" />
+    </div>
+
     <div class="visualizer" id="visualizer"></div>
 
     <div class="track-info">
@@ -291,7 +309,7 @@ body {
     <div class="stations">
       <button class="station-btn active" data-station="gospel">📻 Служіння</button>
       <button class="station-btn" data-station="worship">📻 Дитячі пісні</button>
-      <button class="station-btn" data-station="praise">📻 Музичний канал</button>
+      <button class="station-btn" data-station="Praise">📻 Музичний канал</button>
     </div>
 
     <div class="schedule">
@@ -300,32 +318,24 @@ body {
     </div>
 
     <audio id="audioPlayer" preload="auto"></audio>
-  </div>
-
 <script>
+
 const STATIONS = {
   gospel: {
-    name: "Gospel",
+    name: "📻 Служіння",
     url: "https://raw.githubusercontent.com/christian-word/GospelVoice/refs/heads/main/playlist/generated-playlist1.json"
   },
   worship: {
-    name: "Worship",
+    name: "📻 Дитячі пісні",
     url: "https://raw.githubusercontent.com/christian-word/GospelVoice/refs/heads/main/playlist/playlist_KIDS.json"
   },
-  praise: {
-    name: "Praise",
+  Praise: {
+    name: "📻 Музичний канал",
     url: "https://raw.githubusercontent.com/christian-word/GospelVoice/refs/heads/main/playlist/generated-playlist2.json"
   }
 };
 
 const audio = document.getElementById("audioPlayer");
-const introPlayer = document.createElement("audio");
-introPlayer.id = "introPlayer";
-introPlayer.style.display = "none";
-document.body.appendChild(introPlayer);
-
-const introUrl = "https://christian-word.github.io/GospelVoice/audio/gospel-voice-intro.mp3";
-
 const playBtn = document.getElementById("playBtn");
 const progressBar = document.getElementById("progressBar");
 const currentTimeEl = document.getElementById("currentTime");
@@ -339,13 +349,17 @@ const stationBtns = document.querySelectorAll(".station-btn");
 const volumeSlider = document.getElementById("volumeSlider");
 const volumeBtn = document.getElementById("volumeBtn");
 const visualizer = document.getElementById("visualizer");
+const radioLogo = document.getElementById("radioLogo");
 
 let currentStation = "gospel";
 let playlist = [];
 let generatedAt = "";
 let settings = { repetition: false, pauseBetweenTracks: 1 };
+let defaultImage = "";
 let currentIndex = -1;
-let introPlayed = false;
+let baseTrackStartTime = 0;
+
+const MAX_DRIFT_SEC = 15;
 
 function formatTime(sec) {
   const m = Math.floor(sec / 60);
@@ -360,20 +374,54 @@ function updateProgress() {
   currentTimeEl.textContent = formatTime(audio.currentTime);
 }
 
-function updateSchedule(currentTrackIndex = -1) {
+function updateScheduleLive() {
   scheduleItems.innerHTML = "";
-  const start = new Date(generatedAt);
-  let timeCursor = start.getTime();
 
-  playlist.forEach((t, i) => {
-    const time = new Date(timeCursor);
+  const offset = audio.currentTime;
+  const pause = settings.pauseBetweenTracks || 0;
+  const current = playlist[currentIndex];
+  if (!current) return;
+
+  let timeCursor = baseTrackStartTime;
+
+  const maxItems = 5;
+  let i = currentIndex;
+
+  for (let j = 0; j < maxItems; j++) {
+    const t = playlist[i];
+    if (!t) break;
+
     const el = document.createElement("div");
     el.className = "schedule-item";
-    if (i === currentTrackIndex) el.classList.add("active-track");
-    el.innerHTML = `<div class="schedule-time">${time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</div><div>${t.title}</div>`;
+    if (j === 0) el.classList.add("active-track");
+
+    el.innerHTML = `<div class="schedule-time">${new Date(timeCursor).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</div><div>${t.title}</div>`;
     scheduleItems.appendChild(el);
-    timeCursor += (t.duration + (settings.pauseBetweenTracks || 0)) * 1000;
-  });
+
+    timeCursor += (t.duration + pause) * 1000;
+    i = (i + 1) % playlist.length;
+  }
+}
+
+function checkDriftCorrection() {
+  if (currentIndex < 0 || currentIndex >= playlist.length) return;
+
+  const now = Date.now();
+  const expectedStart = new Date(generatedAt).getTime();
+  let timeSum = 0;
+
+  for (let i = 0; i < currentIndex; i++) {
+    timeSum += playlist[i].duration + (settings.pauseBetweenTracks || 0);
+  }
+
+  const theoreticalNow = expectedStart + timeSum * 1000;
+  const drift = (now - theoreticalNow) / 1000;
+
+  if (Math.abs(drift) > MAX_DRIFT_SEC) {
+    console.log(`🧭 Drift correction: ${Math.round(drift)} сек`);
+    baseTrackStartTime = theoreticalNow;
+    updateScheduleLive();
+  }
 }
 
 function playTrack(i, offset = 0) {
@@ -384,50 +432,36 @@ function playTrack(i, offset = 0) {
   audio.play();
   trackTitle.textContent = track.title;
   trackArtist.textContent = track.group || "-";
-  coverImage.src = track.image || "https://via.placeholder.com/200";
-  broadcastInfo.textContent = "🎵 Відтворення...";
+  coverImage.src = track.image || defaultImage || "https://via.placeholder.com/200";
+  broadcastInfo.textContent = "Відтворення...";
   currentIndex = i;
-  updateSchedule(i);
+  baseTrackStartTime = Date.now() - offset * 1000;
+  updateScheduleLive();
 }
 
 function syncPlayback() {
   const now = Date.now();
   const start = new Date(generatedAt).getTime();
-  const elapsed = Math.floor((now - start) / 1000);
+  let elapsed = Math.floor((now - start) / 1000);
+
+  const totalDuration = playlist.reduce((acc, t) => acc + t.duration + (settings.pauseBetweenTracks || 0), 0);
+  if (settings.repetition && totalDuration > 0) {
+    elapsed = elapsed % totalDuration;
+  }
+
   let time = 0;
 
   for (let i = 0; i < playlist.length; i++) {
     const dur = playlist[i].duration + (settings.pauseBetweenTracks || 0);
     if (elapsed < time + dur) {
       const offset = elapsed - time;
-
-      // Воспроизведение интро только один раз за сессию
-if (!introPlayed) {
-  introPlayer.src = introUrl;
-  introPlayer.play().then(() => {
-    setTimeout(() => {
-      introPlayed = true;
       playTrack(i, offset);
-    }, 6000);
-  }).catch(() => {
-    // если интро не сработало — сразу начинаем эфир
-    introPlayed = true;
-    playTrack(i, offset);
-  });
-} else {
-  playTrack(i, offset);
-}
-
       return;
     }
     time += dur;
   }
 
-  if (settings.repetition) {
-    syncPlayback(); // повтор сначала
-  } else {
-    broadcastInfo.textContent = "🔚 Ефір завершено";
-  }
+  broadcastInfo.textContent = "🔚 Ефір завершено";
 }
 
 function loadStation(stationKey) {
@@ -439,7 +473,8 @@ function loadStation(stationKey) {
       playlist = json.playlist;
       generatedAt = json.generatedAt;
       settings = json.settings || { repetition: false, pauseBetweenTracks: 1 };
-      updateSchedule();
+      defaultImage = settings.image || "";
+      radioLogo.innerHTML = `GospelVoice<br><span class="station-name">${s.name}</span>`;
       syncPlayback();
     })
     .catch(() => {
@@ -447,7 +482,6 @@ function loadStation(stationKey) {
     });
 }
 
-// Визуализатор (декоративный)
 function initVisualizer() {
   for (let i = 0; i < 50; i++) {
     const bar = document.createElement('div');
@@ -458,49 +492,62 @@ function initVisualizer() {
   }
 }
 
-// Кнопки станций
+function updatePlayButton() {
+  playBtn.textContent = audio.paused ? "▶" : "❚❚";
+}
+
 stationBtns.forEach(btn => {
   btn.addEventListener("click", () => {
     stationBtns.forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
     currentStation = btn.dataset.station;
     broadcastInfo.textContent = "⏳ Завантаження...";
-    loadStation(currentStation); // интроPlayed сохраняется
+    loadStation(currentStation);
   });
 });
 
-// ▶ ❚❚ кнопка
 playBtn.addEventListener("click", () => {
   if (audio.paused) {
     audio.play();
-    playBtn.textContent = "❚❚";
   } else {
     audio.pause();
-    playBtn.textContent = "▶";
   }
 });
 
-// Прогресс и события
 audio.addEventListener("timeupdate", updateProgress);
 audio.addEventListener("loadedmetadata", () => {
   durationEl.textContent = formatTime(audio.duration);
 });
+audio.addEventListener("play", updatePlayButton);
+audio.addEventListener("pause", updatePlayButton);
 
 audio.addEventListener("ended", () => {
-  setTimeout(() => syncPlayback(), (settings.pauseBetweenTracks || 0) * 1000);
+  checkDriftCorrection();
+
+  currentIndex++;
+  if (currentIndex >= playlist.length) {
+    if (settings.repetition) {
+      syncPlayback();
+    } else {
+      broadcastInfo.textContent = "🔚 Ефір завершено";
+    }
+    return;
+  }
+
+  setTimeout(() => {
+    playTrack(currentIndex, 0);
+  }, (settings.pauseBetweenTracks || 0) * 1000);
 });
 
-// Громкость
 volumeSlider.addEventListener("input", (e) => {
   audio.volume = e.target.value;
   volumeBtn.textContent = audio.volume == 0 ? "🔇" : "🔊";
 });
 
-// Старт
 initVisualizer();
 loadStation(currentStation);
+
 </script>
-
-
+  </div>
 </body>
 </html>
