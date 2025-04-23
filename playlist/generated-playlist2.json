@@ -1,8 +1,11 @@
 {
-  "generatedAt": "2025-04-23T23:10:00+03:00",
+  "generatedAt": "2025-04-23T23:14:00+03:00",
   "settings": {
     "repetition": false,
     "pauseBetweenTracks": 0,
+    "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/church_image.png"
+  },
+  "playlist": [
     {
       "title": "Молю",
       "url": "https://holychords.pro/uploads/music/20220722/20220722081325.mp3",
