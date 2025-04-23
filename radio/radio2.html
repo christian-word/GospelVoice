@@ -285,7 +285,7 @@ body {
       <div class="track-artist" id="trackArtist">-</div>
     </div>
 
-    <div class="broadcast-info" id="broadcastInfo">Завантаження станції...</div>
+    <div class="broadcast-info" id="broadcastInfo">Підключення до станції...</div>
 
     <div class="progress-container">
       <div class="progress-bar"><div class="progress" id="progressBar"></div></div>
@@ -433,7 +433,7 @@ function playTrack(i, offset = 0) {
   trackTitle.textContent = track.title;
   trackArtist.textContent = track.group || "-";
   coverImage.src = track.image || defaultImage || "https://via.placeholder.com/200";
-  broadcastInfo.textContent = "Відтворення...";
+  broadcastInfo.textContent = "📡 Прямий єфір ...";
   currentIndex = i;
   baseTrackStartTime = Date.now() - offset * 1000;
   updateScheduleLive();
@@ -478,7 +478,7 @@ function loadStation(stationKey) {
       syncPlayback();
     })
     .catch(() => {
-      broadcastInfo.textContent = "❌ Помилка завантаження плейліста";
+      broadcastInfo.textContent = "❌ Помилка підключення";
     });
 }
 
@@ -501,7 +501,7 @@ stationBtns.forEach(btn => {
     stationBtns.forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
     currentStation = btn.dataset.station;
-    broadcastInfo.textContent = "⏳ Завантаження...";
+    broadcastInfo.textContent = "⏳ Підключення...";
     loadStation(currentStation);
   });
 });
