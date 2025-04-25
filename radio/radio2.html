@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GospelVoice Radio v7.0.1</title>
+  <title>GospelVoice Radio v7.2.4</title>
  <!-- Заставка для Вайбера и других соцсетей -->
     <meta property="og:image" content="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/favicon.png" />
 
@@ -248,6 +248,15 @@ body {
     margin-bottom: 20px;
 }
 
+#visualizer .bar {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#visualizer.active .bar {
+  opacity: 1;
+}
+
 .bar {
     width: 4px;
     background: var(--primary);
@@ -319,7 +328,6 @@ body {
 
     <audio id="audioPlayer" preload="auto"></audio>
 <script>
-
 const STATIONS = {
   gospel: {
     name: "📻 Служіння",
@@ -366,7 +374,6 @@ function formatTime(sec) {
   const s = Math.floor(sec % 60);
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
-
 function updateProgress() {
   if (!audio.duration) return;
   const percent = (audio.currentTime / audio.duration) * 100;
@@ -376,28 +383,22 @@ function updateProgress() {
 
 function updateScheduleLive() {
   scheduleItems.innerHTML = "";
-
-  const offset = audio.currentTime;
   const pause = settings.pauseBetweenTracks || 0;
   const current = playlist[currentIndex];
   if (!current) return;
 
   let timeCursor = baseTrackStartTime;
-
   const maxItems = 5;
   let i = currentIndex;
 
   for (let j = 0; j < maxItems; j++) {
     const t = playlist[i];
     if (!t) break;
-
     const el = document.createElement("div");
     el.className = "schedule-item";
     if (j === 0) el.classList.add("active-track");
-
     el.innerHTML = `<div class="schedule-time">${new Date(timeCursor).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</div><div>${t.title}</div>`;
     scheduleItems.appendChild(el);
-
     timeCursor += (t.duration + pause) * 1000;
     i = (i + 1) % playlist.length;
   }
@@ -405,25 +406,20 @@ function updateScheduleLive() {
 
 function checkDriftCorrection() {
   if (currentIndex < 0 || currentIndex >= playlist.length) return;
-
   const now = Date.now();
   const expectedStart = new Date(generatedAt).getTime();
   let timeSum = 0;
-
   for (let i = 0; i < currentIndex; i++) {
     timeSum += playlist[i].duration + (settings.pauseBetweenTracks || 0);
   }
-
   const theoreticalNow = expectedStart + timeSum * 1000;
   const drift = (now - theoreticalNow) / 1000;
-
   if (Math.abs(drift) > MAX_DRIFT_SEC) {
     console.log(`🧭 Drift correction: ${Math.round(drift)} сек`);
     baseTrackStartTime = theoreticalNow;
     updateScheduleLive();
   }
 }
-
 function playTrack(i, offset = 0) {
   const track = playlist[i];
   if (!track) return;
@@ -442,15 +438,22 @@ function playTrack(i, offset = 0) {
 function syncPlayback() {
   const now = Date.now();
   const start = new Date(generatedAt).getTime();
-  let elapsed = Math.floor((now - start) / 1000);
 
+  if (now < start) {
+    const formatted = new Date(generatedAt).toLocaleString("uk-UA", {
+      hour: "2-digit", minute: "2-digit", day: "2-digit", month: "short"
+    });
+    broadcastInfo.textContent = `🕒 Ефір ще не почався\n📅 Заплановано : ${formatted}`;
+    return;
+  }
+
+  let elapsed = Math.floor((now - start) / 1000);
   const totalDuration = playlist.reduce((acc, t) => acc + t.duration + (settings.pauseBetweenTracks || 0), 0);
   if (settings.repetition && totalDuration > 0) {
     elapsed = elapsed % totalDuration;
   }
 
   let time = 0;
-
   for (let i = 0; i < playlist.length; i++) {
     const dur = playlist[i].duration + (settings.pauseBetweenTracks || 0);
     if (elapsed < time + dur) {
@@ -462,8 +465,22 @@ function syncPlayback() {
   }
 
   broadcastInfo.textContent = "🔚 Ефір завершено";
-}
 
+  fetch(STATIONS[currentStation].url)
+    .then(res => res.json())
+    .then(data => {
+      const futureStart = new Date(data.generatedAt).getTime();
+      if (futureStart > now) {
+        const formatted = new Date(futureStart).toLocaleString("uk-UA", {
+          hour: "2-digit", minute: "2-digit", day: "2-digit", month: "short"
+        });
+        broadcastInfo.textContent = `📅 Ефір заплановано о: ${formatted}`;
+      }
+    })
+    .catch(err => {
+      console.warn("Не вдалося перевірити майбутній ефір:", err);
+    });
+}
 function loadStation(stationKey) {
   const s = STATIONS[stationKey];
   if (!s) return;
@@ -492,10 +509,17 @@ function initVisualizer() {
   }
 }
 
+function setVisualizerState(active) {
+  if (active) {
+    visualizer.classList.add("active");
+  } else {
+    visualizer.classList.remove("active");
+  }
+}
+
 function updatePlayButton() {
   playBtn.textContent = audio.paused ? "▶" : "❚❚";
 }
-
 stationBtns.forEach(btn => {
   btn.addEventListener("click", () => {
     stationBtns.forEach(b => b.classList.remove("active"));
@@ -514,16 +538,25 @@ playBtn.addEventListener("click", () => {
   }
 });
 
+audio.addEventListener("play", () => {
+  updatePlayButton();
+  setVisualizerState(true);
+});
+
+audio.addEventListener("pause", () => {
+  updatePlayButton();
+  setVisualizerState(false);
+});
+
 audio.addEventListener("timeupdate", updateProgress);
+
 audio.addEventListener("loadedmetadata", () => {
   durationEl.textContent = formatTime(audio.duration);
 });
-audio.addEventListener("play", updatePlayButton);
-audio.addEventListener("pause", updatePlayButton);
 
 audio.addEventListener("ended", () => {
+  setVisualizerState(false);
   checkDriftCorrection();
-
   currentIndex++;
   if (currentIndex >= playlist.length) {
     if (settings.repetition) {
@@ -533,7 +566,6 @@ audio.addEventListener("ended", () => {
     }
     return;
   }
-
   setTimeout(() => {
     playTrack(currentIndex, 0);
   }, (settings.pauseBetweenTracks || 0) * 1000);
