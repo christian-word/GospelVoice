@@ -1,6 +1,10 @@
 {
-  "playlistName": "Плейлист (перемешанный)",
-  "generatedAt": "2025-04-25T13:26:52.339Z",
+  "generatedAt": "2025-04-25T16:30:00+03:00",
+  "settings": {
+    "repetition": false,
+    "pauseBetweenTracks": 0,
+    "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/church_image.png"
+  },
   "playlist": [
     {
       "title": "На скрижалях сердца",
