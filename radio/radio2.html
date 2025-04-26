@@ -273,7 +273,15 @@ body {
     }
 }
 
+@keyframes radioWave {
+  0% { width: 90%; opacity: 0.5; }
+  50% { width: 95%; opacity: 1; }
+  100% { width: 90%; opacity: 0.5; }
+}
 
+#progressBar {
+  animation: radioWave 15s infinite;
+}
  </style>
 </head>
 <body>
@@ -366,6 +374,8 @@ let settings = { repetition: false, pauseBetweenTracks: 1 };
 let defaultImage = "";
 let currentIndex = -1;
 let baseTrackStartTime = 0;
+let fakeProgress = 0;
+
 const fallbackImage = "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/favicon.png";
 const MAX_DRIFT_SEC = 15;
 
@@ -374,11 +384,11 @@ function formatTime(sec) {
   const s = Math.floor(sec % 60);
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
-function updateProgress() {
-  if (!audio.duration) return;
-  const percent = (audio.currentTime / audio.duration) * 100;
-  progressBar.style.width = percent + "%";
-  currentTimeEl.textContent = formatTime(audio.currentTime);
+
+function updateRadioProgress() {
+  fakeProgress += 0.3; // скорость заполнения (можно менять)
+  if (fakeProgress > 100) fakeProgress = 0;
+  progressBar.style.width = fakeProgress + "%";
 }
 
 function updateScheduleLive() {
@@ -564,8 +574,6 @@ audio.addEventListener("pause", () => {
   setVisualizerState(false);
 });
 
-audio.addEventListener("timeupdate", updateProgress);
-
 audio.addEventListener("loadedmetadata", () => {
   durationEl.textContent = formatTime(audio.duration);
 });
@@ -595,6 +603,8 @@ volumeSlider.addEventListener("input", (e) => {
 
 initVisualizer();
 loadStation(currentStation);
+setInterval(updateRadioProgress, 500);
+
 const STATION_KEYS = Object.keys(STATIONS);
 
 document.getElementById("nextBtn").addEventListener("click", () => {
