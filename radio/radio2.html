@@ -259,9 +259,10 @@ body {
 
 .bar {
     width: 4px;
-    background: var(--primary);
     border-radius: 2px;
     animation: equalize 1.5s infinite alternate;
+    /* Градиентный фон от нижнего к верхнему краю */
+    background: linear-gradient(to top, #00c6ff, #0072ff);
 }
 
 @keyframes equalize {
