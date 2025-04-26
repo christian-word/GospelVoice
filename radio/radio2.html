@@ -366,7 +366,7 @@ let settings = { repetition: false, pauseBetweenTracks: 1 };
 let defaultImage = "";
 let currentIndex = -1;
 let baseTrackStartTime = 0;
-
+const fallbackImage = "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/favicon.png";
 const MAX_DRIFT_SEC = 15;
 
 function formatTime(sec) {
@@ -481,9 +481,15 @@ function syncPlayback() {
       console.warn("Не вдалося перевірити майбутній ефір:", err);
     });
 }
+
 function loadStation(stationKey) {
   const s = STATIONS[stationKey];
   if (!s) return;
+
+  resetPlayerUI(); // 💬 Вместо кучи отдельных действий
+
+  broadcastInfo.textContent = "⏳ Підключення...";
+
   fetch(s.url)
     .then(res => res.json())
     .then(json => {
@@ -497,6 +503,16 @@ function loadStation(stationKey) {
     .catch(() => {
       broadcastInfo.textContent = "❌ Помилка підключення";
     });
+}
+
+function resetPlayerUI() {
+  audio.pause();
+  audio.src = "";
+  setVisualizerState(false);
+  updatePlayButton();
+  coverImage.src = fallbackImage; // Логотип радио при отсутствии эфира
+  trackTitle.textContent = "Очікування...";
+  trackArtist.textContent = "-";
 }
 
 function initVisualizer() {
@@ -558,14 +574,15 @@ audio.addEventListener("ended", () => {
   setVisualizerState(false);
   checkDriftCorrection();
   currentIndex++;
-  if (currentIndex >= playlist.length) {
-    if (settings.repetition) {
-      syncPlayback();
-    } else {
-      broadcastInfo.textContent = "🔚 Ефір завершено";
-    }
-    return;
+if (currentIndex >= playlist.length) {
+  if (settings.repetition) {
+    syncPlayback();
+  } else {
+    resetPlayerUI(); // ← сбросить всё, эфир закончился
+    broadcastInfo.textContent = "🔚 Ефір завершено";
   }
+  return;
+}
   setTimeout(() => {
     playTrack(currentIndex, 0);
   }, (settings.pauseBetweenTracks || 0) * 1000);
@@ -578,6 +595,33 @@ volumeSlider.addEventListener("input", (e) => {
 
 initVisualizer();
 loadStation(currentStation);
+const STATION_KEYS = Object.keys(STATIONS);
+
+document.getElementById("nextBtn").addEventListener("click", () => {
+  const i = STATION_KEYS.indexOf(currentStation);
+  const nextIndex = (i + 1) % STATION_KEYS.length;
+  switchToStation(STATION_KEYS[nextIndex]);
+});
+
+document.getElementById("prevBtn").addEventListener("click", () => {
+  const i = STATION_KEYS.indexOf(currentStation);
+  const prevIndex = (i - 1 + STATION_KEYS.length) % STATION_KEYS.length;
+  switchToStation(STATION_KEYS[prevIndex]);
+});
+
+function switchToStation(key) {
+  if (!STATIONS[key]) return;
+  currentStation = key;
+
+  // Обновляем выделение кнопок
+  stationBtns.forEach(b => {
+    b.classList.toggle("active", b.dataset.station === key);
+  });
+
+  broadcastInfo.textContent = "⏳ Перемикання...";
+  loadStation(currentStation);
+}
+
 
 </script>
   </div>
