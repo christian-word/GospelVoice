@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2025-04-25T22:00:00+03:00",
+  "generatedAt": "2025-04-27T22:00:00+03:00",
   "settings": {
-    "repetition": false,
+    "repetition": true,
     "pauseBetweenTracks": 0,
     "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/church_image.png"
   },
