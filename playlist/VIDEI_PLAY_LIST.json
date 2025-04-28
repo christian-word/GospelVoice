@@ -7,14 +7,14 @@
   "playlist": [
     {
       "title": "Перший ролик",
-      "url": "https://example.com/video1.mp4",
+      "url": "https://ia800705.us.archive.org/33/items/2-13-11.-20.10.2024/%D0%AF%D0%BA%20%D0%BD%D0%B5%20%D0%B7%D0%B1%D0%BE%D1%87%D0%B8%D1%82%D0%B8%20%D0%BF%D0%BE%20%D0%B4%D0%BE%D1%80%D0%BE%D0%B7%D1%96%20%D0%B4%D0%BE%20%D0%B2%D1%96%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%96%20%282%20%D0%9F%D0%B5%D1%82%2013-11%29.%20%D0%90%D0%BD%D0%B4%D1%80%D1%96%D0%B9%20%D0%9F%D0%B0%D1%80%D1%84%D0%B8%D0%BB%D0%BE%2C20.10.2024.mp4",
       "group": "Категорія 1",
       "image": "https://example.com/poster1.jpg",
       "duration": 120
     },
     {
       "title": "Другий ролик",
-      "url": "https://example.com/video2.mp4",
+      "url": "https://ia800703.us.archive.org/12/items/5-20.-20.10.2024_202504/%D0%9F%D1%80%D0%B0%D0%B2%D0%B5%D0%B4%D0%BD%D1%96%D1%81%D1%82%D1%8C%20%D0%B2%D0%B8%D1%89%D0%B0%20%D0%B7%D0%B0%20%D1%84%D0%B0%D1%80%D0%B8%D1%81%D0%B5%D0%B9%D1%81%D1%8C%D0%BA%D1%83%28%D0%9C%D0%B0%D1%82%D0%B2%205_20%29.%20%D0%9C%D0%B8%D0%BA%D0%BE%D0%BB%D0%B0%20%D0%9C%D0%B0%D1%80%D0%B9%D0%BE%D1%85%D0%B0%2C%2020.10.2024.mp4",
       "group": "Категорія 2",
       "image": "https://example.com/poster2.jpg",
       "duration": 150
