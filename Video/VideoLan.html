@@ -1,1 +1,326 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GospelVoice Video Оnline</title>
+  <style>
+    :root {
+      --primary: #4a6fa5;
+      --accent: #3c6;
+      --dark: #1a1a2e;
+      --light: #f8f8f8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--dark), #16213e);
+      color: var(--light);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .player-container {
+      width: 100%;
+      max-width: 600px;
+      background: rgba(26, 26, 46, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    video {
+      width: 100%;
+      max-height: 340px;
+      border-radius: 15px;
+      background: #000;
+      margin-bottom: 20px;
+    }
+
+    .track-info {
+      margin-bottom: 20px;
+    }
+
+    .track-title {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .track-artist {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .control-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .broadcast-info {
+      font-size: 14px;
+      margin-top: 10px;
+      opacity: 0.7;
+      margin-bottom: 15px;
+    }
+
+    .schedule {
+      max-height: 200px;
+      overflow-y: auto;
+      text-align: left;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    .schedule-item {
+      padding: 5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .schedule-item.active-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-left: 4px solid var(--accent);
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="player-container">
+  <div class="logo">GospelVoice Video Оnline</div>
+
+  <video id="videoPlayer" poster="https://via.placeholder.com/400" preload="auto" playsinline></video>
+
+  <div class="track-info">
+    <div class="track-title" id="trackTitle">Очікування...</div>
+    <div class="track-artist" id="trackArtist">-</div>
+  </div>
+
+  <div class="controls">
+    <button class="control-btn" id="playBtn">▶</button>
+    <button class="control-btn" id="volumeBtn">🔊</button>
+    <button class="control-btn" id="fullscreenBtn">🔲</button>
+  </div>
+
+  <div class="broadcast-info" id="broadcastInfo">Завантаження ефіру...</div>
+
+  <div class="schedule" id="scheduleList">
+    <!-- Сюда будет генерироваться расписание -->
+  </div>
+</div>
+
+<script>
+const video = document.getElementById("videoPlayer");
+const playBtn = document.getElementById("playBtn");
+const volumeBtn = document.getElementById("volumeBtn");
+const trackTitle = document.getElementById("trackTitle");
+const trackArtist = document.getElementById("trackArtist");
+const broadcastInfo = document.getElementById("broadcastInfo");
+const scheduleList = document.getElementById("scheduleList");
+const fullscreenBtn = document.getElementById("fullscreenBtn");
+
+let playlist = [];
+let generatedAt = "";
+let settings = { repetition: false, pauseBetweenTracks: 1 };
+let currentIndex = -1;
+let defaultPoster = "https://via.placeholder.com/400";
+let startTimes = []; // Для расписания
+
+function formatTime(sec) {
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
+  return `${m}:${s.toString().padStart(2, "0")}`;
+}
+
+function formatClock(ms) {
+  const date = new Date(ms);
+  return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+}
+
+function generateSchedule() {
+  scheduleList.innerHTML = "";
+
+  for (let i = 0; i < playlist.length; i++) {
+    const item = document.createElement("div");
+    item.className = "schedule-item";
+    item.setAttribute("data-index", i);
+    item.innerHTML = `<div>${formatClock(startTimes[i])}</div><div>${playlist[i].title}</div>`;
+    scheduleList.appendChild(item);
+  }
+}
+
+function highlightCurrent() {
+  const items = document.querySelectorAll(".schedule-item");
+  items.forEach(item => item.classList.remove("active-track"));
+  const activeItem = document.querySelector(`.schedule-item[data-index="${currentIndex}"]`);
+  if (activeItem) {
+    activeItem.classList.add("active-track");
+    activeItem.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }
+}
+
+function playTrack(i, offset = 0) {
+  const track = playlist[i];
+  if (!track) return;
+
+  video.src = track.url;
+  video.poster = track.image || defaultPoster;
+  video.currentTime = offset;
+  video.play();
+  trackTitle.textContent = track.title;
+  trackArtist.textContent = track.group || "-";
+  broadcastInfo.textContent = "Відтворення...";
+  currentIndex = i;
+  highlightCurrent();
+}
+
+function syncPlayback() {
+  const now = Date.now();
+  const start = new Date(generatedAt).getTime();
+  let elapsed = Math.floor((now - start) / 1000);
+
+  // Сначала полностью заполняем массив startTimes
+  startTimes = [];
+  let time = 0;
+  for (let i = 0; i < playlist.length; i++) {
+    const startTime = start + time * 1000;
+    startTimes.push(startTime);
+    time += playlist[i].duration + (settings.pauseBetweenTracks || 0);
+  }
+
+  const totalDuration = playlist.reduce((acc, t) => acc + t.duration + (settings.pauseBetweenTracks || 0), 0);
+  if (settings.repetition && totalDuration > 0) {
+    elapsed = elapsed % totalDuration;
+  }
+
+  time = 0;
+  for (let i = 0; i < playlist.length; i++) {
+    const dur = playlist[i].duration + (settings.pauseBetweenTracks || 0);
+    if (elapsed < time + dur) {
+      generateSchedule(); // Теперь startTimes полностью заполнен
+      playTrack(i, elapsed - time);
+      return;
+    }
+    time += dur;
+  }
+
+  broadcastInfo.textContent = "🔚 Ефір завершено";
+}
+
+
+function updatePlayButton() {
+  playBtn.textContent = video.paused ? "▶" : "❚❚";
+}
+
+fullscreenBtn.addEventListener("click", () => {
+  if (video.requestFullscreen) {
+    video.requestFullscreen();
+  } else if (video.webkitRequestFullscreen) { // Для Safari
+    video.webkitRequestFullscreen();
+  } else if (video.msRequestFullscreen) { // Для старых IE
+    video.msRequestFullscreen();
+  }
+});
+
+playBtn.addEventListener("click", () => {
+  const now = Date.now();
+  const startTime = new Date(generatedAt).getTime();
+
+  if (now < startTime) {
+    broadcastInfo.textContent = "⏳ Ефір ще не почався";
+    return; // Блокируем запуск видео
+  }
+
+  if (video.paused) {
+    video.play();
+  } else {
+    video.pause();
+  }
+});
+
+video.addEventListener("play", updatePlayButton);
+video.addEventListener("pause", updatePlayButton);
+
+video.addEventListener("ended", () => {
+  currentIndex++;
+  if (currentIndex >= playlist.length) {
+    if (settings.repetition) {
+      syncPlayback();
+    } else {
+      broadcastInfo.textContent = "🔚 Ефір завершено";
+    }
+    return;
+  }
+
+  setTimeout(() => {
+    playTrack(currentIndex, 0);
+  }, (settings.pauseBetweenTracks || 0) * 1000);
+});
+
+volumeBtn.addEventListener("click", () => {
+  video.muted = !video.muted;
+  volumeBtn.textContent = video.muted ? "🔇" : "🔊";
+});
+
+// Загрузить тестовый плейлист
+function loadPlaylist() {
+  fetch("https://raw.githubusercontent.com/christian-word/GospelVoice/refs/heads/main/playlist/VIDEI_PLAY_LIST.json") // ⚡ Подставишь свой JSON
+    .then(res => res.json())
+    .then(json => {
+      playlist = json.playlist || [];
+      generatedAt = json.generatedAt || new Date().toISOString();
+      settings = json.settings || { repetition: false, pauseBetweenTracks: 1 };
+      syncPlayback();
+    })
+    .catch(() => {
+      broadcastInfo.textContent = "❌ Помилка завантаження плейліста";
+    });
+}
+
+// Инициировать
+loadPlaylist();
+</script>
+
+</body>
+</html>
 
