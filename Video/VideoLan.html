@@ -3,13 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GospelVoice Broadcast</title>
+  <title>GospelVoice Online Streaming</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
       --primary: #4a6fa5;
       --accent: #3c6;
       --dark: #1a1a2e;
       --light: #f8f8f8;
+      --progress: rgba(255, 255, 255, 0.2);
     }
 
     * {
@@ -31,51 +33,98 @@
 
     .player-container {
       width: 100%;
-      max-width: 600px;
-      background: rgba(26, 26, 46, 0.8);
+      max-width: 800px;
+      background: rgba(26, 26, 46, 0.9);
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      padding: 30px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
       text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .logo {
-      font-size: 24px;
+      font-size: 28px;
       font-weight: bold;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       background: linear-gradient(to right, var(--primary), var(--accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      border-radius: 15px;
+      overflow: hidden;
+      margin-bottom: 25px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     }
 
     video {
       width: 100%;
-      max-height: 340px;
-      border-radius: 15px;
+      max-height: 450px;
+      display: block;
       background: #000;
-      margin-bottom: 20px;
     }
 
     .track-info {
       margin-bottom: 20px;
+      text-align: center;
+      padding: 0 10px;
     }
 
     .track-title {
-      font-size: 20px;
+      font-size: 22px;
+      font-weight: 600;
       margin-bottom: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .track-artist {
-      font-size: 14px;
-      opacity: 0.8;
+      font-size: 16px;
+      color: var(--accent);
+      opacity: 0.9;
+    }
+
+    .broadcast-line {
+      width: 100%;
+      height: 4px;
+      background: var(--progress);
+      border-radius: 2px;
+      margin: 20px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .broadcast-progress {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      width: 0%;
+      transition: width 0.5s linear;
+    }
+
+    .broadcast-time {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 5px;
     }
 
     .controls {
       display: flex;
       justify-content: center;
       gap: 15px;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
     }
 
     .control-btn {
@@ -85,65 +134,272 @@
       background: rgba(255, 255, 255, 0.1);
       border: none;
       color: white;
-      font-size: 24px;
+      font-size: 20px;
       cursor: pointer;
       display: flex;
       justify-content: center;
       align-items: center;
+      transition: all 0.2s;
+    }
+
+    .control-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .control-btn.play-btn {
+      width: 60px;
+      height: 60px;
+      font-size: 24px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
     }
 
     .broadcast-info {
       font-size: 14px;
-      margin-top: 10px;
-      opacity: 0.7;
+      padding: 10px 15px;
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      margin-bottom: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .schedule-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 15px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .schedule-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .refresh-btn {
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      border-radius: 15px;
+      transition: background 0.2s;
+    }
+
+    .refresh-btn:hover {
+      background: rgba(60, 204, 102, 0.1);
     }
 
     .schedule {
-      max-height: 200px;
+      max-height: 250px;
       overflow-y: auto;
       text-align: left;
       background: rgba(0, 0, 0, 0.3);
       padding: 10px;
       border-radius: 10px;
       font-size: 14px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) transparent;
+    }
+
+    .schedule::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .schedule::-webkit-scrollbar-thumb {
+      background-color: var(--primary);
+      border-radius: 3px;
     }
 
     .schedule-item {
-      padding: 5px;
+      padding: 12px 15px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      transition: all 0.2s;
+      gap: 10px;
+    }
+
+    .schedule-item:last-child {
+      border-bottom: none;
     }
 
     .schedule-item.active-track {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(74, 111, 165, 0.2);
       border-left: 4px solid var(--accent);
-      font-weight: bold;
+      font-weight: 600;
+    }
+
+    .schedule-time {
+      color: var(--accent);
+      min-width: 50px;
+      font-weight: 500;
+    }
+
+    .schedule-track {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .schedule-duration {
+      opacity: 0.7;
+      font-size: 13px;
+    }
+
+    /* Мобильная адаптация */
+    @media (max-width: 768px) {
+      .player-container {
+        padding: 20px;
+        border-radius: 15px;
+      }
+      
+      .logo {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      
+      video {
+        max-height: 300px;
+      }
+      
+      .track-title {
+        font-size: 18px;
+      }
+      
+      .track-artist {
+        font-size: 14px;
+      }
+      
+      .controls {
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      
+      .control-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+      }
+      
+      .control-btn.play-btn {
+        width: 55px;
+        height: 55px;
+        font-size: 22px;
+      }
+      
+      .broadcast-info {
+        font-size: 13px;
+        padding: 8px 12px;
+      }
+      
+      .schedule-item {
+        padding: 10px 12px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+      }
+      
+      .schedule-time {
+        min-width: auto;
+      }
+      
+      .schedule-track {
+        width: 100%;
+      }
+      
+      .schedule-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+      
+      .player-container {
+        padding: 15px;
+      }
+      
+      video {
+        max-height: 250px;
+      }
+      
+      .broadcast-time {
+        font-size: 11px;
+      }
+      
+      .schedule {
+        max-height: 200px;
+        font-size: 13px;
+      }
     }
   </style>
 </head>
 <body>
 
 <div class="player-container">
-  <div class="logo">GospelVoice Broadcast</div>
+  <div class="logo">GospelVoice Online Streaming</div>
 
-  <video id="videoPlayer" poster="https://via.placeholder.com/400" preload="auto" playsinline></video>
+  <div class="video-container">
+    <video id="videoPlayer" poster="https://via.placeholder.com/800x450/1a1a2e/f8f8f8?text=GospelVoice" preload="auto" playsinline></video>
+  </div>
 
   <div class="track-info">
-    <div class="track-title" id="trackTitle">Очікування...</div>
+    <div class="track-title" id="trackTitle">Очікування трансляції...</div>
     <div class="track-artist" id="trackArtist">-</div>
   </div>
 
-  <div class="controls">
-    <button class="control-btn" id="playBtn">▶</button>
-    <button class="control-btn" id="volumeBtn">🔊</button>
-    <button class="control-btn" id="fullscreenBtn">🔲</button>
+  <div class="broadcast-line">
+    <div class="broadcast-progress" id="broadcastProgress"></div>
+  </div>
+  <div class="broadcast-time">
+    <span id="broadcastStart">00:00</span>
+    <span id="broadcastCurrent">-:-</span>
+    <span id="broadcastEnd">00:00</span>
   </div>
 
-  <div class="broadcast-info" id="broadcastInfo">Завантаження ефіру...</div>
+  <div class="controls">
+    <button class="control-btn" id="prevBtn" disabled title="Недоступно для трансляції">
+      <i class="fas fa-step-backward"></i>
+    </button>
+    <button class="control-btn play-btn" id="playBtn" title="Відтворити/Пауза">
+      <i class="fas fa-play" id="playIcon"></i>
+    </button>
+    <button class="control-btn" id="nextBtn" disabled title="Недоступно для трансляції">
+      <i class="fas fa-step-forward"></i>
+    </button>
+    <button class="control-btn" id="volumeBtn" title="Гучність">
+      <i class="fas fa-volume-up" id="volumeIcon"></i>
+    </button>
+    <button class="control-btn" id="fullscreenBtn" title="На весь екран">
+      <i class="fas fa-expand"></i>
+    </button>
+  </div>
 
+  <div class="broadcast-info" id="broadcastInfo">
+    <i class="fas fa-circle-notch fa-spin"></i> Завантаження ефіру...
+  </div>
+
+  <div class="schedule-header">
+    <div class="schedule-title">Розклад трансляції</div>
+    <button class="refresh-btn" id="refreshBtn">
+      <i class="fas fa-sync-alt"></i> Оновити
+    </button>
+  </div>
   <div class="schedule" id="scheduleList">
     <!-- Сюда будет генерироваться расписание -->
   </div>
@@ -152,19 +408,30 @@
 <script>
 const video = document.getElementById("videoPlayer");
 const playBtn = document.getElementById("playBtn");
-const volumeBtn = document.getElementById("volumeBtn");
+const playIcon = document.getElementById("playIcon");
 const trackTitle = document.getElementById("trackTitle");
 const trackArtist = document.getElementById("trackArtist");
 const broadcastInfo = document.getElementById("broadcastInfo");
 const scheduleList = document.getElementById("scheduleList");
 const fullscreenBtn = document.getElementById("fullscreenBtn");
+const broadcastProgress = document.getElementById("broadcastProgress");
+const broadcastStart = document.getElementById("broadcastStart");
+const broadcastCurrent = document.getElementById("broadcastCurrent");
+const broadcastEnd = document.getElementById("broadcastEnd");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const refreshBtn = document.getElementById("refreshBtn");
+const volumeBtn = document.getElementById("volumeBtn");
+const volumeIcon = document.getElementById("volumeIcon");
 
 let playlist = [];
 let generatedAt = "";
 let settings = { repetition: false, pauseBetweenTracks: 1 };
 let currentIndex = -1;
-let defaultPoster = "https://via.placeholder.com/400";
-let startTimes = []; // Для расписания
+let defaultPoster = "https://via.placeholder.com/800x450/1a1a2e/f8f8f8?text=GospelVoice";
+let startTimes = [];
+let scheduleUpdateInterval;
+let broadcastUpdateInterval;
 
 function formatTime(sec) {
   const m = Math.floor(sec / 60);
@@ -180,11 +447,26 @@ function formatClock(ms) {
 function generateSchedule() {
   scheduleList.innerHTML = "";
 
+  // Рассчитываем общую продолжительность трансляции
+  const totalDuration = playlist.reduce((acc, t) => acc + t.duration + settings.pauseBetweenTracks, 0);
+  const startTime = new Date(generatedAt).getTime();
+  const endTime = startTime + totalDuration * 1000;
+
+  // Обновляем время начала и конца трансляции
+  broadcastStart.textContent = formatClock(startTime);
+  broadcastEnd.textContent = formatClock(endTime);
+
   for (let i = 0; i < playlist.length; i++) {
     const item = document.createElement("div");
     item.className = "schedule-item";
     item.setAttribute("data-index", i);
-    item.innerHTML = `<div>${formatClock(startTimes[i])}</div><div>${playlist[i].title}</div>`;
+    
+    item.innerHTML = `
+      <div class="schedule-time">${formatClock(startTimes[i])}</div>
+      <div class="schedule-track">${playlist[i].title}</div>
+      <div class="schedule-duration">${formatTime(playlist[i].duration)}</div>
+    `;
+    
     scheduleList.appendChild(item);
   }
 }
@@ -192,6 +474,7 @@ function generateSchedule() {
 function highlightCurrent() {
   const items = document.querySelectorAll(".schedule-item");
   items.forEach(item => item.classList.remove("active-track"));
+  
   const activeItem = document.querySelector(`.schedule-item[data-index="${currentIndex}"]`);
   if (activeItem) {
     activeItem.classList.add("active-track");
@@ -200,18 +483,60 @@ function highlightCurrent() {
 }
 
 function playTrack(i, offset = 0) {
+  if (i < 0 || i >= playlist.length) return;
+  
   const track = playlist[i];
   if (!track) return;
 
   video.src = track.url;
   video.poster = track.image || defaultPoster;
   video.currentTime = offset;
-  video.play();
+  
+  const playPromise = video.play();
+  
+  if (playPromise !== undefined) {
+    playPromise.catch(error => {
+      console.error("Playback failed:", error);
+      broadcastInfo.innerHTML = `<i class="fas fa-exclamation-circle"></i> Помилка відтворення`;
+    });
+  }
+  
   trackTitle.textContent = track.title;
   trackArtist.textContent = track.group || "-";
-  broadcastInfo.textContent = "Пряма трансляція...";
+  broadcastInfo.innerHTML = `<i class="fas fa-broadcast-tower"></i> Відтворення трансляції...`;
   currentIndex = i;
   highlightCurrent();
+}
+
+function updateBroadcastProgress() {
+  const now = Date.now();
+  const start = new Date(generatedAt).getTime();
+  const totalDuration = playlist.reduce((acc, t) => acc + t.duration + settings.pauseBetweenTracks, 0) * 1000;
+  const endTime = start + totalDuration;
+  
+  if (now < start) {
+    // Трансляция еще не началась
+    broadcastProgress.style.width = "0%";
+    broadcastCurrent.textContent = formatClock(start);
+    broadcastInfo.innerHTML = `<i class="fas fa-clock"></i> Трансляція почнеться о ${formatClock(start)}`;
+    return;
+  }
+  
+  if (now > endTime && !settings.repetition) {
+    // Трансляция завершена
+    broadcastProgress.style.width = "100%";
+    broadcastCurrent.textContent = formatClock(endTime);
+    broadcastInfo.innerHTML = `<i class="fas fa-flag-checkered"></i> Трансляція завершена`;
+    return;
+  }
+  
+  // Для повторяющейся трансляции
+  let elapsed = (now - start) % totalDuration;
+  if (elapsed < 0) elapsed = 0;
+  
+  const progressPercent = (elapsed / totalDuration) * 100;
+  broadcastProgress.style.width = `${progressPercent}%`;
+  broadcastCurrent.textContent = formatClock(start + elapsed);
 }
 
 function syncPlayback() {
@@ -225,102 +550,145 @@ function syncPlayback() {
   for (let i = 0; i < playlist.length; i++) {
     const startTime = start + time * 1000;
     startTimes.push(startTime);
-    time += playlist[i].duration + (settings.pauseBetweenTracks || 0);
+    time += playlist[i].duration + settings.pauseBetweenTracks;
   }
 
-  const totalDuration = playlist.reduce((acc, t) => acc + t.duration + (settings.pauseBetweenTracks || 0), 0);
+  const totalDuration = playlist.reduce((acc, t) => acc + t.duration + settings.pauseBetweenTracks, 0);
   if (settings.repetition && totalDuration > 0) {
     elapsed = elapsed % totalDuration;
   }
 
   time = 0;
   for (let i = 0; i < playlist.length; i++) {
-    const dur = playlist[i].duration + (settings.pauseBetweenTracks || 0);
+    const dur = playlist[i].duration + settings.pauseBetweenTracks;
     if (elapsed < time + dur) {
-      generateSchedule(); // Теперь startTimes полностью заполнен
+      generateSchedule();
       playTrack(i, elapsed - time);
+      
+      // Запускаем обновление прогресса трансляции
+      clearInterval(broadcastUpdateInterval);
+      broadcastUpdateInterval = setInterval(updateBroadcastProgress, 1000);
+      updateBroadcastProgress();
+      
       return;
     }
     time += dur;
   }
 
-  broadcastInfo.textContent = "🔚 Ефір завершено";
+  broadcastInfo.innerHTML = `<i class="fas fa-flag-checkered"></i> Трансляція завершена`;
 }
-
 
 function updatePlayButton() {
-  playBtn.textContent = video.paused ? "▶" : "❚❚";
+  if (video.paused) {
+    playIcon.className = "fas fa-play";
+  } else {
+    playIcon.className = "fas fa-pause";
+  }
 }
 
+function updateVolumeIcon() {
+  if (video.muted || video.volume === 0) {
+    volumeIcon.className = "fas fa-volume-mute";
+  } else if (video.volume < 0.5) {
+    volumeIcon.className = "fas fa-volume-down";
+  } else {
+    volumeIcon.className = "fas fa-volume-up";
+  }
+}
+
+// Event Listeners
 fullscreenBtn.addEventListener("click", () => {
   if (video.requestFullscreen) {
     video.requestFullscreen();
-  } else if (video.webkitRequestFullscreen) { // Для Safari
+  } else if (video.webkitRequestFullscreen) {
     video.webkitRequestFullscreen();
-  } else if (video.msRequestFullscreen) { // Для старых IE
+  } else if (video.msRequestFullscreen) {
     video.msRequestFullscreen();
   }
 });
 
-playBtn.addEventListener("click", () => {
+playBtn.addEventListener("click", togglePlay);
+
+function togglePlay() {
   const now = Date.now();
   const startTime = new Date(generatedAt).getTime();
 
   if (now < startTime) {
-    broadcastInfo.textContent = "⏳ Ефір ще не почався";
-    return; // Блокируем запуск видео
+    broadcastInfo.innerHTML = `<i class="fas fa-clock"></i> Трансляція почнеться о ${formatClock(startTime)}`;
+    return;
   }
 
   if (video.paused) {
-    video.play();
+    video.play().catch(e => {
+      broadcastInfo.innerHTML = `<i class="fas fa-exclamation-circle"></i> Помилка запуску трансляції`;
+    });
   } else {
     video.pause();
   }
-});
+}
 
 video.addEventListener("play", updatePlayButton);
 video.addEventListener("pause", updatePlayButton);
+video.addEventListener("volumechange", updateVolumeIcon);
 
-video.addEventListener("ended", () => {
+volumeBtn.addEventListener("click", () => {
+  video.muted = !video.muted;
+  updateVolumeIcon();
+});
+
+refreshBtn.addEventListener("click", loadPlaylist);
+
+function handleEnded() {
   currentIndex++;
   if (currentIndex >= playlist.length) {
     if (settings.repetition) {
       syncPlayback();
     } else {
-      broadcastInfo.textContent = "🔚 Ефір завершено";
+      broadcastInfo.innerHTML = `<i class="fas fa-flag-checkered"></i> Трансляція завершена`;
     }
     return;
   }
 
   setTimeout(() => {
     playTrack(currentIndex, 0);
-  }, (settings.pauseBetweenTracks || 0) * 1000);
-});
+  }, settings.pauseBetweenTracks * 1000);
+}
 
-volumeBtn.addEventListener("click", () => {
-  video.muted = !video.muted;
-  volumeBtn.textContent = video.muted ? "🔇" : "🔊";
-});
-
-// Загрузить тестовый плейлист
+// Загрузить плейлист
 function loadPlaylist() {
-  fetch("https://raw.githubusercontent.com/christian-word/GospelVoice/refs/heads/main/playlist/VIDEI_PLAY_LIST.json") // ⚡ Подставишь свой JSON
+  broadcastInfo.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i> Оновлення розкладу трансляції...`;
+  
+  fetch("https://raw.githubusercontent.com/christian-word/GospelVoice/refs/heads/main/playlist/VIDEI_PLAY_LIST.json")
     .then(res => res.json())
     .then(json => {
       playlist = json.playlist || [];
       generatedAt = json.generatedAt || new Date().toISOString();
       settings = json.settings || { repetition: false, pauseBetweenTracks: 1 };
+      
+      // Останавливаем предыдущие интервалы
+      clearInterval(scheduleUpdateInterval);
+      clearInterval(broadcastUpdateInterval);
+      
+      // Синхронизируем воспроизведение
       syncPlayback();
+      
+      // Обновляем расписание каждую минуту
+      scheduleUpdateInterval = setInterval(syncPlayback, 60000);
     })
     .catch(() => {
-      broadcastInfo.textContent = "❌ Помилка завантаження плейліста";
+      broadcastInfo.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Помилка завантаження розкладу`;
     });
 }
 
 // Инициировать
 loadPlaylist();
+updateVolumeIcon();
+
+// Обработка изменения ориентации экрана
+window.addEventListener("orientationchange", function() {
+  setTimeout(syncPlayback, 500);
+});
 </script>
 
 </body>
 </html>
-
