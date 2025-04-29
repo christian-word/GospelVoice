@@ -249,6 +249,10 @@
       font-weight: 600;
     }
 
+    .schedule-item.future-track {
+      opacity: 0.7;
+    }
+
     .schedule-time {
       color: var(--accent);
       font-weight: 500;
@@ -466,11 +470,17 @@ function formatClock(ms) {
 
 function generateSchedule() {
   scheduleList.innerHTML = "";
+  const now = Date.now();
   
   for (let i = 0; i < playlist.length; i++) {
     const item = document.createElement("div");
     item.className = "schedule-item";
     item.setAttribute("data-index", i);
+    
+    // Добавляем класс future-track если трансляция еще не началась
+    if (startTimes[i] > now) {
+      item.classList.add("future-track");
+    }
     
     item.innerHTML = `
       <div class="schedule-time">${formatClock(startTimes[i])}</div>
@@ -486,10 +496,20 @@ function highlightCurrent() {
   const items = document.querySelectorAll(".schedule-item");
   items.forEach(item => item.classList.remove("active-track"));
   
+  const now = Date.now();
   const activeItem = document.querySelector(`.schedule-item[data-index="${currentIndex}"]`);
+  
   if (activeItem) {
     activeItem.classList.add("active-track");
     activeItem.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    
+    // Если это будущая трансляция, показываем время до начала
+    if (startTimes[currentIndex] > now) {
+      const timeLeft = Math.floor((startTimes[currentIndex] - now) / 1000);
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      broadcastInfo.innerHTML = `<i class="fas fa-clock"></i> Початок через ${minutes} хв ${seconds} сек`;
+    }
   }
 }
 
@@ -524,6 +544,7 @@ function syncPlayback() {
   const start = new Date(generatedAt).getTime();
   let elapsed = Math.floor((now - start) / 1000);
 
+  // Сначала полностью заполняем массив startTimes
   startTimes = [];
   let time = 0;
   totalDuration = 0;
@@ -535,10 +556,21 @@ function syncPlayback() {
     totalDuration += playlist[i].duration + (settings.pauseBetweenTracks || 0);
   }
 
+  // Если трансляция еще не началась
+  if (now < start) {
+    generateSchedule();
+    broadcastInfo.innerHTML = `<i class="fas fa-clock"></i> Ефір почнеться о ${formatClock(start)}`;
+    video.poster = defaultPoster;
+    trackTitle.textContent = "Очікування початку ефіру";
+    trackArtist.textContent = "-";
+    return;
+  }
+
   if (settings.repetition && totalDuration > 0) {
     elapsed = elapsed % totalDuration;
   }
 
+  // Если трансляция уже завершена и не повторяется
   if (!settings.repetition && elapsed >= totalDuration) {
     broadcastInfo.innerHTML = `<i class="fas fa-flag-checkered"></i> Ефір завершено`;
     video.poster = defaultPoster;
@@ -597,6 +629,20 @@ function updateVolume() {
   }
 }
 
+// Event Listeners
+fullscreenBtn.addEventListener("click", () => {
+  if (video.requestFullscreen) {
+    video.requestFullscreen();
+  } else if (video.webkitRequestFullscreen) {
+    video.webkitRequestFullscreen();
+  } else if (video.msRequestFullscreen) {
+    video.msRequestFullscreen();
+  }
+});
+
+playBtn.addEventListener("click", togglePlay);
+overlayPlayBtn.addEventListener("click", togglePlay);
+
 function togglePlay() {
   const now = Date.now();
   const startTime = new Date(generatedAt).getTime();
@@ -613,52 +659,8 @@ function togglePlay() {
   }
 }
 
-function handleEnded() {
-  currentIndex++;
-  if (currentIndex >= playlist.length) {
-    if (settings.repetition) {
-      syncPlayback();
-    } else {
-      broadcastInfo.innerHTML = `<i class="fas fa-flag-checkered"></i> Ефір завершено`;
-    }
-    return;
-  }
-
-  setTimeout(() => {
-    playTrack(currentIndex, 0);
-  }, (settings.pauseBetweenTracks || 0) * 1000);
-}
-
-function loadPlaylist() {
-  broadcastInfo.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i> Оновлення плейліста...`;
-  
-  fetch("https://raw.githubusercontent.com/christian-word/GospelVoice/refs/heads/main/playlist/VIDEI_PLAY_LIST.json")
-    .then(res => res.json())
-    .then(json => {
-      playlist = json.playlist || [];
-      generatedAt = json.generatedAt || new Date().toISOString();
-      settings = json.settings || { repetition: false, pauseBetweenTracks: 1 };
-      syncPlayback();
-    })
-    .catch(() => {
-      broadcastInfo.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Помилка завантаження плейліста`;
-    });
-}
-
-// Event Listeners
-fullscreenBtn.addEventListener("click", () => {
-  if (video.requestFullscreen) {
-    video.requestFullscreen();
-  } else if (video.webkitRequestFullscreen) {
-    video.webkitRequestFullscreen();
-  } else if (video.msRequestFullscreen) {
-    video.msRequestFullscreen();
-  }
-});
-
-playBtn.addEventListener("click", togglePlay);
-overlayPlayBtn.addEventListener("click", togglePlay);
 video.addEventListener("click", togglePlay);
+
 video.addEventListener("play", updatePlayButton);
 video.addEventListener("pause", updatePlayButton);
 video.addEventListener("timeupdate", updateProgress);
@@ -681,7 +683,43 @@ volumeBtn.addEventListener("click", () => {
 
 refreshBtn.addEventListener("click", loadPlaylist);
 
-// Инициализация
+function handleEnded() {
+  currentIndex++;
+  if (currentIndex >= playlist.length) {
+    if (settings.repetition) {
+      syncPlayback();
+    } else {
+      broadcastInfo.innerHTML = `<i class="fas fa-flag-checkered"></i> Ефір завершено`;
+    }
+    return;
+  }
+
+  setTimeout(() => {
+    playTrack(currentIndex, 0);
+  }, (settings.pauseBetweenTracks || 0) * 1000);
+}
+
+// Загрузить плейлист
+function loadPlaylist() {
+  broadcastInfo.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i> Оновлення плейліста...`;
+  
+  fetch("https://raw.githubusercontent.com/christian-word/GospelVoice/refs/heads/main/playlist/VIDEI_PLAY_LIST.json")
+    .then(res => res.json())
+    .then(json => {
+      playlist = json.playlist || [];
+      generatedAt = json.generatedAt || new Date().toISOString();
+      settings = json.settings || { repetition: false, pauseBetweenTracks: 1 };
+      syncPlayback();
+      
+      // Обновляем расписание каждую минуту
+      setInterval(syncPlayback, 60000);
+    })
+    .catch(() => {
+      broadcastInfo.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Помилка завантаження плейліста`;
+    });
+}
+
+// Инициировать
 loadPlaylist();
 updateVolume();
 </script>
