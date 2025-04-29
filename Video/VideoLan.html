@@ -368,7 +368,7 @@
 <body>
 
 <div class="player-container">
-  <div class="logo">GospelVoice Broadcast</div>
+  <div class="logo">GospelVoice   Broadcast</div>
 
   <div class="video-container">
     <video id="videoPlayer" poster="https://via.placeholder.com/800x450/2d3436/f5f6fa?text=GospelVoice" preload="auto" playsinline></video>
@@ -528,13 +528,13 @@ function playTrack(i, offset = 0) {
   if (playPromise !== undefined) {
     playPromise.catch(error => {
       console.error("Playback failed:", error);
-      broadcastInfo.innerHTML = `<i class="fas fa-exclamation-circle"></i> Помилка відтворення`;
+      broadcastInfo.innerHTML = `<i class="fas fa-exclamation-circle"></i> Помилка сервера трансляцій`;
     });
   }
   
   trackTitle.textContent = track.title;
   trackArtist.textContent = track.group || "-";
-  broadcastInfo.innerHTML = `<i class="fas fa-broadcast-tower"></i> Відтворення...`;
+  broadcastInfo.innerHTML = `<i class="fas fa-broadcast-tower"></i> Пряма трансляція...`;
   currentIndex = i;
   highlightCurrent();
 }
@@ -559,9 +559,9 @@ function syncPlayback() {
   // Если трансляция еще не началась
   if (now < start) {
     generateSchedule();
-    broadcastInfo.innerHTML = `<i class="fas fa-clock"></i> Ефір почнеться о ${formatClock(start)}`;
+    broadcastInfo.innerHTML = `<i class="fas fa-clock"></i> Трансляція почнеться о ${formatClock(start)}`;
     video.poster = defaultPoster;
-    trackTitle.textContent = "Очікування початку ефіру";
+    trackTitle.textContent = "Очікування початку трансляції";
     trackArtist.textContent = "-";
     return;
   }
@@ -572,9 +572,9 @@ function syncPlayback() {
 
   // Если трансляция уже завершена и не повторяется
   if (!settings.repetition && elapsed >= totalDuration) {
-    broadcastInfo.innerHTML = `<i class="fas fa-flag-checkered"></i> Ефір завершено`;
+    broadcastInfo.innerHTML = `<i class="fas fa-flag-checkered"></i> Трансляцію завершено`;
     video.poster = defaultPoster;
-    trackTitle.textContent = "Ефір завершено";
+    trackTitle.textContent = "Трансляцію завершено";
     trackArtist.textContent = "-";
     generateSchedule();
     return;
@@ -591,7 +591,7 @@ function syncPlayback() {
     time += dur;
   }
 
-  broadcastInfo.innerHTML = `<i class="fas fa-flag-checkered"></i> Ефір завершено`;
+  broadcastInfo.innerHTML = `<i class="fas fa-flag-checkered"></i> Трансляцію завершено`;
 }
 
 function updatePlayButton() {
@@ -648,7 +648,7 @@ function togglePlay() {
   const startTime = new Date(generatedAt).getTime();
 
   if (now < startTime) {
-    broadcastInfo.innerHTML = `<i class="fas fa-clock"></i> Ефір почнеться о ${formatClock(startTime)}`;
+    broadcastInfo.innerHTML = `<i class="fas fa-clock"></i> Трансляція почнеться о ${formatClock(startTime)}`;
     return;
   }
 
@@ -689,7 +689,7 @@ function handleEnded() {
     if (settings.repetition) {
       syncPlayback();
     } else {
-      broadcastInfo.innerHTML = `<i class="fas fa-flag-checkered"></i> Ефір завершено`;
+      broadcastInfo.innerHTML = `<i class="fas fa-flag-checkered"></i> Трансляцію завершено`;
     }
     return;
   }
@@ -701,7 +701,7 @@ function handleEnded() {
 
 // Загрузить плейлист
 function loadPlaylist() {
-  broadcastInfo.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i> Оновлення плейліста...`;
+  broadcastInfo.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i> Завантаження метаданих з сервера...`;
   
   fetch("https://raw.githubusercontent.com/christian-word/GospelVoice/refs/heads/main/playlist/VIDEI_PLAY_LIST.json")
     .then(res => res.json())
@@ -715,7 +715,7 @@ function loadPlaylist() {
       setInterval(syncPlayback, 60000);
     })
     .catch(() => {
-      broadcastInfo.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Помилка завантаження плейліста`;
+      broadcastInfo.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Помилка завантаження метаданих`;
     });
 }
 
