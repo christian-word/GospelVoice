@@ -1,10 +1,31 @@
 ﻿{
-  "generatedAt": "2025-04-29T14:10:00+03:00",
+  "generatedAt": "2025-04-29T00:20:00+03:00",
   "settings": {
     "repetition": false,
     "pauseBetweenTracks": 2
   },
   "playlist": [
+    {
+      "title": "Благодатное и Подзаконное Состояние (Осия 1012). Александр Кирсанов (г.Мариупоо), 10.11.2024",
+      "url": "https://ia601503.us.archive.org/24/items/1012.-.-10.11.2024/%D0%91%D0%BB%D0%B0%D0%B3%D0%BE%D0%B4%D0%B0%D1%82%D0%BD%D0%BE%D0%B5%20%D0%B8%20%D0%BF%D0%BE%D0%B4%D0%B7%D0%B0%D0%BA%D0%BE%D0%BD%D0%BD%D0%BE%D0%B5%20%D1%81%D0%BE%D1%81%D1%82%D0%BE%D1%8F%D0%BD%D0%B8%D0%B5%20%28%D0%9E%D1%81%D0%B8%D1%8F%201012%29.%20%20%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%20%D0%9A%D0%B8%D1%80%D1%81%D0%B0%D0%BD%D0%BE%D0%B2%20%28%D0%B3.%D0%9C%D0%B0%D1%80%D0%B8%D1%83%D0%BF%D0%BE%D0%BE%D1%8C%29%2C%2010.11.2024.mp4",
+      "group": "Александр Кирсанов",
+      "image": "https://example.com/poster1.jpg",
+      "duration": 2114
+    },
+    {
+      "title": "Життя Коротке Одна Надія Ісус (Екклезіяст 7 1 4). Андрій Булигін, 27.10.2024",
+      "url": "https://ia801300.us.archive.org/20/items/7-1-4.-27.10.2024/%D0%96%D0%B8%D1%82%D1%82%D1%8F%20%D0%BA%D0%BE%D1%80%D0%BE%D1%82%D0%BA%D0%B5_%20%D0%BE%D0%B4%D0%BD%D0%B0%20%D0%BD%D0%B0%D0%B4%D1%96%D1%8F%20-%20%D0%86%D1%81%D1%83%D1%81_%20%28%D0%95%D0%BA%D0%BA%D0%BB%D0%B5%D0%B7%D1%96%D1%8F%D1%81%D1%82%207_1-4%29.%20%D0%90%D0%BD%D0%B4%D1%80%D1%96%D0%B9%20%D0%91%D1%83%D0%BB%D0%B8%D0%B3%D1%96%D0%BD%2C%2027.10.2024.mp4",
+      "group": "Андрій Булигін",
+      "image": "https://example.com/poster1.jpg",
+      "duration": 2397
+    },
+    {
+      "title": "Не Преврати Спасение В Погибель ( 2 Пет 3 15 16). Сергей Комисар, 13.10.2024",
+      "url": "https://ia600208.us.archive.org/4/items/2-3-15-16.-13.10.2024/%D0%9D%D0%B5%20%D0%BF%D1%80%D0%B5%D0%B2%D1%80%D0%B0%D1%82%D0%B8%20%D1%81%D0%BF%D0%B0%D1%81%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20%D0%BF%D0%BE%D0%B3%D0%B8%D0%B1%D0%B5%D0%BB%D1%8C_%20%28%202%20%D0%9F%D0%B5%D1%82%203_15-16%29.%20%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B9%20%D0%9A%D0%BE%D0%BC%D0%B8%D1%81%D0%B0%D1%80%2C%2013.10.2024.mp4",
+      "group": "Сергей Комисар",
+      "image": "https://example.com/poster1.jpg",
+      "duration": 2401
+    },
     {
       "title": "Христос Наш Учитель (Матвія 28 19 20)",
       "url": "https://ia601300.us.archive.org/28/items/28-19-20./_%D0%A5%D1%80%D0%B8%D1%81%D1%82%D0%BE%D1%81%20-%20%D0%BD%D0%B0%D1%88%20%D0%A3%D1%87%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%20%28%D0%9C%D0%B0%D1%82%D0%B2%D1%96%D1%8F%2028_19-20%29.%20%D0%9C%D0%B8%D0%BA%D0%BE%D0%BB%D0%B0%20%D0%9C%D0%B0%D1%80%D0%B9%D0%BE%D1%85%D0%B0.mp4",
