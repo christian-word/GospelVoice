@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
@@ -368,7 +368,7 @@
 <body>
 
 <div class="player-container">
-  <div class="logo">GospelVoice   Broadcast</div>
+  <div class="logo">GospelVoice Broadcast</div>
 
   <div class="video-container">
     <video id="videoPlayer" poster="https://via.placeholder.com/800x450/2d3436/f5f6fa?text=GospelVoice" preload="auto" playsinline></video>
@@ -456,8 +456,36 @@ let currentIndex = -1;
 let defaultPoster = "https://via.placeholder.com/800x450/2d3436/f5f6fa?text=GospelVoice";
 let startTimes = [];
 let totalDuration = 0;
-let syncInterval = null; // добавлено для контроля setInterval
+let isBuffering = false;
+let lastUpdate = 0;
+let syncTimeout;
+let preloadVideo = null;
 
+// Новые функции предзагрузки
+function preloadNextVideo() {
+  if (preloadVideo) {
+    preloadVideo.src = "";
+    preloadVideo.remove();
+  }
+
+  if (currentIndex < playlist.length - 1) {
+    preloadVideo = document.createElement('video');
+    preloadVideo.src = playlist[currentIndex + 1].url;
+    preloadVideo.preload = "auto";
+    preloadVideo.style.display = "none";
+    document.body.appendChild(preloadVideo);
+  }
+}
+
+function clearPreload() {
+  if (preloadVideo) {
+    preloadVideo.src = "";
+    preloadVideo.remove();
+    preloadVideo = null;
+  }
+}
+
+// Оптимизированные функции времени
 function formatTime(sec) {
   const m = Math.floor(sec / 60);
   const s = Math.floor(sec % 60);
@@ -469,22 +497,28 @@ function formatClock(ms) {
   return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 }
 
+// Оптимизированная генерация расписания
 function generateSchedule() {
+  if (!playlist.length) return;
+
   scheduleList.innerHTML = "";
   const now = Date.now();
-
+  
   for (let i = 0; i < playlist.length; i++) {
     const item = document.createElement("div");
     item.className = "schedule-item";
     item.setAttribute("data-index", i);
-    if (startTimes[i] > now) item.classList.add("future-track");
-
+    
+    if (startTimes[i] > now) {
+      item.classList.add("future-track");
+    }
+    
     item.innerHTML = `
       <div class="schedule-time">${formatClock(startTimes[i])}</div>
       <div class="schedule-track">${playlist[i].title}</div>
       <div>${formatTime(playlist[i].duration)}</div>
     `;
-
+    
     scheduleList.appendChild(item);
   }
 }
@@ -492,13 +526,14 @@ function generateSchedule() {
 function highlightCurrent() {
   const items = document.querySelectorAll(".schedule-item");
   items.forEach(item => item.classList.remove("active-track"));
-
+  
   const now = Date.now();
   const activeItem = document.querySelector(`.schedule-item[data-index="${currentIndex}"]`);
+  
   if (activeItem) {
     activeItem.classList.add("active-track");
     activeItem.scrollIntoView({ block: "nearest", behavior: "smooth" });
-
+    
     if (startTimes[currentIndex] > now) {
       const timeLeft = Math.floor((startTimes[currentIndex] - now) / 1000);
       const minutes = Math.floor(timeLeft / 60);
@@ -508,56 +543,73 @@ function highlightCurrent() {
   }
 }
 
+// Улучшенная функция воспроизведения
 function playTrack(i, offset = 0) {
   if (i < 0 || i >= playlist.length) return;
+  
   const track = playlist[i];
   if (!track) return;
 
-  // проверка: если уже играет нужный трек, ничего не делаем
-  const currentUrl = video.currentSrc || video.src;
-  const needSwitch = (currentIndex !== i || Math.abs(video.currentTime - offset) > 1 || !currentUrl.includes(track.url));
-
-  if (!needSwitch) return;
+  // Остановить предзагрузку если она есть
+  clearPreload();
 
   video.src = track.url;
   video.poster = track.image || defaultPoster;
   video.currentTime = offset;
-
+  
   const playPromise = video.play();
+  
   if (playPromise !== undefined) {
-    playPromise.catch(error => {
-      console.error("Playback failed:", error);
-      broadcastInfo.innerHTML = `<i class="fas fa-exclamation-circle"></i> Помилка сервера трансляцій`;
-    });
+    playPromise
+      .then(() => {
+        // Предзагрузить следующее видео после успешного старта
+        preloadNextVideo();
+      })
+      .catch(error => {
+        console.error("Playback failed:", error);
+        broadcastInfo.innerHTML = `<i class="fas fa-exclamation-circle"></i> Помилка відтворення`;
+      });
   }
-
+  
   trackTitle.textContent = track.title;
   trackArtist.textContent = track.group || "-";
-  broadcastInfo.innerHTML = `<i class="fas fa-broadcast-tower"></i> Пряма трансляція...`;
+  broadcastInfo.innerHTML = `<i class="fas fa-broadcast-tower"></i> Відтворення...`;
   currentIndex = i;
   highlightCurrent();
 }
 
+// Оптимизированная синхронизация
+function debouncedSync() {
+  clearTimeout(syncTimeout);
+  syncTimeout = setTimeout(syncPlayback, 1000);
+}
+
 function syncPlayback() {
+  if (!playlist.length) return;
+
   const now = Date.now();
   const start = new Date(generatedAt).getTime();
   let elapsed = Math.floor((now - start) / 1000);
 
-  startTimes = [];
-  let time = 0;
-  totalDuration = 0;
-
-  for (let i = 0; i < playlist.length; i++) {
-    startTimes.push(start + time * 1000);
-    time += playlist[i].duration + (settings.pauseBetweenTracks || 0);
-    totalDuration += playlist[i].duration + (settings.pauseBetweenTracks || 0);
+  // Обновляем startTimes только если это необходимо
+  if (!startTimes.length || now - start > totalDuration) {
+    startTimes = [];
+    let time = 0;
+    totalDuration = 0;
+    
+    for (let i = 0; i < playlist.length; i++) {
+      const startTime = start + time * 1000;
+      startTimes.push(startTime);
+      time += playlist[i].duration + (settings.pauseBetweenTracks || 0);
+      totalDuration += playlist[i].duration + (settings.pauseBetweenTracks || 0);
+    }
   }
 
   if (now < start) {
     generateSchedule();
-    broadcastInfo.innerHTML = `<i class="fas fa-clock"></i> Трансляція почнеться о ${formatClock(start)}`;
+    broadcastInfo.innerHTML = `<i class="fas fa-clock"></i> Ефір почнеться о ${formatClock(start)}`;
     video.poster = defaultPoster;
-    trackTitle.textContent = "Очікування початку трансляції";
+    trackTitle.textContent = "Очікування початку ефіру";
     trackArtist.textContent = "-";
     return;
   }
@@ -567,46 +619,63 @@ function syncPlayback() {
   }
 
   if (!settings.repetition && elapsed >= totalDuration) {
-    broadcastInfo.innerHTML = `<i class="fas fa-flag-checkered"></i> Трансляцію завершено`;
+    broadcastInfo.innerHTML = `<i class="fas fa-flag-checkered"></i> Ефір завершено`;
     video.poster = defaultPoster;
-    trackTitle.textContent = "Трансляцію завершено";
+    trackTitle.textContent = "Ефір завершено";
     trackArtist.textContent = "-";
     generateSchedule();
     return;
   }
 
-  time = 0;
+  let time = 0;
   for (let i = 0; i < playlist.length; i++) {
     const dur = playlist[i].duration + (settings.pauseBetweenTracks || 0);
     if (elapsed < time + dur) {
-      generateSchedule();
-      playTrack(i, elapsed - time);
+      if (currentIndex !== i || video.paused) {
+        generateSchedule();
+        playTrack(i, elapsed - time);
+      }
       return;
     }
     time += dur;
   }
 
-  broadcastInfo.innerHTML = `<i class="fas fa-flag-checkered"></i> Трансляцію завершено`;
+  broadcastInfo.innerHTML = `<i class="fas fa-flag-checkered"></i> Ефір завершено`;
 }
 
+// Обновленные обработчики событий
 function updatePlayButton() {
-  playIcon.className = video.paused ? "fas fa-play" : "fas fa-pause";
-  overlayPlayBtn.innerHTML = `<i class="fas ${video.paused ? "fa-play" : "fa-pause"}"></i>`;
+  if (video.paused) {
+    playIcon.className = "fas fa-play";
+    overlayPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
+  } else {
+    playIcon.className = "fas fa-pause";
+    overlayPlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
+  }
 }
 
 function updateProgress() {
-  const { currentTime, duration } = video;
-  const progressPercent = (currentTime / duration) * 100;
-  progressBar.style.width = `${progressPercent}%`;
-  currentTimeEl.textContent = formatTime(currentTime);
-  if (!isNaN(duration)) durationEl.textContent = formatTime(duration);
+  const now = Date.now();
+  if (now - lastUpdate > 200) { // Ограничение частоты обновления
+    const { currentTime, duration } = video;
+    const progressPercent = (currentTime / duration) * 100;
+    progressBar.style.width = `${progressPercent}%`;
+    currentTimeEl.textContent = formatTime(currentTime);
+    
+    if (!isNaN(duration)) {
+      durationEl.textContent = formatTime(duration);
+    }
+    lastUpdate = now;
+  }
 }
 
 function updateVolume() {
   const volume = video.volume;
   volumeSlider.value = volume;
+  
   if (video.muted || volume === 0) {
     volumeIcon.className = "fas fa-volume-mute";
+    volumeSlider.value = 0;
   } else if (volume < 0.5) {
     volumeIcon.className = "fas fa-volume-down";
   } else {
@@ -614,59 +683,88 @@ function updateVolume() {
   }
 }
 
-// Буферизация и диагностика
-video.addEventListener("waiting", () => console.warn("⏳ Буферизация..."));
-video.addEventListener("stalled", () => console.warn("⚠️ Поток прерван (stalled)"));
-video.addEventListener("canplay", () => console.log("✅ Можно воспроизводить"));
-video.addEventListener("canplaythrough", () => console.log("🚀 Можно воспроизвести до конца"));
-
-// Полноэкран
-fullscreenBtn.addEventListener("click", () => {
-  if (video.requestFullscreen) video.requestFullscreen();
-  else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
-  else if (video.msRequestFullscreen) video.msRequestFullscreen();
-});
-
-// Воспроизведение
-function togglePlay() {
-  const now = Date.now();
-  const startTime = new Date(generatedAt).getTime();
-  if (now < startTime) {
-    broadcastInfo.innerHTML = `<i class="fas fa-clock"></i> Трансляція почнеться о ${formatClock(startTime)}`;
-    return;
-  }
-
-  if (video.paused) video.play();
-  else video.pause();
+// Новые обработчики буферизации
+function handleBufferingStart() {
+  isBuffering = true;
+  broadcastInfo.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Буферизація...`;
 }
+
+function handleBufferingEnd() {
+  isBuffering = false;
+  if (!video.paused) {
+    broadcastInfo.innerHTML = `<i class="fas fa-broadcast-tower"></i> Відтворення...`;
+  }
+}
+
+// Инициализация событий
+fullscreenBtn.addEventListener("click", () => {
+  if (video.requestFullscreen) {
+    video.requestFullscreen();
+  } else if (video.webkitRequestFullscreen) {
+    video.webkitRequestFullscreen();
+  } else if (video.msRequestFullscreen) {
+    video.msRequestFullscreen();
+  }
+});
 
 playBtn.addEventListener("click", togglePlay);
 overlayPlayBtn.addEventListener("click", togglePlay);
-video.addEventListener("click", togglePlay);
 
+function togglePlay() {
+  const now = Date.now();
+  const startTime = new Date(generatedAt).getTime();
+
+  if (now < startTime) {
+    broadcastInfo.innerHTML = `<i class="fas fa-clock"></i> Ефір почнеться о ${formatClock(startTime)}`;
+    return;
+  }
+
+  if (video.paused) {
+    video.play().catch(e => {
+      console.error("Playback error:", e);
+      broadcastInfo.innerHTML = `<i class="fas fa-exclamation-circle"></i> Помилка відтворення`;
+    });
+  } else {
+    video.pause();
+  }
+}
+
+video.addEventListener("click", togglePlay);
 video.addEventListener("play", updatePlayButton);
 video.addEventListener("pause", updatePlayButton);
 video.addEventListener("timeupdate", updateProgress);
+video.addEventListener("ended", handleEnded);
 video.addEventListener("volumechange", updateVolume);
+
+// Новые события буферизации
+video.addEventListener('waiting', handleBufferingStart);
+video.addEventListener('playing', handleBufferingEnd);
+video.addEventListener('stalled', handleBufferingStart);
+video.addEventListener('canplay', handleBufferingEnd);
 
 volumeSlider.addEventListener("input", (e) => {
   video.volume = e.target.value;
-  video.muted = e.target.value == 0;
+  video.muted = e.target.value === 0;
 });
 
 volumeBtn.addEventListener("click", () => {
   video.muted = !video.muted;
-  if (video.muted) volumeSlider.value = 0;
-  else volumeSlider.value = video.volume;
+  if (video.muted) {
+    volumeSlider.value = 0;
+  } else {
+    volumeSlider.value = video.volume;
+  }
 });
+
+refreshBtn.addEventListener("click", loadPlaylist);
 
 function handleEnded() {
   currentIndex++;
   if (currentIndex >= playlist.length) {
     if (settings.repetition) {
-      syncPlayback();
+      debouncedSync();
     } else {
-      broadcastInfo.innerHTML = `<i class="fas fa-flag-checkered"></i> Трансляцію завершено`;
+      broadcastInfo.innerHTML = `<i class="fas fa-flag-checkered"></i> Ефір завершено`;
     }
     return;
   }
@@ -676,27 +774,51 @@ function handleEnded() {
   }, (settings.pauseBetweenTracks || 0) * 1000);
 }
 
-video.addEventListener("ended", handleEnded);
-
-refreshBtn.addEventListener("click", loadPlaylist);
-
-// Загрузка плейлиста
+// Загрузка плейлиста с обработкой ошибок
 function loadPlaylist() {
-  broadcastInfo.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i> Завантаження метаданих з сервера...`;
+  const wasPlaying = !video.paused;
+  const currentTime = video.currentTime;
+  const currentSrc = video.src;
+
+  refreshBtn.disabled = true;
+  refreshBtn.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i>';
+  const previousStatus = broadcastInfo.innerHTML;
+  broadcastInfo.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i> Оновлення...`;
 
   fetch("https://raw.githubusercontent.com/christian-word/GospelVoice/refs/heads/main/playlist/VIDEI_PLAY_LIST.json")
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) throw new Error('Network error');
+      return res.json();
+    })
     .then(json => {
       playlist = json.playlist || [];
       generatedAt = json.generatedAt || new Date().toISOString();
       settings = json.settings || { repetition: false, pauseBetweenTracks: 1 };
-      syncPlayback();
-
-      if (syncInterval) clearInterval(syncInterval);
-      syncInterval = setInterval(syncPlayback, 60000);
+      
+      // Soft-update если источник не изменился
+      if (wasPlaying && currentSrc === video.src) {
+        video.currentTime = currentTime;
+        video.play().catch(e => console.log("Autoplay blocked"));
+      }
+      
+      debouncedSync();
     })
-    .catch(() => {
-      broadcastInfo.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Помилка завантаження метаданих`;
+    .catch(error => {
+      console.error('Error:', error);
+      
+      // Emergency restore при ошибках
+      if (wasPlaying && video.readyState > 1) {
+        video.currentTime = currentTime;
+        video.play().catch(e => {
+          broadcastInfo.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Помилка відтворення`;
+        });
+      }
+      
+      broadcastInfo.innerHTML = previousStatus;
+    })
+    .finally(() => {
+      refreshBtn.disabled = false;
+      refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Оновити';
     });
 }
 
