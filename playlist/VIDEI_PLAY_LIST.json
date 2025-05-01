@@ -1,10 +1,45 @@
 ﻿{
-  "generatedAt": "2025-05-01T03:35:00+03:00",
+  "generatedAt": "2025-05-01T16:00:00+03:00",
   "settings": {
     "repetition": false,
     "pauseBetweenTracks": 2
   },
   "playlist": [
+    {
+      "title": "Неоценненная Драгоценность (Ин. 3 31 36). Андрей Парфило, 03.11.2024",
+      "url": "https://ia600509.us.archive.org/3/items/3-31-36.-03.11.2024/%D0%9D%D0%B5%D0%BE%D1%86%D0%B5%D0%BD%D0%BD%D0%B5%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%94%D1%80%D0%B0%D0%B3%D0%BE%D1%86%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D1%8C_%20%28%D0%98%D0%BD.%203_31-36%29.%20%D0%90%D0%BD%D0%B4%D1%80%D0%B5%D0%B9%20%D0%9F%D0%B0%D1%80%D1%84%D0%B8%D0%BB%D0%BE%2C%2003.11.2024.mp4",
+      "group": "Андрей Парфило",
+      "image": "https://example.com/poster1.jpg",
+      "duration": 2595
+    },
+    {
+      "title": "Шлях Відновлення Стосунків З Богом (Псалом 51). Андрій Міщенко, 27.10.2024",
+      "url": "https://ia601502.us.archive.org/16/items/51.-27.10.2024/%D0%A8%D0%BB%D1%8F%D1%85%20%D0%B2%D1%96%D0%B4%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%BD%D1%8F%20%D1%81%D1%82%D0%BE%D1%81%D1%83%D0%BD%D0%BA%D1%96%D0%B2%20%D0%B7%20%D0%91%D0%BE%D0%B3%D0%BE%D0%BC_%20%28%D0%9F%D1%81%D0%B0%D0%BB%D0%BE%D0%BC%2051%29.%20%D0%90%D0%BD%D0%B4%D1%80%D1%96%D0%B9%20%D0%9C%D1%96%D1%89%D0%B5%D0%BD%D0%BA%D0%BE%2C%2027.10.2024.mp4",
+      "group": "Андрій Міщенко",
+      "image": "https://example.com/poster1.jpg",
+      "duration": 1500
+    },
+    {
+      "title": "Церковь Дом Божий ( 1 Тим 3 14 15). Олег Кадацкий (г.Мариуполь), 10.11.2024",
+      "url": "https://ia601905.us.archive.org/3/items/1-3-14-15.-.-10.11.2024/%D0%A6%D0%B5%D1%80%D0%BA%D0%BE%D0%B2%D1%8C%20-%20%D0%B4%D0%BE%D0%BC%20%D0%91%D0%BE%D0%B6%D0%B8%D0%B9_%20%281%20%D0%A2%D0%B8%D0%BC%203_14-15%29.%20%D0%9E%D0%BB%D0%B5%D0%B3%20%D0%9A%D0%B0%D0%B4%D0%B0%D1%86%D0%BA%D0%B8%D0%B9%20%28%D0%B3.%D0%9C%D0%B0%D1%80%D0%B8%D1%83%D0%BF%D0%BE%D0%BB%D1%8C%29%2C%2010.11.2024.mp4",
+      "group": "Олег Кадацкий",
+      "image": "https://example.com/poster1.jpg",
+      "duration": 1394
+    },
+    {
+      "title": "Якщо Сил Немає І Втомився Ти. Влад И Тимофій Охріменки, 13.04.2025",
+      "url": "https://ia600507.us.archive.org/21/items/13.04.2025/%D0%AF%D0%BA%D1%89%D0%BE%20%D1%81%D0%B8%D0%BB%20%D0%BD%D0%B5%D0%BC%D0%B0%D1%94%20%D1%96%20%D0%B2%D1%82%D0%BE%D0%BC%D0%B8%D0%B2%D1%81%D1%8F%20%D1%82%D0%B8.%20%D0%92%D0%BB%D0%B0%D0%B4%20%D0%B8%20%D0%A2%D0%B8%D0%BC%D0%BE%D1%84%D1%96%D0%B9%20%D0%9E%D1%85%D1%80%D1%96%D0%BC%D0%B5%D0%BD%D0%BA%D0%B8%2C%2013.04.2025.mp4",
+      "group": "Влад И Тимофій Охріменки",
+      "image": "https://example.com/poster1.jpg",
+      "duration": 231
+    },
+    {
+      "title": "Свидетельство Брата Анатолия Ларченко (с.Кураховка, Покровский Р Н., Донецкая Обл.), 10.11.2024",
+      "url": "https://ia600703.us.archive.org/29/items/10.11.2024/%D0%A1%D0%B2%D0%B8%D0%B4%D0%B5%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D1%82%D0%B2%D0%BE%20%D0%B1%D1%80%D0%B0%D1%82%D0%B0%20%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BB%D0%B8%D1%8F%20%D0%9B%D0%B0%D1%80%D1%87%D0%B5%D0%BD%D0%BA%D0%BE%20%28%D1%81.%D0%9A%D1%83%D1%80%D0%B0%D1%85%D0%BE%D0%B2%D0%BA%D0%B0%2C%20%D0%9F%D0%BE%D0%BA%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%20%D1%80-%D0%BD.%2C%20%D0%94%D0%BE%D0%BD%D0%B5%D1%86%D0%BA%D0%B0%D1%8F%20%D0%BE%D0%B1%D0%BB.%29%2C%2010.11.2024.mp4",
+      "group": "Анатолия Ларченко",
+      "image": "https://example.com/poster1.jpg",
+      "duration": 1160
+    },
     {
       "title": "Однажды Я Понял Особенно Остро Тимофей Охрименко, 30.03.2025",
       "url": "https://ia801303.us.archive.org/23/items/30.03.2025/%D0%9E%D0%B4%D0%BD%D0%B0%D0%B6%D0%B4%D1%8B%20%D1%8F%20%D0%BF%D0%BE%D0%BD%D1%8F%D0%BB%20%D0%BE%D1%81%D0%BE%D0%B1%D0%B5%D0%BD%D0%BD%D0%BE%20%D0%BE%D1%81%D1%82%D1%80%D0%BE%20%D0%A2%D0%B8%D0%BC%D0%BE%D1%84%D0%B5%D0%B9%20%D0%9E%D1%85%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D0%BA%D0%BE%2C%2030.03.2025.mp4",
