@@ -1,5 +1,5 @@
 ﻿{
-  "generatedAt": "2025-05-02T20:10:00+03:00",
+  "generatedAt": "2025-05-15T20:43:00.000Z",
   "settings": {
     "repetition": true,
     "pauseBetweenTracks": 0
@@ -2549,6 +2549,90 @@
       "group": "Ксения Кузнецова",
       "duration": 527,
       "url": "https://holychords.pro/uploads/music/20191016/2019101615454166.mp3",
+      "image": ""
+    },
+    {
+      "title": "Милость",
+      "group": "Авана",
+      "duration": 371,
+      "url": "https://fonki.pro/plugin/sounds/uploads/2016050614170957.mp3",
+      "image": ""
+    },
+    {
+      "title": "Богу Тебя Отдаю",
+      "group": "Авана",
+      "duration": 297,
+      "url": "https://fonki.pro/plugin/sounds/uploads/2024110813572155.mp3",
+      "image": ""
+    },
+    {
+      "title": "Верую",
+      "group": "Авана",
+      "duration": 272,
+      "url": "https://fonki.pro/plugin/sounds/uploads/2023083011474393.mp3",
+      "image": ""
+    },
+    {
+      "title": "Даруй нам мир",
+      "group": "Авана",
+      "duration": 341,
+      "url": "https://fonki.pro/storage/music/fr60agxYKuw3twzVN8QLlAFzUksJHSzcq2cj1T0T.mp3",
+      "image": ""
+    },
+    {
+      "title": "Душе открылось небо",
+      "group": "Авана",
+      "duration": 215,
+      "url": "https://fonki.pro/plugin/sounds/uploads/2019022614395893.mp3",
+      "image": ""
+    },
+    {
+      "title": "Желаем счастья и любви",
+      "group": "Авана",
+      "duration": 215,
+      "url": "https://fonki.pro/plugin/sounds/uploads/2016060221400977.mp3",
+      "image": ""
+    },
+    {
+      "title": "Жизнь Идёт",
+      "group": "Авана",
+      "duration": 199,
+      "url": "https://fonki.pro/plugin/sounds/uploads/2025011820254056.mp3",
+      "image": ""
+    },
+    {
+      "title": "История любви",
+      "group": "Авана",
+      "duration": 325,
+      "url": "https://fonki.pro/plugin/sounds/uploads/2016050610562612.mp3",
+      "image": ""
+    },
+    {
+      "title": "История любви (Piano)",
+      "group": "Авана",
+      "duration": 325,
+      "url": "https://fonki.pro/plugin/sounds/uploads/2016050610583495.mp3",
+      "image": ""
+    },
+    {
+      "title": "Как жизнь прожил ты",
+      "group": "Авана",
+      "duration": 270,
+      "url": "https://fonki.pro/plugin/sounds/uploads/2016050613365049.mp3",
+      "image": ""
+    },
+    {
+      "title": "Летите, лебеди, летите",
+      "group": "Авана",
+      "duration": 356,
+      "url": "https://fonki.pro/plugin/sounds/uploads/2018100309122088.mp3",
+      "image": ""
+    },
+    {
+      "title": "Мало человека любить",
+      "group": "Авана",
+      "duration": 190,
+      "url": "https://fonki.pro/plugin/sounds/uploads/2019113020004722.mp3",
       "image": ""
     }
   ]
