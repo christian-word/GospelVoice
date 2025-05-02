@@ -1,9 +1,8 @@
 ﻿{
-  "generatedAt": "2025-05-01T05:55:00+03:00",
+  "generatedAt": "2025-04-30T23:55:00.000Z",
   "settings": {
-    "repetition": true,
-    "pauseBetweenTracks": 0,
-    "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/church_image.png"
+    "repetition": false,
+    "pauseBetweenTracks": 0
   },
   "playlist": [
     {
@@ -2495,9 +2494,62 @@
       "group": "2. Світлана Демко",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/demko.png",
       "duration": 316
+    },
+    {
+      "title": "Есть надежда",
+      "group": "Новое сердце",
+      "duration": 235,
+      "url": "https://holychords.pro/storage/music/ahDUa3YuC2INMtNrn2o1omvXZykmxcW7OApxj9bZ.mp3",
+      "image": ""
+    },
+    {
+      "title": "Управляешь всей планетой",
+      "group": "Новое сердце",
+      "duration": 207,
+      "url": "https://holychords.pro/storage/music/T8cj7wJa9sWLglOTVE8ZDr9kY9kvpEzIALik5qwR.mp3",
+      "image": ""
+    },
+    {
+      "title": "Прекрасней даже, чем цветок",
+      "group": "Новое сердце",
+      "duration": 236,
+      "url": "https://holychords.pro/storage/music/3n5CYmhPz6TommqbUPiBvr199hSM3dcsDyAFygr0.mp3",
+      "image": ""
+    },
+    {
+      "title": "Господь мой Пастырь",
+      "group": "Новое сердце",
+      "duration": 221,
+      "url": "https://holychords.pro/storage/music/uW0ttpgGfkcdCyrHae4rbMc5jFkDLzn6IXhms2tN.mp3",
+      "image": ""
+    },
+    {
+      "title": "Любимый голос",
+      "group": "Новое сердце",
+      "duration": 227,
+      "url": "https://holychords.pro/storage/music/DjIcmCxZvExJ4uPHSDbkmiemjdjOWTUZJae2IdYU.mp3",
+      "image": ""
+    },
+    {
+      "title": "Отец Небесный",
+      "group": "Новое сердце",
+      "duration": 204,
+      "url": "https://holychords.pro/storage/music/MlFAOcPgaTkEORGxZNgNZpmuvIqzi3vDWaqoRJnX.mp3",
+      "image": ""
+    },
+    {
+      "title": "Наше славословие",
+      "group": "Новое сердце",
+      "duration": 193,
+      "url": "https://holychords.pro/storage/music/H2wWYysfnv6QegUkOpI9CuSRNSLk6NjcTP2NtlMb.mp3",
+      "image": ""
+    },
+    {
+      "title": "Бог я стою пред Тобой",
+      "group": "Ксения Кузнецова",
+      "duration": 527,
+      "url": "https://holychords.pro/uploads/music/20191016/2019101615454166.mp3",
+      "image": ""
     }
-  ],
-  "settings": {
-    "shuffleMode": "noRepeat"
-  }
+  ]
 }
