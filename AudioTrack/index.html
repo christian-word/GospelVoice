@@ -4,125 +4,249 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Недільне Богослужіння за 04.05.2025</title>
+
     <!-- Метаданні для соцмереж -->
-    <meta property="og:image" content="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/logo.jpg">
-    <meta property="og:title" content="Недільне Богослужіння 04.05.2025">
-    <meta property="og:url" content="https://ваш-сайт.укр/">  
+    <meta property="og:title" content="Недільне Богослужіння за 04.05.2025 ⛪">
+    <meta property="og:description" content="Проповіді: Андрій Міщенко, Микола Марйоха, К. Іванченко">
+    <meta property="og:image" content="https://example.com/church-thumbnail.jpg">
+    <meta property="og:url" content="https://example.com/sermons-04052025.html">
+    <meta name="twitter:card" content="summary_large_image">
     
+    <!-- Favicon -->
+    <link rel="icon" href="https://example.com/favicon.ico" type="image/x-icon">
+
     <style>
         :root {
             --primary: #2c3e50;
             --secondary: #3498db;
+            --accent: #e74c3c;
             --text: #333;
-            --bg: #f5f5f5;
+            --light-text: #777;
+            --bg: #f9f9f9;
             --card-bg: #fff;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --transition: all 0.2s ease;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            line-height: 1.6;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
             max-width: 800px;
             margin: 0 auto;
-            padding: 15px;
+            padding: 0;
             color: var(--text);
             background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .container {
+            padding: 15px;
         }
         
         h1 {
             color: var(--primary);
             text-align: center;
-            margin: 0 0 25px 0;
-            padding: 0 0 10px 0;
-            border-bottom: 2px solid var(--secondary);
-            font-size: 1.7rem;
+            margin: 0 0 20px 0;
+            padding: 15px 0 10px;
+            font-size: 1.4rem;
+            position: relative;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
         }
         
         .player {
-            margin-bottom: 25px;
+            margin-bottom: 18px;
             padding: 15px;
             background: var(--card-bg);
             border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .player:hover {
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
         }
         
         .player-title {
             font-weight: 600;
-            margin: 0 0 5px 0;
+            margin: 0 0 6px 0;
             color: var(--primary);
-            font-size: 1.1rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .player-title:before {
+            content: '🎧';
+            margin-right: 8px;
+            font-size: 0.9em;
         }
         
         .player-info {
             font-size: 0.85rem;
-            color: #666;
-            margin: 0 0 12px 0;
+            color: var(--light-text);
+            margin: 0 0 10px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .player-info span {
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .player-info span:not(:last-child):after {
+            content: '•';
+            margin-left: 8px;
+            color: #eee;
         }
         
         .drive-player {
             width: 100%;
-            height: 80px;
+            height: 60px; /* Уменьшенная высота плеера */
             border: none;
-            border-radius: 6px;
-            margin: 10px 0 5px 0;
+            border-radius: 8px;
+            margin: 8px 0 5px 0;
+            background: #f1f3f4;
         }
         
         .drive-link {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             margin-top: 8px;
             font-size: 0.85rem;
             color: var(--secondary);
             text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
         }
         
         .drive-link:hover {
+            color: var(--accent);
             text-decoration: underline;
         }
         
+        .drive-link:before {
+            content: '🔗';
+            margin-right: 5px;
+            font-size: 0.9em;
+        }
+        
+        /* Мобильные стили */
         @media (max-width: 600px) {
-            body {
+            .container {
                 padding: 12px;
             }
             
             h1 {
-                font-size: 1.5rem;
-                margin-bottom: 20px;
+                font-size: 1.2rem;
+                padding: 12px 0 8px;
+                margin-bottom: 15px;
             }
             
             .player {
                 padding: 12px;
+                margin-bottom: 15px;
+                border-radius: 8px;
+            }
+            
+            .player-title {
+                font-size: 0.95rem;
+            }
+            
+            .player-title:before {
+                margin-right: 6px;
+            }
+            
+            .player-info {
+                font-size: 0.8rem;
+                gap: 6px;
+            }
+            
+            .player-info span:not(:last-child):after {
+                margin-left: 6px;
             }
             
             .drive-player {
-                height: 70px;
+                height: 50px; /* Еще более компактный плеер для мобильных */
+                border-radius: 6px;
+                margin: 6px 0 4px;
             }
+            
+            .drive-link {
+                font-size: 0.8rem;
+                margin-top: 6px;
+            }
+        }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .player {
+            animation: fadeIn 0.4s ease forwards;
+        }
+        
+        .player:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        
+        .player:nth-child(3) {
+            animation-delay: 0.2s;
         }
     </style>
 </head>
 <body>
-    <h1>📖 Недільне Богослужіння за 04.05.2025 ⛪</h1>
-    
-    <!-- Трек 1 -->
-    <div class="player">
-        <div class="player-title">1. Гріх руйнує, а Божа благодать дарує життя</div>
-        <div class="player-info">Псалом 51 | Андрій Міщенко | 04.05.2025</div>
-        <iframe src="https://drive.google.com/file/d/1l3L6FXOnZ7xzOn4MXaCDksvHskGyt6J_/preview" class="drive-player"></iframe>
-        <a href="https://drive.google.com/file/d/1l3L6FXOnZ7xzOn4MXaCDksvHskGyt6J_/view" class="drive-link" target="_blank">Відкрити в Google Drive</a>
-    </div>
-    
-    <!-- Трек 2 -->
-    <div class="player">
-        <div class="player-title">2. Вечеря Господня - частина великої Євангелії</div>
-        <div class="player-info">1 Коринтян 15:1-3 | Микола Марйоха | 04.05.2025</div>
-        <iframe src="https://drive.google.com/file/d/17GqXO8Zv8BM-i94hNGIZKG2IQtXy5_z4/preview" class="drive-player"></iframe>
-        <a href="https://drive.google.com/file/d/17GqXO8Zv8BM-i94hNGIZKG2IQtXy5_z4/view" class="drive-link" target="_blank">Відкрити в Google Drive</a>
-    </div>
-    
-    <!-- Трек 3 -->
-    <div class="player">
-        <div class="player-title">3. Вірш</div>
-        <div class="player-info">К. Іванченко | 04.05.2025</div>
-        <iframe src="https://drive.google.com/file/d/1B0jA3NlyXXR20e3WSDGacgOkS6Rgrr4L/preview" class="drive-player"></iframe>
-        <a href="https://drive.google.com/file/d/1B0jA3NlyXXR20e3WSDGacgOkS6Rgrr4L/view" class="drive-link" target="_blank">Відкрити в Google Drive</a>
+    <div class="container">
+        <h1>📖 Недільне Богослужіння за 04.05.2025 ⛪</h1>
+        
+        <!-- Трек 1 -->
+        <div class="player">
+            <div class="player-title">Гріх руйнує, а Божа благодать дарує життя</div>
+            <div class="player-info">
+                <span>Псалом 51</span>
+                <span>Андрій Міщенко</span>
+                <span>04.05.2025</span>
+            </div>
+            <iframe src="https://drive.google.com/file/d/1l3L6FXOnZ7xzOn4MXaCDksvHskGyt6J_/preview" class="drive-player"></iframe>
+            <a href="https://drive.google.com/file/d/1l3L6FXOnZ7xzOn4MXaCDksvHskGyt6J_/view" class="drive-link" target="_blank">Відкрити в Google Drive</a>
+        </div>
+        
+        <!-- Трек 2 -->
+        <div class="player">
+            <div class="player-title">Вечеря Господня - частина великої Євангелії</div>
+            <div class="player-info">
+                <span>1 Коринтян 15:1-3</span>
+                <span>Микола Марйоха</span>
+                <span>04.05.2025</span>
+            </div>
+            <iframe src="https://drive.google.com/file/d/17GqXO8Zv8BM-i94hNGIZKG2IQtXy5_z4/preview" class="drive-player"></iframe>
+            <a href="https://drive.google.com/file/d/17GqXO8Zv8BM-i94hNGIZKG2IQtXy5_z4/view" class="drive-link" target="_blank">Відкрити в Google Drive</a>
+        </div>
+        
+        <!-- Трек 3 -->
+        <div class="player">
+            <div class="player-title">Вірш</div>
+            <div class="player-info">
+                <span>К. Іванченко</span>
+                <span>04.05.2025</span>
+            </div>
+            <iframe src="https://drive.google.com/file/d/1B0jA3NlyXXR20e3WSDGacgOkS6Rgrr4L/preview" class="drive-player"></iframe>
+            <a href="https://drive.google.com/file/d/1B0jA3NlyXXR20e3WSDGacgOkS6Rgrr4L/view" class="drive-link" target="_blank">Відкрити в Google Drive</a>
+        </div>
     </div>
 </body>
 </html>
