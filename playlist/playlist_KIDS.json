@@ -1,5 +1,5 @@
-﻿{
-  "generatedAt": "2025-05-09T17:00:00+03:00",
+{
+  "generatedAt": "2025-05-09T14:00:00+03:00",
   "settings": {
     "repetition": true,
     "pauseBetweenTracks": 0
@@ -7,33 +7,243 @@
   "playlist": [
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_060.mp3&h=f8dd1e851bbb3477c877912a9ad7956c",
-      "filename": "Track_060.mp3",
-      "duration": 139
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_049.mp3&h=9fab7edb82b93b83b5ea38de1210cb39",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 153
+    },
+    {
+      "title": "Пусть молитва моя",
+      "url": "https://holychords.pro/uploads/music/20230514/20230514163633.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "duration": 230
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_051.mp3&h=8c0b6dfeee046ff240d7c2443930e6d5",
-      "filename": "Track_051.mp3",
-      "duration": 158
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_093.mp3&h=2705b65a6ad2c0e07a6f313bf2618855",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 223
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_046.mp3&h=3170c2c9a22ada376bab24afbe05723c",
-      "filename": "Track_046.mp3",
-      "duration": 200
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_134.mp3&h=e4974c4f04ba24a5419ae7c9e35b0a4f",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 193
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_014.mp3&h=1e11a253fdc258f2887f85e148ec3722",
-      "filename": "Track_014.mp3",
-      "duration": 188
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_084.mp3&h=7405bb9e3b765066405be1b6a1dd3405",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 183
+    },
+    {
+      "title": "Ісус Ти найкращий друг",
+      "url": "https://kg-music.club/wp-content/uploads/2022/10/%D0%86%D1%81%D1%83%D1%81-%D0%A2%D0%B8-%D0%BD%D0%B0%D0%B9%D0%BA%D1%80%D0%B0%D1%89%D0%B8%D0%B9-%D0%B4%D1%80%D1%83%D0%B3-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "duration": 220
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_035.mp3&h=a0e31f1ea9f01ea0f6e0fbb5a22f4cf6",
-      "filename": "Track_035.mp3",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_155.mp3&h=0dfcffb47a0011cef93dc75300ec4839",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 227
+    },
+    {
+      "title": "Мы будемо відпочивати",
+      "url": "https://holychords.pro/uploads/music/20211021/20211021084001.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "duration": 242
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_026.mp3&h=a8f7c14f7510ed0db2932d50f96848b9",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "duration": 194
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_077.mp3&h=97269d502e1e82542c536e3a722ac2f9",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 241
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_098.mp3&h=f3ff07d3fc24cb9c4a22b29fdcda3409",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 169
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_005.mp3&h=86db227a99ccffecc831c49067cdfec5",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 153
+    },
+    {
+      "title": "Говори спасибо",
+      "url": "https://holychords.pro/uploads/music/20210810/20210810062700.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "duration": 180
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_022.mp3&h=d611865da013986c7aa042f62f826829",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 133
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_021.mp3&h=bf48e2ff8659bc7403538429d29ca5b3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 178
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_088.mp3&h=022ed64f9e5195078e3fc504d05d6b0b",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 270
+    },
+    {
+      "title": "Пусть земля вся утверждает",
+      "url": "https://kg-music.club/wp-content/uploads/2021/04/%D0%9F%D1%83%D1%81%D1%82%D1%8C-%D0%B7%D0%B5%D0%BC%D0%BB%D1%8F-%D0%B2%D1%81%D1%8F-%D1%83%D1%82%D0%B2%D0%B5%D1%80%D0%B6%D0%B4%D0%B0%D0%B5%D1%82-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-%D0%91%D1%80%D0%B0%D1%82%D1%8C%D1%8F-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "duration": 243
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_158.mp3&h=d8a2db20eb5050b1f7ab4dcaf4c85bf1",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 220
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_105.mp3&h=a19298908abec8e536945f9693e3e6df",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 134
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_118.mp3&h=575dc5765f68a6affe817dfcab889075",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 111
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_124.mp3&h=cd2174cd4fadc1ec5bebfba1fbd013d3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 97
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_090.mp3&h=ba22031da77e6585c07fb84479d3112b",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 155
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_120.mp3&h=c11ded874991d47778a9697383f80374",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 155
+    },
+    {
+      "title": "Папа мой",
+      "url": "https://holychords.pro/storage/music/DufziCSTDK589x4peI8pgRkgohzZ56zfVfVN8ARZ.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "duration": 300
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_117.mp3&h=409efb4a59965f9e848a24ca734afdce",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 156
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_013.mp3&h=6f964a2da36715aed0983a56351bea97",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 132
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_113.mp3&h=d4848d2140a96d60cad57e91553d44a9",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 175
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_066.mp3&h=ab62f5e26639813cb6a2f829c4c27710",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 223
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_071.mp3&h=3d9ba490ea982415351624eaba2850e7",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 107
+    },
+    {
+      "title": "Тобі я дякую",
+      "url": "https://kg-music.club/wp-content/uploads/2019/10/%D0%A2%D0%BE%D0%B1%D1%96-%D1%8F-%D0%B4%D1%8F%D0%BA%D1%83%D1%8E-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "duration": 211
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_130.mp3&h=3770cc95b55b0fc4327464aa56146404",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 159
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_058.mp3&h=8aeeac8372bfa78dbf6d4537492453dd",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 179
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_029.mp3&h=966d8b7c0cd2545acceb595057ef5569",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 187
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_006.mp3&h=16889914a2b038097a12dbe218dfb0f0",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 203
+    },
+    {
+      "title": "Ангелы в небе",
+      "url": "https://holychords.pro/storage/music/DuZTAubz4z5idxtkp9xArrt8eoSeKcU3dlrXwvTM.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "duration": 245
+    },
+    {
+      "title": "Возликуйте, Божьи дети",
+      "url": "https://holychords.pro/uploads/music/20211119/20211119231339.mp3",
+      "group": "4. Дети поют",
+      "duration": 181
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_045.mp3&h=d6b1074a6e4cd62e11fd9f9fafc13a9f",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 277
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_136.mp3&h=843fe26c732aa4637829c34a4266b81c",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 180
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_044.mp3&h=60273b7686e18f9664b424c48a44843a",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 135
+    },
+    {
+      "title": "Поёт моё сердце",
+      "url": "https://kg-music.club/wp-content/uploads/2019/10/%D0%9F%D0%BE%D1%91%D1%82-%D0%BC%D0%BE%D1%91-%D1%81%D0%B5%D1%80%D0%B4%D1%86%D0%B5-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "duration": 271
     },
     {
       "title": "Моя дорога веде до Бога",
@@ -43,63 +253,81 @@
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_021.mp3&h=bf48e2ff8659bc7403538429d29ca5b3",
-      "filename": "Track_021.mp3",
-      "duration": 178
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_140.mp3&h=66c7fd21d09b8b9c9d111aad3de6427e",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 158
     },
     {
-      "title": "Самый лучший друг Исус",
-      "url": "https://holychords.pro/storage/music/xgS0H1lyLC3tFFvmn7WlcUGeXrKLebmgW7XzXRBt.mp3",
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_144.mp3&h=1067bdbc2ec271bbea5fb00281099742",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 221
+    },
+    {
+      "title": "Прекрасен этот мир",
+      "url": "https://holychords.pro/storage/music/snOdpcLtJaWqFpGEvKXwRJ8GvwSZ8TJoP0xbXnel.mp3",
       "group": "1. (Дитячий) Гурт Схід",
-      "duration": 231
+      "duration": 320
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_018.mp3&h=39f99f0eb478a05ca09510efab8a94aa",
-      "filename": "Track_018.mp3",
-      "duration": 163
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_123.mp3&h=c3892d97efddf2694f3b1bea1208955a",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 147
     },
     {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_013.mp3&h=6f964a2da36715aed0983a56351bea97",
-      "filename": "Track_013.mp3",
-      "duration": 132
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_040.mp3&h=7406c7e60ccfbac0e491b892a62a71ae",
-      "filename": "Track_040.mp3",
-      "duration": 240
-    },
-    {
-      "title": "Ты моя Защита",
-      "url": "https://holychords.pro/uploads/music/20191016/2019101613144981.mp3",
+      "title": "Рождество",
+      "url": "https://holychords.pro/uploads/music/20191016/201910161357114.mp3",
       "group": "4. Дети Бога",
-      "duration": 245
+      "duration": 160
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_148.mp3&h=69dfa5bc8c6c58cbedc468bc38514ea4",
-      "filename": "Track_148.mp3",
-      "duration": 212
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_072.mp3&h=fc9d5f4fc4ecb7581e3624c9052c7485",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 188
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_100.mp3&h=e2809b907b9d419d53b8f2f208caca4d",
-      "filename": "Track_100.mp3",
-      "duration": 184
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_030.mp3&h=5f04b312d0201bb187b7931cfc255204",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 148
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_027.mp3&h=5d651f4b935d27c44def75ae4fd8b96e",
-      "filename": "Track_027.mp3",
-      "duration": 195
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_003.mp3&h=19cb1f2014302b23fa6e253066509a9d",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 232
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_092.mp3&h=dc76afd3ac473a7f8548ed74c5592624",
-      "filename": "Track_092.mp3",
-      "duration": 146
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_135.mp3&h=72a84e86f7a9fe8e277bd9be438633e6",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 216
+    },
+    {
+      "title": "Ти підіймаєш",
+      "url": "https://kg-music.club/wp-content/uploads/2020/01/You-raise-me-up-Cover-Version-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "duration": 206
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_079.mp3&h=3032f5d845dc2d1a2be29c82a9bc516d",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 216
+    },
+    {
+      "title": "С ранней зари",
+      "url": "https://kg-music.club/wp-content/uploads/2021/05/%D0%A1-%D1%80%D0%B0%D0%BD%D0%BD%D0%B5%D0%B9-%D0%B7%D0%B0%D1%80%D0%B8-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 288
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_011.mp3&h=585247851747548deb1d835c76bab862",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 120
     },
     {
       "title": "Нежный голос",
@@ -109,21 +337,339 @@
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_081.mp3&h=8f2df1b2df41b22e516b9be7f215c67c",
-      "filename": "Track_081.mp3",
-      "duration": 161
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_042.mp3&h=4719c74cefd2e110130cf457ad19f7cf",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 255
+    },
+    {
+      "title": "Я Тобі Ісусе дякую",
+      "url": "https://kg-music.club/wp-content/uploads/2019/11/%D0%AF-%D0%A2%D0%BE%D0%B1%D1%96-%D0%86%D1%81%D1%83%D1%81%D0%B5-%D0%B4%D1%8F%D0%BA%D1%83%D1%8E-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-musicclub.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "duration": 210
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_082.mp3&h=506272ea8a7e25ac2e20f61bec876295",
-      "filename": "Track_082.mp3",
-      "duration": 167
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_059.mp3&h=9dca3fbf4111adb3f34754591d5bc95d",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 154
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_030.mp3&h=5f04b312d0201bb187b7931cfc255204",
-      "filename": "Track_030.mp3",
-      "duration": 148
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_080.mp3&h=cf4daf405a3938025e5fc1d642cd1a70",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 244
+    },
+    {
+      "title": "Спішу до Тебе дні і ночі",
+      "url": "https://holychords.pro/storage/music/nZvFxMcpR2XWG9AdKIvCP1GW4r4YUYedotP3xUWh.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "duration": 271
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_146.mp3&h=97f94d5a706689b12ea740741f7bc0f0",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 176
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_023.mp3&h=d9f4d14b6d158ee5e77ac3651d803c4f",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 103
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_125.mp3&h=cda056d89e0ecf9cce049e1ca18666c5",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 150
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_109.mp3&h=c2b9698274b1cf838ef915c7b223763d",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 154
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_009.mp3&h=70e4935aba6fc29b07df6b453a189d38",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 252
+    },
+    {
+      "title": "Было в комнате темно",
+      "url": "https://holychords.pro/storage/music/OjBUXeqT9ETTcx0lCqEW41O6YBLYdFdHwJuPt2q3.mp3",
+      "group": "4. Дети поют",
+      "duration": 155
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_157.mp3&h=fd32645f0f91f6280049e4a9dbf52ae8",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 149
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_024.mp3&h=37e8a058e756a2893a1d02ca3fabc672",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 186
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_063.mp3&h=8881d77b080d6359a3ba9def55ffa62e",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 158
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_132.mp3&h=cb4226481b047104cee763bea66299f9",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 190
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_147.mp3&h=c5034916bce9328d08831f4a0a27389a",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 238
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_149.mp3&h=25c3ee3a1278120a9def650810e093cb",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 220
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_111.mp3&h=ed8044375f47948103a4f9d40fbda663",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 154
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_160.mp3&h=5f44384519665650fc02610a22c4b801",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 317
+    },
+    {
+      "title": "Радость моя",
+      "url": "https://holychords.pro/storage/music/0HBJZcmKSKdiJjX3pAOVPFjibJ3GE37dugFMIq2D.mp3",
+      "group": "4. Дети поют",
+      "duration": 274
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_017.mp3&h=3cc903de544d5e49c7fdd28e6e050e3d",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 164
+    },
+    {
+      "title": "Ты подаруй",
+      "url": "https://holychords.pro/storage/music/wSbti8dFwhwrijyeTHc0bkKcCir4FVudbbeRnBdy.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "duration": 268
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_078.mp3&h=ad02e9a90270d95fb46b8cbd21e85f29",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 139
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_062.mp3&h=5543cc4f8a9bda8729bb3cce4cbdb142",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 202
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_055.mp3&h=090308709f5fc4c126dd588fd4b1579b",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 166
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_019.mp3&h=c0106024978905025ea19415bd761d50",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 135
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_004.mp3&h=451098292666f688705ee787bdcc3298",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 194
+    },
+    {
+      "title": "Молись",
+      "url": "https://kg-music.club/wp-content/uploads/2021/10/%D0%9C%D0%BE%D0%BB%D0%B8%D1%81%D1%8C-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "duration": 253
+    },
+    {
+      "title": "Слава Тобі, слава",
+      "url": "https://holychords.pro/uploads/music/20221118/20221118152353.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "duration": 212
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_129.mp3&h=ef7b1d8e9e49a90997c8657f7c641cd6",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 169
+    },
+    {
+      "title": "Бо Любов",
+      "url": "https://kg-music.club/wp-content/uploads/2020/12/%D0%91%D0%BE-%D0%9B%D1%8E%D0%B1%D0%BE%D0%B2-%D0%93%D1%83%D1%80%D1%82-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D1%96%D1%8F-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "duration": 279
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_032.mp3&h=fb196db123a4ed1e60a61a4ef63fd29f",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 125
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_102.mp3&h=70961233337039be431e2e8d087d1cd3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 166
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_047.mp3&h=e111dee3f41658bb22aeab5bf69fa183",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 157
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_054.mp3&h=5b8e4d8ac3f44e0b58e0a7b0067bc357",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 149
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_126.mp3&h=01be324a34cb16ccb0ebe78fe2855253",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 151
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_101.mp3&h=9eca86ce4b66deb91ba25102ffc9a08c",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 191
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_112.mp3&h=c1a7c0f01ed1c3a5960a42a7bd8a78f0",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 186
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_122.mp3&h=3639c7d54a1d4e2fe9ca4a412963fc44",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 190
+    },
+    {
+      "title": "Рождественское попури 3",
+      "url": "https://holychords.pro/uploads/music/20221212/20221212021548.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "duration": 617
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_050.mp3&h=6284f26b0bb1b47b6713cb606d8f3472",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 181
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_089.mp3&h=d6cd2dde0e9d37f9927553cb5ecb8b09",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 196
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_148.mp3&h=69dfa5bc8c6c58cbedc468bc38514ea4",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 212
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_085.mp3&h=9ed91a1dae2b6ee15a96ed46474ba1e3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 153
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_035.mp3&h=a0e31f1ea9f01ea0f6e0fbb5a22f4cf6",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 194
+    },
+    {
+      "title": "Без Тебя",
+      "url": "https://holychords.pro/storage/music/iCCae2rscZ5dNlYyLFCvKU5GW49h04gUOh1rXKaI.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "duration": 281
+    },
+    {
+      "title": "Услыш",
+      "url": "https://holychords.pro/storage/music/V6hWZ7Irz22fTvigvBJNbKApl5G0vsc6cxL0PFLB.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "duration": 355
+    },
+    {
+      "title": "Каждым утром",
+      "url": "https://holychords.pro/uploads/music/20200321/2020032116165734.mp3",
+      "group": "4. Дети Бога",
+      "duration": 185
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_041.mp3&h=6e2c946e03a33a64cdf75f7beb0d765b",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 191
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_116.mp3&h=1b5fd2b40a667f17512bece873f05ba3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 111
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_103.mp3&h=0f58ee611fcc0e600c6dedcb3f97e2d0",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 219
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_018.mp3&h=39f99f0eb478a05ca09510efab8a94aa",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 163
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_159.mp3&h=1349d25b47682be50dcb9d3eb99f5d5f",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 208
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_031.mp3&h=289522233884ce98aad83ad86f6ecb37",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 156
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_048.mp3&h=780cc5d4ec5dd9fd4de77d5458a185bd",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 219
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_025.mp3&h=ed7c00e72512ad174a31bc4ca833e477",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 206
     },
     {
       "title": "День Різдва",
@@ -134,93 +680,117 @@
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_063.mp3&h=8881d77b080d6359a3ba9def55ffa62e",
-      "filename": "Track_063.mp3",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_010.mp3&h=43295fd9cd95c8978f0674bd6157a0c0",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 129
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_095.mp3&h=6998955d3cb86443c6d4a06d27397323",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 189
+    },
+    {
+      "title": "Єрушалам Богу святому",
+      "url": "https://holychords.pro/storage/music/REPHie5wCgBZmpWAzgScrRY5JvK3VJhcp1pMpYvz.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "duration": 370
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_051.mp3&h=8c0b6dfeee046ff240d7c2443930e6d5",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "duration": 158
     },
     {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_009.mp3&h=70e4935aba6fc29b07df6b453a189d38",
-      "filename": "Track_009.mp3",
+      "title": "В ночном саду",
+      "url": "https://holychords.pro/uploads/music/20201221/20201221021543.mp3",
+      "group": "4. Дети поют",
       "duration": 252
     },
     {
+      "title": "Всё что мне надо",
+      "url": "https://holychords.pro/uploads/music/20210128/20210128181221.mp3",
+      "group": "4. Дети Бога",
+      "duration": 354
+    },
+    {
+      "title": "А на Різдво",
+      "url": "https://holychords.pro/storage/music/uW9Pqs8LIuqh9B0MyztigjkEPG6fpKYLiH4FVV13.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "duration": 183
+    },
+    {
+      "title": "Аллилуйя",
+      "url": "https://holychords.pro/uploads/music/20191016/2019101613211656.mp3",
+      "group": "4. Дети Бога",
+      "duration": 224
+    },
+    {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_078.mp3&h=ad02e9a90270d95fb46b8cbd21e85f29",
-      "filename": "Track_078.mp3",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_070.mp3&h=9e749e6eff7490b35380270f40fadd23",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 155
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_008.mp3&h=51d3edfad74ab2a90e14036785a9b163",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 152
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_040.mp3&h=7406c7e60ccfbac0e491b892a62a71ae",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 240
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_016.mp3&h=2e02989f46d11364ee032c5423283d67",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 141
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_081.mp3&h=8f2df1b2df41b22e516b9be7f215c67c",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 161
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_141.mp3&h=f077ed11210e28573bfbdac756f7369b",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 195
+    },
+    {
+      "title": "Самый лучший друг Исус",
+      "url": "https://holychords.pro/storage/music/xgS0H1lyLC3tFFvmn7WlcUGeXrKLebmgW7XzXRBt.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "duration": 231
+    },
+    {
+      "title": "Ты рядом",
+      "url": "https://holychords.pro/uploads/music/20220708/20220708122903.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "duration": 261
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_138.mp3&h=4b3a87cd546fff41863440f138851352",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 119
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_060.mp3&h=f8dd1e851bbb3477c877912a9ad7956c",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "duration": 139
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_085.mp3&h=9ed91a1dae2b6ee15a96ed46474ba1e3",
-      "filename": "Track_085.mp3",
-      "duration": 153
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_101.mp3&h=9eca86ce4b66deb91ba25102ffc9a08c",
-      "filename": "Track_101.mp3",
-      "duration": 191
-    },
-    {
-      "title": "Дайте мені крила",
-      "url": "https://kg-music.club/wp-content/uploads/2023/09/dayte-meni-krila-gurt-melodiya-kg-music.club_.mp3",
-      "group": "3. Группа \"Мелодия\"",
-      "duration": 245
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_088.mp3&h=022ed64f9e5195078e3fc504d05d6b0b",
-      "filename": "Track_088.mp3",
-      "duration": 270
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_058.mp3&h=8aeeac8372bfa78dbf6d4537492453dd",
-      "filename": "Track_058.mp3",
-      "duration": 179
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_119.mp3&h=3b2c7821ec4c6f634abd7f63688c5b67",
-      "filename": "Track_119.mp3",
-      "duration": 123
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_028.mp3&h=08e97b9036f42f4908a273e91167c357",
-      "filename": "Track_028.mp3",
-      "duration": 199
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_056.mp3&h=9d721f3f7789e3ae4df9d686d94f78c8",
-      "filename": "Track_056.mp3",
-      "duration": 239
-    },
-    {
-      "title": "Прекрасен этот мир",
-      "url": "https://holychords.pro/storage/music/snOdpcLtJaWqFpGEvKXwRJ8GvwSZ8TJoP0xbXnel.mp3",
-      "group": "1. (Дитячий) Гурт Схід",
-      "duration": 320
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_012.mp3&h=04cd0b42bbbe28bad44549da2e3a7fcf",
-      "filename": "Track_012.mp3",
-      "duration": 189
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_089.mp3&h=d6cd2dde0e9d37f9927553cb5ecb8b09",
-      "filename": "Track_089.mp3",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_104.mp3&h=96d5eef0cf233c09ee0aa2afafb66a10",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "duration": 196
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_155.mp3&h=0dfcffb47a0011cef93dc75300ec4839",
-      "filename": "Track_155.mp3",
-      "duration": 227
     },
     {
       "title": "Подними меня",
@@ -230,537 +800,21 @@
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_049.mp3&h=9fab7edb82b93b83b5ea38de1210cb39",
-      "filename": "Track_049.mp3",
-      "duration": 153
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_017.mp3&h=3cc903de544d5e49c7fdd28e6e050e3d",
-      "filename": "Track_017.mp3",
-      "duration": 164
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_146.mp3&h=97f94d5a706689b12ea740741f7bc0f0",
-      "filename": "Track_146.mp3",
-      "duration": 176
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_138.mp3&h=4b3a87cd546fff41863440f138851352",
-      "filename": "Track_138.mp3",
-      "duration": 119
-    },
-    {
-      "title": "Папа мой",
-      "url": "https://holychords.pro/storage/music/DufziCSTDK589x4peI8pgRkgohzZ56zfVfVN8ARZ.mp3",
-      "group": "2. (Дитячий) Гурт Арфочки",
-      "duration": 300
-    },
-    {
-      "title": "В ночном саду",
-      "url": "https://holychords.pro/uploads/music/20201221/20201221021543.mp3",
-      "group": "4. Дети поют",
-      "duration": 252
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_141.mp3&h=f077ed11210e28573bfbdac756f7369b",
-      "filename": "Track_141.mp3",
-      "duration": 195
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_106.mp3&h=4761afe5479990a1cc2bce07d5b84847",
-      "filename": "Track_106.mp3",
-      "duration": 165
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_111.mp3&h=ed8044375f47948103a4f9d40fbda663",
-      "filename": "Track_111.mp3",
-      "duration": 154
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_070.mp3&h=9e749e6eff7490b35380270f40fadd23",
-      "filename": "Track_070.mp3",
-      "duration": 155
-    },
-    {
-      "title": "Каждым утром",
-      "url": "https://holychords.pro/uploads/music/20200321/2020032116165734.mp3",
-      "group": "4. Дети Бога",
-      "duration": 185
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_059.mp3&h=9dca3fbf4111adb3f34754591d5bc95d",
-      "filename": "Track_059.mp3",
-      "duration": 154
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_037.mp3&h=93dc1276f0da6e29ad5580c4ad64d2d7",
-      "filename": "Track_037.mp3",
-      "duration": 210
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_067.mp3&h=5f347dec98f78fa46be3c2f7d0cff18b",
-      "filename": "Track_067.mp3",
-      "duration": 177
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_031.mp3&h=289522233884ce98aad83ad86f6ecb37",
-      "filename": "Track_031.mp3",
-      "duration": 156
-    },
-    {
-      "title": "Я Тобі Ісусе дякую",
-      "url": "https://kg-music.club/wp-content/uploads/2019/11/%D0%AF-%D0%A2%D0%BE%D0%B1%D1%96-%D0%86%D1%81%D1%83%D1%81%D0%B5-%D0%B4%D1%8F%D0%BA%D1%83%D1%8E-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-musicclub.mp3",
-      "group": "3. Группа \"Мелодия\"",
-      "duration": 210
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_044.mp3&h=60273b7686e18f9664b424c48a44843a",
-      "filename": "Track_044.mp3",
-      "duration": 135
-    },
-    {
-      "title": "Благо есть славить Господа",
-      "url": "https://holychords.pro/uploads/music/20221015/20221015224210.mp3",
-      "group": "4. Дети поют",
-      "duration": 220
-    },
-    {
-      "title": "Темнесенька нічка",
-      "url": "https://holychords.pro/storage/music/Cb4nBn6tA7Iq1fl2Cyxw7bPaKNQjSoBI5gphcsC7.mp3",
-      "group": "1. (Дитячий) Гурт Схід",
-      "duration": 237
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_019.mp3&h=c0106024978905025ea19415bd761d50",
-      "filename": "Track_019.mp3",
-      "duration": 135
-    },
-    {
-      "title": "Говори спасибо",
-      "url": "https://holychords.pro/uploads/music/20210810/20210810062700.mp3",
-      "group": "2. (Дитячий) Гурт Арфочки",
-      "duration": 180
-    },
-    {
-      "title": "Спит Спокойно Вифлеем",
-      "url": "https://holychords.pro/uploads/music/20201217/20201217202354.mp3",
-      "group": "4. Дети поют",
-      "duration": 211
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_160.mp3&h=5f44384519665650fc02610a22c4b801",
-      "filename": "Track_160.mp3",
-      "duration": 317
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_123.mp3&h=c3892d97efddf2694f3b1bea1208955a",
-      "filename": "Track_123.mp3",
-      "duration": 147
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_061.mp3&h=3f3a08ac91aff0cbac58444f9c3b3b94",
-      "filename": "Track_061.mp3",
-      "duration": 146
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_154.mp3&h=11c9d3c49b0bbe11854a466087c62078",
-      "filename": "Track_154.mp3",
-      "duration": 222
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_108.mp3&h=f76e8e220ea9cefbe522da46a6662624",
-      "filename": "Track_108.mp3",
-      "duration": 219
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_152.mp3&h=7bee0d9a22966131f553bf522be24b7b",
-      "filename": "Track_152.mp3",
-      "duration": 203
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_003.mp3&h=19cb1f2014302b23fa6e253066509a9d",
-      "filename": "Track_003.mp3",
-      "duration": 232
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_121.mp3&h=21f0a45139cae7b1b660c214b8379cad",
-      "filename": "Track_121.mp3",
-      "duration": 124
-    },
-    {
-      "title": "Ісус Ти найкращий друг",
-      "url": "https://kg-music.club/wp-content/uploads/2022/10/%D0%86%D1%81%D1%83%D1%81-%D0%A2%D0%B8-%D0%BD%D0%B0%D0%B9%D0%BA%D1%80%D0%B0%D1%89%D0%B8%D0%B9-%D0%B4%D1%80%D1%83%D0%B3-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
-      "group": "3. Группа \"Мелодия\"",
-      "duration": 220
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_076.mp3&h=740bd263fa6cc661632fc7f9f0b4204f",
-      "filename": "Track_076.mp3",
-      "duration": 186
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_083.mp3&h=f566a1bd7966a701a24544381d53dcbf",
-      "filename": "Track_083.mp3",
-      "duration": 217
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_065.mp3&h=f66c5b097e804405d2b890a87b24e996",
-      "filename": "Track_065.mp3",
-      "duration": 129
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_097.mp3&h=883fd754d13fae1813542b78cce30b37",
-      "filename": "Track_097.mp3",
-      "duration": 152
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_118.mp3&h=575dc5765f68a6affe817dfcab889075",
-      "filename": "Track_118.mp3",
-      "duration": 111
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_047.mp3&h=e111dee3f41658bb22aeab5bf69fa183",
-      "filename": "Track_047.mp3",
-      "duration": 157
-    },
-    {
-      "title": "С ранней зари",
-      "url": "https://kg-music.club/wp-content/uploads/2021/05/%D0%A1-%D1%80%D0%B0%D0%BD%D0%BD%D0%B5%D0%B9-%D0%B7%D0%B0%D1%80%D0%B8-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
-      "group": "3. Группа \"Мелодия\"",
-      "duration": 288
-    },
-    {
-      "title": "Дитячі пісні",
       "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_086.mp3&h=410ed7b078b10f088f35b6f35a52954c",
-      "filename": "Track_086.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "duration": 186
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_120.mp3&h=c11ded874991d47778a9697383f80374",
-      "filename": "Track_120.mp3",
-      "duration": 155
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_002.mp3&h=4e0d9075778ebada65040e3d0207caa0",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 204
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_098.mp3&h=f3ff07d3fc24cb9c4a22b29fdcda3409",
-      "filename": "Track_098.mp3",
-      "duration": 169
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_096.mp3&h=9135067ca86998b2f8c67e97e16fbaaf",
-      "filename": "Track_096.mp3",
-      "duration": 192
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_109.mp3&h=c2b9698274b1cf838ef915c7b223763d",
-      "filename": "Track_109.mp3",
-      "duration": 154
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_159.mp3&h=1349d25b47682be50dcb9d3eb99f5d5f",
-      "filename": "Track_159.mp3",
-      "duration": 208
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_110.mp3&h=e581ff6143513908e1e9ef886afcbcc5",
-      "filename": "Track_110.mp3",
-      "duration": 167
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_125.mp3&h=cda056d89e0ecf9cce049e1ca18666c5",
-      "filename": "Track_125.mp3",
-      "duration": 150
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_142.mp3&h=dc975e53626dcc76a5cfb7e14838ed44",
-      "filename": "Track_142.mp3",
-      "duration": 197
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_127.mp3&h=721ce040c5f4c4dad80f2ba7a9e78d8b",
-      "filename": "Track_127.mp3",
-      "duration": 229
-    },
-    {
-      "title": "Верить и любить",
-      "url": "https://holychords.pro/uploads/music/20191211/2019121111514599.mp3",
-      "group": "4. Дети Бога",
-      "duration": 195
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_005.mp3&h=86db227a99ccffecc831c49067cdfec5",
-      "filename": "Track_005.mp3",
-      "duration": 153
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_105.mp3&h=a19298908abec8e536945f9693e3e6df",
-      "filename": "Track_105.mp3",
-      "duration": 134
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_103.mp3&h=0f58ee611fcc0e600c6dedcb3f97e2d0",
-      "filename": "Track_103.mp3",
-      "duration": 219
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_015.mp3&h=ee5331e909045f5aaf9171dcd98bc671",
-      "filename": "Track_015.mp3",
-      "duration": 101
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_114.mp3&h=1653d45739b49d31dac907bf092d9649",
-      "filename": "Track_114.mp3",
-      "duration": 185
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_116.mp3&h=1b5fd2b40a667f17512bece873f05ba3",
-      "filename": "Track_116.mp3",
-      "duration": 111
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_041.mp3&h=6e2c946e03a33a64cdf75f7beb0d765b",
-      "filename": "Track_041.mp3",
-      "duration": 191
-    },
-    {
-      "title": "Было в комнате темно",
-      "url": "https://holychords.pro/storage/music/OjBUXeqT9ETTcx0lCqEW41O6YBLYdFdHwJuPt2q3.mp3",
-      "group": "4. Дети поют",
-      "duration": 155
-    },
-    {
-      "title": "Мій Бог - моє багатство",
-      "url": "https://holychords.pro/storage/music/yHS9hvSjNmMDkkHkUw9B47yHDdOtTmk6eRfKMlWS.mp3",
-      "group": "1. (Дитячий) Гурт Схід",
-      "duration": 260
-    },
-    {
-      "title": "Бог Ти сонце моє",
-      "url": "https://holychords.pro/uploads/music/20230426/20230426120058.mp3",
-      "group": "1. (Дитячий) Гурт Схід",
-      "duration": 245
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_144.mp3&h=1067bdbc2ec271bbea5fb00281099742",
-      "filename": "Track_144.mp3",
-      "duration": 221
-    },
-    {
-      "title": "Господь моя сила",
-      "url": "https://kg-music.club/wp-content/uploads/2020/10/%D0%93%D0%BE%D1%81%D0%BF%D0%BE%D0%B4%D1%8C-%D0%BC%D0%BE%D1%8F-%D1%81%D0%B8%D0%BB%D0%B0-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
-      "group": "3. Группа \"Мелодия\"",
-      "duration": 208
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_153.mp3&h=8ba931df2e16523d3723eedb32ccf95a",
-      "filename": "Track_153.mp3",
-      "duration": 261
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_010.mp3&h=43295fd9cd95c8978f0674bd6157a0c0",
-      "filename": "Track_010.mp3",
-      "duration": 129
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_066.mp3&h=ab62f5e26639813cb6a2f829c4c27710",
-      "filename": "Track_066.mp3",
-      "duration": 223
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_117.mp3&h=409efb4a59965f9e848a24ca734afdce",
-      "filename": "Track_117.mp3",
-      "duration": 156
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_055.mp3&h=090308709f5fc4c126dd588fd4b1579b",
-      "filename": "Track_055.mp3",
-      "duration": 166
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_122.mp3&h=3639c7d54a1d4e2fe9ca4a412963fc44",
-      "filename": "Track_122.mp3",
-      "duration": 190
-    },
-    {
-      "title": "Я Твоё дитя",
-      "url": "https://holychords.pro/uploads/music/20191016/2019101611062559.mp3",
-      "group": "4. Дети Бога",
-      "duration": 259
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_004.mp3&h=451098292666f688705ee787bdcc3298",
-      "filename": "Track_004.mp3",
-      "duration": 194
-    },
-    {
-      "title": "Ти підіймаєш",
-      "url": "https://kg-music.club/wp-content/uploads/2020/01/You-raise-me-up-Cover-Version-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
-      "group": "3. Группа \"Мелодия\"",
-      "duration": 206
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_069.mp3&h=cd2f4a7d96ec03774d2d60be22a6dd6a",
-      "filename": "Track_069.mp3",
-      "duration": 122
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_054.mp3&h=5b8e4d8ac3f44e0b58e0a7b0067bc357",
-      "filename": "Track_054.mp3",
-      "duration": 149
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_126.mp3&h=01be324a34cb16ccb0ebe78fe2855253",
-      "filename": "Track_126.mp3",
-      "duration": 151
-    },
-    {
-      "title": "Я і ти (feat. Маша Дегтярёва, Мелина Дегтярева, Тимофій Дегтярьов)",
-      "url": "https://holychords.pro/storage/music/zJOsYaVsnDqBCiyWPTRYuyG5kCno1rKWeJemN23V.mp3",
-      "group": "4. Дети поют",
-      "duration": 195
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_008.mp3&h=51d3edfad74ab2a90e14036785a9b163",
-      "filename": "Track_008.mp3",
-      "duration": 152
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_099.mp3&h=201026b3f03bc9a01d0a8cab902ddf66",
-      "filename": "Track_099.mp3",
-      "duration": 212
-    },
-    {
-      "title": "Рождественское попури 2",
-      "url": "https://holychords.pro/uploads/music/20211204/20211204215452.mp3",
-      "group": "2. (Дитячий) Гурт Арфочки",
-      "duration": 555
-    },
-    {
-      "title": "Пусть земля вся утверждает",
-      "url": "https://kg-music.club/wp-content/uploads/2021/04/%D0%9F%D1%83%D1%81%D1%82%D1%8C-%D0%B7%D0%B5%D0%BC%D0%BB%D1%8F-%D0%B2%D1%81%D1%8F-%D1%83%D1%82%D0%B2%D0%B5%D1%80%D0%B6%D0%B4%D0%B0%D0%B5%D1%82-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-%D0%91%D1%80%D0%B0%D1%82%D1%8C%D1%8F-kg-music.club_.mp3",
-      "group": "3. Группа \"Мелодия\"",
-      "duration": 243
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_033.mp3&h=37f30c0185abf294d8f7c727735a3ac4",
-      "filename": "Track_033.mp3",
-      "duration": 264
-    },
-    {
-      "title": "Раскаж об Исусе",
-      "url": "https://holychords.pro/storage/music/gTQSDO43B4Z14a40A5FQbf7boXaCKMul58cNhkvq.mp3",
-      "group": "1. (Дитячий) Гурт Схід",
-      "duration": 261
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_130.mp3&h=3770cc95b55b0fc4327464aa56146404",
-      "filename": "Track_130.mp3",
-      "duration": 159
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_084.mp3&h=7405bb9e3b765066405be1b6a1dd3405",
-      "filename": "Track_084.mp3",
-      "duration": 183
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_001.mp3&h=37eee6065ad26e3833ff87fb007eb83c",
-      "filename": "Track_001.mp3",
-      "duration": 145
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_113.mp3&h=d4848d2140a96d60cad57e91553d44a9",
-      "filename": "Track_113.mp3",
-      "duration": 175
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_115.mp3&h=e47b52903bdd21475933674a47416db3",
-      "filename": "Track_115.mp3",
-      "duration": 144
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_124.mp3&h=cd2174cd4fadc1ec5bebfba1fbd013d3",
-      "filename": "Track_124.mp3",
-      "duration": 97
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_079.mp3&h=3032f5d845dc2d1a2be29c82a9bc516d",
-      "filename": "Track_079.mp3",
-      "duration": 216
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_032.mp3&h=fb196db123a4ed1e60a61a4ef63fd29f",
-      "filename": "Track_032.mp3",
-      "duration": 125
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_048.mp3&h=780cc5d4ec5dd9fd4de77d5458a185bd",
-      "filename": "Track_048.mp3",
-      "duration": 219
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_091.mp3&h=5549a79901c74376317f8b5edee10be0",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 177
     },
     {
       "title": "Что такое любовь",
@@ -770,87 +824,27 @@
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_131.mp3&h=0f3aee3c3ee19233fa2921ece146f69a",
-      "filename": "Track_131.mp3",
-      "duration": 182
-    },
-    {
-      "title": "Молись",
-      "url": "https://kg-music.club/wp-content/uploads/2021/10/%D0%9C%D0%BE%D0%BB%D0%B8%D1%81%D1%8C-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
-      "group": "3. Группа \"Мелодия\"",
-      "duration": 253
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_114.mp3&h=1653d45739b49d31dac907bf092d9649",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 185
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_016.mp3&h=2e02989f46d11364ee032c5423283d67",
-      "filename": "Track_016.mp3",
-      "duration": 141
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_073.mp3&h=32b06cee69d00fd070f80188abd7f7bd",
-      "filename": "Track_073.mp3",
-      "duration": 129
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_011.mp3&h=585247851747548deb1d835c76bab862",
-      "filename": "Track_011.mp3",
-      "duration": 120
-    },
-    {
-      "title": "Рождество",
-      "url": "https://holychords.pro/uploads/music/20191016/201910161357114.mp3",
-      "group": "4. Дети Бога",
-      "duration": 160
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_024.mp3&h=37e8a058e756a2893a1d02ca3fabc672",
-      "filename": "Track_024.mp3",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_076.mp3&h=740bd263fa6cc661632fc7f9f0b4204f",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "duration": 186
     },
     {
-      "title": "Чудо воскресения",
-      "url": "https://holychords.pro/uploads/music/20211119/20211119231520.mp3",
-      "group": "4. Дети поют",
-      "duration": 202
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_023.mp3&h=d9f4d14b6d158ee5e77ac3651d803c4f",
-      "filename": "Track_023.mp3",
-      "duration": 103
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_036.mp3&h=2345e7188bbcfe41880624b9051d946a",
-      "filename": "Track_036.mp3",
-      "duration": 136
-    },
-    {
-      "title": "А на Різдво",
-      "url": "https://holychords.pro/storage/music/uW9Pqs8LIuqh9B0MyztigjkEPG6fpKYLiH4FVV13.mp3",
+      "title": "Раскаж об Исусе",
+      "url": "https://holychords.pro/storage/music/gTQSDO43B4Z14a40A5FQbf7boXaCKMul58cNhkvq.mp3",
       "group": "1. (Дитячий) Гурт Схід",
-      "duration": 183
-    },
-    {
-      "title": "Спішу до Тебе дні і ночі",
-      "url": "https://holychords.pro/storage/music/nZvFxMcpR2XWG9AdKIvCP1GW4r4YUYedotP3xUWh.mp3",
-      "group": "2. (Дитячий) Гурт Арфочки",
-      "duration": 271
+      "duration": 261
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_136.mp3&h=843fe26c732aa4637829c34a4266b81c",
-      "filename": "Track_136.mp3",
-      "duration": 180
-    },
-    {
-      "title": "Аллилуйя",
-      "url": "https://holychords.pro/uploads/music/20191016/2019101613211656.mp3",
-      "group": "4. Дети Бога",
-      "duration": 224
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_020.mp3&h=576848a39f41b472a1e2133eeff313eb",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 125
     },
     {
       "title": "Когда мы вместе мы сильны!",
@@ -860,237 +854,63 @@
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_020.mp3&h=576848a39f41b472a1e2133eeff313eb",
-      "filename": "Track_020.mp3",
-      "duration": 125
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_068.mp3&h=ef01bdc458e095a09b737a3014158e22",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 222
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_129.mp3&h=ef7b1d8e9e49a90997c8657f7c641cd6",
-      "filename": "Track_129.mp3",
-      "duration": 169
-    },
-    {
-      "title": "Поёт моё сердце",
-      "url": "https://kg-music.club/wp-content/uploads/2019/10/%D0%9F%D0%BE%D1%91%D1%82-%D0%BC%D0%BE%D1%91-%D1%81%D0%B5%D1%80%D0%B4%D1%86%D0%B5-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
-      "group": "3. Группа \"Мелодия\"",
-      "duration": 271
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_033.mp3&h=37f30c0185abf294d8f7c727735a3ac4",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 264
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_057.mp3&h=2c6ca158cbe857fc39fa4d165fd244cc",
-      "filename": "Track_057.mp3",
-      "duration": 154
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_139.mp3&h=8115e1218ce142f2aa7b4a2ee169640e",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 160
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_143.mp3&h=eab73a2060d16b624d69a253ce775bbb",
-      "filename": "Track_143.mp3",
-      "duration": 211
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_154.mp3&h=11c9d3c49b0bbe11854a466087c62078",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 222
+    },
+    {
+      "title": "Чудо воскресения",
+      "url": "https://holychords.pro/uploads/music/20211119/20211119231520.mp3",
+      "group": "4. Дети поют",
+      "duration": 202
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_149.mp3&h=25c3ee3a1278120a9def650810e093cb",
-      "filename": "Track_149.mp3",
-      "duration": 220
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_046.mp3&h=3170c2c9a22ada376bab24afbe05723c",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 200
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_064.mp3&h=6c19380a1b41b12b1f198eef0ffe7691",
-      "filename": "Track_064.mp3",
-      "duration": 231
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_151.mp3&h=03cf12428e04024a7fb1a41e2a536dde",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 218
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_094.mp3&h=d68ccc4c35676d10ce779bf68c792925",
-      "filename": "Track_094.mp3",
-      "duration": 152
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_152.mp3&h=7bee0d9a22966131f553bf522be24b7b",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 203
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_093.mp3&h=2705b65a6ad2c0e07a6f313bf2618855",
-      "filename": "Track_093.mp3",
-      "duration": 223
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_029.mp3&h=966d8b7c0cd2545acceb595057ef5569",
-      "filename": "Track_029.mp3",
-      "duration": 187
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_132.mp3&h=cb4226481b047104cee763bea66299f9",
-      "filename": "Track_132.mp3",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_039.mp3&h=564c449fbe80c06767765829a73a7e8d",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "duration": 190
     },
     {
       "title": "Дитячі пісні",
       "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_038.mp3&h=19c272f30da4b961733bc33ff61780f6",
-      "filename": "Track_038.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "duration": 215
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_157.mp3&h=fd32645f0f91f6280049e4a9dbf52ae8",
-      "filename": "Track_157.mp3",
-      "duration": 149
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_062.mp3&h=5543cc4f8a9bda8729bb3cce4cbdb142",
-      "filename": "Track_062.mp3",
-      "duration": 202
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_128.mp3&h=e478bc6fae5646c6aba9dfc5cbf1ab8f",
-      "filename": "Track_128.mp3",
-      "duration": 177
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_091.mp3&h=5549a79901c74376317f8b5edee10be0",
-      "filename": "Track_091.mp3",
-      "duration": 177
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_007.mp3&h=97e7c0b3eeab06567fc7c335e252497f",
-      "filename": "Track_007.mp3",
-      "duration": 211
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_135.mp3&h=72a84e86f7a9fe8e277bd9be438633e6",
-      "filename": "Track_135.mp3",
-      "duration": 216
-    },
-    {
-      "title": "Мы будемо відпочивати",
-      "url": "https://holychords.pro/uploads/music/20211021/20211021084001.mp3",
-      "group": "2. (Дитячий) Гурт Арфочки",
-      "duration": 242
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_068.mp3&h=ef01bdc458e095a09b737a3014158e22",
-      "filename": "Track_068.mp3",
-      "duration": 222
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_107.mp3&h=88d971fd146adefd5c5d5c6962f5e670",
-      "filename": "Track_107.mp3",
-      "duration": 253
-    },
-    {
-      "title": "Свеча",
-      "url": "https://kg-music.club/wp-content/uploads/2019/10/%D0%A1%D0%B2%D0%B5%D1%87%D0%B0-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.mp3",
-      "group": "3. Группа \"Мелодия\"",
-      "duration": 265
-    },
-    {
-      "title": "Без Тебя",
-      "url": "https://holychords.pro/storage/music/iCCae2rscZ5dNlYyLFCvKU5GW49h04gUOh1rXKaI.mp3",
-      "group": "2. (Дитячий) Гурт Арфочки",
-      "duration": 281
-    },
-    {
-      "title": "Тобі я дякую",
-      "url": "https://kg-music.club/wp-content/uploads/2019/10/%D0%A2%D0%BE%D0%B1%D1%96-%D1%8F-%D0%B4%D1%8F%D0%BA%D1%83%D1%8E-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.mp3",
-      "group": "3. Группа \"Мелодия\"",
-      "duration": 211
-    },
-    {
-      "title": "Возликуйте, Божьи дети",
-      "url": "https://holychords.pro/uploads/music/20211119/20211119231339.mp3",
-      "group": "4. Дети поют",
-      "duration": 181
-    },
-    {
-      "title": "Ты подаруй",
-      "url": "https://holychords.pro/storage/music/wSbti8dFwhwrijyeTHc0bkKcCir4FVudbbeRnBdy.mp3",
-      "group": "2. (Дитячий) Гурт Арфочки",
-      "duration": 268
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_074.mp3&h=74c9e5dd5b2e6a62d6cfeb979d8b17f7",
-      "filename": "Track_074.mp3",
-      "duration": 140
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_072.mp3&h=fc9d5f4fc4ecb7581e3624c9052c7485",
-      "filename": "Track_072.mp3",
-      "duration": 188
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_053.mp3&h=2cadbcdf7042310f43ccddf8edd6e6e3",
-      "filename": "Track_053.mp3",
-      "duration": 134
-    },
-    {
-      "title": "Услыш",
-      "url": "https://holychords.pro/storage/music/V6hWZ7Irz22fTvigvBJNbKApl5G0vsc6cxL0PFLB.mp3",
-      "group": "2. (Дитячий) Гурт Арфочки",
-      "duration": 355
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_139.mp3&h=8115e1218ce142f2aa7b4a2ee169640e",
-      "filename": "Track_139.mp3",
-      "duration": 160
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_002.mp3&h=4e0d9075778ebada65040e3d0207caa0",
-      "filename": "Track_002.mp3",
-      "duration": 204
-    },
-    {
-      "title": "Сьогодні Різдво",
-      "url": "https://holychords.pro/storage/music/T3WrbLOGyKJMtQK2gHbIO9d0yHmK5DVPS1aLIz9L.mp3",
-      "group": "4. Дети поют",
-      "duration": 239
-    },
-    {
-      "title": "Співає Богу небо",
-      "url": "https://holychords.pro/storage/music/g3hXgJorfx6kJGALa1s8H4wZs19zC1OkkYrpU8po.mp3",
-      "group": "2. (Дитячий) Гурт Арфочки",
-      "duration": 231
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_071.mp3&h=3d9ba490ea982415351624eaba2850e7",
-      "filename": "Track_071.mp3",
-      "duration": 107
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_042.mp3&h=4719c74cefd2e110130cf457ad19f7cf",
-      "filename": "Track_042.mp3",
-      "duration": 255
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_077.mp3&h=97269d502e1e82542c536e3a722ac2f9",
-      "filename": "Track_077.mp3",
-      "duration": 241
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_045.mp3&h=d6b1074a6e4cd62e11fd9f9fafc13a9f",
-      "filename": "Track_045.mp3",
-      "duration": 277
-    },
-    {
-      "title": "Він моє життя",
-      "url": "https://kg-music.club/wp-content/uploads/2023/09/vin-moe-zhittya-gurt-melodiya-kg-music.club_.mp3",
-      "group": "3. Группа \"Мелодия\"",
-      "duration": 262
     },
     {
       "title": "Ванесса Андрощук, Гурт Арфочки, Лиш с тобою Господь",
@@ -1100,225 +920,147 @@
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_052.mp3&h=5515a918b64fd9aa11a4d45a17202819",
-      "filename": "Track_052.mp3",
-      "duration": 212
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_107.mp3&h=88d971fd146adefd5c5d5c6962f5e670",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 253
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_025.mp3&h=ed7c00e72512ad174a31bc4ca833e477",
-      "filename": "Track_025.mp3",
-      "duration": 206
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_015.mp3&h=ee5331e909045f5aaf9171dcd98bc671",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 101
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_151.mp3&h=03cf12428e04024a7fb1a41e2a536dde",
-      "filename": "Track_151.mp3",
-      "duration": 218
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_096.mp3&h=9135067ca86998b2f8c67e97e16fbaaf",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 192
+    },
+    {
+      "title": "Я і ти (feat. Маша Дегтярёва, Мелина Дегтярева, Тимофій Дегтярьов)",
+      "url": "https://holychords.pro/storage/music/zJOsYaVsnDqBCiyWPTRYuyG5kCno1rKWeJemN23V.mp3",
+      "group": "4. Дети поют",
+      "duration": 195
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_145.mp3&h=63e342afb4c0602878fbe4b31f8fdb44",
-      "filename": "Track_145.mp3",
-      "duration": 166
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_092.mp3&h=dc76afd3ac473a7f8548ed74c5592624",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 146
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_026.mp3&h=a8f7c14f7510ed0db2932d50f96848b9",
-      "filename": "Track_026.mp3",
-      "duration": 194
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_115.mp3&h=e47b52903bdd21475933674a47416db3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 144
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_087.mp3&h=7609b29c98deefbf55cb27ec560a8251",
-      "filename": "Track_087.mp3",
-      "duration": 127
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_022.mp3&h=d611865da013986c7aa042f62f826829",
-      "filename": "Track_022.mp3",
-      "duration": 133
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_156.mp3&h=112b60900d101d9c3e7f1265bda4892e",
-      "filename": "Track_156.mp3",
-      "duration": 237
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_043.mp3&h=dcd007fc580ce70b2d959e23e35b1599",
-      "filename": "Track_043.mp3",
-      "duration": 227
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_034.mp3&h=6d67071305bd2cb3d3d891d40fa89c45",
-      "filename": "Track_034.mp3",
-      "duration": 166
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_142.mp3&h=dc975e53626dcc76a5cfb7e14838ed44",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 197
     },
     {
       "title": "Дитячі пісні",
       "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_150.mp3&h=10a32b906be3d741ba90695c8d94b648",
-      "filename": "Track_150.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "duration": 214
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_006.mp3&h=16889914a2b038097a12dbe218dfb0f0",
-      "filename": "Track_006.mp3",
-      "duration": 203
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_075.mp3&h=51bb4d2c47c38d02ab2789b626c022c2",
-      "filename": "Track_075.mp3",
-      "duration": 158
-    },
-    {
-      "title": "Я молюся за тебе моя україно",
-      "url": "https://holychords.pro/uploads/music/20220304/20220304125733.mp3",
-      "group": "3. Группа \"Мелодия\"",
-      "duration": 236
-    },
-    {
-      "title": "Мама моя люба",
-      "url": "https://holychords.pro/uploads/music/20230506/20230506204259.mp3",
-      "group": "1. (Дитячий) Гурт Схід",
-      "duration": 279
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_102.mp3&h=70961233337039be431e2e8d087d1cd3",
-      "filename": "Track_102.mp3",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_145.mp3&h=63e342afb4c0602878fbe4b31f8fdb44",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "duration": 166
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_039.mp3&h=564c449fbe80c06767765829a73a7e8d",
-      "filename": "Track_039.mp3",
-      "duration": 190
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_043.mp3&h=dcd007fc580ce70b2d959e23e35b1599",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 227
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_134.mp3&h=e4974c4f04ba24a5419ae7c9e35b0a4f",
-      "filename": "Track_134.mp3",
-      "duration": 193
-    },
-    {
-      "title": "Ты рядом",
-      "url": "https://holychords.pro/uploads/music/20220708/20220708122903.mp3",
-      "group": "2. (Дитячий) Гурт Арфочки",
-      "duration": 261
-    },
-    {
-      "title": "Радость моя",
-      "url": "https://holychords.pro/storage/music/0HBJZcmKSKdiJjX3pAOVPFjibJ3GE37dugFMIq2D.mp3",
-      "group": "4. Дети поют",
-      "duration": 274
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_128.mp3&h=e478bc6fae5646c6aba9dfc5cbf1ab8f",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 177
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_112.mp3&h=c1a7c0f01ed1c3a5960a42a7bd8a78f0",
-      "filename": "Track_112.mp3",
-      "duration": 186
-    },
-    {
-      "title": "Рождественское попури 3",
-      "url": "https://holychords.pro/uploads/music/20221212/20221212021548.mp3",
-      "group": "2. (Дитячий) Гурт Арфочки",
-      "duration": 617
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_127.mp3&h=721ce040c5f4c4dad80f2ba7a9e78d8b",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 229
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_140.mp3&h=66c7fd21d09b8b9c9d111aad3de6427e",
-      "filename": "Track_140.mp3",
-      "duration": 158
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_065.mp3&h=f66c5b097e804405d2b890a87b24e996",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 129
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_028.mp3&h=08e97b9036f42f4908a273e91167c357",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 199
+    },
+    {
+      "title": "Я Твоё дитя",
+      "url": "https://holychords.pro/uploads/music/20191016/2019101611062559.mp3",
+      "group": "4. Дети Бога",
+      "duration": 259
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_131.mp3&h=0f3aee3c3ee19233fa2921ece146f69a",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 182
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_087.mp3&h=7609b29c98deefbf55cb27ec560a8251",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 127
     },
     {
       "title": "Дитячі пісні",
       "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_133.mp3&h=990db35f2bb0df3cd9a8d9861c793a1a",
-      "filename": "Track_133.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "duration": 167
     },
     {
-      "title": "Слава Тобі, слава",
-      "url": "https://holychords.pro/uploads/music/20221118/20221118152353.mp3",
-      "group": "1. (Дитячий) Гурт Схід",
-      "duration": 212
+      "title": "Спит Спокойно Вифлеем",
+      "url": "https://holychords.pro/uploads/music/20201217/20201217202354.mp3",
+      "group": "4. Дети поют",
+      "duration": 211
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_080.mp3&h=cf4daf405a3938025e5fc1d642cd1a70",
-      "filename": "Track_080.mp3",
-      "duration": 244
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_075.mp3&h=51bb4d2c47c38d02ab2789b626c022c2",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 158
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_158.mp3&h=d8a2db20eb5050b1f7ab4dcaf4c85bf1",
-      "filename": "Track_158.mp3",
-      "duration": 220
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_073.mp3&h=32b06cee69d00fd070f80188abd7f7bd",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 129
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_050.mp3&h=6284f26b0bb1b47b6713cb606d8f3472",
-      "filename": "Track_050.mp3",
-      "duration": 181
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_069.mp3&h=cd2f4a7d96ec03774d2d60be22a6dd6a",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 122
     },
     {
-      "title": "Єрушалам Богу святому",
-      "url": "https://holychords.pro/storage/music/REPHie5wCgBZmpWAzgScrRY5JvK3VJhcp1pMpYvz.mp3",
-      "group": "1. (Дитячий) Гурт Схід",
-      "duration": 370
-    },
-    {
-      "title": "Пусть молитва моя",
-      "url": "https://holychords.pro/uploads/music/20230514/20230514163633.mp3",
-      "group": "2. (Дитячий) Гурт Арфочки",
-      "duration": 230
+      "title": "Сьогодні Різдво",
+      "url": "https://holychords.pro/storage/music/T3WrbLOGyKJMtQK2gHbIO9d0yHmK5DVPS1aLIz9L.mp3",
+      "group": "4. Дети поют",
+      "duration": 239
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_104.mp3&h=96d5eef0cf233c09ee0aa2afafb66a10",
-      "filename": "Track_104.mp3",
-      "duration": 196
-    },
-    {
-      "title": "Всё что мне надо",
-      "url": "https://holychords.pro/uploads/music/20210128/20210128181221.mp3",
-      "group": "4. Дети Бога",
-      "duration": 354
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_137.mp3&h=b56e20e7bb7ce7c9ead8abfe50604254",
-      "filename": "Track_137.mp3",
-      "duration": 200
-    },
-    {
-      "title": "Ангелы в небе",
-      "url": "https://holychords.pro/storage/music/DuZTAubz4z5idxtkp9xArrt8eoSeKcU3dlrXwvTM.mp3",
-      "group": "1. (Дитячий) Гурт Схід",
-      "duration": 245
-    },
-    {
-      "title": "Бо Любов",
-      "url": "https://kg-music.club/wp-content/uploads/2020/12/%D0%91%D0%BE-%D0%9B%D1%8E%D0%B1%D0%BE%D0%B2-%D0%93%D1%83%D1%80%D1%82-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D1%96%D1%8F-kg-music.club_.mp3",
-      "group": "3. Группа \"Мелодия\"",
-      "duration": 279
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_090.mp3&h=ba22031da77e6585c07fb84479d3112b",
-      "filename": "Track_090.mp3",
-      "duration": 155
-    },
-    {
-      "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_147.mp3&h=c5034916bce9328d08831f4a0a27389a",
-      "filename": "Track_147.mp3",
-      "duration": 238
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_082.mp3&h=506272ea8a7e25ac2e20f61bec876295",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 167
     },
     {
       "title": "Я буду петь Тебе",
@@ -1328,9 +1070,267 @@
     },
     {
       "title": "Дитячі пісні",
-      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_095.mp3&h=6998955d3cb86443c6d4a06d27397323",
-      "filename": "Track_095.mp3",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_027.mp3&h=5d651f4b935d27c44def75ae4fd8b96e",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 195
+    },
+    {
+      "title": "Благо есть славить Господа",
+      "url": "https://holychords.pro/uploads/music/20221015/20221015224210.mp3",
+      "group": "4. Дети поют",
+      "duration": 220
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_110.mp3&h=e581ff6143513908e1e9ef886afcbcc5",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 167
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_036.mp3&h=2345e7188bbcfe41880624b9051d946a",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 136
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_074.mp3&h=74c9e5dd5b2e6a62d6cfeb979d8b17f7",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 140
+    },
+    {
+      "title": "Мій Бог - моє багатство",
+      "url": "https://holychords.pro/storage/music/yHS9hvSjNmMDkkHkUw9B47yHDdOtTmk6eRfKMlWS.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "duration": 260
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_153.mp3&h=8ba931df2e16523d3723eedb32ccf95a",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 261
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_057.mp3&h=2c6ca158cbe857fc39fa4d165fd244cc",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 154
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_156.mp3&h=112b60900d101d9c3e7f1265bda4892e",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 237
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_034.mp3&h=6d67071305bd2cb3d3d891d40fa89c45",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 166
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_052.mp3&h=5515a918b64fd9aa11a4d45a17202819",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 212
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_097.mp3&h=883fd754d13fae1813542b78cce30b37",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 152
+    },
+    {
+      "title": "Дайте мені крила",
+      "url": "https://kg-music.club/wp-content/uploads/2023/09/dayte-meni-krila-gurt-melodiya-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "duration": 245
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_137.mp3&h=b56e20e7bb7ce7c9ead8abfe50604254",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 200
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_094.mp3&h=d68ccc4c35676d10ce779bf68c792925",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 152
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_037.mp3&h=93dc1276f0da6e29ad5580c4ad64d2d7",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 210
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_001.mp3&h=37eee6065ad26e3833ff87fb007eb83c",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 145
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_100.mp3&h=e2809b907b9d419d53b8f2f208caca4d",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 184
+    },
+    {
+      "title": "Він моє життя",
+      "url": "https://kg-music.club/wp-content/uploads/2023/09/vin-moe-zhittya-gurt-melodiya-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "duration": 262
+    },
+    {
+      "title": "Бог Ти сонце моє",
+      "url": "https://holychords.pro/uploads/music/20230426/20230426120058.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "duration": 245
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_014.mp3&h=1e11a253fdc258f2887f85e148ec3722",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 188
+    },
+    {
+      "title": "Верить и любить",
+      "url": "https://holychords.pro/uploads/music/20191211/2019121111514599.mp3",
+      "group": "4. Дети Бога",
+      "duration": 195
+    },
+    {
+      "title": "Рождественское попури 2",
+      "url": "https://holychords.pro/uploads/music/20211204/20211204215452.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "duration": 555
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_064.mp3&h=6c19380a1b41b12b1f198eef0ffe7691",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 231
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_108.mp3&h=f76e8e220ea9cefbe522da46a6662624",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 219
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_083.mp3&h=f566a1bd7966a701a24544381d53dcbf",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 217
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_007.mp3&h=97e7c0b3eeab06567fc7c335e252497f",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 211
+    },
+    {
+      "title": "Свеча",
+      "url": "https://kg-music.club/wp-content/uploads/2019/10/%D0%A1%D0%B2%D0%B5%D1%87%D0%B0-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "duration": 265
+    },
+    {
+      "title": "Темнесенька нічка",
+      "url": "https://holychords.pro/storage/music/Cb4nBn6tA7Iq1fl2Cyxw7bPaKNQjSoBI5gphcsC7.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "duration": 237
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_056.mp3&h=9d721f3f7789e3ae4df9d686d94f78c8",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 239
+    },
+    {
+      "title": "Мама моя люба",
+      "url": "https://holychords.pro/uploads/music/20230506/20230506204259.mp3",
+      "group": "1. (Дитячий) Гурт Схід",
+      "duration": 279
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_053.mp3&h=2cadbcdf7042310f43ccddf8edd6e6e3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 134
+    },
+    {
+      "title": "Співає Богу небо",
+      "url": "https://holychords.pro/storage/music/g3hXgJorfx6kJGALa1s8H4wZs19zC1OkkYrpU8po.mp3",
+      "group": "2. (Дитячий) Гурт Арфочки",
+      "duration": 231
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_061.mp3&h=3f3a08ac91aff0cbac58444f9c3b3b94",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 146
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_012.mp3&h=04cd0b42bbbe28bad44549da2e3a7fcf",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "duration": 189
+    },
+    {
+      "title": "Господь моя сила",
+      "url": "https://kg-music.club/wp-content/uploads/2020/10/%D0%93%D0%BE%D1%81%D0%BF%D0%BE%D0%B4%D1%8C-%D0%BC%D0%BE%D1%8F-%D1%81%D0%B8%D0%BB%D0%B0-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "duration": 208
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_067.mp3&h=5f347dec98f78fa46be3c2f7d0cff18b",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 177
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_106.mp3&h=4761afe5479990a1cc2bce07d5b84847",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 165
+    },
+    {
+      "title": "Я молюся за тебе моя україно",
+      "url": "https://holychords.pro/uploads/music/20220304/20220304125733.mp3",
+      "group": "3. Группа \"Мелодия\"",
+      "duration": 236
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_119.mp3&h=3b2c7821ec4c6f634abd7f63688c5b67",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 123
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_121.mp3&h=21f0a45139cae7b1b660c214b8379cad",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 124
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_099.mp3&h=201026b3f03bc9a01d0a8cab902ddf66",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 212
+    },
+    {
+      "title": "Дитячі пісні",
+      "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_143.mp3&h=eab73a2060d16b624d69a253ce775bbb",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
+      "duration": 211
+    },
+    {
+      "title": "Ты моя Защита",
+      "url": "https://holychords.pro/uploads/music/20191016/2019101613144981.mp3",
+      "group": "4. Дети Бога",
+      "duration": 245
     }
   ]
 }
