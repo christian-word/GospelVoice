@@ -1,10 +1,17 @@
 {
-  "generatedAt": "2025-04-26T07:15:00+03:00",
+  "generatedAt": "2025-04-26T04:15:00+03:00",
   "settings": {
     "repetition": true,
     "pauseBetweenTracks": 0
   },
   "playlist": [
+    {
+      "title": "День Різдва",
+      "group": "Дитячі мрії",
+      "duration": 295,
+      "url": "https://holychords.pro/uploads/music/20200701/20200701164515_26_36.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png"
+    },
     {
       "title": "Лучи рассвета: Даль чиста",
       "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_004.mp3&h=451098292666f688705ee787bdcc3298",
@@ -29,6 +36,7 @@
     {
       "title": "Свеча",
       "url": "https://kg-music.club/wp-content/uploads/2019/10/%D0%A1%D0%B2%D0%B5%D1%87%D0%B0-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "3. Группа \"Мелодия\"",
       "duration": 265
     },
@@ -49,12 +57,14 @@
     {
       "title": "Благо есть славить Господа",
       "url": "https://holychords.pro/uploads/music/20221015/20221015224210.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "4. Дети поют",
       "duration": 220
     },
     {
       "title": "Молись",
       "url": "https://kg-music.club/wp-content/uploads/2021/10/%D0%9C%D0%BE%D0%BB%D0%B8%D1%81%D1%8C-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "3. Группа \"Мелодия\"",
       "duration": 253
     },
@@ -75,6 +85,7 @@
     {
       "title": "А на Різдво",
       "url": "https://holychords.pro/storage/music/uW9Pqs8LIuqh9B0MyztigjkEPG6fpKYLiH4FVV13.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "1. (Дитячий) Гурт Схід",
       "duration": 183
     },
@@ -130,24 +141,28 @@
     {
       "title": "Аллилуйя",
       "url": "https://holychords.pro/uploads/music/20191016/2019101613211656.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "4. Дети Бога",
       "duration": 224
     },
     {
       "title": "Нежный голос",
       "url": "https://kg-music.club/wp-content/uploads/2019/10/%D0%9D%D0%B5%D0%B6%D0%BD%D1%8B%D0%B9-%D0%B3%D0%BE%D0%BB%D0%BE%D1%81-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "3. Группа \"Мелодия\"",
       "duration": 254
     },
     {
       "title": "Верить и любить",
       "url": "https://holychords.pro/uploads/music/20191211/2019121111514599.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "4. Дети Бога",
       "duration": 195
     },
     {
       "title": "Прекрасен этот мир",
       "url": "https://holychords.pro/storage/music/snOdpcLtJaWqFpGEvKXwRJ8GvwSZ8TJoP0xbXnel.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "1. (Дитячий) Гурт Схід",
       "duration": 320
     },
@@ -182,12 +197,14 @@
     {
       "title": "Мій Бог - моє багатство",
       "url": "https://holychords.pro/storage/music/yHS9hvSjNmMDkkHkUw9B47yHDdOtTmk6eRfKMlWS.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "1. (Дитячий) Гурт Схід",
       "duration": 260
     },
     {
       "title": "Ты моя Защита",
       "url": "https://holychords.pro/uploads/music/20191016/2019101613144981.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "4. Дети Бога",
       "duration": 245
     },
@@ -222,6 +239,7 @@
     {
       "title": "Раскаж об Исусе",
       "url": "https://holychords.pro/storage/music/gTQSDO43B4Z14a40A5FQbf7boXaCKMul58cNhkvq.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "1. (Дитячий) Гурт Схід",
       "duration": 261
     },
@@ -249,6 +267,7 @@
     {
       "title": "Ванесса Андрощук, Гурт Арфочки, Лиш с тобою Господь",
       "url": "https://holychords.pro/uploads/music/20200228/2020022810290083.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "2. (Дитячий) Гурт Арфочки",
       "duration": 227
     },
@@ -262,6 +281,7 @@
     {
       "title": "Ісус Ти найкращий друг",
       "url": "https://kg-music.club/wp-content/uploads/2022/10/%D0%86%D1%81%D1%83%D1%81-%D0%A2%D0%B8-%D0%BD%D0%B0%D0%B9%D0%BA%D1%80%D0%B0%D1%89%D0%B8%D0%B9-%D0%B4%D1%80%D1%83%D0%B3-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "3. Группа \"Мелодия\"",
       "duration": 220
     },
@@ -275,6 +295,7 @@
     {
       "title": "Він моє життя",
       "url": "https://kg-music.club/wp-content/uploads/2023/09/vin-moe-zhittya-gurt-melodiya-kg-music.club_.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "3. Группа \"Мелодия\"",
       "duration": 262
     },
@@ -288,6 +309,7 @@
     {
       "title": "Было в комнате темно",
       "url": "https://holychords.pro/storage/music/OjBUXeqT9ETTcx0lCqEW41O6YBLYdFdHwJuPt2q3.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "4. Дети поют",
       "duration": 155
     },
@@ -322,12 +344,14 @@
     {
       "title": "Говори спасибо",
       "url": "https://holychords.pro/uploads/music/20210810/20210810062700.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "2. (Дитячий) Гурт Арфочки",
       "duration": 180
     },
     {
       "title": "Спит Спокойно Вифлеем",
       "url": "https://holychords.pro/uploads/music/20201217/20201217202354.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "4. Дети поют",
       "duration": 211
     },
@@ -355,24 +379,28 @@
     {
       "title": "Поёт моё сердце",
       "url": "https://kg-music.club/wp-content/uploads/2019/10/%D0%9F%D0%BE%D1%91%D1%82-%D0%BC%D0%BE%D1%91-%D1%81%D0%B5%D1%80%D0%B4%D1%86%D0%B5-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "3. Группа \"Мелодия\"",
       "duration": 271
     },
     {
       "title": "Сьогодні Різдво",
       "url": "https://holychords.pro/storage/music/T3WrbLOGyKJMtQK2gHbIO9d0yHmK5DVPS1aLIz9L.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "4. Дети поют",
       "duration": 239
     },
     {
       "title": "Чудо воскресения",
       "url": "https://holychords.pro/uploads/music/20211119/20211119231520.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "4. Дети поют",
       "duration": 202
     },
     {
       "title": "Возликуйте, Божьи дети",
       "url": "https://holychords.pro/uploads/music/20211119/20211119231339.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "4. Дети поют",
       "duration": 181
     },
@@ -386,6 +414,7 @@
     {
       "title": "Ти підіймаєш",
       "url": "https://kg-music.club/wp-content/uploads/2020/01/You-raise-me-up-Cover-Version-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "3. Группа \"Мелодия\"",
       "duration": 206
     },
@@ -420,6 +449,7 @@
     {
       "title": "Рождество",
       "url": "https://holychords.pro/uploads/music/20191016/201910161357114.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "4. Дети Бога",
       "duration": 160
     },
@@ -433,6 +463,7 @@
     {
       "title": "Я Твоё дитя",
       "url": "https://holychords.pro/uploads/music/20191016/2019101611062559.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "4. Дети Бога",
       "duration": 259
     },
@@ -460,12 +491,14 @@
     {
       "title": "Радость моя",
       "url": "https://holychords.pro/storage/music/0HBJZcmKSKdiJjX3pAOVPFjibJ3GE37dugFMIq2D.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "4. Дети поют",
       "duration": 274
     },
     {
       "title": "В ночном саду",
       "url": "https://holychords.pro/uploads/music/20201221/20201221021543.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "4. Дети поют",
       "duration": 252
     },
@@ -493,6 +526,7 @@
     {
       "title": "Рождественское попури 2",
       "url": "https://holychords.pro/uploads/music/20211204/20211204215452.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "2. (Дитячий) Гурт Арфочки",
       "duration": 555
     },
@@ -548,6 +582,7 @@
     {
       "title": "Слава Тобі, слава",
       "url": "https://holychords.pro/uploads/music/20221118/20221118152353.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "1. (Дитячий) Гурт Схід",
       "duration": 212
     },
@@ -561,6 +596,7 @@
     {
       "title": "Тобі я дякую",
       "url": "https://kg-music.club/wp-content/uploads/2019/10/%D0%A2%D0%BE%D0%B1%D1%96-%D1%8F-%D0%B4%D1%8F%D0%BA%D1%83%D1%8E-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "3. Группа \"Мелодия\"",
       "duration": 211
     },
@@ -581,6 +617,7 @@
     {
       "title": "Я молюся за тебе моя україно",
       "url": "https://holychords.pro/uploads/music/20220304/20220304125733.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "3. Группа \"Мелодия\"",
       "duration": 236
     },
@@ -594,6 +631,7 @@
     {
       "title": "Без Тебя",
       "url": "https://holychords.pro/storage/music/iCCae2rscZ5dNlYyLFCvKU5GW49h04gUOh1rXKaI.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "2. (Дитячий) Гурт Арфочки",
       "duration": 281
     },
@@ -670,6 +708,7 @@
     {
       "title": "Мы будемо відпочивати",
       "url": "https://holychords.pro/uploads/music/20211021/20211021084001.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "2. (Дитячий) Гурт Арфочки",
       "duration": 242
     },
@@ -718,18 +757,21 @@
     {
       "title": "Пусть земля вся утверждает",
       "url": "https://kg-music.club/wp-content/uploads/2021/04/%D0%9F%D1%83%D1%81%D1%82%D1%8C-%D0%B7%D0%B5%D0%BC%D0%BB%D1%8F-%D0%B2%D1%81%D1%8F-%D1%83%D1%82%D0%B2%D0%B5%D1%80%D0%B6%D0%B4%D0%B0%D0%B5%D1%82-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-%D0%91%D1%80%D0%B0%D1%82%D1%8C%D1%8F-kg-music.club_.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "3. Группа \"Мелодия\"",
       "duration": 243
     },
     {
       "title": "Каждым утром",
       "url": "https://holychords.pro/uploads/music/20200321/2020032116165734.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "4. Дети Бога",
       "duration": 185
     },
     {
       "title": "Спішу до Тебе дні і ночі",
       "url": "https://holychords.pro/storage/music/nZvFxMcpR2XWG9AdKIvCP1GW4r4YUYedotP3xUWh.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "2. (Дитячий) Гурт Арфочки",
       "duration": 271
     },
@@ -757,6 +799,7 @@
     {
       "title": "Співає Богу небо",
       "url": "https://holychords.pro/storage/music/g3hXgJorfx6kJGALa1s8H4wZs19zC1OkkYrpU8po.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "2. (Дитячий) Гурт Арфочки",
       "duration": 231
     },
@@ -791,6 +834,7 @@
     {
       "title": "Всё что мне надо",
       "url": "https://holychords.pro/uploads/music/20210128/20210128181221.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "4. Дети Бога",
       "duration": 354
     },
@@ -902,6 +946,7 @@
     {
       "title": "Папа мой",
       "url": "https://holychords.pro/storage/music/DufziCSTDK589x4peI8pgRkgohzZ56zfVfVN8ARZ.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "2. (Дитячий) Гурт Арфочки",
       "duration": 300
     },
@@ -922,6 +967,7 @@
     {
       "title": "Мама моя люба",
       "url": "https://holychords.pro/uploads/music/20230506/20230506204259.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "1. (Дитячий) Гурт Схід",
       "duration": 279
     },
@@ -949,6 +995,7 @@
     {
       "title": "Я і ти (feat. Маша Дегтярёва, Мелина Дегтярева, Тимофій Дегтярьов)",
       "url": "https://holychords.pro/storage/music/zJOsYaVsnDqBCiyWPTRYuyG5kCno1rKWeJemN23V.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "4. Дети поют",
       "duration": 195
     },
@@ -990,6 +1037,7 @@
     {
       "title": "Єрушалам Богу святому",
       "url": "https://holychords.pro/storage/music/REPHie5wCgBZmpWAzgScrRY5JvK3VJhcp1pMpYvz.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "1. (Дитячий) Гурт Схід",
       "duration": 370
     },
@@ -1003,6 +1051,7 @@
     {
       "title": "Я Тобі Ісусе дякую",
       "url": "https://kg-music.club/wp-content/uploads/2019/11/%D0%AF-%D0%A2%D0%BE%D0%B1%D1%96-%D0%86%D1%81%D1%83%D1%81%D0%B5-%D0%B4%D1%8F%D0%BA%D1%83%D1%8E-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-musicclub.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "3. Группа \"Мелодия\"",
       "duration": 210
     },
@@ -1023,6 +1072,7 @@
     {
       "title": "С ранней зари",
       "url": "https://kg-music.club/wp-content/uploads/2021/05/%D0%A1-%D1%80%D0%B0%D0%BD%D0%BD%D0%B5%D0%B9-%D0%B7%D0%B0%D1%80%D0%B8-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "3. Группа \"Мелодия\"",
       "duration": 288
     },
@@ -1043,12 +1093,14 @@
     {
       "title": "Ты подаруй",
       "url": "https://holychords.pro/storage/music/wSbti8dFwhwrijyeTHc0bkKcCir4FVudbbeRnBdy.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "2. (Дитячий) Гурт Арфочки",
       "duration": 268
     },
     {
       "title": "Подними меня",
       "url": "https://kg-music.club/wp-content/uploads/2021/09/%D0%9F%D0%BE%D0%B4%D0%BD%D0%B8%D0%BC%D0%B8-%D0%BC%D0%B5%D0%BD%D1%8F-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "3. Группа \"Мелодия\"",
       "duration": 314
     },
@@ -1076,6 +1128,7 @@
     {
       "title": "Когда мы вместе мы сильны!",
       "url": "https://holychords.pro/storage/music/B07y1ruGbw8rFjG9Eweasy3roBtIVdGAwcOwPB27.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "4. Дети Бога",
       "duration": 303
     },
@@ -1103,6 +1156,7 @@
     {
       "title": "Я буду петь Тебе",
       "url": "https://kg-music.club/wp-content/uploads/2021/10/%D0%AF-%D0%B1%D1%83%D0%B4%D1%83-%D0%BF%D0%B5%D1%82%D1%8C-%D0%A2%D0%B5%D0%B1%D0%B5-feat.-%D0%AE%D0%BB%D1%8F-%D0%B8-%D0%90%D0%BB%D0%B8%D0%BD%D0%B0-%D0%93%D0%B0%D0%BB%D1%83%D1%88%D0%BA%D0%B8%D0%BD%D1%8B-kg-music.club_.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "3. Группа \"Мелодия\"",
       "duration": 215
     },
@@ -1163,13 +1217,6 @@
       "group": "Лучи рассвета"
     },
     {
-      "title": "День Різдва",
-      "group": "Дитячі мрії",
-      "duration": 295,
-      "url": "https://holychords.pro/uploads/music/20200701/20200701164515_26_36.mp3",
-      "image": ""
-    },
-    {
       "title": "Лучи рассвета: Новый год",
       "url": "https://detskoeradio.org/components/com_metaudio/assets/download.php?f=music2/luchi-rassveta/Track_051.mp3&h=8c0b6dfeee046ff240d7c2443930e6d5",
       "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
@@ -1207,12 +1254,14 @@
     {
       "title": "Ангелы в небе",
       "url": "https://holychords.pro/storage/music/DuZTAubz4z5idxtkp9xArrt8eoSeKcU3dlrXwvTM.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "1. (Дитячий) Гурт Схід",
       "duration": 245
     },
     {
       "title": "Дайте мені крила",
       "url": "https://kg-music.club/wp-content/uploads/2023/09/dayte-meni-krila-gurt-melodiya-kg-music.club_.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "3. Группа \"Мелодия\"",
       "duration": 245
     },
@@ -1226,18 +1275,21 @@
     {
       "title": "Самый лучший друг Исус",
       "url": "https://holychords.pro/storage/music/xgS0H1lyLC3tFFvmn7WlcUGeXrKLebmgW7XzXRBt.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "1. (Дитячий) Гурт Схід",
       "duration": 231
     },
     {
       "title": "Что такое любовь",
       "url": "https://holychords.pro/uploads/music/20200108/202001081801597.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "4. Дети Бога",
       "duration": 165
     },
     {
       "title": "Темнесенька нічка",
       "url": "https://holychords.pro/storage/music/Cb4nBn6tA7Iq1fl2Cyxw7bPaKNQjSoBI5gphcsC7.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "1. (Дитячий) Гурт Схід",
       "duration": 237
     },
@@ -1251,6 +1303,7 @@
     {
       "title": "Моя дорога веде до Бога",
       "url": "https://holychords.pro/storage/music/FcvqceltkqqMYNjVNS7TDuB3wZXziATBW6qhU086.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "1. (Дитячий) Гурт Схід",
       "duration": 279
     },
@@ -1278,6 +1331,7 @@
     {
       "title": "Бог Ти сонце моє",
       "url": "https://holychords.pro/uploads/music/20230426/20230426120058.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "1. (Дитячий) Гурт Схід",
       "duration": 245
     },
@@ -1326,6 +1380,7 @@
     {
       "title": "Пусть молитва моя",
       "url": "https://holychords.pro/uploads/music/20230514/20230514163633.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "2. (Дитячий) Гурт Арфочки",
       "duration": 230
     },
@@ -1339,12 +1394,14 @@
     {
       "title": "Рождественское попури 3",
       "url": "https://holychords.pro/uploads/music/20221212/20221212021548.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "2. (Дитячий) Гурт Арфочки",
       "duration": 617
     },
     {
       "title": "Бо Любов",
       "url": "https://kg-music.club/wp-content/uploads/2020/12/%D0%91%D0%BE-%D0%9B%D1%8E%D0%B1%D0%BE%D0%B2-%D0%93%D1%83%D1%80%D1%82-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D1%96%D1%8F-kg-music.club_.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "3. Группа \"Мелодия\"",
       "duration": 279
     },
@@ -1400,6 +1457,7 @@
     {
       "title": "Господь моя сила",
       "url": "https://kg-music.club/wp-content/uploads/2020/10/%D0%93%D0%BE%D1%81%D0%BF%D0%BE%D0%B4%D1%8C-%D0%BC%D0%BE%D1%8F-%D1%81%D0%B8%D0%BB%D0%B0-%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F-kg-music.club_.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "3. Группа \"Мелодия\"",
       "duration": 208
     },
@@ -1483,12 +1541,14 @@
     {
       "title": "Ты рядом",
       "url": "https://holychords.pro/uploads/music/20220708/20220708122903.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "2. (Дитячий) Гурт Арфочки",
       "duration": 261
     },
     {
       "title": "Услыш",
       "url": "https://holychords.pro/storage/music/V6hWZ7Irz22fTvigvBJNbKApl5G0vsc6cxL0PFLB.mp3",
+      "image": "https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/kids.png",
       "group": "2. (Дитячий) Гурт Арфочки",
       "duration": 355
     }
