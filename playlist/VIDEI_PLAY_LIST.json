@@ -1,7 +1,7 @@
 ﻿{
-  "generatedAt": "2025-05-08T19:20:00+03:00",
+  "generatedAt": "2025-05-09T19:20:00+03:00",
   "settings": {
-    "repetition": false,
+    "repetition": true,
     "pauseBetweenTracks": 2
   },
   "playlist": [
