@@ -1,24 +1,10 @@
-﻿{
-  "generatedAt": "2025-05-09T19:20:00+03:00",
+{
+  "generatedAt": "2025-05-09T18:50:00+03:00",
   "settings": {
     "repetition": true,
-    "pauseBetweenTracks": 2
+    "pauseBetweenTracks": 1
   },
   "playlist": [
-    {
-      "title": "Неоценненная Драгоценность (Ин. 3 31 36). Андрей Парфило, 03.11.2024",
-      "url": "https://ia600509.us.archive.org/3/items/3-31-36.-03.11.2024/%D0%9D%D0%B5%D0%BE%D1%86%D0%B5%D0%BD%D0%BD%D0%B5%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%94%D1%80%D0%B0%D0%B3%D0%BE%D1%86%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D1%8C_%20%28%D0%98%D0%BD.%203_31-36%29.%20%D0%90%D0%BD%D0%B4%D1%80%D0%B5%D0%B9%20%D0%9F%D0%B0%D1%80%D1%84%D0%B8%D0%BB%D0%BE%2C%2003.11.2024.mp4",
-      "group": "Андрей Парфило",
-      "image": "https://example.com/poster1.jpg",
-      "duration": 2595
-    },
-    {
-      "title": "Шлях Відновлення Стосунків З Богом (Псалом 51). Андрій Міщенко, 27.10.2024",
-      "url": "https://ia601502.us.archive.org/16/items/51.-27.10.2024/%D0%A8%D0%BB%D1%8F%D1%85%20%D0%B2%D1%96%D0%B4%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%BD%D1%8F%20%D1%81%D1%82%D0%BE%D1%81%D1%83%D0%BD%D0%BA%D1%96%D0%B2%20%D0%B7%20%D0%91%D0%BE%D0%B3%D0%BE%D0%BC_%20%28%D0%9F%D1%81%D0%B0%D0%BB%D0%BE%D0%BC%2051%29.%20%D0%90%D0%BD%D0%B4%D1%80%D1%96%D0%B9%20%D0%9C%D1%96%D1%89%D0%B5%D0%BD%D0%BA%D0%BE%2C%2027.10.2024.mp4",
-      "group": "Андрій Міщенко",
-      "image": "https://example.com/poster1.jpg",
-      "duration": 1500
-    },
     {
       "title": "Церковь Дом Божий ( 1 Тим 3 14 15). Олег Кадацкий (г.Мариуполь), 10.11.2024",
       "url": "https://ia601905.us.archive.org/3/items/1-3-14-15.-.-10.11.2024/%D0%A6%D0%B5%D1%80%D0%BA%D0%BE%D0%B2%D1%8C%20-%20%D0%B4%D0%BE%D0%BC%20%D0%91%D0%BE%D0%B6%D0%B8%D0%B9_%20%281%20%D0%A2%D0%B8%D0%BC%203_14-15%29.%20%D0%9E%D0%BB%D0%B5%D0%B3%20%D0%9A%D0%B0%D0%B4%D0%B0%D1%86%D0%BA%D0%B8%D0%B9%20%28%D0%B3.%D0%9C%D0%B0%D1%80%D0%B8%D1%83%D0%BF%D0%BE%D0%BB%D1%8C%29%2C%2010.11.2024.mp4",
@@ -27,11 +13,11 @@
       "duration": 1394
     },
     {
-      "title": "Якщо Сил Немає І Втомився Ти. Влад И Тимофій Охріменки, 13.04.2025",
-      "url": "https://ia600507.us.archive.org/21/items/13.04.2025/%D0%AF%D0%BA%D1%89%D0%BE%20%D1%81%D0%B8%D0%BB%20%D0%BD%D0%B5%D0%BC%D0%B0%D1%94%20%D1%96%20%D0%B2%D1%82%D0%BE%D0%BC%D0%B8%D0%B2%D1%81%D1%8F%20%D1%82%D0%B8.%20%D0%92%D0%BB%D0%B0%D0%B4%20%D0%B8%20%D0%A2%D0%B8%D0%BC%D0%BE%D1%84%D1%96%D0%B9%20%D0%9E%D1%85%D1%80%D1%96%D0%BC%D0%B5%D0%BD%D0%BA%D0%B8%2C%2013.04.2025.mp4",
-      "group": "Влад И Тимофій Охріменки",
-      "image": "https://example.com/poster1.jpg",
-      "duration": 231
+      "title": "Точні Ваги Або Подвійні Стандарти (Левит 1935 36 Андрій Булигін, 15.12.2024",
+      "group": "Андрій Булигін",
+      "duration": 1480,
+      "url": "https://ia800709.us.archive.org/32/items/1935-36-15.12.2024/%D0%A2%D0%BE%D1%87%D0%BD%D1%96%20%D0%B2%D0%B0%D0%B3%D0%B8%20%D0%B0%D0%B1%D0%BE%20%D0%BF%D0%BE%D0%B4%D0%B2%D1%96%D0%B9%D0%BD%D1%96%20%D1%81%D1%82%D0%B0%D0%BD%D0%B4%D0%B0%D1%80%D1%82%D0%B8%20%28%D0%9B%D0%B5%D0%B2%D0%B8%D1%82%201935-36%20%D0%90%D0%BD%D0%B4%D1%80%D1%96%D0%B9%20%D0%91%D1%83%D0%BB%D0%B8%D0%B3%D1%96%D0%BD%2C%2015.12.2024.mp4",
+      "image": ""
     },
     {
       "title": "Свидетельство Брата Анатолия Ларченко (с.Кураховка, Покровский Р Н., Донецкая Обл.), 10.11.2024",
@@ -41,32 +27,25 @@
       "duration": 1160
     },
     {
-      "title": "Однажды Я Понял Особенно Остро Тимофей Охрименко, 30.03.2025",
-      "url": "https://ia801303.us.archive.org/23/items/30.03.2025/%D0%9E%D0%B4%D0%BD%D0%B0%D0%B6%D0%B4%D1%8B%20%D1%8F%20%D0%BF%D0%BE%D0%BD%D1%8F%D0%BB%20%D0%BE%D1%81%D0%BE%D0%B1%D0%B5%D0%BD%D0%BD%D0%BE%20%D0%BE%D1%81%D1%82%D1%80%D0%BE%20%D0%A2%D0%B8%D0%BC%D0%BE%D1%84%D0%B5%D0%B9%20%D0%9E%D1%85%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D0%BA%D0%BE%2C%2030.03.2025.mp4",
-      "group": "Тимофей Охрименко",
+      "title": "Якщо Сил Немає І Втомився Ти. Влад И Тимофій Охріменки, 13.04.2025",
+      "url": "https://ia600507.us.archive.org/21/items/13.04.2025/%D0%AF%D0%BA%D1%89%D0%BE%20%D1%81%D0%B8%D0%BB%20%D0%BD%D0%B5%D0%BC%D0%B0%D1%94%20%D1%96%20%D0%B2%D1%82%D0%BE%D0%BC%D0%B8%D0%B2%D1%81%D1%8F%20%D1%82%D0%B8.%20%D0%92%D0%BB%D0%B0%D0%B4%20%D0%B8%20%D0%A2%D0%B8%D0%BC%D0%BE%D1%84%D1%96%D0%B9%20%D0%9E%D1%85%D1%80%D1%96%D0%BC%D0%B5%D0%BD%D0%BA%D0%B8%2C%2013.04.2025.mp4",
+      "group": "Влад И Тимофій Охріменки",
       "image": "https://example.com/poster1.jpg",
-      "duration": 265
+      "duration": 231
     },
     {
-      "title": "Благодатное и Подзаконное Состояние (Осия 1012). Александр Кирсанов (г.Мариупоо), 10.11.2024",
-      "url": "https://ia601503.us.archive.org/24/items/1012.-.-10.11.2024/%D0%91%D0%BB%D0%B0%D0%B3%D0%BE%D0%B4%D0%B0%D1%82%D0%BD%D0%BE%D0%B5%20%D0%B8%20%D0%BF%D0%BE%D0%B4%D0%B7%D0%B0%D0%BA%D0%BE%D0%BD%D0%BD%D0%BE%D0%B5%20%D1%81%D0%BE%D1%81%D1%82%D0%BE%D1%8F%D0%BD%D0%B8%D0%B5%20%28%D0%9E%D1%81%D0%B8%D1%8F%201012%29.%20%20%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%20%D0%9A%D0%B8%D1%80%D1%81%D0%B0%D0%BD%D0%BE%D0%B2%20%28%D0%B3.%D0%9C%D0%B0%D1%80%D0%B8%D1%83%D0%BF%D0%BE%D0%BE%D1%8C%29%2C%2010.11.2024.mp4",
-      "group": "Александр Кирсанов",
+      "title": "Неоценненная Драгоценность (Ин. 3 31 36). Андрей Парфило, 03.11.2024",
+      "url": "https://ia600509.us.archive.org/3/items/3-31-36.-03.11.2024/%D0%9D%D0%B5%D0%BE%D1%86%D0%B5%D0%BD%D0%BD%D0%B5%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%94%D1%80%D0%B0%D0%B3%D0%BE%D1%86%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D1%8C_%20%28%D0%98%D0%BD.%203_31-36%29.%20%D0%90%D0%BD%D0%B4%D1%80%D0%B5%D0%B9%20%D0%9F%D0%B0%D1%80%D1%84%D0%B8%D0%BB%D0%BE%2C%2003.11.2024.mp4",
+      "group": "Андрей Парфило",
       "image": "https://example.com/poster1.jpg",
-      "duration": 2114
+      "duration": 2595
     },
     {
-      "title": "Не Дивись З Тривогою У Завтра. Тимофій, Юлія Та Владислав Охріменки. 27.04.2025",
-      "url": "https://ia801507.us.archive.org/29/items/27.04.2025/%D0%9D%D0%B5%20%D0%B4%D0%B8%D0%B2%D0%B8%D1%81%D1%8C%20%D0%B7%20%D1%82%D1%80%D0%B8%D0%B2%D0%BE%D0%B3%D0%BE%D1%8E%20%D1%83%20%D0%B7%D0%B0%D0%B2%D1%82%D1%80%D0%B0.%20%D0%A2%D0%B8%D0%BC%D0%BE%D1%84%D1%96%D0%B9%2C%20%D0%AE%D0%BB%D1%96%D1%8F%20%D1%82%D0%B0%20%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D1%81%D0%BB%D0%B0%D0%B2%20%D0%9E%D1%85%D1%80%D1%96%D0%BC%D0%B5%D0%BD%D0%BA%D0%B8.%2027.04.2025.mp4",
-      "group": "Тимофій, Юлія Та Владислав Охріменки",
-      "image": "https://example.com/poster1.jpg",
-      "duration": 176
-    },
-    {
-      "title": "Життя Коротке Одна Надія Ісус (Екклезіяст 7 1 4). Андрій Булигін, 27.10.2024",
-      "url": "https://ia801300.us.archive.org/20/items/7-1-4.-27.10.2024/%D0%96%D0%B8%D1%82%D1%82%D1%8F%20%D0%BA%D0%BE%D1%80%D0%BE%D1%82%D0%BA%D0%B5_%20%D0%BE%D0%B4%D0%BD%D0%B0%20%D0%BD%D0%B0%D0%B4%D1%96%D1%8F%20-%20%D0%86%D1%81%D1%83%D1%81_%20%28%D0%95%D0%BA%D0%BA%D0%BB%D0%B5%D0%B7%D1%96%D1%8F%D1%81%D1%82%207_1-4%29.%20%D0%90%D0%BD%D0%B4%D1%80%D1%96%D0%B9%20%D0%91%D1%83%D0%BB%D0%B8%D0%B3%D1%96%D0%BD%2C%2027.10.2024.mp4",
-      "group": "Андрій Булигін",
-      "image": "https://example.com/poster1.jpg",
-      "duration": 2397
+      "title": "Служіння Господу Через Благовістя. Віктор Косяк (м.Біла Церква), 15.12.2024",
+      "group": "Віктор Косяк",
+      "duration": 1743,
+      "url": "https://ia800709.us.archive.org/33/items/15.12.2024_202505/%D0%A1%D0%BB%D1%83%D0%B6%D1%96%D0%BD%D0%BD%D1%8F%20%D0%93%D0%BE%D1%81%D0%BF%D0%BE%D0%B4%D1%83%20%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D0%B1%D0%BB%D0%B0%D0%B3%D0%BE%D0%B2%D1%96%D1%81%D1%82%D1%8F.%20%D0%92%D1%96%D0%BA%D1%82%D0%BE%D1%80%20%D0%9A%D0%BE%D1%81%D1%8F%D0%BA%20%28%D0%BC.%D0%91%D1%96%D0%BB%D0%B0%20%D0%A6%D0%B5%D1%80%D0%BA%D0%B2%D0%B0%29%2C%2015.12.2024.mp4",
+      "image": ""
     },
     {
       "title": "Твоя Смерть И Воскресенье. Тимофей И Влад Охрименки, 06.04.2025",
@@ -76,18 +55,25 @@
       "duration": 219
     },
     {
-      "title": "Не Преврати Спасение В Погибель ( 2 Пет 3 15 16). Сергей Комисар, 13.10.2024",
-      "url": "https://ia600208.us.archive.org/4/items/2-3-15-16.-13.10.2024/%D0%9D%D0%B5%20%D0%BF%D1%80%D0%B5%D0%B2%D1%80%D0%B0%D1%82%D0%B8%20%D1%81%D0%BF%D0%B0%D1%81%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20%D0%BF%D0%BE%D0%B3%D0%B8%D0%B1%D0%B5%D0%BB%D1%8C_%20%28%202%20%D0%9F%D0%B5%D1%82%203_15-16%29.%20%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B9%20%D0%9A%D0%BE%D0%BC%D0%B8%D1%81%D0%B0%D1%80%2C%2013.10.2024.mp4",
-      "group": "Сергей Комисар",
+      "title": "Як Не Збочити По Дорозі До Вічності ( 2 Пет 13 11)",
+      "url": "https://ia800705.us.archive.org/33/items/2-13-11.-20.10.2024/%D0%AF%D0%BA%20%D0%BD%D0%B5%20%D0%B7%D0%B1%D0%BE%D1%87%D0%B8%D1%82%D0%B8%20%D0%BF%D0%BE%20%D0%B4%D0%BE%D1%80%D0%BE%D0%B7%D1%96%20%D0%B4%D0%BE%20%D0%B2%D1%96%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%96%20%282%20%D0%9F%D0%B5%D1%82%2013-11%29.%20%D0%90%D0%BD%D0%B4%D1%80%D1%96%D0%B9%20%D0%9F%D0%B0%D1%80%D1%84%D0%B8%D0%BB%D0%BE%2C20.10.2024.mp4",
+      "group": "Андрій Парфило",
       "image": "https://example.com/poster1.jpg",
-      "duration": 2401
+      "duration": 2420
     },
     {
-      "title": "Христос Наш Учитель (Матвія 28 19 20)",
-      "url": "https://ia601300.us.archive.org/28/items/28-19-20./_%D0%A5%D1%80%D0%B8%D1%81%D1%82%D0%BE%D1%81%20-%20%D0%BD%D0%B0%D1%88%20%D0%A3%D1%87%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%20%28%D0%9C%D0%B0%D1%82%D0%B2%D1%96%D1%8F%2028_19-20%29.%20%D0%9C%D0%B8%D0%BA%D0%BE%D0%BB%D0%B0%20%D0%9C%D0%B0%D1%80%D0%B9%D0%BE%D1%85%D0%B0.mp4",
-      "group": "Микола Марйоха",
+      "title": "Po Vode Idti",
+      "url": "https://ia801807.us.archive.org/5/items/po-vode-idti-darina-kochanji-official-music-video/Po%20Vode%20Idti%20Darina%20Kochanji%28Official%20Music%20Video%29.mp4",
+      "group": "Darina Kochanji",
       "image": "https://example.com/poster1.jpg",
-      "duration": 1341
+      "duration": 247
+    },
+    {
+      "title": "Життя Коротке Одна Надія Ісус (Екклезіяст 7 1 4). Андрій Булигін, 27.10.2024",
+      "url": "https://ia801300.us.archive.org/20/items/7-1-4.-27.10.2024/%D0%96%D0%B8%D1%82%D1%82%D1%8F%20%D0%BA%D0%BE%D1%80%D0%BE%D1%82%D0%BA%D0%B5_%20%D0%BE%D0%B4%D0%BD%D0%B0%20%D0%BD%D0%B0%D0%B4%D1%96%D1%8F%20-%20%D0%86%D1%81%D1%83%D1%81_%20%28%D0%95%D0%BA%D0%BA%D0%BB%D0%B5%D0%B7%D1%96%D1%8F%D1%81%D1%82%207_1-4%29.%20%D0%90%D0%BD%D0%B4%D1%80%D1%96%D0%B9%20%D0%91%D1%83%D0%BB%D0%B8%D0%B3%D1%96%D0%BD%2C%2027.10.2024.mp4",
+      "group": "Андрій Булигін",
+      "image": "https://example.com/poster1.jpg",
+      "duration": 2397
     },
     {
       "title": "Такий великий Бог!",
@@ -97,13 +83,6 @@
       "duration": 524
     },
     {
-      "title": "Як Не Збочити По Дорозі До Вічності ( 2 Пет 13 11)",
-      "url": "https://ia800705.us.archive.org/33/items/2-13-11.-20.10.2024/%D0%AF%D0%BA%20%D0%BD%D0%B5%20%D0%B7%D0%B1%D0%BE%D1%87%D0%B8%D1%82%D0%B8%20%D0%BF%D0%BE%20%D0%B4%D0%BE%D1%80%D0%BE%D0%B7%D1%96%20%D0%B4%D0%BE%20%D0%B2%D1%96%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%96%20%282%20%D0%9F%D0%B5%D1%82%2013-11%29.%20%D0%90%D0%BD%D0%B4%D1%80%D1%96%D0%B9%20%D0%9F%D0%B0%D1%80%D1%84%D0%B8%D0%BB%D0%BE%2C20.10.2024.mp4",
-      "group": "Андрій Парфило",
-      "image": "https://example.com/poster1.jpg",
-      "duration": 2420
-    },
-    {
       "title": "Праведність Вища За Фарисейську(Матв 5 20)",
       "url": "https://ia800703.us.archive.org/12/items/5-20.-20.10.2024_202504/%D0%9F%D1%80%D0%B0%D0%B2%D0%B5%D0%B4%D0%BD%D1%96%D1%81%D1%82%D1%8C%20%D0%B2%D0%B8%D1%89%D0%B0%20%D0%B7%D0%B0%20%D1%84%D0%B0%D1%80%D0%B8%D1%81%D0%B5%D0%B9%D1%81%D1%8C%D0%BA%D1%83%28%D0%9C%D0%B0%D1%82%D0%B2%205_20%29.%20%D0%9C%D0%B8%D0%BA%D0%BE%D0%BB%D0%B0%20%D0%9C%D0%B0%D1%80%D0%B9%D0%BE%D1%85%D0%B0%2C%2020.10.2024.mp4",
       "group": "Микола Марйоха",
@@ -111,11 +90,67 @@
       "duration": 2272
     },
     {
-      "title": "Po Vode Idti",
-      "url": "https://ia801807.us.archive.org/5/items/po-vode-idti-darina-kochanji-official-music-video/Po%20Vode%20Idti%20Darina%20Kochanji%28Official%20Music%20Video%29.mp4",
-      "group": "Darina Kochanji",
+      "title": "Христос Наш Учитель (Матвія 28 19 20)",
+      "url": "https://ia601300.us.archive.org/28/items/28-19-20./_%D0%A5%D1%80%D0%B8%D1%81%D1%82%D0%BE%D1%81%20-%20%D0%BD%D0%B0%D1%88%20%D0%A3%D1%87%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%20%28%D0%9C%D0%B0%D1%82%D0%B2%D1%96%D1%8F%2028_19-20%29.%20%D0%9C%D0%B8%D0%BA%D0%BE%D0%BB%D0%B0%20%D0%9C%D0%B0%D1%80%D0%B9%D0%BE%D1%85%D0%B0.mp4",
+      "group": "Микола Марйоха",
       "image": "https://example.com/poster1.jpg",
-      "duration": 247
+      "duration": 1341
+    },
+    {
+      "title": "Заблуждение И Как Обезопасить Себя От Него ( 2 Петра 317 18). Сергей Комисар, 24.11.2024",
+      "group": "Сергей Комисар",
+      "duration": 2705,
+      "url": "https://ia601305.us.archive.org/35/items/2-317-18.-24.11.2024/%D0%97%D0%B0%D0%B1%D0%BB%D1%83%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B8%20%D0%BA%D0%B0%D0%BA%20%D0%BE%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%B8%D1%82%D1%8C%20%D1%81%D0%B5%D0%B1%D1%8F%20%D0%BE%D1%82%20%D0%BD%D0%B5%D0%B3%D0%BE%20%282%20%D0%9F%D0%B5%D1%82%D1%80%D0%B0%20317-18%29.%20%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B9%20%D0%9A%D0%BE%D0%BC%D0%B8%D1%81%D0%B0%D1%80%2C%2024.11.2024.mp4",
+      "image": ""
+    },
+    {
+      "title": "Є Смерть, Що Дає Життя . Юлія, Владислав, Тимофій Охріменки ( 04.05.2025).",
+      "group": "Юлія, Владислав, Тимофій Охріменки",
+      "duration": 229,
+      "url": "https://ia801706.us.archive.org/9/items/04.05.2025./%D0%84%20%D1%81%D0%BC%D0%B5%D1%80%D1%82%D1%8C%2C%20%D1%89%D0%BE%20%D0%B4%D0%B0%D1%94%20%D0%B6%D0%B8%D1%82%D1%82%D1%8F_.%20%D0%AE%D0%BB%D1%96%D1%8F%2C%20%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D1%81%D0%BB%D0%B0%D0%B2%2C%20%D0%A2%D0%B8%D0%BC%D0%BE%D1%84%D1%96%D0%B9%20%D0%9E%D1%85%D1%80%D1%96%D0%BC%D0%B5%D0%BD%D0%BA%D0%B8%20%2804.05.2025%29..mp4",
+      "image": ""
+    },
+    {
+      "title": "Благодатное и Подзаконное Состояние (Осия 1012). Александр Кирсанов (г.Мариупоо), 10.11.2024",
+      "url": "https://ia601503.us.archive.org/24/items/1012.-.-10.11.2024/%D0%91%D0%BB%D0%B0%D0%B3%D0%BE%D0%B4%D0%B0%D1%82%D0%BD%D0%BE%D0%B5%20%D0%B8%20%D0%BF%D0%BE%D0%B4%D0%B7%D0%B0%D0%BA%D0%BE%D0%BD%D0%BD%D0%BE%D0%B5%20%D1%81%D0%BE%D1%81%D1%82%D0%BE%D1%8F%D0%BD%D0%B8%D0%B5%20%28%D0%9E%D1%81%D0%B8%D1%8F%201012%29.%20%20%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%20%D0%9A%D0%B8%D1%80%D1%81%D0%B0%D0%BD%D0%BE%D0%B2%20%28%D0%B3.%D0%9C%D0%B0%D1%80%D0%B8%D1%83%D0%BF%D0%BE%D0%BE%D1%8C%29%2C%2010.11.2024.mp4",
+      "group": "Александр Кирсанов",
+      "image": "https://example.com/poster1.jpg",
+      "duration": 2114
+    },
+    {
+      "title": "Шлях Відновлення Стосунків З Богом (Псалом 51). Андрій Міщенко, 27.10.2024",
+      "url": "https://ia601502.us.archive.org/16/items/51.-27.10.2024/%D0%A8%D0%BB%D1%8F%D1%85%20%D0%B2%D1%96%D0%B4%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%BD%D1%8F%20%D1%81%D1%82%D0%BE%D1%81%D1%83%D0%BD%D0%BA%D1%96%D0%B2%20%D0%B7%20%D0%91%D0%BE%D0%B3%D0%BE%D0%BC_%20%28%D0%9F%D1%81%D0%B0%D0%BB%D0%BE%D0%BC%2051%29.%20%D0%90%D0%BD%D0%B4%D1%80%D1%96%D0%B9%20%D0%9C%D1%96%D1%89%D0%B5%D0%BD%D0%BA%D0%BE%2C%2027.10.2024.mp4",
+      "group": "Андрій Міщенко",
+      "image": "https://example.com/poster1.jpg",
+      "duration": 1500
+    },
+    {
+      "title": "Не Преврати Спасение В Погибель ( 2 Пет 3 15 16). Сергей Комисар, 13.10.2024",
+      "url": "https://ia600208.us.archive.org/4/items/2-3-15-16.-13.10.2024/%D0%9D%D0%B5%20%D0%BF%D1%80%D0%B5%D0%B2%D1%80%D0%B0%D1%82%D0%B8%20%D1%81%D0%BF%D0%B0%D1%81%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20%D0%BF%D0%BE%D0%B3%D0%B8%D0%B1%D0%B5%D0%BB%D1%8C_%20%28%202%20%D0%9F%D0%B5%D1%82%203_15-16%29.%20%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B9%20%D0%9A%D0%BE%D0%BC%D0%B8%D1%81%D0%B0%D1%80%2C%2013.10.2024.mp4",
+      "group": "Сергей Комисар",
+      "image": "https://example.com/poster1.jpg",
+      "duration": 2401
+    },
+    {
+      "title": "Однажды Я Понял Особенно Остро Тимофей Охрименко, 30.03.2025",
+      "url": "https://ia801303.us.archive.org/23/items/30.03.2025/%D0%9E%D0%B4%D0%BD%D0%B0%D0%B6%D0%B4%D1%8B%20%D1%8F%20%D0%BF%D0%BE%D0%BD%D1%8F%D0%BB%20%D0%BE%D1%81%D0%BE%D0%B1%D0%B5%D0%BD%D0%BD%D0%BE%20%D0%BE%D1%81%D1%82%D1%80%D0%BE%20%D0%A2%D0%B8%D0%BC%D0%BE%D1%84%D0%B5%D0%B9%20%D0%9E%D1%85%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D0%BA%D0%BE%2C%2030.03.2025.mp4",
+      "group": "Тимофей Охрименко",
+      "image": "https://example.com/poster1.jpg",
+      "duration": 265
+    },
+    {
+      "title": "Не Дивись З Тривогою У Завтра. Тимофій, Юлія Та Владислав Охріменки. 27.04.2025",
+      "url": "https://ia801507.us.archive.org/29/items/27.04.2025/%D0%9D%D0%B5%20%D0%B4%D0%B8%D0%B2%D0%B8%D1%81%D1%8C%20%D0%B7%20%D1%82%D1%80%D0%B8%D0%B2%D0%BE%D0%B3%D0%BE%D1%8E%20%D1%83%20%D0%B7%D0%B0%D0%B2%D1%82%D1%80%D0%B0.%20%D0%A2%D0%B8%D0%BC%D0%BE%D1%84%D1%96%D0%B9%2C%20%D0%AE%D0%BB%D1%96%D1%8F%20%D1%82%D0%B0%20%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D1%81%D0%BB%D0%B0%D0%B2%20%D0%9E%D1%85%D1%80%D1%96%D0%BC%D0%B5%D0%BD%D0%BA%D0%B8.%2027.04.2025.mp4",
+      "group": "Тимофій, Юлія Та Владислав Охріменки",
+      "image": "https://example.com/poster1.jpg",
+      "duration": 176
+    },
+    {
+      "title": "Довготерпіння – Ключовий Елемент Росту (Як. 57 11). Віталій Зінченко, 01.12.2024",
+      "group": "Віталій Зінченко",
+      "duration": 1865,
+      "url": "https://ia601502.us.archive.org/15/items/57-11.-01.12.2024/%D0%94%D0%BE%D0%B2%D0%B3%D0%BE%D1%82%D0%B5%D1%80%D0%BF%D1%96%D0%BD%D0%BD%D1%8F%20%E2%80%93%20%D0%BA%D0%BB%D1%8E%D1%87%D0%BE%D0%B2%D0%B8%D0%B9%20%D0%B5%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%20%D1%80%D0%BE%D1%81%D1%82%D1%83%20%28%D0%AF%D0%BA.%2057-11%29.%20%D0%92%D1%96%D1%82%D0%B0%D0%BB%D1%96%D0%B9%20%D0%97%D1%96%D0%BD%D1%87%D0%B5%D0%BD%D0%BA%D0%BE%2C%2001.12.2024.mp4",
+      "image": ""
     }
   ]
 }
