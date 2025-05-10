@@ -351,7 +351,7 @@ body {
       <div id="scheduleItems"></div>
     </div>
 
-    <audio id="audioPlayer" preload="auto"></audio>
+    <audio id="audioPlayer" preload="auto" autoplay></audio>
 <script>
 const STATIONS = {
   gospel: {
@@ -452,7 +452,7 @@ function playTrack(i, offset = 0) {
   if (!track) return;
   audio.src = track.url;
   audio.currentTime = offset;
-  audio.play();
+  if (audio.paused) audio.play().catch(e => console.warn("⛔ Помилка при play():", e));
   trackTitle.textContent = track.title;
   trackArtist.textContent = track.group || "-";
   coverImage.src = track.image || defaultImage || "https://via.placeholder.com/200";
@@ -575,7 +575,7 @@ stationBtns.forEach(btn => {
 
 playBtn.addEventListener("click", () => {
   if (audio.paused) {
-    audio.play();
+    if (audio.paused) audio.play().catch(e => console.warn("⛔ Помилка при play():", e));
   } else {
     audio.pause();
   }
@@ -649,6 +649,15 @@ function switchToStation(key) {
   loadStation(currentStation);
 }
 
+
+
+// Гарантируем запуск воспроизведения по первому пользовательскому взаимодействию
+document.addEventListener("click", function oncePlayInit() {
+  if (audio.paused) {
+    audio.play().catch((err) => console.warn("⛔ Браузер блокує автозапуск:", err));
+  }
+  document.removeEventListener("click", oncePlayInit);
+});
 
 </script>
   </div>
