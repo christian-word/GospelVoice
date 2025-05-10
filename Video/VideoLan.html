@@ -339,8 +339,8 @@
       }
       
       .logo {
-        font-size: 20px;
-        margin-bottom: 15px;
+        font-size: 18px;
+        margin-bottom: 10px;
       }
       
       .track-title {
@@ -372,13 +372,14 @@
         font-size: 12px;
       }
 
-      /* Адаптация кнопки радио для мобильных */
-      .radio-btn {
-        top: 15px;
-        right: 15px;
-        padding: 6px 10px;
-        font-size: 12px;
-      }
+  /* Переносим кнопку радио вниз и уменьшаем её */
+  .radio-btn {
+    position: static; /* Убираем absolute позиционирование */
+    margin: 10px auto; /* Центрируем */
+    width: 80px;
+    font-size: 12px;
+    padding: 5px 8px;
+  }
     }
 
     @media (max-width: 350px) {
@@ -407,7 +408,11 @@
         top: 10px;
         right: 10px;
         padding: 5px 8px;
+        width: 70px;
         font-size: 11px;
+      }
+       .logo {
+        font-size: 16px;
       }
     }
   </style>
@@ -415,12 +420,7 @@
 <body>
 
 <div class="player-container">
-  <!-- Добавленная кнопка для перехода на радио -->
-  <a href="https://christian-word.github.io/GospelVoice/radio/radio2.html" class="radio-btn" title="Перейти до радіо">
-    <i class="fas fa-radio"></i>
-    <span>Радіо</span>
-  </a>
-
+ 
   <div class="logo">GospelVoice Broadcast</div>
 
   <div class="video-container">
@@ -464,6 +464,11 @@
     <button class="control-btn" id="fullscreenBtn" title="На весь екран">
       <i class="fas fa-expand"></i>
     </button>
+    <a href="https://christian-word.github.io/GospelVoice/radio/radio2.html" class="radio-btn" title="Перейти до радіо">
+      <i class="fas fa-radio"></i>
+      <span>Радіо</span>
+    </a>
+
   </div>
 
   <div class="broadcast-info" id="broadcastInfo">
