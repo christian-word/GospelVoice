@@ -1,73 +1,82 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Музична Добірка Виконавців Надихаючі християнські відео (10)</title>
   <link rel="icon" href="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/music-logo.jpg.jpg" type="image/x-icon">
   <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/music-logo.jpg.jpg">
-
-  <title>Музична Добірка Виконавців Надихаючі християнські відео (10)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* Основные стили */
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f0f8ff;
+      font-family: 'Roboto', sans-serif;
+       background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?&auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+      background-size: cover;
       color: #333;
       margin: 0;
       padding: 0;
       line-height: 1.6;
     }
 
-    /* Шапка с 3D-эффектом */
-.header {
-  background: linear-gradient(135deg, #006266 0%, #1289A7 100%);
-  padding: 20px 20px; /* ← Измененное значение */
-  text-align: center;
-  color: #fff;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
+    body::after {
+      content: "";
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: url('https://i.ibb.co/bB3qYKT/dove-icon.png') no-repeat center;
+      background-size: 60px;
+      width: 60px;
+      height: 60px;
+      opacity: 0.08;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .header {
+      background: rgba(0, 105, 92, 0.9);
+      padding: 30px 20px;
+      text-align: center;
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
     .header h1 {
       font-size: 2.8rem;
-      margin: 0 0 15px;
-      color: #fff;
-      text-shadow: 
-        2px 2px 0 #004d4d,
-        4px 4px 0 #003333;
-      font-weight: bold;
+      margin: 0 0 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
 
     .header p {
       font-size: 1.2rem;
-      opacity: 0.9;
-      text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+      opacity: 0.95;
     }
 
-    /* Основной контент */
     .container {
       max-width: 1400px;
       margin: 30px auto;
       padding: 0 20px;
     }
 
-    /* Сетка 4 видео в ряд */
     .video-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 25px;
-      width: 100%;
     }
 
-    /* Карточка видео */
     .video-card {
-      background: white;
-      border-radius: 12px;
+      background: #ffffffcc;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      backdrop-filter: blur(5px);
+      opacity: 0;
+      animation: fadeIn 1s forwards;
     }
 
     .video-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
     }
 
     .video-wrapper {
@@ -86,207 +95,151 @@
     }
 
     .video-info {
-      padding: 15px;
+      padding: 16px;
+      background: #fefefe;
     }
 
     .video-info h3 {
       margin: 0 0 8px;
-      color: #2c3e50;
+      color: #00695c;
       font-size: 1.1rem;
+      font-weight: 700;
     }
 
     .video-info p {
       margin: 0;
-      color: #666;
+      color: #555;
       font-size: 0.9rem;
     }
 
-    /* Подвал */
     .footer {
-      background: #2c3e50;
+      background: rgba(55, 71, 79, 0.95);
       color: #fff;
       text-align: center;
-      padding: 25px;
-      margin-top: 50px;
+      padding: 25px 20px;
+      margin-top: 60px;
+      font-size: 0.95rem;
     }
 
-    /* Адаптивность */
-    @media (max-width: 1200px) {
-      .video-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
 
-    @media (max-width: 900px) {
-      .video-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .video-grid {
-        grid-template-columns: 1fr;
-      }
-      
+    @media (max-width: 768px) {
       .header h1 {
         font-size: 2rem;
+      }
+
+      .header p {
+        font-size: 1rem;
+      }
+
+      .container {
+        padding: 0 10px;
+      }
+
+      .video-info {
+        padding: 12px;
+      }
+
+      .footer {
+        font-size: 0.85rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Шапка -->
   <header class="header">
     <h1>Музична Добірка Виконавців</h1>
     <p>Надихаючі християнські відео (10) №1</p>
   </header>
 
-  <!-- Основной контент -->
   <div class="container">
     <div class="video-grid">
-      <!-- Видео 1 -->
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe 
-            src="https://www.youtube.com/embed/5GxKIhQgfug" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/5GxKIhQgfug" allowfullscreen></iframe>
         </div>
         <div class="video-info">
           <h3>Такий великий Бог!</h3>
           <p>Сім'я Денисюків</p>
         </div>
       </div>
-
-      <!-- Видео 2 -->
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe 
-            src="https://www.youtube.com/embed/tN1Mr4KU5T0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/tN1Mr4KU5T0" allowfullscreen></iframe>
         </div>
         <div class="video-info">
           <h3>Вод живых поток</h3>
           <p>Группа Вдохновение</p>
         </div>
       </div>
-
-      <!-- Видео 3 -->
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe 
-            src="https://www.youtube.com/embed/aXgGM_Naj64" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/aXgGM_Naj64" allowfullscreen></iframe>
         </div>
         <div class="video-info">
           <h3>Церковь</h3>
           <p>Группа Вдохновение</p>
         </div>
       </div>
-
-      <!-- Видео 4 -->
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe 
-            src="https://www.youtube.com/embed/SL-zoo5fqG4" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/SL-zoo5fqG4" allowfullscreen></iframe>
         </div>
         <div class="video-info">
           <h3>МЫ ПОКЛОНЯЕМСЯ ТЕБЕ</h3>
           <p>RUSLAN T</p>
         </div>
       </div>
-
-      <!-- Видео 5 -->
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe 
-            src="https://www.youtube.com/embed/TIJUEoKYS3E" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/TIJUEoKYS3E" allowfullscreen></iframe>
         </div>
         <div class="video-info">
           <h3>Звезда Вифлеема</h3>
           <p>RUSLAN T</p>
         </div>
       </div>
-
-      <!-- Видео 6 -->
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe 
-            src="https://www.youtube.com/embed/WlvgtkQCYdE" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/WlvgtkQCYdE" allowfullscreen></iframe>
         </div>
         <div class="video-info">
           <h3>ТИ НАДІЯ ЄДИНА</h3>
           <p>Yana Kolesnik</p>
         </div>
       </div>
-
-      <!-- Видео 7 -->
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe 
-            src="https://www.youtube.com/embed/CqVacF7ogMk" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/CqVacF7ogMk" allowfullscreen></iframe>
         </div>
         <div class="video-info">
           <h3>Jerusalem</h3>
           <p>Дарина Кочанжи</p>
         </div>
       </div>
-
-      <!-- Видео 8 -->
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe 
-            src="https://www.youtube.com/embed/y2RywvQXnz0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/y2RywvQXnz0" allowfullscreen></iframe>
         </div>
         <div class="video-info">
           <h3>Улыбка Бога</h3>
           <p>Дарина Кочанжи</p>
         </div>
       </div>
-
-      <!-- Видео 9 -->
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe 
-            src="https://www.youtube.com/embed/wphPVlz_jxE" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/wphPVlz_jxE" allowfullscreen></iframe>
         </div>
         <div class="video-info">
           <h3>Господи</h3>
           <p>Илона, Юля и Алина Галушкины</p>
         </div>
       </div>
-
-      <!-- Видео 10 -->
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe 
-            src="https://www.youtube.com/embed/12TXKRPFI7A" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/12TXKRPFI7A" allowfullscreen></iframe>
         </div>
         <div class="video-info">
           <h3>Я буду петь Тебе</h3>
@@ -296,7 +249,6 @@
     </div>
   </div>
 
-  <!-- Подвал -->
   <footer class="footer">
     <p>"Ісус сказав: Я є шлях, і правда, і життя" – Ів. 14:6</p>
     <p>&copy;Церква ЄХБ "Дім Євангелія", м.Суми 2025</p>
