@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -6,16 +6,25 @@
   <title>Музична Добірка Виконавців Надихаючі християнські відео (10)</title>
   <link rel="icon" href="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/music-logo.jpg.jpg" type="image/x-icon">
   <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/music-logo.jpg.jpg">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <meta property="og:title" content="Музична Добірка Виконавців">
+  <meta property="og:description" content="Надихаючі християнські відео">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"></noscript>
   <style>
     body {
       font-family: 'Roboto', sans-serif;
-       background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?&auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+      background: linear-gradient(135deg, #00695c, #004d40), 
+                  url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?&auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
       background-size: cover;
+      background-attachment: fixed;
+      background-blend-mode: overlay;
       color: #333;
       margin: 0;
       padding: 0;
       line-height: 1.6;
+      transition: background-position 0.5s ease-out;
     }
 
     body::after {
@@ -33,21 +42,24 @@
     }
 
     .header {
-      background: rgba(0, 105, 92, 0.9);
-      padding: 30px 20px;
+      position: relative;
+      background: rgba(0, 105, 92, 0.7);
+      backdrop-filter: blur(6px);
+      padding: 40px 20px 60px;
       text-align: center;
       color: #fff;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      animation: slideFade 1s ease-out forwards;
+      border-bottom: none;
     }
-
     .header h1 {
-      font-size: 2.8rem;
-      margin: 0 0 10px;
+      font-size: 3rem;
+      margin: 0 0 15px;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
 
     .header p {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       opacity: 0.95;
     }
 
@@ -68,15 +80,26 @@
       border-radius: 16px;
       overflow: hidden;
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
       backdrop-filter: blur(5px);
       opacity: 0;
-      animation: fadeIn 1s forwards;
+      animation: fadeIn 0.5s ease-out forwards;
     }
 
+    .video-card:nth-child(1) { animation-delay: 0.1s; }
+    .video-card:nth-child(2) { animation-delay: 0.2s; }
+    .video-card:nth-child(3) { animation-delay: 0.3s; }
+    .video-card:nth-child(4) { animation-delay: 0.4s; }
+    .video-card:nth-child(5) { animation-delay: 0.5s; }
+    .video-card:nth-child(6) { animation-delay: 0.6s; }
+    .video-card:nth-child(7) { animation-delay: 0.7s; }
+    .video-card:nth-child(8) { animation-delay: 0.8s; }
+    .video-card:nth-child(9) { animation-delay: 0.9s; }
+    .video-card:nth-child(10) { animation-delay: 1s; }
+
     .video-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
     }
 
     .video-wrapper {
@@ -121,8 +144,45 @@
       font-size: 0.95rem;
     }
 
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: rgba(0, 105, 92, 0.8);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 100;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+    }
+
+    .back-to-top:hover {
+      transform: scale(1.1);
+      background: rgba(0, 105, 92, 1);
+    }
+
     @keyframes fadeIn {
       to { opacity: 1; }
+    }
+
+    @keyframes slideFade {
+      from { 
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @media (max-width: 768px) {
@@ -145,6 +205,14 @@
       .footer {
         font-size: 0.85rem;
       }
+      
+      .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
     }
   </style>
 </head>
@@ -158,7 +226,7 @@
     <div class="video-grid">
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/5GxKIhQgfug" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/5GxKIhQgfug" allowfullscreen loading="lazy"></iframe>
         </div>
         <div class="video-info">
           <h3>Такий великий Бог!</h3>
@@ -167,7 +235,7 @@
       </div>
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/tN1Mr4KU5T0" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/tN1Mr4KU5T0" allowfullscreen loading="lazy"></iframe>
         </div>
         <div class="video-info">
           <h3>Вод живых поток</h3>
@@ -176,7 +244,7 @@
       </div>
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/aXgGM_Naj64" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/aXgGM_Naj64" allowfullscreen loading="lazy"></iframe>
         </div>
         <div class="video-info">
           <h3>Церковь</h3>
@@ -185,7 +253,7 @@
       </div>
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/SL-zoo5fqG4" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/SL-zoo5fqG4" allowfullscreen loading="lazy"></iframe>
         </div>
         <div class="video-info">
           <h3>МЫ ПОКЛОНЯЕМСЯ ТЕБЕ</h3>
@@ -194,7 +262,7 @@
       </div>
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/TIJUEoKYS3E" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/TIJUEoKYS3E" allowfullscreen loading="lazy"></iframe>
         </div>
         <div class="video-info">
           <h3>Звезда Вифлеема</h3>
@@ -203,7 +271,7 @@
       </div>
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/WlvgtkQCYdE" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/WlvgtkQCYdE" allowfullscreen loading="lazy"></iframe>
         </div>
         <div class="video-info">
           <h3>ТИ НАДІЯ ЄДИНА</h3>
@@ -212,7 +280,7 @@
       </div>
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/CqVacF7ogMk" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/CqVacF7ogMk" allowfullscreen loading="lazy"></iframe>
         </div>
         <div class="video-info">
           <h3>Jerusalem</h3>
@@ -221,7 +289,7 @@
       </div>
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/y2RywvQXnz0" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/y2RywvQXnz0" allowfullscreen loading="lazy"></iframe>
         </div>
         <div class="video-info">
           <h3>Улыбка Бога</h3>
@@ -230,7 +298,7 @@
       </div>
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/wphPVlz_jxE" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/wphPVlz_jxE" allowfullscreen loading="lazy"></iframe>
         </div>
         <div class="video-info">
           <h3>Господи</h3>
@@ -239,7 +307,7 @@
       </div>
       <div class="video-card">
         <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/12TXKRPFI7A" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/12TXKRPFI7A" allowfullscreen loading="lazy"></iframe>
         </div>
         <div class="video-info">
           <h3>Я буду петь Тебе</h3>
@@ -253,5 +321,33 @@
     <p>"Ісус сказав: Я є шлях, і правда, і життя" – Ів. 14:6</p>
     <p>&copy;Церква ЄХБ "Дім Євангелія", м.Суми 2025</p>
   </footer>
+
+  <button class="back-to-top" aria-label="Наверх">↑</button>
+
+  <script>
+    // Параллакс-эффект для фона
+    window.addEventListener('scroll', function() {
+      const scrollY = window.scrollY;
+      document.body.style.backgroundPosition = `center ${scrollY * 0.3}px`;
+    });
+
+    // Кнопка "Наверх"
+    const backToTopBtn = document.querySelector('.back-to-top');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
 </body>
 </html>
