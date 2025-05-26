@@ -185,35 +185,57 @@
       }
     }
 
-    @media (max-width: 768px) {
-      .header h1 {
-        font-size: 2rem;
-      }
+@media (max-width: 768px) {
+  /* Уменьшаем шапку */
+  .header {
+    padding: 20px 15px 30px; /* Было 40px 20px 60px */
+  }
+  
+  .header h1 {
+    font-size: 1.8rem; /* Было 2rem */
+    margin-bottom: 10px; /* Было 15px */
+  }
 
-      .header p {
-        font-size: 1rem;
-      }
+  .header p {
+    font-size: 0.9rem; /* Было 1rem */
+  }
 
-      .container {
-        padding: 0 10px;
-      }
+  /* Уменьшаем отступы контейнера */
+  .container {
+    margin: 15px auto; /* Было 30px auto */
+    padding: 0 10px;
+  }
 
-      .video-info {
-        padding: 12px;
-      }
+  /* Уменьшаем карточки */
+  .video-grid {
+    gap: 15px; /* Было 25px */
+  }
 
-      .footer {
-        font-size: 0.85rem;
-      }
-      
-      .back-to-top {
-        bottom: 20px;
-        right: 20px;
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
-      }
-    }
+  /* Уменьшаем шрифты в карточках */
+  .video-info h3 {
+    font-size: 1rem; /* Было 1.1rem */
+  }
+
+  .video-info p {
+    font-size: 0.8rem; /* Было 0.9rem */
+  }
+
+  /* Уменьшаем подвал */
+  .footer {
+    padding: 15px 10px; /* Было 25px 20px */
+    margin-top: 30px; /* Было 60px */
+    font-size: 0.8rem; /* Было 0.85rem */
+  }
+
+  /* Дополнительно можно уменьшить иконку голубя */
+  body::after {
+    bottom: 5px;
+    right: 5px;
+    background-size: 40px;
+    width: 40px;
+    height: 40px;
+  }
+}
   </style>
 </head>
 <body>
