@@ -1,0 +1,582 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Христианская Прямая Трансляция - В Эфире</title>
+    
+    <!-- Meta теги для превью в Viber и соцсетях -->
+    <meta name="description" content="Присоединяйтесь к христианской прямой трансляции. Духовное служение, проповеди и христианское радио 24/7.">
+    
+    <!-- Open Graph для соцсетей и мессенджеров -->
+    <meta property="og:title" content="🔴 Христианская Прямая Трансляция">
+    <meta property="og:description" content="«Где двое или трое собраны во имя Мое, там Я посреди них» - Матфей 18:20. Присоединяйтесь к духовному служению!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ваш-сайт.com">
+    <meta property="og:image" content="https://ваш-сайт.com/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Христианская трансляция с золотым крестом и библейским стихом">
+    <meta property="og:site_name" content="Христианская Церковь">
+    
+    <!-- Viber и Telegram -->
+    <meta property="viber:sharing:image" content="https://ваш-сайт.com/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://ваш-сайт.com/og-image.jpg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a237e 0%, #3949ab 50%, #5e35b1 100%);
+            position: relative;
+            height: 100vh;
+        }
+        
+        .background-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                linear-gradient(45deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+            animation: shimmer 8s ease-in-out infinite alternate;
+        }
+        
+        @keyframes shimmer {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+        
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .particle:nth-child(1) { width: 3px; height: 3px; left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { width: 5px; height: 5px; left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { width: 2px; height: 2px; left: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { width: 4px; height: 4px; left: 40%; animation-delay: 3s; }
+        .particle:nth-child(5) { width: 3px; height: 3px; left: 50%; animation-delay: 1.5s; }
+        .particle:nth-child(6) { width: 6px; height: 6px; left: 60%; animation-delay: 2.5s; }
+        .particle:nth-child(7) { width: 2px; height: 2px; left: 70%; animation-delay: 4s; }
+        .particle:nth-child(8) { width: 4px; height: 4px; left: 80%; animation-delay: 0.5s; }
+        .particle:nth-child(9) { width: 3px; height: 3px; left: 90%; animation-delay: 3.5s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            50% { transform: translateY(-10px) rotate(180deg); opacity: 0.8; }
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .cross-container {
+            position: relative;
+            margin-bottom: 2rem;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+        
+        .cross {
+            width: 80px;
+            height: 120px;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .cross::before,
+        .cross::after {
+            content: '';
+            position: absolute;
+            background: linear-gradient(145deg, #ffd700, #ffed4e);
+            border-radius: 4px;
+            box-shadow: 
+                0 0 20px rgba(255, 215, 0, 0.5),
+                0 0 40px rgba(255, 215, 0, 0.3),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3);
+        }
+        
+        .cross::before {
+            width: 12px;
+            height: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .cross::after {
+            width: 60px;
+            height: 12px;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        @keyframes glow {
+            0% { 
+                filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.7));
+                transform: scale(1);
+            }
+            100% { 
+                filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.9));
+                transform: scale(1.05);
+            }
+        }
+        
+        .title {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            text-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(255, 255, 255, 0.2);
+            animation: titleAnimation 4s ease-in-out infinite;
+            letter-spacing: 2px;
+        }
+        
+        @keyframes titleAnimation {
+            0%, 100% { opacity: 0.9; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(-3px); }
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 2s ease-out 0.5s both;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 82, 82, 0.9);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            box-shadow: 
+                0 4px 15px rgba(255, 82, 82, 0.4),
+                0 0 20px rgba(255, 82, 82, 0.2);
+            animation: pulse 2s ease-in-out infinite;
+            margin-bottom: 2rem;
+        }
+        
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .verse {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.85);
+            font-style: italic;
+            max-width: 600px;
+            line-height: 1.6;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 2s ease-out 1s both;
+        }
+        
+        .verse-reference {
+            font-size: 0.9rem;
+            color: rgba(255, 215, 0, 0.9);
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .buttons-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .stream-button {
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 1.2rem 2.5rem;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .stream-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.8s;
+        }
+        
+        .stream-button:hover:before {
+            left: 100%;
+        }
+        
+        .stream-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.3),
+                0 0 30px rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .video-button {
+            background: linear-gradient(145deg, #ff6b6b, #ee5a52);
+            border-color: rgba(255, 107, 107, 0.5);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+        }
+        
+        .video-button:hover {
+            box-shadow: 
+                0 15px 35px rgba(255, 107, 107, 0.4),
+                0 0 30px rgba(255, 107, 107, 0.2);
+            border-color: rgba(255, 107, 107, 0.8);
+        }
+        
+        .radio-button {
+            background: linear-gradient(145deg, #4ecdc4, #44a08d);
+            border-color: rgba(78, 205, 196, 0.5);
+            box-shadow: 0 8px 25px rgba(78, 205, 196, 0.3);
+        }
+        
+        .radio-button:hover {
+            box-shadow: 
+                0 15px 35px rgba(78, 205, 196, 0.4),
+                0 0 30px rgba(78, 205, 196, 0.2);
+            border-color: rgba(78, 205, 196, 0.8);
+        }
+        
+        .button-icon {
+            margin-right: 0.8rem;
+            font-size: 1.3rem;
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .button-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .button-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+        
+        .button-subtitle {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+        
+        .intro-animation {
+            animation: introFade 2s ease-out;
+        }
+        
+        @keyframes introFade {
+            0% { 
+                opacity: 0; 
+                transform: translateY(30px) scale(0.9);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .welcome-text {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 2rem 0 1rem 0;
+            animation: fadeInUp 2s ease-out 1.5s both;
+        }
+        
+        .decorative-border {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            pointer-events: none;
+            animation: borderGlow 4s ease-in-out infinite alternate;
+        }
+        
+        @keyframes borderGlow {
+            0% { box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1); }
+            100% { box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.2); }
+        }
+        
+        @media (max-width: 768px) {
+            .title { font-size: 2.5rem; }
+            .subtitle { font-size: 1rem; }
+            .verse { font-size: 1rem; }
+            .cross { width: 60px; height: 90px; }
+            
+            .buttons-container {
+                flex-direction: column;
+                gap: 1.5rem;
+                margin-top: 2rem;
+            }
+            
+            .stream-button {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+            
+            .button-icon {
+                font-size: 1.2rem;
+                margin-right: 0.6rem;
+            }
+            
+            .button-title {
+                font-size: 1rem;
+            }
+            
+            .button-subtitle {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <div class="decorative-border"></div>
+    
+    <div class="container">
+        <div class="cross-container">
+            <div class="cross"></div>
+        </div>
+        
+        <h1 class="title">ПРЯМАЯ ТРАНСЛЯЦИЯ</h1>
+        <p class="subtitle">Христианское служение</p>
+        
+        <div class="live-indicator">
+            <div class="live-dot"></div>
+            В ЭФИРЕ
+        </div>
+        
+        <div class="verse">
+            «Где двое или трое собраны во имя Мое, <br>там Я посреди них»
+            <div class="verse-reference">— Матфей 18:20</div>
+        </div>
+        
+        <p class="welcome-text">Выберите формат служения</p>
+        
+        <div class="buttons-container">
+            <a href="#video-stream" class="stream-button video-button intro-animation">
+                <div class="button-icon">📹</div>
+                <div class="button-text">
+                    <span class="button-title">ВИДЕО ТРАНСЛЯЦИЯ</span>
+                    <span class="button-subtitle">Прямой эфир служения</span>
+                </div>
+            </a>
+            
+            <a href="#radio-stream" class="stream-button radio-button intro-animation">
+                <div class="button-icon">📻</div>
+                <div class="button-text">
+                    <span class="button-title">ХРИСТИАНСКОЕ РАДИО</span>
+                    <span class="button-subtitle">24/7 духовная музыка</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Добавляем интерактивные эффекты
+        document.addEventListener('mousemove', (e) => {
+            const particles = document.querySelectorAll('.particle');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            particles.forEach((particle, index) => {
+                const speed = (index + 1) * 0.5;
+                const x = mouseX * speed;
+                const y = mouseY * speed;
+                particle.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+        
+        // Анимация появления при загрузке
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 1s ease-in';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+        
+        // Обработка кликов на кнопки
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoButton = document.querySelector('.video-button');
+            const radioButton = document.querySelector('.radio-button');
+            
+            videoButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Анимация клика
+                videoButton.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    videoButton.style.transform = '';
+                }, 150);
+                
+                // Здесь можно добавить переход к видео трансляции
+                setTimeout(() => {
+                    // window.location.href = 'video-stream.html';
+                    // или открыть в модальном окне
+                    showVideoStream();
+                }, 300);
+            });
+            
+            radioButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Анимация клика
+                radioButton.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    radioButton.style.transform = '';
+                }, 150);
+                
+                // Здесь можно добавить переход к радио
+                setTimeout(() => {
+                    // window.location.href = 'radio-stream.html';
+                    // или открыть в модальном окне
+                    showRadioStream();
+                }, 300);
+            });
+        });
+        
+        // Функции для демонстрации (замените на ваши URL или логику)
+        function showVideoStream() {
+            // Пример: открыть YouTube трансляцию
+            // window.open('https://youtube.com/watch?v=YOUR_STREAM_ID', '_blank');
+            
+            // Или перенаправить на страницу трансляции
+            // window.location.href = '/video-stream';
+            
+            alert('🎥 Переход к видео трансляции!\n\nЗдесь будет ссылка на вашу трансляцию\n(YouTube, Vimeo, или ваш стрим-сервер)');
+        }
+        
+        function showRadioStream() {
+            // Пример: начать воспроизведение радио
+            // const audio = new Audio('https://your-radio-stream-url.com/stream');
+            // audio.play();
+            
+            // Или перенаправить на страницу радио
+            // window.location.href = '/radio-stream';
+            
+            alert('📻 Переход к христианскому радио!\n\nЗдесь будет ссылка на ваше радио\n(прямой поток или плеер)');
+        }
+        
+        // Дополнительная анимация для кнопок при скролле
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.3s';
+                    entry.target.classList.add('intro-animation');
+                }
+            });
+        }, observerOptions);
+        
+        // Наблюдать за кнопками
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.stream-button');
+            buttons.forEach(button => observer.observe(button));
+        });
+    </script>
+</body>
+</html>
