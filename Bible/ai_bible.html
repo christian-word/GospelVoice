@@ -1,0 +1,950 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Библия (RST) с поиском и ИИ</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --primary-color: #3498db;
+            --primary-hover: #2980b9;
+            --verse-number-color: #e74c3c;
+            --highlight-color: #ffeeba;
+            --highlight-text-color: #333333;
+            --input-border: #dddddd;
+            --search-bg: #f8f9fa;
+            --result-bg: #f5f5f5;
+            --border-radius: 12px;
+            --button-padding: 10px 16px;
+            --footer-bg: #f1f1f1;
+            --footer-text: #666666;
+        }
+
+        .dark-mode {
+            --bg-color: #1e1e1e;
+            --text-color: #f0f0f0;
+            --primary-color: #3a7bd5;
+            --primary-hover: #2c65b0;
+            --verse-number-color: #ff6b6b;
+            --highlight-color: #8a6d3b;
+            --highlight-text-color: #ffffff;
+            --input-border: #444444;
+            --search-bg: #2d2d2d;
+            --result-bg: #333333;
+            --footer-bg: #2a2a2a;
+            --footer-text: #aaaaaa;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
+            line-height: 1.5;
+            font-size: 16px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+            padding-bottom: 60px;
+        }
+
+        .verse {
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .verse-number {
+            color: var(--verse-number-color);
+            font-weight: bold;
+            margin-right: 6px;
+            font-size: 16px;
+        }
+
+        .highlight {
+            background-color: var(--highlight-color);
+            color: var(--highlight-text-color);
+            padding: 1px 3px;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: var(--button-padding);
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 15px;
+            margin: 4px;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        button:hover {
+            background: var(--primary-hover);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        select, input {
+            padding: 10px 12px;
+            font-size: 15px;
+            min-width: 250px;
+            margin: 4px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--input-border);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .search-container {
+            background: var(--search-bg);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 8px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        #search-results {
+            margin-top: 15px;
+        }
+
+        .search-result {
+            margin: 12px 0;
+            padding: 12px;
+            background: var(--result-bg);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .search-result-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--input-border);
+            padding-bottom: 8px;
+            font-size: 18px;
+            margin-top: 15px;
+        }
+
+        .verse-highlight {
+            background-color: var(--highlight-color);
+            color: var(--highlight-text-color);
+            padding: 2px 4px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            border-top: 1px solid var(--input-border);
+            z-index: 99;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Стили для навигационных стрелок в конце главы */
+        .chapter-end-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            padding: 10px 0;
+            border-top: 1px solid var(--input-border);
+        }
+
+        .chapter-end-nav button {
+            padding: 8px;
+            font-size: 18px;
+            min-width: 40px;
+            height: 40px;
+            background: transparent;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .chapter-end-nav button:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .chapter-end-nav .nav-up {
+            color: var(--text-color);
+        }
+
+        /* Стили для чата ИИ */
+        .explain-btn {
+            margin-left: 8px;
+            padding: 4px 8px;
+            font-size: 12px;
+            border: none;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .verse .explain-btn {
+            display: none;
+        }
+
+        .verse:hover .explain-btn {
+            display: inline-block;
+        }
+
+        .chat-modal {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .chat-window {
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            background: var(--bg-color);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-close {
+            position: absolute;
+            top: 8px; right: 12px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        #chat-content {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid var(--input-border);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            background: var(--search-bg);
+            font-size: 14px;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+
+        #model-select {
+            margin-bottom: 10px;
+            padding: 6px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            border: 1px solid var(--input-border);
+            max-width: 100%;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #resend-btn {
+            background: #aaa;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        #chat-input {
+            width: 70%;
+            padding: 8px;
+            border: 1px solid var(--input-border);
+            border-radius: 4px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            flex-grow: 1;
+            margin-right: 8px;
+        }
+
+        .chat-input-container {
+            display: flex;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .chapter-ai-btn {
+            margin: 15px 0;
+            background: #2ecc71;
+        }
+
+        .chapter-ai-btn:hover {
+            background: #27ae60;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+                font-size: 15px;
+            }
+            
+            input, select {
+                min-width: calc(100% - 20px) !important;
+                margin: 4px 0 !important;
+                padding: 8px 10px;
+            }
+            
+            button {
+                width: calc(50% - 12px);
+                margin: 4px 0 !important;
+                padding: 8px 10px;
+            }
+            
+            .navigation {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .navigation select {
+                width: calc(50% - 10px);
+            }
+            
+            .verse-number {
+                font-size: 15px;
+            }
+            
+            .search-container {
+                padding: 12px;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+            
+            h2 {
+                font-size: 17px;
+            }
+            
+            .theme-toggle {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+                bottom: 60px;
+                right: 15px;
+            }
+            
+            .footer {
+                padding: 8px;
+                font-size: 11px;
+            }
+
+            /* Адаптация стрелок для мобильных */
+            .chapter-end-nav button {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            /* Адаптация чата */
+            .chat-window {
+                width: 95%;
+                padding: 15px;
+            }
+
+            #chat-input {
+                width: 60%;
+            }
+
+            .chat-input-container {
+                flex-direction: column;
+            }
+
+            #chat-input {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 8px;
+            }
+
+            #resend-btn {
+                margin-left: 0;
+                margin-top: 8px;
+            }
+
+            .search-result-actions {
+                flex-direction: column;
+            }
+
+            .search-result-actions button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Библия с поиском и ИИ</h1>
+    
+    <!-- Поиск -->
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Введите текст для поиска...">
+        <button id="search-btn">Искать</button>
+        <button id="reset-btn">Сбросить</button>
+        <div id="search-results"></div>
+    </div>
+    
+    <!-- Навигация -->
+    <div class="navigation">
+        <select id="book-select"></select>
+        <select id="chapter-select"></select>
+        <button id="nav-prev">Назад</button>
+        <button id="nav-next">Вперёд</button>
+    </div>
+    
+    <!-- Текст главы -->
+    <h2 id="current-title"></h2>
+    <button id="chapter-ai-btn" class="chapter-ai-btn">Спросить ИИ о главе</button>
+    <div id="verses-container"></div>
+
+    <!-- Кнопка переключения темы -->
+    <button class="theme-toggle" id="theme-toggle">🌓</button>
+
+    <!-- Модальное окно чата ИИ -->
+    <div id="chat-modal" class="chat-modal" style="display:none">
+        <div class="chat-window">
+            <div class="chat-close" onclick="closeChat()">&times;</div>
+            <select id="model-select"></select>
+            <div id="chat-content">Ожидаем вопрос...</div>
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Введите вопрос...">
+                <button onclick="sendChat()">Отправить</button>
+            </div>
+            <button id="resend-btn" onclick="resendLastMessage()">Переспросить</button>
+        </div>
+    </div>
+
+    <!-- Нижняя панель (футер) -->
+    <div class="footer">
+        <div class="footer-content">
+            <div>м. Суми, версія збірки 1.0</div>
+            <div>© 2025 р.</div>
+        </div>
+    </div>
+
+    <script>
+        // Данные
+        let bibleData = null;
+        let currentBookId = 1;
+        let currentChapterId = 1;
+        let darkMode = false;
+        
+        // Названия книг
+        const bookNames = {
+            1: "Бытие", 2: "Исход", 3: "Левит", 4: "Числа", 5: "Второзаконие",
+            6: "Иисус Навин", 7: "Судьи", 8: "Руфь", 9: "1 Царств", 10: "2 Царств",
+            11: "3 Царств", 12: "4 Царств", 13: "1 Паралипоменон", 14: "2 Паралипоменон",
+            15: "Ездра", 16: "Неемия", 17: "Есфирь", 18: "Иов", 19: "Псалтирь",
+            20: "Притчи", 21: "Екклесиаст", 22: "Песня Песней", 23: "Исаия",
+            24: "Иеремия", 25: "Плач Иеремии", 26: "Иезекииль", 27: "Даниил",
+            28: "Осия", 29: "Иоиль", 30: "Амос", 31: "Авдий", 32: "Иона",
+            33: "Михей", 34: "Наум", 35: "Аввакум", 36: "Софония", 37: "Аггей",
+            38: "Захария", 39: "Малахия", 40: "От Матфея", 41: "От Марка",
+            42: "От Луки", 43: "От Иоанна", 44: "Деяния", 45: "Иакова",
+            46: "1 Петра", 47: "2 Петра", 48: "1 Иоанна", 49: "2 Иоанна",
+            50: "3 Иоанна", 51: "Иуды", 52: "Римлянам", 53: "1 Коринфянам",
+            54: "2 Коринфянам", 55: "Галатам", 56: "Ефесянам", 57: "Филиппийцам",
+            58: "Колоссянам", 59: "1 Фессалоникийцам", 60: "2 Фессалоникийцам",
+            61: "1 Тимофею", 62: "2 Тимофею", 63: "Титу", 64: "Филимону",
+            65: "Евреям", 66: "Откровение"
+        };
+        
+        // API ключ для OpenRouter
+        const encodedKey = "MWVlMmY0YmI4ZjVmN2QxYzg1MDk0NGY5N2ZjOWRkOGYyNjMxMzczN2FiYzQ1YWVmYmE0N2U5MzU0NGVmNWJlMC0xdi1yby1rcw=="; // Сюда вставьте скопированный текст!
+        const apiKey = atob(encodedKey).split('').reverse().join('');
+
+        let lastUserMessage = '';
+        
+        // Загрузка JSON
+        async function loadBible() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/christian-word/GospelVoice/main/Bible/Json/rst2.json');
+                bibleData = await response.json();
+                initUI();
+            } catch (error) {
+                console.error('Ошибка загрузки:', error);
+                alert('Не удалось загрузить данные Библии');
+            }
+        }
+        
+        // Инициализация интерфейса
+        function initUI() {
+            // Заполняем список книг
+            const bookSelect = document.getElementById('book-select');
+            bibleData.Books.forEach(book => {
+                const option = document.createElement('option');
+                option.value = book.BookId;
+                option.textContent = bookNames[book.BookId] || `Книга ${book.BookId}`;
+                bookSelect.appendChild(option);
+            });
+            
+            bookSelect.value = currentBookId;
+            bookSelect.addEventListener('change', (e) => {
+                currentBookId = parseInt(e.target.value);
+                currentChapterId = 1;
+                updateChapters();
+                showChapter(currentBookId, currentChapterId);
+            });
+            
+            // Показываем первую главу
+            updateChapters();
+            showChapter(currentBookId, currentChapterId);
+            
+            // Поиск
+            document.getElementById('search-btn').addEventListener('click', search);
+            document.getElementById('reset-btn').addEventListener('click', resetSearch);
+            
+            // Навигация
+            document.getElementById('nav-prev').addEventListener('click', goPrev);
+            document.getElementById('nav-next').addEventListener('click', goNext);
+            
+            // Переключение темы
+            document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+            
+            // Кнопка ИИ для главы
+            document.getElementById('chapter-ai-btn').addEventListener('click', askAboutChapter);
+            
+            // Проверяем сохранённую тему
+            if (localStorage.getItem('darkMode') === 'true') {
+                toggleTheme();
+            }
+            
+            // Горячие клавиши
+            document.addEventListener('keydown', (e) => {
+                if (e.target.tagName === 'INPUT') return;
+                if (e.key === 'ArrowLeft') goPrev();
+                if (e.key === 'ArrowRight') goNext();
+                if (e.key === 'd' && e.ctrlKey) toggleTheme();
+                if (e.key === 'Enter' && document.getElementById('chat-modal').style.display === 'flex') {
+                    sendChat();
+                }
+            });
+            
+            // Загружаем модели ИИ
+            loadModels();
+        }
+        
+        // Показать главу с возможностью подсветки конкретного стиха
+        function showChapter(bookId, chapterId, highlight = '', verseId = null) {
+            const book = bibleData.Books.find(b => b.BookId === bookId);
+            if (!book) return;
+            
+            const chapter = book.Chapters.find(c => c.ChapterId === chapterId);
+            if (!chapter) return;
+            
+            // Обновляем заголовок
+            document.getElementById('current-title').textContent = 
+                `${bookNames[bookId]} ${chapterId}`;
+            
+            // Выводим стихи
+            const container = document.getElementById('verses-container');
+            container.innerHTML = '';
+            
+            chapter.Verses.forEach(verse => {
+                const verseEl = document.createElement('div');
+                verseEl.className = 'verse';
+                
+                // Подсветка стиха, если он указан и совпадает
+                const isHighlightedVerse = verseId !== null && verse.VerseId === verseId;
+                const verseHighlightClass = isHighlightedVerse ? 'verse-highlight' : '';
+                
+                // Подсветка поиска
+                let text = verse.Text;
+                if (highlight) {
+                    const regex = new RegExp(escapeRegExp(highlight), 'gi');
+                    text = text.replace(regex, m => `<span class="highlight">${m}</span>`);
+                }
+                
+                // Создаем кнопку для объяснения стиха
+                const explainBtn = document.createElement('button');
+                explainBtn.className = 'explain-btn';
+                explainBtn.innerHTML = '🗨 Объяснить';
+                explainBtn.onclick = () => openChat(
+                    `${bookNames[bookId]} ${chapterId}:${verse.VerseId}`,
+                    verse.Text
+                );
+                
+                verseEl.innerHTML = `
+                    <span class="verse-number ${verseHighlightClass}">${verse.VerseId}.</span>
+                    <span class="${verseHighlightClass}">${text}</span>
+                `;
+                verseEl.appendChild(explainBtn);
+                container.appendChild(verseEl);
+                
+                // Прокрутка к подсвеченному стиху
+                if (isHighlightedVerse) {
+                    setTimeout(() => {
+                        verseEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 100);
+                }
+            });
+
+            // Добавляем навигационные стрелки в конце главы
+            const navButtons = document.createElement('div');
+            navButtons.className = 'chapter-end-nav';
+            navButtons.innerHTML = `
+                <button onclick="goPrev()" title="Предыдущая глава">←</button>
+                <button onclick="scrollToTop()" class="nav-up" title="К выбору книги и главы">↑</button>
+                <button onclick="goNext()" title="Следующая глава">→</button>
+            `;
+            container.appendChild(navButtons);
+        }
+        
+        // Прокрутка к верху страницы
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Поиск
+        function search() {
+            const query = document.getElementById('search-input').value.trim();
+            if (query.length < 3) {
+                alert('Введите минимум 3 символа для поиска');
+                return;
+            }
+            
+            const results = [];
+            const regex = new RegExp(escapeRegExp(query), 'gi');
+            
+            bibleData.Books.forEach(book => {
+                book.Chapters.forEach(chapter => {
+                    chapter.Verses.forEach(verse => {
+                        if (regex.test(verse.Text)) {
+                            results.push({
+                                bookId: book.BookId,
+                                chapterId: chapter.ChapterId,
+                                verseId: verse.VerseId,
+                                text: verse.Text
+                            });
+                        }
+                    });
+                });
+            });
+            
+            // Показываем результаты
+            const resultsContainer = document.getElementById('search-results');
+            resultsContainer.innerHTML = '';
+            
+            if (results.length === 0) {
+                resultsContainer.innerHTML = '<div class="search-result">Ничего не найдено</div>';
+                return;
+            }
+            
+            results.slice(0, 50).forEach(result => {
+                const resultEl = document.createElement('div');
+                resultEl.className = 'search-result';
+                
+                const highlightedText = result.text.replace(regex, 
+                    m => `<span class="highlight">${m}</span>`
+                );
+                
+                // Создаем кнопки действий
+                const actionsDiv = document.createElement('div');
+                actionsDiv.className = 'search-result-actions';
+                
+                const goToBtn = document.createElement('button');
+                goToBtn.textContent = 'К главе';
+                goToBtn.onclick = () => goToChapter(
+                    result.bookId, 
+                    result.chapterId, 
+                    result.verseId, 
+                    escapeSingleQuotes(query)
+                );
+                
+                const explainBtn = document.createElement('button');
+                explainBtn.textContent = 'Объяснить';
+                explainBtn.onclick = () => openChat(
+                    `${bookNames[result.bookId]} ${result.chapterId}:${result.verseId}`,
+                    result.text
+                );
+                
+                actionsDiv.appendChild(goToBtn);
+                actionsDiv.appendChild(explainBtn);
+                
+                resultEl.innerHTML = `
+                    <strong>${bookNames[result.bookId]} ${result.chapterId}:${result.verseId}</strong>
+                    <div>${highlightedText}</div>
+                `;
+                
+                resultEl.appendChild(actionsDiv);
+                resultsContainer.appendChild(resultEl);
+            });
+        }
+        
+        // Сброс поиска
+        function resetSearch() {
+            document.getElementById('search-input').value = '';
+            document.getElementById('search-results').innerHTML = '';
+            showChapter(currentBookId, currentChapterId);
+        }
+        
+        // Навигация
+        function goPrev() {
+            const book = bibleData.Books.find(b => b.BookId === currentBookId);
+            const chapterIndex = book.Chapters.findIndex(c => c.ChapterId === currentChapterId);
+            
+            if (chapterIndex > 0) {
+                // Предыдущая глава
+                currentChapterId = book.Chapters[chapterIndex - 1].ChapterId;
+            } else {
+                // Последняя глава предыдущей книги
+                const bookIndex = bibleData.Books.findIndex(b => b.BookId === currentBookId);
+                if (bookIndex > 0) {
+                    currentBookId = bibleData.Books[bookIndex - 1].BookId;
+                    const prevBook = bibleData.Books.find(b => b.BookId === currentBookId);
+                    currentChapterId = prevBook.Chapters[prevBook.Chapters.length - 1].ChapterId;
+                    document.getElementById('book-select').value = currentBookId;
+                }
+            }
+            
+            updateChapters();
+            showChapter(currentBookId, currentChapterId);
+        }
+        
+        function goNext() {
+            const book = bibleData.Books.find(b => b.BookId === currentBookId);
+            const chapterIndex = book.Chapters.findIndex(c => c.ChapterId === currentChapterId);
+            
+            if (chapterIndex < book.Chapters.length - 1) {
+                // Следующая глава
+                currentChapterId = book.Chapters[chapterIndex + 1].ChapterId;
+            } else {
+                // Первая глава следующей книги
+                const bookIndex = bibleData.Books.findIndex(b => b.BookId === currentBookId);
+                if (bookIndex < bibleData.Books.length - 1) {
+                    currentBookId = bibleData.Books[bookIndex + 1].BookId;
+                    currentChapterId = 1;
+                    document.getElementById('book-select').value = currentBookId;
+                }
+            }
+            
+            updateChapters();
+            showChapter(currentBookId, currentChapterId);
+        }
+        
+        // Обновить список глав
+        function updateChapters() {
+            const chapterSelect = document.getElementById('chapter-select');
+            chapterSelect.innerHTML = '';
+            
+            const book = bibleData.Books.find(b => b.BookId === currentBookId);
+            if (!book) return;
+            
+            book.Chapters.forEach(chapter => {
+                const option = document.createElement('option');
+                option.value = chapter.ChapterId;
+                option.textContent = `Глава ${chapter.ChapterId}`;
+                chapterSelect.appendChild(option);
+            });
+            
+            chapterSelect.value = currentChapterId;
+            chapterSelect.addEventListener('change', (e) => {
+                currentChapterId = parseInt(e.target.value);
+                showChapter(currentBookId, currentChapterId);
+            });
+        }
+        
+        // Переключение темы
+        function toggleTheme() {
+            darkMode = !darkMode;
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', darkMode);
+            
+            const themeIcon = document.getElementById('theme-toggle');
+            themeIcon.textContent = darkMode ? '☀️' : '🌙';
+        }
+        
+        // Чат ИИ
+        async function loadModels() {
+            try {
+                const res = await fetch("https://openrouter.ai/api/v1/models", {
+                    headers: {
+                        "Authorization": `Bearer ${apiKey}`
+                    }
+                });
+                const data = await res.json();
+                const models = data.data || [];
+                const modelSelect = document.getElementById('model-select');
+                modelSelect.innerHTML = '';
+                models.forEach(model => {
+                    const option = document.createElement('option');
+                    option.value = model.id;
+                    option.textContent = model.id;
+                    modelSelect.appendChild(option);
+                });
+
+                const savedModel = localStorage.getItem('chatModel');
+                if (savedModel && models.find(m => m.id === savedModel)) {
+                    modelSelect.value = savedModel;
+                } else if (models.length > 0) {
+                    modelSelect.value = models[0].id;
+                }
+            } catch (e) {
+                console.error('Ошибка загрузки моделей:', e);
+                const modelSelect = document.getElementById('model-select');
+                modelSelect.innerHTML = '<option disabled>Ошибка загрузки моделей</option>';
+            }
+        }
+
+        function openChat(ref, text) {
+            document.getElementById('chat-modal').style.display = 'flex';
+            const prompt = text.startsWith('Объясни главу:') ? text : `Объясни стих: ${ref} — ${text}`;
+            document.getElementById('chat-content').innerHTML = '<em>Подготовка запроса...</em>';
+            lastUserMessage = prompt;
+            fetchAI(prompt);
+            document.getElementById('chat-input').focus();
+        }
+
+        function closeChat() {
+            document.getElementById('chat-modal').style.display = 'none';
+        }
+
+        function sendChat() {
+            const q = document.getElementById('chat-input').value.trim();
+            if (q) {
+                lastUserMessage = q;
+                fetchAI(q);
+                document.getElementById('chat-input').value = '';
+            }
+        }
+
+        function resendLastMessage() {
+            if (lastUserMessage) {
+                fetchAI(lastUserMessage);
+            }
+        }
+
+        async function fetchAI(userMessage) {
+            document.getElementById('chat-content').innerHTML = '<em>ИИ думает...</em>';
+            try {
+                const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: document.getElementById('model-select').value,
+                        messages: [
+                            { role: "system", content: "Ты богослов и эксперт по Библии. Отвечай кратко, точно, с цитатами." },
+                            { role: "user", content: userMessage }
+                        ]
+                    })
+                });
+
+                const data = await res.json();
+                const reply = data.choices?.[0]?.message?.content;
+                if (reply) {
+                    document.getElementById('chat-content').innerHTML = reply;
+                } else {
+                    throw new Error('Пустой ответ модели.');
+                }
+            } catch (e) {
+                document.getElementById('chat-content').innerHTML = 'Ошибка: ' + e.message;
+            }
+        }
+
+        // Задать вопрос о текущей главе
+        function askAboutChapter() {
+            const bookName = bookNames[currentBookId];
+            const prompt = `Объясни главу: ${bookName} ${currentChapterId}. О чем она, каковы основные идеи и как их можно применить сегодня?`;
+            openChat(`${bookName} ${currentChapterId}`, prompt);
+        }
+        
+        // Вспомогательные функции
+        function escapeRegExp(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+        
+        function escapeSingleQuotes(string) {
+            return string.replace(/'/g, "\\'");
+        }
+        
+        // Глобальная функция для перехода к главе с подсветкой стиха
+        window.goToChapter = function(bookId, chapterId, verseId, highlight) {
+            currentBookId = bookId;
+            currentChapterId = chapterId;
+            
+            document.getElementById('book-select').value = bookId;
+            updateChapters();
+            document.getElementById('chapter-select').value = chapterId;
+            
+            showChapter(bookId, chapterId, highlight, verseId);
+            window.scrollTo(0, 0);
+        };
+
+        // Глобальная функция для прокрутки к верху
+        window.scrollToTop = scrollToTop;
+        
+        // Запуск
+        loadBible();
+    </script>
+</body>
+</html>
