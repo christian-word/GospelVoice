@@ -1,0 +1,414 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedAI — ассистент врача</title>
+
+  <!-- Заставка для Вайбера и других соцсетей -->
+  <meta property="og:image" content="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/MedA.jpg" />
+
+  <style>
+    :root {
+      --primary-color: #005b96;
+      --secondary-color: #e1f0fa;
+      --text-dark: #2c3e50;
+      --text-light: #ffffff;
+      --warning-bg: #fff8e6;
+    }
+    
+    body { 
+      font-family: 'Arial', sans-serif; 
+      background: #f0f7fb;
+      padding: 10px;
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+    
+    #app {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 120, 200, 0.1);
+      overflow: hidden;
+    }
+    
+    .header {
+      background: var(--primary-color);
+      color: var(--text-light);
+      padding: 15px;
+      text-align: center;
+    }
+    
+    .tab-buttons {
+      display: flex;
+      background: var(--secondary-color);
+      flex-wrap: wrap;
+    }
+    
+    .tab-btn {
+      flex: 1;
+      padding: 12px 5px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+      color: var(--text-dark);
+      min-width: 100px;
+      font-size: 14px;
+    }
+    
+    .tab-btn.active {
+      background: var(--primary-color);
+      color: var(--text-light);
+    }
+    
+    .tab-content {
+      padding: 15px;
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    
+    textarea {
+      height: 100px;
+      resize: vertical;
+    }
+    
+    button {
+      background: var(--primary-color);
+      color: var(--text-light);
+      border: none;
+      padding: 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+    
+    button:hover {
+      background: #003d66;
+    }
+    
+    .message {
+      margin: 15px 0;
+      padding: 12px;
+      border-radius: 8px;
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    
+    .user-message {
+      background: #e1f0fa;
+      border-left: 4px solid #0077cc;
+    }
+    
+    .bot-message {
+      background: #f0faf5;
+      border-left: 4px solid #28a745;
+    }
+    
+    .warning {
+      font-size: 13px;
+      color: #666;
+      margin-top: 15px;
+      padding: 10px;
+      background: var(--warning-bg);
+      border-radius: 5px;
+      text-align: center;
+    }
+    
+    .input-group {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .input-group input {
+      width: calc(50% - 5px);
+    }
+    
+    /* Мобильная адаптация */
+    @media (max-width: 600px) {
+      .tab-btn {
+        padding: 10px 5px;
+        font-size: 13px;
+        min-width: 80px;
+      }
+      
+      .header h1 {
+        font-size: 22px;
+      }
+      
+      .header p {
+        font-size: 14px;
+      }
+      
+      .tab-content {
+        padding: 10px;
+      }
+      
+      input, textarea, select, button {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Остальная часть кода остается без изменений -->
+  <div id="app">
+    <div class="header">
+      <h1>MedAI</h1>
+      <p>Интеллектуальный помощник для медицинских работников</p>
+    </div>
+
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="openTab('symptoms')">Симптомы</button>
+      <button class="tab-btn" onclick="openTab('labs')">Анализы</button>
+      <button class="tab-btn" onclick="openTab('drugs')">Лекарства</button>
+      <button class="tab-btn" onclick="openTab('protocols')">Протоколы</button>
+    </div>
+
+    <!-- Вкладка "Симптомы" -->
+    <div id="symptoms" class="tab-content active">
+      <h3>Анализ симптомов</h3>
+      <input type="number" id="age" placeholder="Возраст пациента">
+      <select id="gender">
+        <option value="">Выберите пол</option>
+        <option value="мужской">Мужской</option>
+        <option value="женский">Женский</option>
+      </select>
+      <textarea id="symptoms-text" placeholder="Опишите симптомы, историю болезни, длительность..."></textarea>
+      <button onclick="analyzeSymptoms()">Проанализировать</button>
+      <div id="symptoms-result"></div>
+    </div>
+
+    <!-- Вкладка "Анализы" -->
+    <div id="labs" class="tab-content">
+      <h3>Интерпретация анализов</h3>
+      <select id="lab-type">
+        <option value="blood">Общий анализ крови</option>
+        <option value="biochem">Биохимия крови</option>
+        <option value="urine">Анализ мочи</option>
+      </select>
+      <textarea id="lab-data" placeholder="Введите данные анализов (например: Hb 80 г/л, лейкоциты 12.5...)"></textarea>
+      <button onclick="interpretLabs()">Интерпретировать</button>
+      <div id="labs-result"></div>
+    </div>
+
+    <!-- Вкладка "Лекарства" -->
+    <div id="drugs" class="tab-content">
+      <h3>Справочник лекарств</h3>
+      <input type="text" id="drug-name" placeholder="Название препарата">
+      <div class="input-group">
+        <input type="number" id="weight" placeholder="Вес (кг)">
+        <input type="number" id="age-drug" placeholder="Возраст (лет)">
+      </div>
+      <button onclick="searchDrug()">Найти информацию</button>
+      <div id="drugs-result"></div>
+    </div>
+
+    <!-- Вкладка "Протоколы" -->
+    <div id="protocols" class="tab-content">
+      <h3>Клинические рекомендации</h3>
+      <input type="text" id="diagnosis" placeholder="Диагноз или МКБ-10 код">
+      <button onclick="searchProtocol()">Найти протокол</button>
+      <div id="protocols-result"></div>
+    </div>
+
+    <div class="warning">
+      ⚠️ Внимание: Данная система предназначена только для медицинских работников. 
+      Не используйте информацию для самолечения. Все решения должны приниматься квалифицированным врачом.  г. Суми, (версия 1.0) © 2025
+    </div>
+  </div>
+
+  <script>
+    // Конфигурация API
+
+   const encrypted = "Z3NrX1NUelQyS1FFQko3MGNDb1hDSllaV0dkeWIzRlk5OHJHN2xvWXUxSmc1SnV0VFZOSzIyVHY=";
+    const API_KEY = atob(encrypted);
+
+
+    const MODEL_NAME = "meta-llama/llama-4-maverick-17b-128e-instruct";
+
+    // Системный промпт для медицинского ассистента
+    const SYSTEM_PROMPT = `Ты — медицинский ассистент MedAI. Твои задачи:
+    1. Анализ симптомов: предлагай ДИФФЕРЕНЦИАЛЬНЫЙ ДИАГНОЗ (3-5 вариантов с вероятностями), но не ставь окончательный диагноз.
+    2. Анализы: интерпретируй отклонения, указывай возможные причины.
+    3. Лекарства: предоставляй дозировки, аналоги, противопоказания.
+    4. Протоколы: давай краткие выдержки из клинических рекомендаций.
+    
+    ВСЕГДА начинай ответ с: "⚠️ Требуется консультация врача! Данные для специалистов:"
+    Избегай советов по самолечению.`;
+
+    // Переключение между вкладками
+    function openTab(tabName) {
+      const tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => tab.classList.remove('active'));
+      
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      
+      document.getElementById(tabName).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    // Форматирование ответа
+    function formatResponse(text) {
+      // Добавляем маркеры для списков
+      text = text.replace(/\n\d+\./g, '\n•');
+      // Выделяем предупреждение
+      if (text.includes("⚠️")) {
+        text = text.replace("⚠️", "<strong style='color:red'>⚠️</strong>");
+      }
+      return text;
+    }
+
+    // Отправка запроса к Groq API
+    async function queryGroq(messages) {
+      try {
+        const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${API_KEY}`
+          },
+          body: JSON.stringify({
+            model: MODEL_NAME,
+            messages: messages,
+            temperature: 0.3, // Меньше "креатива" для медицины
+            max_tokens: 1024
+          })
+        });
+
+        const data = await response.json();
+        return data.choices[0].message.content;
+      } catch (error) {
+        console.error("Ошибка API:", error);
+        return "⚠️ Ошибка при обработке запроса. Попробуйте позже.";
+      }
+    }
+
+    // Анализ симптомов
+    async function analyzeSymptoms() {
+      const age = document.getElementById('age').value;
+      const gender = document.getElementById('gender').value;
+      const symptoms = document.getElementById('symptoms-text').value;
+      
+      if (!symptoms) {
+        alert("Пожалуйста, опишите симптомы");
+        return;
+      }
+
+      const resultDiv = document.getElementById('symptoms-result');
+      resultDiv.innerHTML = '<div class="message">Обработка запроса...</div>';
+
+      const prompt = `Пациент: ${age || 'не указан'} лет, пол: ${gender || 'не указан'}. 
+                      Симптомы: ${symptoms}. 
+                      Предложи дифференциальный диагноз с вероятностями и план обследования.`;
+
+      const messages = [
+        { role: "system", content: SYSTEM_PROMPT },
+        { role: "user", content: prompt }
+      ];
+
+      const response = await queryGroq(messages);
+      resultDiv.innerHTML = `<div class="message bot-message">${formatResponse(response)}</div>`;
+    }
+
+    // Интерпретация анализов
+    async function interpretLabs() {
+      const labType = document.getElementById('lab-type').value;
+      const labData = document.getElementById('lab-data').value;
+      
+      if (!labData) {
+        alert("Пожалуйста, введите данные анализов");
+        return;
+      }
+
+      const resultDiv = document.getElementById('labs-result');
+      resultDiv.innerHTML = '<div class="message">Обработка запроса...</div>';
+
+      const prompt = `Тип анализа: ${document.getElementById('lab-type').options[document.getElementById('lab-type').selectedIndex].text}.
+                      Данные: ${labData}.
+                      Интерпретируй отклонения, укажи возможные причины и дальнейшие действия.`;
+
+      const messages = [
+        { role: "system", content: SYSTEM_PROMPT },
+        { role: "user", content: prompt }
+      ];
+
+      const response = await queryGroq(messages);
+      resultDiv.innerHTML = `<div class="message bot-message">${formatResponse(response)}</div>`;
+    }
+
+    // Поиск лекарств
+    async function searchDrug() {
+      const drugName = document.getElementById('drug-name').value;
+      const weight = document.getElementById('weight').value;
+      const age = document.getElementById('age-drug').value;
+      
+      if (!drugName) {
+        alert("Пожалуйста, укажите название препарата");
+        return;
+      }
+
+      const resultDiv = document.getElementById('drugs-result');
+      resultDiv.innerHTML = '<div class="message">Поиск информации...</div>';
+
+      let prompt = `Препарат: ${drugName}.`;
+      if (weight) prompt += ` Вес пациента: ${weight} кг.`;
+      if (age) prompt += ` Возраст: ${age} лет.`;
+      prompt += ` Предоставь информацию о дозировке, противопоказаниях и аналогах.`;
+
+      const messages = [
+        { role: "system", content: SYSTEM_PROMPT },
+        { role: "user", content: prompt }
+      ];
+
+      const response = await queryGroq(messages);
+      resultDiv.innerHTML = `<div class="message bot-message">${formatResponse(response)}</div>`;
+    }
+
+    // Поиск протоколов
+    async function searchProtocol() {
+      const diagnosis = document.getElementById('diagnosis').value;
+      
+      if (!diagnosis) {
+        alert("Пожалуйста, укажите диагноз или код МКБ-10");
+        return;
+      }
+
+      const resultDiv = document.getElementById('protocols-result');
+      resultDiv.innerHTML = '<div class="message">Поиск рекомендаций...</div>';
+
+      const prompt = `Диагноз: ${diagnosis}. 
+                      Предоставь краткое изложение клинических рекомендаций по диагностике и лечению.`;
+
+      const messages = [
+        { role: "system", content: SYSTEM_PROMPT },
+        { role: "user", content: prompt }
+      ];
+
+      const response = await queryGroq(messages);
+      resultDiv.innerHTML = `<div class="message bot-message">${formatResponse(response)}</div>`;
+    }
+  </script>
+</body>
+</html>
