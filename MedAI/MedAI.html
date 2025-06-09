@@ -4,10 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MedAI — ассистент врача</title>
-
-  <!-- Заставка для Вайбера и других соцсетей -->
-  <meta property="og:image" content="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/MedA.jpg" />
-
   <style>
     :root {
       --primary-color: #005b96;
@@ -143,6 +139,39 @@
       width: calc(50% - 5px);
     }
     
+    /* Стили для форматированных ответов */
+    .bot-message h4 {
+      color: #005b96;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+    
+    .bot-message ul {
+      padding-left: 20px;
+      margin: 10px 0;
+    }
+    
+    .bot-message li {
+      margin-bottom: 8px;
+    }
+    
+    .bot-message .warning {
+      background-color: #fff3cd;
+      color: #856404;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 15px 0;
+      font-weight: bold;
+    }
+    
+    .version {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #666;
+      padding: 10px;
+    }
+    
     /* Мобильная адаптация */
     @media (max-width: 600px) {
       .tab-btn {
@@ -171,7 +200,6 @@
   </style>
 </head>
 <body>
-  <!-- Остальная часть кода остается без изменений -->
   <div id="app">
     <div class="header">
       <h1>MedAI</h1>
@@ -234,17 +262,19 @@
 
     <div class="warning">
       ⚠️ Внимание: Данная система предназначена только для медицинских работников. 
-      Не используйте информацию для самолечения. Все решения должны приниматься квалифицированным врачом.  г. Суми, (версия 1.0) © 2025
+      Не используйте информацию для самолечения. Все решения должны приниматься квалифицированным врачом.
+    </div>
+
+    <div class="version">
+      г. Суми, (версия 1.0) © 2025
     </div>
   </div>
 
   <script>
     // Конфигурация API
-
-   const encrypted = "Z3NrX1NUelQyS1FFQko3MGNDb1hDSllaV0dkeWIzRlk5OHJHN2xvWXUxSmc1SnV0VFZOSzIyVHY=";
+     
+    const encrypted = "Z3NrX1NUelQyS1FFQko3MGNDb1hDSllaV0dkeWIzRlk5OHJHN2xvWXUxSmc1SnV0VFZOSzIyVHY=";
     const API_KEY = atob(encrypted);
-
-
     const MODEL_NAME = "meta-llama/llama-4-maverick-17b-128e-instruct";
 
     // Системный промпт для медицинского ассистента
@@ -271,13 +301,25 @@
 
     // Форматирование ответа
     function formatResponse(text) {
-      // Добавляем маркеры для списков
-      text = text.replace(/\n\d+\./g, '\n•');
-      // Выделяем предупреждение
+      // Обработка предупреждения
+      let warningHtml = '';
       if (text.includes("⚠️")) {
-        text = text.replace("⚠️", "<strong style='color:red'>⚠️</strong>");
+        const warningEnd = text.indexOf(":");
+        warningHtml = `<div class="warning">${text.substring(0, warningEnd + 1)}</div>`;
+        text = text.substring(warningEnd + 1);
       }
-      return text;
+
+      // Форматирование заголовков
+      text = text.replace(/\n([А-ЯA-Z].+?:)/g, '\n<h4>$1</h4>');
+      
+      // Форматирование списков
+      text = text.replace(/(\n•|-\s)(.+?)(?=\n•|-\s|$)/g, '<li>$2</li>');
+      text = text.replace(/(<li>.+?<\/li>)+/g, '<ul>$&</ul>');
+      
+      // Переносы строк
+      text = text.replace(/\n\n/g, '<br><br>');
+      
+      return warningHtml + text;
     }
 
     // Отправка запроса к Groq API
