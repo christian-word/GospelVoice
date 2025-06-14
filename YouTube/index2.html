@@ -1,13 +1,13 @@
-﻿
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Музична Добірка Виконавців Надихаючі християнські відео 2/(30)</title>
-<link rel="icon" href="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/YouTube/MuzEXB.jpg" type="image/x-icon">
-<meta property="og:title" content="Музична Добірка Наших Пісень №2">
-<meta property="og:description" content="Колекція християнських відео (30)">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Музична Добірка Виконавців Надихаючі християнські відео 2/(12)</title>
+  <link rel="icon" href="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/images-note.jpg" type="image/x-icon">
+  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/images-note.jpg">
+  <meta property="og:title" content="Музична Добірка Виконавців 2">
+  <meta property="og:description" content="Надихаючі християнські відео">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
@@ -49,7 +49,6 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80') no-repeat center center;
       background-size: cover;
       opacity: 0.1;
       z-index: -1;
@@ -145,9 +144,135 @@
       color: rgba(255, 255, 255, 0.3);
     }
 
+    /* Стили для радио секции */
+    .radio-section {
+      max-width: 600px;
+      margin: -20px auto 40px;
+      padding: 30px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      z-index: 3;
+    }
+
+    .radio-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(255,255,255,0.05) 0%, transparent 50%, rgba(255,255,255,0.05) 100%);
+      animation: shimmer 4s ease-in-out infinite;
+    }
+
+    .radio-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--text-primary);
+      margin-bottom: 20px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 1;
+    }
+
+    #track-info {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 16px;
+      padding: 15px 20px;
+      margin: 20px 0;
+      color: var(--text-primary);
+      font-size: 1.1rem;
+      font-weight: 500;
+      box-shadow: 0 4px 16px rgba(74, 144, 226, 0.2);
+      position: relative;
+      z-index: 1;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    #track-info:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* Стилизация аудиоплеера */
+    #player {
+      width: 100%;
+      max-width: 400px;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-radius: 20px;
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(16px);
+      outline: none;
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+
+    #player:hover {
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    #player::-webkit-media-controls-panel {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 255, 0.9) 100%);
+      border-radius: 18px;
+    }
+
+    #player::-webkit-media-controls-play-button,
+    #player::-webkit-media-controls-pause-button {
+      background: var(--primary-gradient);
+      border-radius: 50%;
+      margin: 0 8px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+
+    #player::-webkit-media-controls-play-button:hover,
+    #player::-webkit-media-controls-pause-button:hover {
+      transform: scale(1.1);
+    }
+
+    #player::-webkit-media-controls-timeline {
+      background: rgba(74, 144, 226, 0.2);
+      border-radius: 10px;
+      margin: 0 10px;
+    }
+
+    #player::-webkit-media-controls-current-time-display,
+    #player::-webkit-media-controls-time-remaining-display {
+      color: #357abd;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    #player::-webkit-media-controls-volume-slider {
+      background: rgba(74, 144, 226, 0.2);
+      border-radius: 10px;
+    }
+
+    #player::-webkit-media-controls-mute-button {
+      background: var(--secondary-gradient);
+      border-radius: 50%;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+
     .container {
       max-width: 1400px;
-      margin: -40px auto 0;
+      margin: 0 auto;
       padding: 0 20px 60px;
       position: relative;
       z-index: 2;
@@ -372,9 +497,27 @@
         margin: 0 10px;
       }
 
+      .radio-section {
+        margin: -15px 15px 30px;
+        padding: 25px 20px;
+      }
+
+      .radio-section h2 {
+        font-size: 1.4rem;
+      }
+
+      #track-info {
+        font-size: 1rem;
+        padding: 12px 15px;
+      }
+
+      #player {
+        height: 50px;
+        max-width: 100%;
+      }
+
       .container {
         padding: 0 15px 40px;
-        margin-top: -30px;
       }
 
       .video-grid {
@@ -431,6 +574,16 @@
         padding: 12px 15px;
         font-size: 1rem;
       }
+
+      .radio-section {
+        margin: -10px 10px 25px;
+        padding: 20px 15px;
+      }
+
+      #track-info {
+        font-size: 0.95rem;
+        padding: 10px 12px;
+      }
     }
   </style>
 </head>
@@ -438,9 +591,72 @@
 <header class="header">
   <img src="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/dove.png" alt="Голубь" class="dove-icon">
   <h1>Музична Добірка Наших Виконавців</h1>
-  <p>Колекція християнських відео (30) № 2</p>
+  <p>Надихаючі християнські відео (30) № 2</p>
   <blockquote class="quote">Співайте Господу нову пісню! — Пс. 149:1</blockquote>
 </header>
+
+<!-- Код радиоэфира -->
+<section class="radio-section">
+  <h2>📻 Ефір від нашої церкви</h2>
+  <div id="track-info">Завантаження...</div>
+  <audio id="player" controls autoplay></audio>
+</section>
+
+<script>
+  const playlistURL = "https://raw.githubusercontent.com/christian-word/GospelVoice/refs/heads/main/playlist/generated-playlist2.json";
+  const audio = document.getElementById("player");
+  const info = document.getElementById("track-info");
+
+  let playlist = [];
+  let startTime = 0;
+  let repetition = false;
+
+  fetch(playlistURL)
+    .then(res => res.json())
+    .then(data => {
+      const generatedAt = new Date(data.generatedAt).getTime();
+      const now = Date.now();
+      const elapsed = Math.floor((now - generatedAt) / 1000); // в секундах
+
+      playlist = data.playlist;
+      repetition = data.settings?.repetition ?? false;
+
+      const totalDuration = playlist.reduce((sum, track) => sum + track.duration, 0);
+      let position = repetition ? (elapsed % totalDuration) : elapsed;
+
+      // Найдём текущий трек
+      let currentIndex = 0;
+      let offset = 0;
+      for (let i = 0; i < playlist.length; i++) {
+        if (position < offset + playlist[i].duration) {
+          currentIndex = i;
+          startTime = position - offset;
+          break;
+        }
+        offset += playlist[i].duration;
+      }
+
+      playTrack(currentIndex, startTime);
+    });
+
+  function playTrack(index, offset = 0) {
+    const track = playlist[index];
+    if (!track) return;
+
+    info.textContent = `🎵 ${track.title}`;
+    audio.src = track.url;
+    audio.currentTime = offset;
+
+    audio.onended = () => {
+      let next = index + 1;
+      if (next >= playlist.length) {
+        if (repetition) next = 0;
+        else return;
+      }
+      playTrack(next, 0);
+    };
+  }
+</script>
 
 <div class="container">
   <div class="video-grid">
@@ -759,6 +975,7 @@
     </div> 
   </div>
 </div>
+
 <footer class="footer">
   <p>"Ісус сказав: Я є шлях, і правда, і життя" – Ів. 14:6</p>
   <p>&copy;Церква ЄХБ "Дім Євангелія", м.Суми 2025</p>
