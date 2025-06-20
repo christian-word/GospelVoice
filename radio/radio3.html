@@ -664,44 +664,44 @@
         console.error('Помилка:', error);
       });
 
-    function playTrack(index, offset = 0) {
-      const track = playlist[index];
-      if (!track) return;
+function playTrack(index, offset = 0) {
+  const track = playlist[index];
+  if (!track) return;
 
-      const artworkSrc = track.image || '';
-      const artworkElement = artworkSrc ? 
-        `<img src="${artworkSrc}" alt="Cover" onerror="this.parentNode.innerHTML='✝'">` : 
-        '✝';
+  const artworkSrc = track.image || '';
+  const artworkElement = artworkSrc ? 
+    `<img src="${artworkSrc}" alt="Cover" onerror="this.parentNode.innerHTML='✝'">` : 
+    '✝';
 
-      trackInfo.innerHTML = `
-        <div class="track-artwork">${artworkElement}</div>
-        <div class="track-details">
-          <div class="track-title">${track.title}</div>
-          <div class="track-artist">${track.artist || 'Християнська пісня'}</div>
-          <div class="track-meta">
-            <span>🎵 ${track.genre || 'Християнська музика'}</span>
-            <span>⏱ ${formatTime(track.duration)}</span>
-          </div>
-        </div>
-      `;
-      
-      audio.src = track.url;
-      
-      canSeek = true;
-      audio.currentTime = offset;
-      lastTime = offset;
-      
-      audio.onloadeddata = () => canSeek = false;
+  trackInfo.innerHTML = `
+    <div class="track-artwork">${artworkElement}</div>
+    <div class="track-details">
+      <div class="track-title">${track.title}</div>
+      <div class="track-artist">${track.artist || 'Пісня: ' + track.title}</div>
+      <div class="track-meta">
+        <span>🎵 ${track.genre || 'Християнська музика'}</span>
+        <span>⏱ ${formatTime(track.duration)}</span>
+      </div>
+    </div>
+  `;
+  
+  audio.src = track.url;
+  
+  canSeek = true;
+  audio.currentTime = offset;
+  lastTime = offset;
+  
+  audio.onloadeddata = () => canSeek = false;
 
-      audio.onended = () => {
-        let next = index + 1;
-        if (next >= playlist.length) {
-          if (repetition) next = 0;
-          else return;
-        }
-        playTrack(next, 0);
-      };
+  audio.onended = () => {
+    let next = index + 1;
+    if (next >= playlist.length) {
+      if (repetition) next = 0;
+      else return;
     }
+    playTrack(next, 0);
+  };
+}
 
     function formatTime(seconds) {
       const mins = Math.floor(seconds / 60);
