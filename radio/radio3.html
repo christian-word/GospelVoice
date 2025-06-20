@@ -3,23 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gospel Voice - Християнське радіо</title>
+  <title>Gospel Voice - Християнське радіо 3</title>
+  <!-- Метаданные для соцсетей -->
+  <meta property="og:title" content="Gospel Voice - Християнське радіо">
+  <meta property="og:description" content="Натхнення, надія та віра через музику та Слово Боже">
   <meta property="og:image" content="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO/radio3.jpg">
-
+  <meta property="og:url" content="https://your-radiostation-url.com">
+  <meta property="og:type" content="website">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #6C5CE7;
-      --primary-light: #A29BFE;
-      --secondary: #00B894;
-      --accent: #FD79A8;
-      --dark: #2D3436;
-      --light: #F5F6FA;
-      --text: #2D3436;
-      --text-light: #636E72;
-      --glass: rgba(255, 255, 255, 0.1);
+      --primary: #5D5FEF;
+      --primary-light: #8B8DF2;
+      --secondary: #4CAF50;
+      --accent: #FF7043;
+      --bg: #F0F2F5;
+      --card: #FFFFFF;
+      --text: #2D3748;
+      --text-light: #718096;
+      --border: #E2E8F0;
+      --glass: rgba(255, 255, 255, 0.7);
       --glass-border: rgba(255, 255, 255, 0.2);
     }
 
@@ -31,7 +37,7 @@
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      background: var(--bg);
       color: var(--text);
       min-height: 100vh;
       display: flex;
@@ -42,23 +48,24 @@
     }
 
     .player {
-      background: rgba(255, 255, 255, 0.9);
+      background: var(--card);
       backdrop-filter: blur(20px);
       border-radius: 24px;
       padding: 32px;
       width: 100%;
       max-width: 420px;
       box-shadow: 
-        0 10px 30px rgba(0, 0, 0, 0.1),
+        0 4px 20px rgba(0, 0, 0, 0.08),
         0 0 0 1px rgba(0, 0, 0, 0.02);
       position: relative;
       overflow: hidden;
       transition: all 0.3s ease;
+      border: 1px solid var(--border);
     }
 
     .player:hover {
       box-shadow: 
-        0 15px 40px rgba(0, 0, 0, 0.15),
+        0 8px 30px rgba(0, 0, 0, 0.12),
         0 0 0 1px rgba(0, 0, 0, 0.03);
     }
 
@@ -91,7 +98,7 @@
       font-size: 24px;
       font-weight: 700;
       color: white;
-      box-shadow: 0 8px 24px rgba(108, 92, 231, 0.3);
+      box-shadow: 0 8px 24px rgba(93, 95, 239, 0.2);
       font-family: 'Playfair Display', serif;
       transition: all 0.3s ease;
     }
@@ -108,7 +115,7 @@
       font-size: 22px;
       font-weight: 700;
       margin-bottom: 4px;
-      color: var(--dark);
+      color: var(--text);
       font-family: 'Playfair Display', serif;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       -webkit-background-clip: text;
@@ -142,7 +149,7 @@
     }
 
     .live-indicator {
-      background: linear-gradient(135deg, #FF7675, #FD79A8);
+      background: linear-gradient(135deg, #FF7043, #FF8A65);
       color: white;
       padding: 6px 12px;
       border-radius: 20px;
@@ -155,7 +162,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 4px 12px rgba(253, 121, 168, 0.3);
+      box-shadow: 0 4px 12px rgba(255, 112, 67, 0.2);
     }
 
     .live-indicator::before {
@@ -175,13 +182,14 @@
     }
 
     .now-playing-section {
-      background: var(--light);
+      background: var(--card);
       border-radius: 18px;
       padding: 24px;
       margin-bottom: 24px;
       position: relative;
       overflow: hidden;
       transition: all 0.3s ease;
+      border: 1px solid var(--border);
     }
 
     .now-playing-section:hover {
@@ -229,7 +237,7 @@
       width: 80px;
       height: 80px;
       border-radius: 12px;
-      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      background: linear-gradient(135deg, #f5f7fa, #e2e8f0);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -237,7 +245,7 @@
       color: var(--primary);
       flex-shrink: 0;
       overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
       position: relative;
       transition: all 0.3s ease;
     }
@@ -249,7 +257,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(0, 184, 148, 0.1));
+      background: linear-gradient(135deg, rgba(93, 95, 239, 0.1), rgba(76, 175, 80, 0.1));
       opacity: 0;
       transition: opacity 0.3s ease;
     }
@@ -274,7 +282,7 @@
       font-size: 18px;
       font-weight: 600;
       margin-bottom: 6px;
-      color: var(--dark);
+      color: var(--text);
       line-height: 1.3;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -332,16 +340,16 @@
       width: 100%;
       height: 56px;
       background: white;
-      border: 1px solid rgba(0, 0, 0, 0.1);
+      border: 1px solid var(--border);
       border-radius: 16px;
       outline: none;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
     }
 
     .audio-player:hover {
       border-color: var(--primary-light);
-      box-shadow: 0 8px 24px rgba(108, 92, 231, 0.1);
+      box-shadow: 0 8px 24px rgba(93, 95, 239, 0.1);
     }
 
     .audio-player::-webkit-media-controls-panel {
@@ -365,13 +373,13 @@
     }
 
     .audio-player::-webkit-media-controls-timeline {
-      background: rgba(108, 92, 231, 0.1);
+      background: rgba(93, 95, 239, 0.1);
       border-radius: 4px;
       margin: 0 8px;
     }
 
     .audio-player::-webkit-media-controls-volume-slider {
-      background: rgba(108, 92, 231, 0.1);
+      background: rgba(93, 95, 239, 0.1);
       border-radius: 4px;
     }
 
@@ -398,7 +406,7 @@
       position: absolute;
       height: 2px;
       width: 100%;
-      background: rgba(108, 92, 231, 0.2);
+      background: rgba(93, 95, 239, 0.1);
       border-radius: 1px;
     }
 
@@ -428,7 +436,7 @@
     .station-footer {
       margin-top: 24px;
       padding-top: 16px;
-      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      border-top: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -449,7 +457,7 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: var(--light);
+      background: white;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -458,13 +466,15 @@
       text-decoration: none;
       font-weight: 600;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border);
     }
 
     .social-link:hover {
       background: var(--primary);
       color: white;
       transform: translateY(-2px) scale(1.1);
-      box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
+      box-shadow: 0 4px 12px rgba(93, 95, 239, 0.2);
+      border-color: transparent;
     }
 
     @media (max-width: 480px) {
@@ -513,8 +523,8 @@
       <div class="station-logo floating">GV</div>
       <div class="station-info">
         <div class="station-name">Gospel Voice</div>
-        <div class="station-frequency">88.3 FM • Християнське радіо</div>
-      
+        <div class="station-frequency">88.3 FM • Християнське радіо 3</div>
+
       </div>
       <div class="live-indicator">On Air</div>
     </div>
