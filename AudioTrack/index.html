@@ -4,338 +4,624 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Музичне Недільне Богослужіння за 22.06.2025</title>
-
-    <!-- Метаданні для соцмереж -->
+    
     <meta property="og:title" content="Музичне Недільне Богослужіння за 22.06.2025 ⛪">
     <meta property="og:image" content="https://raw.githubusercontent.com/ruyriy/Audio-christ/main/ICO//gurt.jpg">
     
-    <!-- Favicon -->
     <link rel="icon" href="https://example.com/favicon.ico" type="image/x-icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
         :root {
-            /* Светлая тема (по умолчанию) */
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --text: #333333;
-            --light-text: #777777;
-            --bg: #f9f9f9;
-            --card-bg: #ffffff;
-            --card-hover: #f5f5f5;
-            --player-bg: #f1f3f4;
-            --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            --divider: rgba(0, 0, 0, 0.1);
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: #f7fafc;
+            --bg-glass: rgba(255, 255, 255, 0.25);
+            
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --card-hover: rgba(255, 255, 255, 0.95);
+            
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.04);
+            
+            --border-radius: 20px;
+            --border-radius-sm: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .dark-theme {
-            /* Тёплая тёмная тема */
-            --primary: #5d9cec;
-            --secondary: #48cfad;
-            --accent: #fd9872;
-            --text: #f5f7fa;
-            --light-text: #aab2bd;
-            --bg: #1a2b3c; /* Тёмно-синий вместо чёрного */
-            --card-bg: #243b4f; /* Тёмная бирюза */
-            --card-hover: #2c455a;
-            --player-bg: #2d3e50;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-            --divider: rgba(255, 255, 255, 0.1);
-        }
-        
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            line-height: 1.5;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0;
-            color: var(--text);
-            background: var(--bg);
-            -webkit-font-smoothing: antialiased;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        
-        .container {
-            padding: 15px;
-        }
-        
-        h1 {
-            color: var(--primary);
-            text-align: center;
-            margin: 0 0 20px 0;
-            padding: 15px 0 10px;
-            font-size: 1.4rem;
-            position: relative;
-        }
-        
-        h1:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 2px;
-            background: var(--accent);
-            border-radius: 2px;
-        }
-        
-        .player {
-            margin-bottom: 18px;
-            padding: 15px;
-            background: var(--card-bg);
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border: 1px solid var(--divider);
-        }
-        
-        .player:hover {
-            background: var(--card-hover);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-        }
-        
-        .player-title {
-            font-weight: 600;
-            margin: 0 0 6px 0;
-            color: var(--text);
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-        }
-        
-        .player-title:before {
-            content: '🎧';
-            margin-right: 8px;
-            font-size: 0.9em;
-        }
-        
-        .player-info {
-            font-size: 0.85rem;
-            color: var(--light-text);
-            margin: 0 0 10px 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        
-        .player-info span {
-            display: inline-flex;
-            align-items: center;
-        }
-        
-        .player-info span:not(:last-child):after {
-            content: '•';
-            margin-left: 8px;
-            color: var(--light-text);
-            opacity: 0.5;
-        }
-        
-        .drive-player {
-            width: 100%;
-            height: 60px;
-            border: none;
-            border-radius: 8px;
-            margin: 8px 0 5px 0;
-            background: var(--player-bg);
-            transition: var(--transition);
-        }
-        
-        .drive-link {
-            display: inline-flex;
-            align-items: center;
-            margin-top: 8px;
-            font-size: 0.85rem;
-            color: var(--secondary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-        
-        .drive-link:hover {
-            color: var(--accent);
-            text-decoration: underline;
-        }
-        
-        .drive-link:before {
-            content: '🔗';
-            margin-right: 5px;
-            font-size: 0.9em;
-        }
-        
-        /* Мобильные стили */
-        @media (max-width: 600px) {
-            .container {
-                padding: 12px;
-            }
+            --text-primary: #f7fafc;
+            --text-secondary: #e2e8f0;
+            --text-muted: #a0aec0;
             
-            h1 {
-                font-size: 1.2rem;
-                padding: 12px 0 8px;
-                margin-bottom: 15px;
-            }
+            --bg-primary: #0f1419;
+            --bg-secondary: #1a202c;
+            --bg-glass: rgba(0, 0, 0, 0.4);
             
-            .player {
-                padding: 12px;
-                margin-bottom: 15px;
-                border-radius: 8px;
-            }
+            --card-bg: rgba(26, 32, 44, 0.8);
+            --card-hover: rgba(26, 32, 44, 0.95);
             
-            .player-title {
-                font-size: 0.95rem;
-            }
-            
-            .player-title:before {
-                margin-right: 6px;
-            }
-            
-            .player-info {
-                font-size: 0.8rem;
-                gap: 6px;
-            }
-            
-            .player-info span:not(:last-child):after {
-                margin-left: 6px;
-            }
-            
-            .drive-player {
-                height: 50px;
-                border-radius: 6px;
-                margin: 6px 0 4px;
-            }
-            
-            .drive-link {
-                font-size: 0.8rem;
-                margin-top: 6px;
-            }
-        }
-        
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .player {
-            animation: fadeIn 0.4s ease forwards;
-        }
-        
-        .player:nth-child(2) {
-            animation-delay: 0.1s;
-        }
-        
-        .player:nth-child(3) {
-            animation-delay: 0.2s;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.6);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4), 0 4px 6px rgba(0, 0, 0, 0.2);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.6), 0 10px 10px rgba(0, 0, 0, 0.3);
         }
 
-        /* Кнопка переключения темы */
-        .theme-toggle {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: var(--transition);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: var(--card-bg);
-            border: 1px solid var(--divider);
-            box-shadow: var(--shadow);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--primary-gradient);
+            opacity: 0.05;
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .header-bg {
+            position: absolute;
+            top: -2rem;
+            left: -2rem;
+            right: -2rem;
+            bottom: -2rem;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: -1;
+        }
+
+        h1 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 400;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            z-index: 100;
-            transition: all 0.3s ease;
-            font-size: 1.2em;
-            color: var(--text);
+            gap: 0.5rem;
         }
 
-        .theme-toggle:hover {
-            transform: scale(1.1);
+        .date-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--accent-gradient);
+            color: white;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 1rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .tracks-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .track-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .track-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+        }
+
+        .track-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
             background: var(--card-hover);
         }
 
-        .theme-toggle:active {
-            transform: scale(0.95);
+        .track-card:hover::before {
+            transform: scaleX(1);
         }
 
-        /* Иконка переключателя адаптируется к теме */
-        .theme-toggle::before {
-            content: '🌙';
+        .track-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
-        .dark-theme .theme-toggle::before {
-            content: '☀️';
+        .track-icon {
+            width: 3rem;
+            height: 3rem;
+            background: var(--secondary-gradient);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .track-info {
+            flex: 1;
+        }
+
+        .track-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .track-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .player-container {
+            margin-bottom: 1rem;
+            border-radius: var(--border-radius-sm);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            background: var(--bg-secondary);
+        }
+
+        .drive-player {
+            width: 100%;
+            height: 80px;
+            border: none;
+            background: transparent;
+        }
+
+        .track-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--accent-gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+            border: none;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .action-btn.secondary {
+            background: var(--bg-glass);
+            color: var(--text-primary);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3.5rem;
+            height: 3.5rem;
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(180deg);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 20px;
+            height: 20px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 15px;
+            height: 15px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 25px;
+            height: 25px;
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .track-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .track-card:nth-child(2) { animation-delay: 0.1s; }
+        .track-card:nth-child(3) { animation-delay: 0.2s; }
+        .track-card:nth-child(4) { animation-delay: 0.3s; }
+        .track-card:nth-child(5) { animation-delay: 0.4s; }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            .track-card {
+                padding: 1.5rem;
+            }
+
+            .track-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .track-icon {
+                align-self: flex-start;
+            }
+
+            .track-actions {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                justify-content: center;
+            }
+
+            .theme-toggle {
+                bottom: 1rem;
+                right: 1rem;
+                width: 3rem;
+                height: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-bg {
+                left: -1rem;
+                right: -1rem;
+                top: -1rem;
+                bottom: -1rem;
+            }
+
+            .track-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .drive-player {
+                height: 60px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>📖 Музичне Недільне Богослужіння за 22.06.2025 ⛪</h1>
-        
-        <!-- Трек 1 -->
-        <div class="player">
-            <div class="player-title">Дар благодаті</div>
-            <div class="player-info">
-                <span>Музичне служіння Гурт</span>
-                <span>04.05.2025</span>
-            </div>
-            <iframe src="https://drive.google.com/file/d/1Mg352dTwbd_nIWLuWs786ptu888CFz7t/preview" class="drive-player"></iframe>
-            <a href="https://drive.google.com/file/d/1Mg352dTwbd_nIWLuWs786ptu888CFz7t/view" class="drive-link" target="_blank">Відкрити в Google Drive</a>    
-        </div>
-        
-        <!-- Трек 2 -->
-        <div class="player">
-            <div class="player-title">Знаходиться світ в дні останні (гурт)</div>
-            <div class="player-info">
-               <span>Музичне служіння Гурт</span>
-                <span>04.05.2025</span>
-            </div>
-            <iframe src="https://drive.google.com/file/18ndbANS9n3-ivZBKDynA_pUD8CJaEQqG/preview" class="drive-player"></iframe>
-            <a href="https://drive.google.com/file/d/18ndbANS9n3-ivZBKDynA_pUD8CJaEQqG/view" class="drive-link" target="_blank">Відкрити в Google Drive</a>
-        </div>
-        
-        <!-- Трек 3 -->
-        <div class="player">
-            <div class="player-title">В сльозах приходжу я до Тебе</div>
-            <div class="player-info">
-               <span>Музичне служіння Гурт</span>
-                <span>04.05.2025</span>
-            </div>
-            <iframe src="https://drive.google.com/file/d/1h6ZEmMuH1dQDQEtqX-hv3is75P9fAlrT/preview" class="drive-player"></iframe>
-            <a href="https://drive.google.com/file/d/1h6ZEmMuH1dQDQEtqX-hv3is75P9fAlrT/view" class="drive-link" target="_blank">Відкрити в Google Drive</a>
-        </div>
-
-       <!-- Трек 4 -->
-        <div class="player">
-            <div class="player-title">Вірш</div>
-            <div class="player-info">
-               <span>Служіння</span>
-                <span>04.05.2025</span>
-            </div>
-            <iframe src="https://drive.google.com/file/d/1UmA9mfxrtPr4333-9Ny3dSal_LqNr5Cw/preview" class="drive-player"></iframe>
-            <a href="https://drive.google.com/file/d/1UmA9mfxrtPr4333-9Ny3dSal_LqNr5Cw/view" class="drive-link" target="_blank">Відкрити в Google Drive</a>
-        </div>
-        
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
     </div>
 
-    <button class="theme-toggle" title="Переключити тему" aria-label="Переключити тему"></button>
+    <div class="container">
+        <header class="header">
+            <div class="header-bg"></div>
+            <h1>Музичне Недільне Богослужіння</h1>
+            <div class="subtitle">
+                <i class="fas fa-church"></i>
+                Мелодії для душі
+            </div>
+            <div class="date-badge">
+                <i class="fas fa-calendar-alt"></i>
+                22 червня 2025
+            </div>
+        </header>
+
+            <div class="track-card">
+                <div class="track-header">
+                    <div class="track-icon">
+                        <i class="fas fa-dove"></i>
+                    </div>
+                    <div class="track-info">
+                        <h3 class="track-title">В сльозах приходжу я до Тебе</h3>
+                        <div class="track-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-users"></i>
+                                Музичне служіння Гурт
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                04.05.2025
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="player-container">
+                    <iframe src="https://drive.google.com/file/d/1h6ZEmMuH1dQDQEtqX-hv3is75P9fAlrT/preview" class="drive-player"></iframe>
+                </div>
+                
+                <div class="track-actions">
+                    <a href="https://drive.google.com/file/d/1h6ZEmMuH1dQDQEtqX-hv3is75P9fAlrT/view" class="action-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                        Відкрити
+                    </a>
+                </div>
+            </div>
+
+           <div class="track-card">
+                <div class="track-header">
+                    <div class="track-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="track-info">
+                        <h3 class="track-title">Знаходиться світ в дні останні</h3>
+                        <div class="track-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-users"></i>
+                                Музичне служіння Гурт
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                04.05.2025
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="player-container">
+                    <iframe src="https://drive.google.com/file/d/18ndbANS9n3-ivZBKDynA_pUD8CJaEQqG/preview" class="drive-player"></iframe>
+                </div>
+                
+                <div class="track-actions">
+                    <a href="https://drive.google.com/file/d/18ndbANS9n3-ivZBKDynA_pUD8CJaEQqG/view" class="action-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                        Відкрити
+                    </a>
+                </div>
+            </div>
+
+        <div class="tracks-grid">
+            <div class="track-card">
+                <div class="track-header">
+                    <div class="track-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="track-info">
+                        <h3 class="track-title">Дар благодаті</h3>
+                        <div class="track-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-users"></i>
+                                Музичне служіння Гурт
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                04.05.2025
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="player-container">
+                    <iframe src="https://drive.google.com/file/d/1Mg352dTwbd_nIWLuWs786ptu888CFz7t/preview" class="drive-player"></iframe>
+                </div>
+                
+                <div class="track-actions">
+                    <a href="https://drive.google.com/file/d/1Mg352dTwbd_nIWLuWs786ptu888CFz7t/view" class="action-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                        Відкрити
+                    </a>
+                </div>
+            </div>
+
+            <div class="track-card">
+                <div class="track-header">
+                    <div class="track-icon">
+                        <i class="fas fa-scroll"></i>
+                    </div>
+                    <div class="track-info">
+                        <h3 class="track-title">Вірш</h3>
+                        <div class="track-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-microphone"></i>
+                                Служіння
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                04.05.2025
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="player-container">
+                    <iframe src="https://drive.google.com/file/d/1UmA9mfxrtPr4333-9Ny3dSal_LqNr5Cw/preview" class="drive-player"></iframe>
+                </div>
+                
+                <div class="track-actions">
+                    <a href="https://drive.google.com/file/d/1UmA9mfxrtPr4333-9Ny3dSal_LqNr5Cw/view" class="action-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                        Відкрити
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="theme-toggle" aria-label="Переключити тему">
+        <i class="fas fa-moon"></i>
+    </button>
 
     <script>
         // Переключение темы
         const themeToggle = document.querySelector('.theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
         const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
         
-        // Проверяем сохраненные предпочтения пользователя
+        // Проверяем сохраненные предпочтения
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark' || (savedTheme === null && prefersDarkScheme.matches)) {
             document.documentElement.classList.add('dark-theme');
+            themeIcon.className = 'fas fa-sun';
         }
         
         themeToggle.addEventListener('click', () => {
             document.documentElement.classList.toggle('dark-theme');
             
-            // Сохраняем выбор пользователя
             const isDark = document.documentElement.classList.contains('dark-theme');
+            themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
         
@@ -343,7 +629,27 @@
         prefersDarkScheme.addEventListener('change', e => {
             if (localStorage.getItem('theme') === null) {
                 document.documentElement.classList.toggle('dark-theme', e.matches);
+                themeIcon.className = e.matches ? 'fas fa-sun' : 'fas fa-moon';
             }
+        });
+
+        // Добавляем плавные анимации при загрузке
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+        });
+
+        // Параллакс эффект для floating elements
+        window.addEventListener('mousemove', (e) => {
+            const elements = document.querySelectorAll('.floating-element');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            elements.forEach((element, index) => {
+                const speed = (index + 1) * 0.5;
+                const xPos = (x - 0.5) * speed * 20;
+                const yPos = (y - 0.5) * speed * 20;
+                element.style.transform = `translate(${xPos}px, ${yPos}px)`;
+            });
         });
     </script>
 </body>
