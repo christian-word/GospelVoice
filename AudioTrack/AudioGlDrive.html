@@ -1,1 +1,537 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎵 Music Player</title>
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 50%, #34495e 100%);
+    min-height: 100vh;
+    padding: 10px;
+    color: #fff;
+  }
+
+  .container {
+    max-width: 500px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+  }
+
+  .header {
+    text-align: center;
+    padding: 30px 20px 20px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+  }
+
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #fff 0%, #e0e7ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .header p {
+    opacity: 0.8;
+    font-size: 14px;
+  }
+
+  .player-section {
+    padding: 30px 20px;
+  }
+
+  .album-art {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 30px;
+    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .album-art::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+    animation: shine 3s infinite;
+  }
+
+  @keyframes shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  .track-info {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .track-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 20px;
+  }
+
+  .track-artist {
+    opacity: 0.7;
+    font-size: 14px;
+  }
+
+  .progress-container {
+    margin: 20px 0;
+    position: relative;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3498db 0%, #2980b9 100%);
+    border-radius: 3px;
+    width: 0%;
+    transition: width 0.1s ease;
+  }
+
+  .time-display {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    opacity: 0.7;
+    margin-top: 8px;
+  }
+
+  .controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 30px 0;
+  }
+
+  .control-btn {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .control-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+  }
+
+  .control-btn:active {
+    transform: scale(0.95);
+  }
+
+  .play-btn {
+    width: 70px;
+    height: 70px;
+    font-size: 28px;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+  }
+
+  .play-btn:hover {
+    box-shadow: 0 15px 30px rgba(52, 152, 219, 0.6);
+  }
+
+  .loading {
+    display: none;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 14px;
+    opacity: 0.8;
+  }
+
+  .loading.show {
+    display: block;
+  }
+
+  .track-list {
+    background: rgba(0, 0, 0, 0.2);
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .track-list::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .track-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .track-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+  }
+
+  .track-item {
+    padding: 15px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .track-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .track-item.active {
+    background: linear-gradient(90deg, rgba(52, 152, 219, 0.3), rgba(41, 128, 185, 0.3));
+    border-left: 4px solid #3498db;
+  }
+
+  .track-number {
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .track-item.active .track-number {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  }
+
+  .track-details {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .track-name {
+    font-weight: 500;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .track-duration {
+    font-size: 12px;
+    opacity: 0.6;
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 480px) {
+    .container {
+      margin: 5px;
+      border-radius: 20px;
+    }
+
+    .header {
+      padding: 20px 15px 15px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+    }
+
+    .player-section {
+      padding: 20px 15px;
+    }
+
+    .album-art {
+      width: 150px;
+      height: 150px;
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .track-title {
+      font-size: 18px;
+      padding: 0 10px;
+    }
+
+    .controls {
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .control-btn {
+      width: 45px;
+      height: 45px;
+      font-size: 18px;
+    }
+
+    .play-btn {
+      width: 60px;
+      height: 60px;
+      font-size: 24px;
+    }
+
+    .track-item {
+      padding: 12px 15px;
+    }
+
+    .track-list {
+      max-height: 250px;
+    }
+  }
+
+  /* Landscape mobile */
+  @media (max-width: 768px) and (orientation: landscape) {
+    .album-art {
+      width: 120px;
+      height: 120px;
+      font-size: 36px;
+      margin-bottom: 15px;
+    }
+
+    .player-section {
+      padding: 15px;
+    }
+  }
+
+  /* Animation for track switching */
+  .fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Error state */
+  .error {
+    text-align: center;
+    padding: 20px;
+    color: #ff6b6b;
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎵 Music Player</h1>
+      <p>Google Drive Collection</p>
+      <p>(г.Сумы Церква ЄХБ "Дім Євангелія")</p>
+    </div>
+
+    <div class="player-section">
+      <div class="album-art" id="albumArt">🎵</div>
+
+      <div class="track-info">
+        <div class="track-title" id="trackTitle">Загрузка...</div>
+        <div class="track-artist">Unknown Artist</div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="time-display">
+          <span id="currentTime">0:00</span>
+          <span id="duration">0:00</span>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="control-btn" id="prevBtn">⏮️</button>
+        <button class="control-btn play-btn" id="playBtn">▶️</button>
+        <button class="control-btn" id="nextBtn">⏭️</button>
+      </div>
+
+      <div class="loading" id="loading">⏳ Загрузка трека...</div>
+    </div>
+
+    <div class="track-list" id="trackList"></div>
+  </div>
+
+  <audio id="audio" preload="auto"></audio>
+
+  <script>
+    const API_KEY = "AIzaSyAlxAoAyke0AAkiI3akNyWLNVwtoycjkgA";
+    const FOLDER_ID = "1GbUXLKzugx_W5qDttjtFxWC4pOT9kQna";
+
+    const audio = document.getElementById("audio");
+    const playBtn = document.getElementById("playBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const prevBtn = document.getElementById("prevBtn");
+    const trackListContainer = document.getElementById("trackList");
+    const trackTitle = document.getElementById("trackTitle");
+    const progressBar = document.getElementById("progressBar");
+    const progressFill = document.getElementById("progressFill");
+    const currentTimeDisplay = document.getElementById("currentTime");
+    const durationDisplay = document.getElementById("duration");
+    const loading = document.getElementById("loading");
+
+    let tracks = [], current = 0, currentBlobURL = null, isPlaying = false;
+
+    async function fetchTracks() {
+      const url = `https://www.googleapis.com/drive/v3/files?q='${FOLDER_ID}'+in+parents+and+mimeType='audio/mpeg'&key=${API_KEY}&fields=files(id,name)`;
+      const res = await fetch(url);
+      const data = await res.json();
+      tracks = data.files.map((f, i) => ({ id: f.id, name: f.name, index: i }));
+      renderTrackList();
+      loadTrack(current);
+    }
+
+    function renderTrackList() {
+      trackListContainer.innerHTML = "";
+      tracks.forEach((track, i) => {
+        const div = document.createElement("div");
+        div.className = `track-item ${i === current ? 'active' : ''}`;
+        div.innerHTML = `
+          <div class="track-number">${i + 1}</div>
+          <div class="track-details">
+            <div class="track-name">${track.name}</div>
+            <div class="track-duration">MP3</div>
+          </div>
+        `;
+        div.onclick = () => loadTrack(i);
+        trackListContainer.appendChild(div);
+      });
+    }
+
+    async function loadTrack(index) {
+      current = index;
+      updateTrackUI();
+      stopAndReset();
+      loading.classList.add("show");
+
+      try {
+        const res = await fetch(`https://www.googleapis.com/drive/v3/files/${tracks[current].id}?alt=media&key=${API_KEY}`);
+        const blob = await res.blob();
+        if (currentBlobURL) URL.revokeObjectURL(currentBlobURL);
+        currentBlobURL = URL.createObjectURL(blob);
+        audio.src = currentBlobURL;
+        audio.play();
+      } catch (err) {
+        trackTitle.textContent = "Ошибка загрузки";
+        console.error("Load error:", err);
+        loading.classList.remove("show");
+      }
+    }
+
+    function stopAndReset() {
+      audio.pause();
+      audio.currentTime = 0;
+      audio.src = "";
+      progressFill.style.width = "0%";
+      currentTimeDisplay.textContent = "0:00";
+      durationDisplay.textContent = "0:00";
+    }
+
+    function updateTrackUI() {
+      renderTrackList();
+      trackTitle.textContent = tracks[current]?.name || "";
+    }
+
+    function togglePlay() {
+      if (isPlaying) {
+        audio.pause();
+      } else {
+        audio.play();
+      }
+    }
+
+    function nextTrack() {
+      current = (current + 1) % tracks.length;
+      loadTrack(current);
+    }
+
+    function prevTrack() {
+      current = (current - 1 + tracks.length) % tracks.length;
+      loadTrack(current);
+    }
+
+    audio.addEventListener("timeupdate", () => {
+      const percent = (audio.currentTime / audio.duration) * 100;
+      progressFill.style.width = percent + "%";
+      currentTimeDisplay.textContent = formatTime(audio.currentTime);
+      durationDisplay.textContent = formatTime(audio.duration);
+    });
+
+    audio.addEventListener("playing", () => {
+      playBtn.textContent = "⏸️";
+      isPlaying = true;
+      loading.classList.remove("show");
+    });
+
+    audio.addEventListener("pause", () => {
+      playBtn.textContent = "▶️";
+      isPlaying = false;
+    });
+
+    audio.addEventListener("ended", nextTrack);
+
+    progressBar.addEventListener("click", (e) => {
+      const rect = progressBar.getBoundingClientRect();
+      const percent = (e.clientX - rect.left) / rect.width;
+      audio.currentTime = percent * audio.duration;
+    });
+
+    playBtn.onclick = togglePlay;
+    nextBtn.onclick = nextTrack;
+    prevBtn.onclick = prevTrack;
+
+    function formatTime(seconds) {
+      if (isNaN(seconds)) return "0:00";
+      const min = Math.floor(seconds / 60);
+      const sec = Math.floor(seconds % 60).toString().padStart(2, "0");
+      return `${min}:${sec}`;
+    }
+
+    fetchTracks();
+  </script>
+</body>
+</html>
 
