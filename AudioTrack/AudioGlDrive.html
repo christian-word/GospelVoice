@@ -28,18 +28,23 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    max-height: 800px;
   }
 
   .header {
     text-align: center;
-    padding: 30px 20px 20px;
+    padding: 20px 20px 15px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+    flex-shrink: 0;
   }
 
   .header h1 {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
     background: linear-gradient(135deg, #fff 0%, #e0e7ff 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -48,24 +53,25 @@
 
   .header p {
     opacity: 0.8;
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .player-section {
-    padding: 30px 20px;
+    padding: 20px;
+    flex-shrink: 0;
   }
 
   .album-art {
-    width: 200px;
-    height: 200px;
-    margin: 0 auto 30px;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
     background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
-    border-radius: 20px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 64px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    font-size: 40px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     position: relative;
     overflow: hidden;
   }
@@ -88,32 +94,32 @@
 
   .track-info {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 
   .track-title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: 0 20px;
+    padding: 0 15px;
   }
 
   .track-artist {
     opacity: 0.7;
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .progress-container {
-    margin: 20px 0;
+    margin: 15px 0;
     position: relative;
   }
 
   .progress-bar {
     width: 100%;
-    height: 6px;
+    height: 5px;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 3px;
     overflow: hidden;
@@ -131,28 +137,28 @@
   .time-display {
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
+    font-size: 11px;
     opacity: 0.7;
-    margin-top: 8px;
+    margin-top: 6px;
   }
 
   .controls {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
-    margin: 30px 0;
+    gap: 12px;
+    margin: 20px 0 15px;
   }
 
   .control-btn {
-    width: 50px;
-    height: 50px;
+    width: 42px;
+    height: 42px;
     border: none;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
     color: #fff;
-    font-size: 20px;
+    font-size: 18px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -171,22 +177,22 @@
   }
 
   .play-btn {
-    width: 70px;
-    height: 70px;
-    font-size: 28px;
+    width: 56px;
+    height: 56px;
+    font-size: 22px;
     background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
   }
 
   .play-btn:hover {
-    box-shadow: 0 15px 30px rgba(52, 152, 219, 0.6);
+    box-shadow: 0 10px 20px rgba(52, 152, 219, 0.6);
   }
 
   .loading {
     display: none;
     text-align: center;
-    margin: 20px 0;
-    font-size: 14px;
+    margin: 15px 0;
+    font-size: 13px;
     opacity: 0.8;
   }
 
@@ -196,8 +202,9 @@
 
   .track-list {
     background: rgba(0, 0, 0, 0.2);
-    max-height: 300px;
+    flex: 1;
     overflow-y: auto;
+    min-height: 0;
   }
 
   .track-list::-webkit-scrollbar {
@@ -214,13 +221,13 @@
   }
 
   .track-item {
-    padding: 15px 20px;
+    padding: 12px 20px;
     cursor: pointer;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
   }
 
   .track-item:hover {
@@ -233,14 +240,14 @@
   }
 
   .track-number {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     flex-shrink: 0;
   }
@@ -256,14 +263,15 @@
 
   .track-name {
     font-weight: 500;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 14px;
   }
 
   .track-duration {
-    font-size: 12px;
+    font-size: 11px;
     opacity: 0.6;
   }
 
@@ -272,69 +280,74 @@
     .container {
       margin: 5px;
       border-radius: 20px;
+      height: 92vh;
     }
 
     .header {
-      padding: 20px 15px 15px;
+      padding: 15px 15px 10px;
     }
 
     .header h1 {
-      font-size: 24px;
+      font-size: 20px;
     }
 
     .player-section {
-      padding: 20px 15px;
+      padding: 15px;
     }
 
     .album-art {
-      width: 150px;
-      height: 150px;
-      font-size: 48px;
-      margin-bottom: 20px;
+      width: 100px;
+      height: 100px;
+      font-size: 32px;
+      margin-bottom: 15px;
     }
 
     .track-title {
-      font-size: 18px;
+      font-size: 16px;
       padding: 0 10px;
     }
 
     .controls {
       gap: 10px;
-      margin: 20px 0;
+      margin: 15px 0;
     }
 
     .control-btn {
-      width: 45px;
-      height: 45px;
-      font-size: 18px;
+      width: 38px;
+      height: 38px;
+      font-size: 16px;
     }
 
     .play-btn {
-      width: 60px;
-      height: 60px;
-      font-size: 24px;
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
     }
 
     .track-item {
-      padding: 12px 15px;
-    }
-
-    .track-list {
-      max-height: 250px;
+      padding: 10px 15px;
     }
   }
 
   /* Landscape mobile */
   @media (max-width: 768px) and (orientation: landscape) {
+    .container {
+      height: 95vh;
+    }
+    
     .album-art {
-      width: 120px;
-      height: 120px;
-      font-size: 36px;
-      margin-bottom: 15px;
+      width: 80px;
+      height: 80px;
+      font-size: 28px;
+      margin-bottom: 10px;
     }
 
     .player-section {
-      padding: 15px;
+      padding: 10px 15px;
+    }
+
+    .header {
+      padding: 10px 15px 8px;
     }
   }
 
@@ -362,7 +375,6 @@
     <div class="header">
       <h1>🎵 Music Player</h1>
       <p>Google Drive Collection</p>
-      <p>(г.Сумы Церква ЄХБ "Дім Євангелія")</p>
     </div>
 
     <div class="player-section">
@@ -453,12 +465,12 @@
         if (currentBlobURL) URL.revokeObjectURL(currentBlobURL);
         currentBlobURL = URL.createObjectURL(blob);
         audio.src = currentBlobURL;
-audio.play().then(() => {
-  loading.classList.remove("show");
-}).catch(err => {
-  console.warn("Автовоспроизведение заблокировано:", err);
-  loading.classList.remove("show");
-});
+        audio.play().then(() => {
+          loading.classList.remove("show");
+        }).catch(err => {
+          console.warn("Автовоспроизведение заблокировано:", err);
+          loading.classList.remove("show");
+        });
       } catch (err) {
         trackTitle.textContent = "Ошибка загрузки";
         console.error("Load error:", err);
