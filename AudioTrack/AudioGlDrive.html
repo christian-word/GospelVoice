@@ -453,7 +453,12 @@
         if (currentBlobURL) URL.revokeObjectURL(currentBlobURL);
         currentBlobURL = URL.createObjectURL(blob);
         audio.src = currentBlobURL;
-        audio.play();
+audio.play().then(() => {
+  loading.classList.remove("show");
+}).catch(err => {
+  console.warn("Автовоспроизведение заблокировано:", err);
+  loading.classList.remove("show");
+});
       } catch (err) {
         trackTitle.textContent = "Ошибка загрузки";
         console.error("Load error:", err);
@@ -534,4 +539,3 @@
   </script>
 </body>
 </html>
-
