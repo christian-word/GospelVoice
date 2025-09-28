@@ -1,0 +1,394 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Виртуальная Трансляция (с темной темой)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      color: #333;
+      padding: 20px;
+      box-sizing: border-box;
+      transition: background-color 0.5s, color 0.5s;
+    }
+    body.dark-theme {
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+    h1 {
+      color: #444;
+      margin-bottom: 20px;
+      text-align: center;
+      transition: color 0.5s;
+    }
+    body.dark-theme h1 {
+        color: #ddd;
+    }
+    #player-container {
+      width: 100%;
+      max-width: 800px;
+      margin-bottom: 20px;
+    }
+    #player-wrapper {
+        position: relative;
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;
+        overflow: hidden;
+        border: 2px solid #ccc;
+    }
+    #player {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    #controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      width: 100%;
+      max-width: 400px;
+    }
+    #playButton, #timezoneSelector {
+      width: 100%;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    #playButton {
+      background-color: #007bff;
+      color: white;
+      border: none;
+    }
+    #playButton:hover {
+      background-color: #0056b3;
+    }
+    body.dark-theme #playButton {
+        background-color: #0056b3;
+    }
+    body.dark-theme #playButton:hover {
+        background-color: #007bff;
+    }
+    body.dark-theme #timezoneSelector {
+        background-color: #333;
+        color: #f0f0f0;
+        border-color: #555;
+    }
+    #status, #localTimeStatus {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #666;
+      text-align: center;
+      width: 100%;
+      transition: color 0.5s;
+    }
+    body.dark-theme #status, 
+    body.dark-theme #localTimeStatus {
+        color: #ccc;
+    }
+    .schedule-item {
+        padding: 8px 12px;
+        margin-bottom: 5px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        transition: background-color 0.3s, border-color 0.3s;
+    }
+    body.dark-theme .schedule-item {
+        background-color: #2a2a2a;
+        border-color: #444;
+    }
+    .schedule-item.current {
+        background-color: #e0f0ff;
+        border-color: #007bff;
+        font-weight: bold;
+    }
+    body.dark-theme .schedule-item.current {
+        background-color: #1a4266;
+        border-color: #007bff;
+    }
+    #programScheduleDisplay {
+        margin-top: 20px;
+        width: 100%;
+        max-width: 640px;
+    }
+    /* Новые стили для кнопки темы */
+    #theme-btn-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 100; /* Чтобы кнопка всегда была сверху */
+    }
+    #themeToggleBtn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: transparent;
+        border: 2px solid #333;
+        color: #333;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    body.dark-theme #themeToggleBtn {
+        background-color: transparent;
+        border-color: #f0f0f0;
+        color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Виртуальная трансляция (с расписанием)</h1>
+  <div id="theme-btn-container">
+    <button id="themeToggleBtn">💡</button>
+  </div>
+  <div id="player-container">
+    <div id="player-wrapper">
+        <div id="player"></div>
+    </div>
+    <div id="controls">
+      <button id="playButton">Начать трансляцию</button>
+      <select id="timezoneSelector">
+        <option value="0" selected>Текущее время</option>
+        <option value="3600">На час вперед</option>
+        <option value="-3600">На час назад</option>
+        <option value="-10800">На 3 часа назад (Начало)</option>
+      </select>
+    </div>
+  </div>
+  <div id="status">Статус: Готов к запуску</div>
+  <div id="localTimeStatus">Местное время трансляции: --:--</div>
+  
+  <div id="programScheduleDisplay">
+    <h2>Расписание трансляции</h2>
+    <ul id="scheduleList"></ul>
+  </div>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <script>
+    const broadcastProgram = {
+      broadcastStartTime: new Date('2025-09-28T21:43:00+03:00').getTime() / 1000,
+      
+      programSchedule: [
+        { videoId: 'mEfUI6V5OKQ', duration: 7234, startTime: 0, title: 'Видео №1' }, 
+        { videoId: 'EcF3TwKyWS4', duration: 5725, startTime: 7234, title: 'Видео №2' },
+        { videoId: '4GdQc5Yr46M', duration: 6504, startTime: 12959, title: 'Видео №3' }
+      ]
+    };
+
+    let player;
+    let playButton = document.getElementById('playButton');
+    let timezoneSelector = document.getElementById('timezoneSelector');
+    let themeToggleBtn = document.getElementById('themeToggleBtn');
+    let statusDiv = document.getElementById('status');
+    let localTimeStatusDiv = document.getElementById('localTimeStatus');
+    let scheduleList = document.getElementById('scheduleList');
+    let currentVideoIndex = 0;
+    let syncTimer = null;
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        document.body.classList.add(savedTheme);
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-theme');
+        if (document.body.classList.contains('dark-theme')) {
+            localStorage.setItem('theme', 'dark-theme');
+        } else {
+            localStorage.removeItem('theme');
+        }
+    });
+
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '100%',
+        width: '100%',
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+
+    function onPlayerReady(event) {
+      statusDiv.textContent = 'Статус: Плеер готов. Выберите поправку времени и нажмите Play.';
+      playButton.addEventListener('click', startBroadcast);
+      timezoneSelector.addEventListener('change', startBroadcast);
+      renderSchedule(); 
+    }
+    
+    function startBroadcast() {
+        if (syncTimer) clearInterval(syncTimer);
+
+        statusDiv.textContent = 'Статус: Синхронизируем и запускаем...';
+
+        const selectedTimeOffset = parseInt(timezoneSelector.value, 10);
+        const correctedStartTime = broadcastProgram.broadcastStartTime + selectedTimeOffset;
+
+        const currentTimeInSeconds = new Date().getTime() / 1000;
+        const elapsedTime = currentTimeInSeconds - correctedStartTime;
+        
+        let videoToPlay = null;
+        let startSeconds = 0;
+        
+        for (let i = 0; i < broadcastProgram.programSchedule.length; i++) {
+            const video = broadcastProgram.programSchedule[i];
+            if (elapsedTime >= video.startTime && elapsedTime < video.startTime + video.duration) {
+                videoToPlay = video;
+                startSeconds = elapsedTime - video.startTime;
+                currentVideoIndex = i;
+                break;
+            }
+        }
+
+        if (videoToPlay) {
+          player.loadVideoById({
+            videoId: videoToPlay.videoId,
+            startSeconds: Math.max(0, startSeconds),
+            suggestedQuality: 'large'
+          });
+        } else {
+          statusDiv.textContent = 'Статус: Трансляция уже закончилась или еще не началась. Попробуйте другую поправку.';
+        }
+        
+        startSyncTimer(correctedStartTime);
+        highlightCurrentVideo(currentVideoIndex);
+    }
+
+    function onPlayerStateChange(event) {
+      if (event.data === YT.PlayerState.ENDED) {
+        currentVideoIndex++;
+        if (currentVideoIndex < broadcastProgram.programSchedule.length) {
+          const nextVideo = broadcastProgram.programSchedule[currentVideoIndex];
+          player.loadVideoById({
+            videoId: nextVideo.videoId,
+            startSeconds: 0,
+            suggestedQuality: 'large'
+          });
+        } else {
+          statusDiv.textContent = 'Статус: Плейлист закончился.';
+        }
+      }
+    }
+
+    function startSyncTimer(correctedStartTime) {
+      syncTimer = setInterval(() => {
+        const currentTimeInSeconds = new Date().getTime() / 1000;
+        const elapsedTime = currentTimeInSeconds - correctedStartTime;
+        
+        const displayTime = new Date(correctedStartTime * 1000 + elapsedTime * 1000);
+        const hours = displayTime.getHours().toString().padStart(2, '0');
+        const minutes = displayTime.getMinutes().toString().padStart(2, '0');
+        const seconds = displayTime.getSeconds().toString().padStart(2, '0');
+        localTimeStatusDiv.textContent = `Местное время трансляции: ${hours}:${minutes}:${seconds}`;
+
+        let expectedVideoIndex = -1;
+        let expectedStartSeconds = 0;
+        
+        for (let i = 0; i < broadcastProgram.programSchedule.length; i++) {
+            const video = broadcastProgram.programSchedule[i];
+            if (elapsedTime >= video.startTime && elapsedTime < video.startTime + video.duration) {
+                expectedVideoIndex = i;
+                expectedStartSeconds = elapsedTime - video.startTime;
+                break;
+            }
+        }
+
+        if (expectedVideoIndex === -1) {
+            return;
+        }
+
+        if (expectedVideoIndex !== currentVideoIndex) {
+            currentVideoIndex = expectedVideoIndex;
+            player.loadVideoById({
+                videoId: broadcastProgram.programSchedule[currentVideoIndex].videoId,
+                startSeconds: Math.max(0, expectedStartSeconds),
+                suggestedQuality: 'large'
+            });
+            statusDiv.textContent = `Статус: Смена видео на #${currentVideoIndex + 1}.`;
+            return;
+        }
+        
+        const playerCurrentTime = player.getCurrentTime();
+        const drift = playerCurrentTime - expectedStartSeconds;
+
+        if (Math.abs(drift) > 1) {
+            let rate = 1.0;
+            if (drift > 0) {
+              rate = 0.9;
+            } else {
+              rate = 1.1;
+            }
+            player.setPlaybackRate(rate);
+            statusDiv.textContent = `Статус: Корректировка скорости. Разница: ${drift.toFixed(2)}s`;
+        } else {
+            player.setPlaybackRate(1.0);
+            statusDiv.textContent = `Статус: Синхронизировано.`;
+        }
+
+        highlightCurrentVideo(currentVideoIndex);
+      }, 1000);
+    }
+
+    function renderSchedule() {
+      scheduleList.innerHTML = '';
+      const program = broadcastProgram.programSchedule;
+      const startTime = broadcastProgram.broadcastStartTime;
+      
+      program.forEach((video, index) => {
+        const li = document.createElement('li');
+        li.classList.add('schedule-item');
+        li.dataset.index = index;
+
+        const videoStartTime = new Date((startTime + video.startTime) * 1000);
+        const videoEndTime = new Date((startTime + video.startTime + video.duration) * 1000);
+
+        const startHours = videoStartTime.getHours().toString().padStart(2, '0');
+        const startMinutes = videoStartTime.getMinutes().toString().padStart(2, '0');
+        const endHours = videoEndTime.getHours().toString().padStart(2, '0');
+        const endMinutes = videoEndTime.getMinutes().toString().padStart(2, '0');
+        
+        li.innerHTML = `
+          <strong>${video.title}</strong><br>
+          <small>
+            (${video.startTime} сек) - 
+            С ${startHours}:${startMinutes} до ${endHours}:${endMinutes}
+          </small>
+        `;
+        scheduleList.appendChild(li);
+      });
+    }
+
+    function highlightCurrentVideo(index) {
+        document.querySelectorAll('.schedule-item').forEach(item => {
+            item.classList.remove('current');
+        });
+        const currentItem = document.querySelector(`.schedule-item[data-index="${index}"]`);
+        if (currentItem) {
+            currentItem.classList.add('current');
+        }
+    }
+  </script>
+
+</body>
+</html>
