@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Виртуальная Трансляция</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #00d4ff 100%);
+      color: #fff;
+      min-height: 100vh;
+      padding: 10px;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-theme {
+      background: linear-gradient(135deg, #0c1821 0%, #1e2a3a 50%, #2d3e50 100%);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 30px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      background: linear-gradient(45deg, #fff, #e0e0e0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Theme Toggle Button */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 25px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.1);
+    }
+
+    /* Player Container */
+    .player-section {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+
+    .player-container {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto 20px;
+    }
+
+    .player-wrapper {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      background: #000;
+    }
+
+    #player {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 15px;
+    }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .play-button {
+      background: linear-gradient(45deg, #00d4ff, #0099cc);
+      border: none;
+      padding: 15px 30px;
+      border-radius: 50px;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .play-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(0, 212, 255, 0.6);
+    }
+
+    .play-button:active {
+      transform: translateY(0);
+    }
+
+    .timezone-selector {
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 15px;
+      color: #fff;
+      font-size: 16px;
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .timezone-selector:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .timezone-selector option {
+      background: #333;
+      color: #fff;
+    }
+
+    /* Status Cards */
+    .status-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .status-text {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .time-display {
+      font-size: 18px;
+      font-weight: 700;
+      color: #00d4ff;
+      text-shadow: 0 2px 10px rgba(0, 212, 255, 0.3);
+    }
+
+    /* Schedule Section */
+    .schedule-section {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+
+    .schedule-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .schedule-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .schedule-item {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 15px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .schedule-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1));
+      transition: all 0.3s ease;
+    }
+
+    .schedule-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .schedule-item.current {
+      background: linear-gradient(45deg, rgba(0, 212, 255, 0.2), rgba(0, 153, 204, 0.2));
+      border-color: #00d4ff;
+      box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+    }
+
+    .schedule-item.current::before {
+      background: linear-gradient(45deg, #00d4ff, #0099cc);
+    }
+
+    .video-title {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .video-time {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Mobile Optimizations */
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+      }
+
+      .player-section {
+        padding: 15px;
+        border-radius: 15px;
+      }
+
+      .theme-toggle {
+        width: 45px;
+        height: 45px;
+        top: 15px;
+        right: 15px;
+      }
+
+      .controls {
+        max-width: 100%;
+      }
+
+      .play-button {
+        padding: 12px 25px;
+        font-size: 15px;
+      }
+
+      .timezone-selector {
+        padding: 12px;
+        font-size: 15px;
+      }
+
+      .schedule-section {
+        padding: 20px 15px;
+      }
+
+      .schedule-item {
+        padding: 12px;
+      }
+
+      .video-time {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .player-section {
+        padding: 12px;
+        margin-bottom: 20px;
+      }
+
+      .status-card {
+        padding: 15px;
+      }
+
+      .schedule-section {
+        padding: 15px 12px;
+      }
+
+      .schedule-title {
+        font-size: 20px;
+      }
+    }
+
+    /* Dark theme adjustments */
+    body.dark-theme .schedule-item.current {
+      background: linear-gradient(45deg, rgba(0, 212, 255, 0.2), rgba(0, 153, 204, 0.2));
+      border-color: #00d4ff;
+      box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+    }
+
+    body.dark-theme .schedule-item.current::before {
+      background: linear-gradient(45deg, #00d4ff, #0099cc);
+    }
+
+    body.dark-theme .play-button {
+      background: linear-gradient(45deg, #00d4ff, #0099cc);
+      box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
+    }
+
+    body.dark-theme .play-button:hover {
+      box-shadow: 0 6px 25px rgba(0, 212, 255, 0.6);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎬 Виртуальная Трансляция</h1>
+    
+    <button class="theme-toggle" id="themeToggleBtn">🌙</button>
+    
+    <div class="player-section">
+      <div class="player-container">
+        <div class="player-wrapper">
+          <div id="player"></div>
+        </div>
+      </div>
+      
+      <div class="controls">
+        <button class="play-button" id="playButton">▶ Начать трансляцию</button>
+        <select class="timezone-selector" id="timezoneSelector">
+          <option value="0" selected>⏰ Текущее время</option>
+          <option value="3600">⏰ На час вперед</option>
+          <option value="-3600">⏰ На час назад</option>
+          <option value="-10800">⏰ На 3 часа назад (Начало)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="status-card">
+      <div class="status-text" id="status">🔴 Готов к запуску</div>
+      <div class="time-display" id="localTimeStatus">--:--:--</div>
+    </div>
+    
+    <div class="schedule-section">
+      <h2 class="schedule-title">📅 Расписание трансляции</h2>
+      <ul class="schedule-list" id="scheduleList"></ul>
+    </div>
+  </div>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <script>
+    const broadcastProgram = {
+      broadcastStartTime: new Date('2025-09-28T21:43:00+03:00').getTime() / 1000,
+      
+      programSchedule: [
+        { videoId: 'mEfUI6V5OKQ', duration: 7234, startTime: 0, title: 'Видео №1' }, 
+        { videoId: 'EcF3TwKyWS4', duration: 5725, startTime: 7234, title: 'Видео №2' },
+        { videoId: '4GdQc5Yr46M', duration: 6504, startTime: 12959, title: 'Видео №3' }
+      ]
+    };
+
+    let player;
+    let playButton = document.getElementById('playButton');
+    let timezoneSelector = document.getElementById('timezoneSelector');
+    let themeToggleBtn = document.getElementById('themeToggleBtn');
+    let statusDiv = document.getElementById('status');
+    let localTimeStatusDiv = document.getElementById('localTimeStatus');
+    let scheduleList = document.getElementById('scheduleList');
+    let currentVideoIndex = 0;
+    let syncTimer = null;
+
+    // Theme management without localStorage
+    let isDarkTheme = false;
+
+    themeToggleBtn.addEventListener('click', () => {
+      isDarkTheme = !isDarkTheme;
+      document.body.classList.toggle('dark-theme', isDarkTheme);
+      themeToggleBtn.textContent = isDarkTheme ? '☀️' : '🌙';
+    });
+
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '100%',
+        width: '100%',
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+
+    function onPlayerReady(event) {
+      statusDiv.textContent = '✅ Плеер готов. Выберите поправку времени и нажмите Play.';
+      playButton.addEventListener('click', startBroadcast);
+      timezoneSelector.addEventListener('change', startBroadcast);
+      renderSchedule(); 
+    }
+    
+    function startBroadcast() {
+      if (syncTimer) clearInterval(syncTimer);
+
+      statusDiv.textContent = '⚡ Синхронизируем и запускаем...';
+      playButton.textContent = '⏸ Остановить';
+
+      const selectedTimeOffset = parseInt(timezoneSelector.value, 10);
+      const correctedStartTime = broadcastProgram.broadcastStartTime + selectedTimeOffset;
+
+      const currentTimeInSeconds = new Date().getTime() / 1000;
+      const elapsedTime = currentTimeInSeconds - correctedStartTime;
+      
+      let videoToPlay = null;
+      let startSeconds = 0;
+      
+      for (let i = 0; i < broadcastProgram.programSchedule.length; i++) {
+        const video = broadcastProgram.programSchedule[i];
+        if (elapsedTime >= video.startTime && elapsedTime < video.startTime + video.duration) {
+          videoToPlay = video;
+          startSeconds = elapsedTime - video.startTime;
+          currentVideoIndex = i;
+          break;
+        }
+      }
+
+      if (videoToPlay) {
+        player.loadVideoById({
+          videoId: videoToPlay.videoId,
+          startSeconds: Math.max(0, startSeconds),
+          suggestedQuality: 'large'
+        });
+      } else {
+        statusDiv.textContent = '❌ Трансляция уже закончилась или еще не началась. Попробуйте другую поправку.';
+        playButton.textContent = '▶ Начать трансляцию';
+        return;
+      }
+      
+      startSyncTimer(correctedStartTime);
+      highlightCurrentVideo(currentVideoIndex);
+    }
+
+    function onPlayerStateChange(event) {
+      if (event.data === YT.PlayerState.ENDED) {
+        currentVideoIndex++;
+        if (currentVideoIndex < broadcastProgram.programSchedule.length) {
+          const nextVideo = broadcastProgram.programSchedule[currentVideoIndex];
+          player.loadVideoById({
+            videoId: nextVideo.videoId,
+            startSeconds: 0,
+            suggestedQuality: 'large'
+          });
+        } else {
+          statusDiv.textContent = '🎬 Плейлист закончился.';
+          playButton.textContent = '▶ Начать трансляцию';
+        }
+      }
+    }
+
+    function startSyncTimer(correctedStartTime) {
+      syncTimer = setInterval(() => {
+        const currentTimeInSeconds = new Date().getTime() / 1000;
+        const elapsedTime = currentTimeInSeconds - correctedStartTime;
+        
+        const displayTime = new Date(correctedStartTime * 1000 + elapsedTime * 1000);
+        const hours = displayTime.getHours().toString().padStart(2, '0');
+        const minutes = displayTime.getMinutes().toString().padStart(2, '0');
+        const seconds = displayTime.getSeconds().toString().padStart(2, '0');
+        localTimeStatusDiv.textContent = `${hours}:${minutes}:${seconds}`;
+
+        let expectedVideoIndex = -1;
+        let expectedStartSeconds = 0;
+        
+        for (let i = 0; i < broadcastProgram.programSchedule.length; i++) {
+          const video = broadcastProgram.programSchedule[i];
+          if (elapsedTime >= video.startTime && elapsedTime < video.startTime + video.duration) {
+            expectedVideoIndex = i;
+            expectedStartSeconds = elapsedTime - video.startTime;
+            break;
+          }
+        }
+
+        if (expectedVideoIndex === -1) {
+          return;
+        }
+
+        if (expectedVideoIndex !== currentVideoIndex) {
+          currentVideoIndex = expectedVideoIndex;
+          player.loadVideoById({
+            videoId: broadcastProgram.programSchedule[currentVideoIndex].videoId,
+            startSeconds: Math.max(0, expectedStartSeconds),
+            suggestedQuality: 'large'
+          });
+          statusDiv.textContent = `🔄 Смена видео на #${currentVideoIndex + 1}.`;
+          return;
+        }
+        
+        const playerCurrentTime = player.getCurrentTime();
+        const drift = playerCurrentTime - expectedStartSeconds;
+
+        if (Math.abs(drift) > 1) {
+          let rate = 1.0;
+          if (drift > 0) {
+            rate = 0.9;
+          } else {
+            rate = 1.1;
+          }
+          player.setPlaybackRate(rate);
+          statusDiv.textContent = `⚙️ Корректировка скорости. Разница: ${drift.toFixed(1)}s`;
+        } else {
+          player.setPlaybackRate(1.0);
+          statusDiv.textContent = '🎯 Синхронизировано';
+        }
+
+        highlightCurrentVideo(currentVideoIndex);
+      }, 1000);
+    }
+
+    function renderSchedule() {
+      scheduleList.innerHTML = '';
+      const program = broadcastProgram.programSchedule;
+      const startTime = broadcastProgram.broadcastStartTime;
+      
+      program.forEach((video, index) => {
+        const li = document.createElement('li');
+        li.classList.add('schedule-item');
+        li.dataset.index = index;
+
+        const videoStartTime = new Date((startTime + video.startTime) * 1000);
+        const videoEndTime = new Date((startTime + video.startTime + video.duration) * 1000);
+
+        const startHours = videoStartTime.getHours().toString().padStart(2, '0');
+        const startMinutes = videoStartTime.getMinutes().toString().padStart(2, '0');
+        const endHours = videoEndTime.getHours().toString().padStart(2, '0');
+        const endMinutes = videoEndTime.getMinutes().toString().padStart(2, '0');
+        
+        li.innerHTML = `
+          <div class="video-title">🎥 ${video.title}</div>
+          <div class="video-time">
+            <span>🕐 ${startHours}:${startMinutes} - ${endHours}:${endMinutes}</span>
+            <span>⏱ ${Math.floor(video.duration / 60)}:${(video.duration % 60).toString().padStart(2, '0')}</span>
+          </div>
+        `;
+        scheduleList.appendChild(li);
+      });
+    }
+
+    function highlightCurrentVideo(index) {
+      document.querySelectorAll('.schedule-item').forEach(item => {
+        item.classList.remove('current');
+      });
+      const currentItem = document.querySelector(`.schedule-item[data-index="${index}"]`);
+      if (currentItem) {
+        currentItem.classList.add('current');
+      }
+    }
+  </script>
+</body>
+</html>
