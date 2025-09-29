@@ -32,6 +32,7 @@
         color: #ddd;
     }
     #player-container {
+      position: relative; /* Добавлено для позиционирования индикатора */
       width: 100%;
       max-width: 800px;
       margin-bottom: 20px;
@@ -264,6 +265,26 @@
         background-color: #007bff;
         transition: width 1s linear;
     }
+
+    /* Стили для мигающего индикатора */
+    #live-indicator {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        display: none; /* Скрыт по умолчанию */
+        width: 14px;
+        height: 14px;
+        background-color: red;
+        border-radius: 50%;
+        box-shadow: 0 0 5px rgba(255, 0, 0, 0.7);
+        z-index: 10;
+        animation: blink 1s infinite alternate;
+    }
+
+    @keyframes blink {
+        from { opacity: 1; }
+        to { opacity: 0.5; }
+    }
   </style>
 </head>
 <body>
@@ -276,7 +297,7 @@
     <div id="player-wrapper">
         <div id="player"></div>
         <button id="exitFullscreenBtn">X</button>
-    </div>
+        <div id="live-indicator"></div> </div>
     <div id="progressBarContainer">
         <div id="progressBar"></div>
     </div>
@@ -319,6 +340,7 @@
     let realTimeStatusDiv = document.getElementById('realTimeStatus');
     let progressBar = document.getElementById('progressBar');
     let scheduleList = document.getElementById('scheduleList');
+    let liveIndicator = document.getElementById('live-indicator'); // Получаем индикатор
     let currentVideoIndex = 0;
     let syncTimer = null;
     let progressTimer = null;
@@ -420,6 +442,7 @@
         if (progressTimer) clearInterval(progressTimer);
 
         statusDiv.textContent = 'Статус: Синхронизируем и запускаем...';
+        liveIndicator.style.display = 'block'; // Показываем индикатор
 
         const selectedTimeOffset = parseInt(timezoneSelector.value, 10);
         
@@ -430,7 +453,6 @@
         let videoToPlay = null;
         let startSeconds = 0;
         
-        // НОВОЕ ИСПРАВЛЕНИЕ: Если время с поправкой отрицательное, значит, мы хотим начать с самого начала
         if (elapsedTimeWithOffset < 0) {
             videoToPlay = broadcastProgram.programSchedule[0];
             startSeconds = 0;
@@ -456,6 +478,7 @@
           });
         } else {
           statusDiv.textContent = 'Статус: Трансляция уже закончилась или еще не началась. Попробуйте другую поправку.';
+          liveIndicator.style.display = 'none'; // Скрываем индикатор
         }
         
         startSyncTimer(broadcastStartTimeInSeconds);
@@ -475,7 +498,12 @@
           });
         } else {
           statusDiv.textContent = 'Статус: Плейлист закончился.';
+          liveIndicator.style.display = 'none'; // Скрываем индикатор
         }
+      } else if (event.data === YT.PlayerState.PLAYING) {
+        liveIndicator.style.display = 'block';
+      } else {
+        liveIndicator.style.display = 'none';
       }
     }
 
