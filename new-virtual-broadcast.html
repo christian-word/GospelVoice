@@ -175,14 +175,12 @@
         color: #f0f0f0;
     }
 
-    /* СКРЫВАЕМ КНОПКУ ПОЛНОГО ЭКРАНА НА ПК */
     @media (min-width: 768px) {
         #fullscreenToggleBtn {
             display: none;
         }
     }
 
-    /* НОВЫЕ СТИЛИ ДЛЯ КНОПКИ ВЫХОДА */
     #exitFullscreenBtn {
         position: absolute;
         top: 15px;
@@ -199,14 +197,17 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        opacity: 0;
-        transition: opacity 0.3s;
+        opacity: 0; /* Скрываем кнопку по умолчанию */
         pointer-events: none;
+        transition: opacity 0.3s;
     }
+    
+    /* Делаем кнопку видимой, только если включен виртуальный полноэкранный режим */
     .virtual-fullscreen #exitFullscreenBtn {
         opacity: 1;
         pointer-events: auto;
     }
+
     .virtual-fullscreen #player-container {
       position: fixed;
       top: 50%;
@@ -286,7 +287,6 @@
     let scheduleList = document.getElementById('scheduleList');
     let currentVideoIndex = 0;
     let syncTimer = null;
-    let timeoutTimer = null;
 
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -304,7 +304,6 @@
     fullscreenToggleBtn.addEventListener('click', () => {
         document.body.classList.add('virtual-fullscreen');
         fullscreenToggleBtn.classList.add('active');
-        // Обновляем плеер, чтобы он корректно перерисовался
         setTimeout(() => {
             if (player) {
                 player.setSize('100%', '100%');
@@ -312,27 +311,15 @@
         }, 500);
     });
 
-    // НОВАЯ ЛОГИКА ДЛЯ КНОПКИ ВЫХОДА
+    // Новая логика: кнопка выхода просто переключает класс
     exitFullscreenBtn.addEventListener('click', () => {
         document.body.classList.remove('virtual-fullscreen');
         fullscreenToggleBtn.classList.remove('active');
-        // Возвращаем исходный размер
         setTimeout(() => {
             if (player) {
                 player.setSize('100%', '100%');
             }
         }, 500);
-    });
-
-    // Показываем кнопку при касании, скрываем через 3 секунды
-    playerWrapper.addEventListener('touchstart', () => {
-      exitFullscreenBtn.style.opacity = '1';
-      exitFullscreenBtn.style.pointerEvents = 'auto';
-      if (timeoutTimer) clearTimeout(timeoutTimer);
-      timeoutTimer = setTimeout(() => {
-        exitFullscreenBtn.style.opacity = '0';
-        exitFullscreenBtn.style.pointerEvents = 'none';
-      }, 3000);
     });
 
     async function fetchPlaylist() {
