@@ -152,7 +152,6 @@
         border-color: #f0f0f0;
         color: #f0f0f0;
     }
-
     #fullscreenToggleBtn {
         padding: 10px 15px;
         font-size: 16px;
@@ -180,7 +179,6 @@
             display: none;
         }
     }
-
     #exitFullscreenBtn {
         position: absolute;
         top: 15px;
@@ -197,17 +195,14 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        opacity: 0; /* Скрываем кнопку по умолчанию */
+        opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s;
     }
-    
-    /* Делаем кнопку видимой, только если включен виртуальный полноэкранный режим */
     .virtual-fullscreen #exitFullscreenBtn {
         opacity: 1;
         pointer-events: auto;
     }
-
     .virtual-fullscreen #player-container {
       position: fixed;
       top: 50%;
@@ -233,14 +228,47 @@
     .virtual-fullscreen #status,
     .virtual-fullscreen #localTimeStatus,
     .virtual-fullscreen #programScheduleDisplay,
-    .virtual-fullscreen #theme-btn-container {
+    .virtual-fullscreen #theme-btn-container,
+    .virtual-fullscreen #realTimeStatus,
+    .virtual-fullscreen #progressBarContainer { 
         display: none;
+    }
+    #realTimeStatus {
+        margin-top: 5px;
+        font-size: 14px;
+        color: #666;
+        text-align: center;
+        width: 100%;
+        transition: color 0.5s;
+    }
+    body.dark-theme #realTimeStatus {
+        color: #ccc;
+    }
+    
+    #progressBarContainer {
+        width: 100%;
+        max-width: 800px;
+        height: 8px;
+        background-color: #ddd;
+        margin-top: -15px;
+        margin-bottom: 20px;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    body.dark-theme #progressBarContainer {
+        background-color: #333;
+    }
+    #progressBar {
+        height: 100%;
+        width: 0%;
+        background-color: #007bff;
+        transition: width 1s linear;
     }
   </style>
 </head>
 <body>
 
-  <h1>Виртуальная трансляция</h1>
+  <h1>Виртуальная трансляция (с расписанием)</h1>
   <div id="theme-btn-container">
     <button id="themeToggleBtn">💡</button>
   </div>
@@ -248,6 +276,9 @@
     <div id="player-wrapper">
         <div id="player"></div>
         <button id="exitFullscreenBtn">X</button>
+    </div>
+    <div id="progressBarContainer">
+        <div id="progressBar"></div>
     </div>
     <div id="controls">
       <button id="playButton">Начать трансляцию</button>
@@ -257,11 +288,12 @@
         <option value="-3600">На час назад</option>
         <option value="-10800">На 3 часа назад (Начало)</option>
       </select>
-      <button id="fullscreenToggleBtn">Полноэкранный режим</button>
+      <button id="fullscreenToggleBtn">Виртуальный полноэкранный режим</button>
     </div>
   </div>
   <div id="status">Статус: Загрузка расписания...</div>
   <div id="localTimeStatus">Местное время трансляции: --:--</div>
+  <div id="realTimeStatus">Текущее время: --:--</div>
   
   <div id="programScheduleDisplay">
     <h2>Расписание трансляции</h2>
@@ -284,9 +316,12 @@
     let playerWrapper = document.getElementById('player-wrapper');
     let statusDiv = document.getElementById('status');
     let localTimeStatusDiv = document.getElementById('localTimeStatus');
+    let realTimeStatusDiv = document.getElementById('realTimeStatus');
+    let progressBar = document.getElementById('progressBar');
     let scheduleList = document.getElementById('scheduleList');
     let currentVideoIndex = 0;
     let syncTimer = null;
+    let progressTimer = null;
 
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -311,7 +346,6 @@
         }, 500);
     });
 
-    // Новая логика: кнопка выхода просто переключает класс
     exitFullscreenBtn.addEventListener('click', () => {
         document.body.classList.remove('virtual-fullscreen');
         fullscreenToggleBtn.classList.remove('active');
@@ -321,6 +355,16 @@
             }
         }, 500);
     });
+
+    function updateRealTime() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+        realTimeStatusDiv.textContent = `Текущее время: ${hours}:${minutes}:${seconds}`;
+    }
+
+    setInterval(updateRealTime, 1000);
 
     async function fetchPlaylist() {
         try {
@@ -373,25 +417,34 @@
         if (!broadcastProgram) return;
         
         if (syncTimer) clearInterval(syncTimer);
+        if (progressTimer) clearInterval(progressTimer);
 
         statusDiv.textContent = 'Статус: Синхронизируем и запускаем...';
 
         const selectedTimeOffset = parseInt(timezoneSelector.value, 10);
-        const correctedStartTime = new Date(broadcastProgram.broadcastStartTime).getTime() / 1000 + selectedTimeOffset;
-
-        const currentTimeInSeconds = new Date().getTime() / 1000;
-        const elapsedTime = currentTimeInSeconds - correctedStartTime;
+        
+        const currentRealTimeInSeconds = new Date().getTime() / 1000;
+        const broadcastStartTimeInSeconds = new Date(broadcastProgram.broadcastStartTime).getTime() / 1000;
+        let elapsedTimeWithOffset = (currentRealTimeInSeconds - broadcastStartTimeInSeconds) + selectedTimeOffset;
         
         let videoToPlay = null;
         let startSeconds = 0;
         
-        for (let i = 0; i < broadcastProgram.programSchedule.length; i++) {
-            const video = broadcastProgram.programSchedule[i];
-            if (elapsedTime >= video.startTime && elapsedTime < video.startTime + video.duration) {
-                videoToPlay = video;
-                startSeconds = elapsedTime - video.startTime;
-                currentVideoIndex = i;
-                break;
+        // НОВОЕ ИСПРАВЛЕНИЕ: Если время с поправкой отрицательное, значит, мы хотим начать с самого начала
+        if (elapsedTimeWithOffset < 0) {
+            videoToPlay = broadcastProgram.programSchedule[0];
+            startSeconds = 0;
+            currentVideoIndex = 0;
+            statusDiv.textContent = 'Статус: Вы перемотали до начала трансляции.';
+        } else {
+            for (let i = 0; i < broadcastProgram.programSchedule.length; i++) {
+                const video = broadcastProgram.programSchedule[i];
+                if (elapsedTimeWithOffset >= video.startTime && elapsedTimeWithOffset < video.startTime + video.duration) {
+                    videoToPlay = video;
+                    startSeconds = elapsedTimeWithOffset - video.startTime;
+                    currentVideoIndex = i;
+                    break;
+                }
             }
         }
 
@@ -405,8 +458,9 @@
           statusDiv.textContent = 'Статус: Трансляция уже закончилась или еще не началась. Попробуйте другую поправку.';
         }
         
-        startSyncTimer(correctedStartTime);
+        startSyncTimer(broadcastStartTimeInSeconds);
         highlightCurrentVideo(currentVideoIndex);
+        startProgressTimer();
     }
 
     function onPlayerStateChange(event) {
@@ -425,26 +479,35 @@
       }
     }
 
-    function startSyncTimer(correctedStartTime) {
+    function startSyncTimer(broadcastStartTimeInSeconds) {
       syncTimer = setInterval(() => {
         const currentTimeInSeconds = new Date().getTime() / 1000;
-        const elapsedTime = currentTimeInSeconds - correctedStartTime;
+        const elapsedTime = currentTimeInSeconds - broadcastStartTimeInSeconds;
         
-        const displayTime = new Date(correctedStartTime * 1000 + elapsedTime * 1000);
+        const selectedTimeOffset = parseInt(timezoneSelector.value, 10);
+        const displayTime = new Date((broadcastStartTimeInSeconds + elapsedTime + selectedTimeOffset) * 1000);
+
         const hours = displayTime.getHours().toString().padStart(2, '0');
         const minutes = displayTime.getMinutes().toString().padStart(2, '0');
         const seconds = displayTime.getSeconds().toString().padStart(2, '0');
         localTimeStatusDiv.textContent = `Местное время трансляции: ${hours}:${minutes}:${seconds}`;
 
+        const elapsedTimeWithOffset = elapsedTime + selectedTimeOffset;
+
         let expectedVideoIndex = -1;
         let expectedStartSeconds = 0;
         
-        for (let i = 0; i < broadcastProgram.programSchedule.length; i++) {
-            const video = broadcastProgram.programSchedule[i];
-            if (elapsedTime >= video.startTime && elapsedTime < video.startTime + video.duration) {
-                expectedVideoIndex = i;
-                expectedStartSeconds = elapsedTime - video.startTime;
-                break;
+        if (elapsedTimeWithOffset < 0) {
+            expectedVideoIndex = 0;
+            expectedStartSeconds = 0;
+        } else {
+            for (let i = 0; i < broadcastProgram.programSchedule.length; i++) {
+                const video = broadcastProgram.programSchedule[i];
+                if (elapsedTimeWithOffset >= video.startTime && elapsedTimeWithOffset < video.startTime + video.duration) {
+                    expectedVideoIndex = i;
+                    expectedStartSeconds = elapsedTimeWithOffset - video.startTime;
+                    break;
+                }
             }
         }
 
@@ -460,6 +523,7 @@
                 suggestedQuality: 'large'
             });
             statusDiv.textContent = `Статус: Смена видео на #${currentVideoIndex + 1}.`;
+            highlightCurrentVideo(currentVideoIndex);
             return;
         }
         
@@ -479,9 +543,21 @@
             player.setPlaybackRate(1.0);
             statusDiv.textContent = `Статус: Синхронизировано.`;
         }
-
-        highlightCurrentVideo(currentVideoIndex);
       }, 1000);
+    }
+
+    function startProgressTimer() {
+        if (progressTimer) clearInterval(progressTimer);
+        progressTimer = setInterval(() => {
+            if (player && player.getDuration) {
+                const currentTime = player.getCurrentTime();
+                const duration = player.getDuration();
+                if (duration > 0) {
+                    const progressPercentage = (currentTime / duration) * 100;
+                    progressBar.style.width = `${progressPercentage}%`;
+                }
+            }
+        }, 1000);
     }
 
     function renderSchedule() {
