@@ -198,6 +198,11 @@
       background:var(--surface-light);
     }
     
+    .controls-row{
+      display:flex;
+      gap:12px;
+    }
+    
     button{
       background:linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
       color:#fff;
@@ -238,6 +243,20 @@
     
     button:active{
       transform:translateY(0);
+    }
+    
+    #fullscreenToggleBtn{
+      padding:14px;
+      min-width:52px;
+      flex-shrink:0;
+    }
+    
+    #fullscreenToggleBtn .btn-text{
+      display:inline;
+    }
+    
+    #fullscreenToggleBtn .btn-icon{
+      display:none;
     }
     
     select{
@@ -478,9 +497,7 @@
       display:none;
     }
     
-    #fullscreenToggleBtn{
-      display:none;
-    }
+
 
     /* Mobile Styles */
     @media (max-width: 768px) {
@@ -512,8 +529,28 @@
         gap:10px;
       }
       
-      button, select{
+      .controls-row{
         width:100%;
+      }
+      
+      #playButton{
+        flex:1;
+      }
+      
+      #fullscreenToggleBtn{
+        min-width:52px;
+        width:52px;
+      }
+      
+      #fullscreenToggleBtn .btn-text{
+        display:none;
+      }
+      
+      #fullscreenToggleBtn .btn-icon{
+        display:inline;
+      }
+      
+      button, select{
         padding:16px;
         font-size:15px;
       }
@@ -621,14 +658,19 @@
     <div id="progressBarContainer"><div id="progressBar"></div></div>
 
     <div id="controls">
-      <button id="playButton">▶ Смотреть трансляцию</button>
+      <div class="controls-row">
+        <button id="playButton">▶ Смотреть трансляцию</button>
+        <button id="fullscreenToggleBtn">
+          <span class="btn-text">⛶ Полный экран</span>
+          <span class="btn-icon">⛶</span>
+        </button>
+      </div>
       <select id="timezoneSelector">
         <option value="0" selected>⏰ Текущее время</option>
         <option value="3600">⏩ На час вперёд</option>
         <option value="-3600">⏪ На час назад</option>
         <option value="-10800">⏮ На 3 часа назад</option>
       </select>
-      <button id="fullscreenToggleBtn">⛶ Полный экран</button>
     </div>
   </div>
 
