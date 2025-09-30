@@ -1,0 +1,947 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>КИНОЗАЛ по мотивам Библии</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <meta property="og:image" content="raw.githubusercontent.com/christian-word/GospelVoice/main/ICO/strim_gi.jpg">
+
+  <style>
+    :root{
+      --bg:#0A0A0F;
+      --surface:#16161D;
+      --surface-light:#1E1E28;
+      --surface-hover:#252532;
+      --primary:#8B5CF6;
+      --primary-hover:#7C3AED;
+      --primary-glow:#8B5CF640;
+      --accent:#EC4899;
+      --text:#F9FAFB;
+      --text-secondary:#9CA3AF;
+      --border:#2D2D3A;
+      --success:#10B981;
+      --radius:16px;
+      --radius-sm:8px;
+      --shadow:0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+      --shadow-lg:0 20px 25px -5px rgb(0 0 0 / 0.4), 0 8px 10px -6px rgb(0 0 0 / 0.4);
+      --font:'Inter',-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
+    }
+    
+    body.light{
+      --bg:#F8F9FA;
+      --surface:#FFFFFF;
+      --surface-light:#F3F4F6;
+      --surface-hover:#E5E7EB;
+      --primary:#7C3AED;
+      --primary-hover:#6D28D9;
+      --primary-glow:#7C3AED30;
+      --accent:#EC4899;
+      --text:#111827;
+      --text-secondary:#6B7280;
+      --border:#E5E7EB;
+      --success:#059669;
+      --shadow:0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      --shadow-lg:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+    
+    *{box-sizing:border-box;margin:0;padding:0}
+    
+    body{
+      font-family:var(--font);
+      background:var(--bg);
+      color:var(--text);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      min-height:100vh;
+      padding:32px 20px 80px;
+      transition: background 0.3s ease, color 0.3s ease;
+      line-height:1.6;
+    }
+    
+    /* Header */
+    header{
+      width:100%;
+      max-width:1200px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:32px;
+      gap:16px;
+    }
+    
+    h1{
+      font-size:28px;
+      font-weight:700;
+      background:linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    
+    #themeToggleBtn{
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      background:var(--surface);
+      border:1px solid var(--border);
+      color:var(--text);
+      font-size:20px;
+      cursor:pointer;
+      transition:all .2s ease;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:var(--shadow);
+    }
+    #themeToggleBtn:hover{
+      background:var(--surface-light);
+      transform:scale(1.05);
+    }
+    #themeToggleBtn:active{
+      transform:scale(0.95);
+    }
+
+    /* Player Container */
+    #player-container{
+      width:100%;
+      max-width:1200px;
+      background:var(--surface);
+      border-radius:var(--radius);
+      overflow:hidden;
+      position:relative;
+      box-shadow:var(--shadow-lg);
+      border:1px solid var(--border);
+    }
+    
+    #player-wrapper{
+      position:relative;
+      width:100%;
+      height:0;
+      padding-bottom:56.25%;
+      background:#000;
+    }
+    
+    #player{
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+    }
+    
+    /* Live Indicator */
+    #live-indicator{
+      position:absolute;
+      top:16px;
+      left:16px;
+      display:none;
+      align-items:center;
+      gap:8px;
+      background:rgba(0,0,0,0.85);
+      backdrop-filter:blur(12px);
+      padding:8px 16px;
+      border-radius:24px;
+      font-size:13px;
+      font-weight:600;
+      color:#fff;
+      box-shadow:var(--shadow);
+      z-index:10;
+    }
+    
+    #live-indicator span{
+      width:8px;
+      height:8px;
+      background:#EF4444;
+      border-radius:50%;
+      animation:pulse 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes pulse{
+      0%,100%{transform:scale(1);opacity:1;box-shadow:0 0 0 0 rgba(239,68,68,0.7)}
+      50%{transform:scale(1.3);opacity:.8;box-shadow:0 0 0 4px rgba(239,68,68,0)}
+    }
+
+    /* Progress Bar */
+    #progressBarContainer{
+      height:4px;
+      background:rgba(0,0,0,0.3);
+      cursor:pointer;
+      position:relative;
+      overflow:hidden;
+    }
+    
+    #progressBar{
+      height:100%;
+      background:linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+      width:0;
+      transition:width .1s linear;
+      position:relative;
+    }
+    
+    #progressBar::after{
+      content:'';
+      position:absolute;
+      top:0;
+      right:0;
+      width:20px;
+      height:100%;
+      background:rgba(255,255,255,0.3);
+      filter:blur(8px);
+    }
+
+    /* Controls */
+    #controls{
+      display:grid;
+      grid-template-columns:2fr 1fr auto;
+      gap:12px;
+      padding:20px;
+      background:var(--surface-light);
+    }
+    
+    .controls-row{
+      display:flex;
+      gap:12px;
+    }
+    
+    button{
+      background:linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+      color:#fff;
+      border:none;
+      padding:14px 24px;
+      border-radius:var(--radius-sm);
+      font-weight:600;
+      font-size:15px;
+      cursor:pointer;
+      transition:all .2s ease;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    
+    button::before{
+      content:'';
+      position:absolute;
+      top:50%;
+      left:50%;
+      width:0;
+      height:0;
+      border-radius:50%;
+      background:rgba(255,255,255,0.2);
+      transform:translate(-50%, -50%);
+      transition:width .4s ease, height .4s ease;
+    }
+    
+    button:hover::before{
+      width:300px;
+      height:300px;
+    }
+    
+    button:hover{
+      transform:translateY(-2px);
+      box-shadow:0 8px 12px -2px rgba(139, 92, 246, 0.4);
+    }
+    
+    button:active{
+      transform:translateY(0);
+    }
+    
+    #fullscreenToggleBtn{
+      padding:14px;
+      min-width:52px;
+      flex-shrink:0;
+    }
+    
+    #fullscreenToggleBtn .btn-text{
+      display:inline;
+    }
+    
+    #fullscreenToggleBtn .btn-icon{
+      display:none;
+    }
+    
+    select{
+      background:var(--surface);
+      color:var(--text);
+      border:1px solid var(--border);
+      padding:14px 16px;
+      border-radius:var(--radius-sm);
+      font-size:14px;
+      font-weight:500;
+      cursor:pointer;
+      transition:all .2s ease;
+      box-shadow:var(--shadow);
+    }
+    
+    select:hover{
+      border-color:var(--primary);
+      background:var(--surface-hover);
+    }
+    
+    select:focus{
+      outline:none;
+      border-color:var(--primary);
+      box-shadow:0 0 0 3px var(--primary-glow);
+    }
+
+    /* Status Section */
+    .status-container{
+      width:100%;
+      max-width:1200px;
+      margin-top:16px;
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--radius-sm);
+      padding:12px 16px;
+      box-shadow:var(--shadow);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+    
+    .status-item{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex:1;
+      min-width:120px;
+    }
+    
+    .status-label{
+      font-size:11px;
+      font-weight:600;
+      color:var(--text-secondary);
+      white-space:nowrap;
+    }
+    
+    .status-value{
+      font-size:13px;
+      font-weight:600;
+      color:var(--text);
+      font-variant-numeric:tabular-nums;
+    }
+    
+    .status-item.success .status-value{
+      color:var(--success);
+    }
+    
+    .status-divider{
+      width:1px;
+      height:24px;
+      background:var(--border);
+    }
+
+    /* Schedule */
+    #programScheduleDisplay{
+      width:100%;
+      max-width:1200px;
+      margin-top:48px;
+    }
+    
+    #programScheduleDisplay h2{
+      font-size:24px;
+      font-weight:700;
+      margin-bottom:20px;
+      color:var(--text);
+    }
+    
+    #scheduleList{
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    
+    .schedule-item{
+      background:var(--surface);
+      border:2px solid var(--border);
+      padding:20px;
+      border-radius:var(--radius-sm);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      transition:all .2s ease;
+      cursor:pointer;
+      position:relative;
+      overflow:hidden;
+    }
+    
+    .schedule-item::before{
+      content:'';
+      position:absolute;
+      left:0;
+      top:0;
+      width:4px;
+      height:100%;
+      background:transparent;
+      transition:background .2s ease;
+    }
+    
+    .schedule-item:hover{
+      border-color:var(--primary);
+      transform:translateX(4px);
+    }
+    
+    .schedule-item.current{
+      border-color:var(--primary);
+      background:var(--primary-glow);
+      box-shadow:0 0 20px var(--primary-glow);
+    }
+    
+    .schedule-item.current::before{
+      background:linear-gradient(180deg, var(--primary) 0%, var(--accent) 100%);
+    }
+    
+    .schedule-item-left{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      flex:1;
+      min-width:0;
+    }
+    
+    .schedule-item-right{
+      text-align:right;
+      flex-shrink:0;
+      margin-left:20px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    
+    .schedule-item strong{
+      font-weight:600;
+      font-size:16px;
+      color:var(--text);
+      line-height:1.4;
+    }
+    
+    .schedule-item.current strong{
+      color:var(--primary);
+    }
+    
+    .schedule-item small{
+      color:var(--text-secondary);
+      font-size:14px;
+      line-height:1.4;
+    }
+    
+    .schedule-item.current small{
+      color:var(--primary);
+      opacity:0.8;
+    }
+    
+    .time-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:6px 12px;
+      background:var(--surface-light);
+      border-radius:20px;
+      font-size:13px;
+      font-weight:600;
+      color:var(--text-secondary);
+      white-space:nowrap;
+    }
+    
+    .schedule-item.current .time-badge{
+      background:var(--primary);
+      color:#fff;
+    }
+
+    /* Fullscreen */
+    #exitFullscreenBtn{
+      position:absolute;
+      top:16px;
+      right:16px;
+      z-index:9999;
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      background:rgba(0,0,0,0.85);
+      backdrop-filter:blur(12px);
+      color:#fff;
+      border:none;
+      font-size:20px;
+      cursor:pointer;
+      opacity:0;
+      pointer-events:none;
+      transition:all .3s ease;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    
+    #exitFullscreenBtn:hover{
+      background:rgba(0,0,0,0.95);
+      transform:scale(1.1);
+    }
+    
+    .virtual-fullscreen #exitFullscreenBtn{
+      opacity:1;
+      pointer-events:auto;
+    }
+    
+    .virtual-fullscreen #player-container{
+      position:fixed;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%) rotate(90deg);
+      width:100vh;
+      height:100vw;
+      max-width:none;
+      z-index:9999;
+      border-radius:0;
+    }
+    
+    .virtual-fullscreen #controls,
+    .virtual-fullscreen header,
+    .virtual-fullscreen .status-container,
+    .virtual-fullscreen #programScheduleDisplay{
+      display:none;
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 768px) {
+      body{
+        padding:20px 12px 60px;
+      }
+      
+      header{
+        margin-bottom:24px;
+      }
+      
+      h1{
+        font-size:22px;
+      }
+      
+      #themeToggleBtn{
+        width:40px;
+        height:40px;
+        font-size:18px;
+      }
+      
+      #player-container{
+        border-radius:12px;
+      }
+      
+      #controls{
+        grid-template-columns:1fr;
+        padding:16px;
+        gap:10px;
+      }
+      
+      .controls-row{
+        width:100%;
+      }
+      
+      #playButton{
+        flex:1;
+      }
+      
+      #fullscreenToggleBtn{
+        min-width:52px;
+        width:52px;
+      }
+      
+      #fullscreenToggleBtn .btn-text{
+        display:none;
+      }
+      
+      #fullscreenToggleBtn .btn-icon{
+        display:inline;
+      }
+      
+      button, select{
+        padding:16px;
+        font-size:15px;
+      }
+      
+      #fullscreenToggleBtn{
+        display:block;
+      }
+      
+      .status-container{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:8px;
+        padding:10px 12px;
+        margin-top:16px;
+      }
+      
+      .status-item{
+        width:100%;
+        min-width:auto;
+      }
+      
+      .status-divider{
+        display:none;
+      }
+      
+      .status-label{
+        font-size:10px;
+      }
+      
+      .status-value{
+        font-size:12px;
+      }
+      
+      #programScheduleDisplay{
+        margin-top:36px;
+      }
+      
+      #programScheduleDisplay h2{
+        font-size:20px;
+        margin-bottom:16px;
+      }
+      
+      .schedule-item{
+        flex-direction:column;
+        align-items:flex-start;
+        padding:16px;
+        gap:12px;
+      }
+      
+      .schedule-item-right{
+        margin-left:0;
+        width:100%;
+        justify-content:flex-start;
+      }
+      
+      .schedule-item strong{
+        font-size:15px;
+      }
+      
+      .schedule-item small{
+        font-size:13px;
+      }
+      
+      .time-badge{
+        font-size:12px;
+        padding:5px 10px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      body{
+        padding:16px 8px 50px;
+      }
+      
+      h1{
+        font-size:20px;
+      }
+      
+      #player-container{
+        border-radius:8px;
+      }
+      
+      #live-indicator{
+        top:12px;
+        left:12px;
+        padding:6px 12px;
+        font-size:12px;
+      }
+      
+      #controls{
+        padding:12px;
+      }
+      
+      .schedule-item{
+        padding:14px;
+      }
+    }
+  </style>
+
+</head>
+<body>
+  <header>
+    <h1>Виртуальная трансляция</h1>
+    <button id="themeToggleBtn" title="Сменить тему">🌓</button>
+  </header>
+
+  <div id="player-container">
+    <div id="player-wrapper">
+      <div id="player"></div>
+      <button id="exitFullscreenBtn">✕</button>
+      <div id="live-indicator"><span></span>LIVE</div>
+    </div>
+    <div id="progressBarContainer"><div id="progressBar"></div></div>
+
+    <div id="controls">
+      <div class="controls-row">
+        <button id="playButton">▶ Смотреть трансляцию</button>
+        <button id="fullscreenToggleBtn">
+          <span class="btn-text">⛶ Полный экран</span>
+          <span class="btn-icon">⛶</span>
+        </button>
+      </div>
+      <select id="timezoneSelector">
+        <option value="0" selected>⏰ Текущее время</option>
+        <option value="3600">⏩ На час вперёд</option>
+        <option value="-3600">⏪ На час назад</option>
+        <option value="-10800">⏮ На 3 часа назад</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="status-container">
+    <div class="status-card">
+      <div class="status-label">Статус</div>
+      <div class="status-value" id="status">Загрузка...</div>
+    </div>
+    <div class="status-card">
+      <div class="status-label">Время трансляции</div>
+      <div class="status-value" id="localTimeStatus">--:--:--</div>
+    </div>
+    <div class="status-card success">
+      <div class="status-label">Текущее время</div>
+      <div class="status-value" id="realTimeStatus">--:--:--</div>
+    </div>
+  </div>
+
+  <div id="programScheduleDisplay">
+    <h2>📋 Расписание трансляции</h2>
+    <ul id="scheduleList"></ul>
+  </div>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <script>
+    /* ---------- 1.  Тема ---------- */
+    const themeBtn=document.getElementById('themeToggleBtn');
+    themeBtn.addEventListener('click',()=>{
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme',document.body.classList.contains('light')?'light':'dark');
+    });
+    if(localStorage.getItem('theme')==='light') document.body.classList.add('light');
+
+    /* ---------- 2.  YouTube ---------- */
+    let player,playButton=document.getElementById('playButton'),
+        timezoneSelector=document.getElementById('timezoneSelector'),
+        fullscreenToggleBtn=document.getElementById('fullscreenToggleBtn'),
+        exitFullscreenBtn=document.getElementById('exitFullscreenBtn'),
+        statusDiv=document.getElementById('status'),
+        localTimeStatusDiv=document.getElementById('localTimeStatus'),
+        realTimeStatusDiv=document.getElementById('realTimeStatus'),
+        progressBar=document.getElementById('progressBar'),
+        scheduleList=document.getElementById('scheduleList'),
+        liveIndicator=document.getElementById('live-indicator');
+    let currentVideoIndex=0,syncTimer=null,progressTimer=null;
+
+    function onYouTubeIframeAPIReady(){
+      player=new YT.Player('player',{
+        height:'100%',width:'100%',
+        events:{onReady:onPlayerReady,onStateChange:onPlayerStateChange}
+      });
+    }
+    function onPlayerReady(){
+      fetchPlaylist();
+      playButton.addEventListener('click',startBroadcast);
+      timezoneSelector.addEventListener('change',startBroadcast);
+    }
+    /* ---------- 3.  Плейлист ---------- */
+    const PLAYLIST_URL='https://dl.dropboxusercontent.com/scl/fi/w7j5bnytgjtoohz54jtgj/playlist.json?rlkey=pvssgq9bp2hbyfsayog4te2ft&st=0op10sz1&dl=1';
+    let broadcastProgram=null;
+    async function fetchPlaylist(){
+      try{
+        const r=await fetch(PLAYLIST_URL);
+        if(!r.ok) throw new Error('Не удалось загрузить плейлист');
+        const data=await r.json();
+        let t=0;
+        data.programSchedule.forEach(v=>{v.startTime=t;t+=v.duration;});
+        broadcastProgram=data;
+        statusDiv.textContent='Готов к запуску';
+        playButton.disabled=false;
+        timezoneSelector.disabled=false;
+        fullscreenToggleBtn.disabled=false;
+        renderSchedule();
+      }catch(e){
+        statusDiv.textContent='Ошибка: '+e.message;
+      }
+    }
+    /* ---------- 4.  Трансляция ---------- */
+    function startBroadcast(){
+      if(!broadcastProgram) return;
+      if(syncTimer) clearInterval(syncTimer);
+      if(progressTimer) clearInterval(progressTimer);
+      statusDiv.textContent='Синхронизация...';
+      liveIndicator.style.display='flex';
+      const offset=parseInt(timezoneSelector.value,10);
+      const real=Date.now()/1000;
+      const start=new Date(broadcastProgram.broadcastStartTime).getTime()/1000;
+      let elapsed=real-start+offset;
+      let vid=null,sec=0,idx=0;
+      if(elapsed<0){
+        vid=broadcastProgram.programSchedule[0];
+        sec=0;
+        idx=0;
+      }
+      else{
+        for(let i=0;i<broadcastProgram.programSchedule.length;i++){
+          const v=broadcastProgram.programSchedule[i];
+          if(elapsed>=v.startTime&&elapsed<v.startTime+v.duration){
+            vid=v;
+            sec=elapsed-v.startTime;
+            idx=i;
+            break;
+          }
+        }
+      }
+      if(vid){
+        player.loadVideoById({videoId:vid.videoId,startSeconds:Math.max(0,sec),suggestedQuality:'large'});
+        currentVideoIndex=idx;
+      }
+      startSyncTimer(start);
+      highlightCurrentVideo(currentVideoIndex);
+      startProgressTimer();
+    }
+    function onPlayerStateChange(e){
+      if(e.data===YT.PlayerState.ENDED){
+        currentVideoIndex++;
+        if(currentVideoIndex<broadcastProgram.programSchedule.length){
+          const v=broadcastProgram.programSchedule[currentVideoIndex];
+          player.loadVideoById({videoId:v.videoId,startSeconds:0,suggestedQuality:'large'});
+        }else{
+          statusDiv.textContent='Завершено';
+          liveIndicator.style.display='none';
+        }
+      }else if(e.data===YT.PlayerState.PLAYING){
+        liveIndicator.style.display='flex';
+      }
+      else{
+        liveIndicator.style.display='none';
+      }
+    }
+    /* ---------- 5.  Синхронизация ---------- */
+    function startSyncTimer(broadcastStartTimeInSeconds){
+      syncTimer=setInterval(()=>{
+        const now=Date.now()/1000;
+        const offset=parseInt(timezoneSelector.value,10);
+        const elapsedTime = now - broadcastStartTimeInSeconds + offset;
+        
+        const display=new Date((broadcastStartTimeInSeconds + elapsedTime) * 1000);
+        localTimeStatusDiv.textContent=display.toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+        
+        let idx=-1,sec=0;
+        if(elapsedTime<0){
+          idx=0;
+          sec=0;
+        }
+        else{
+          for(let i=0;i<broadcastProgram.programSchedule.length;i++){
+            const v=broadcastProgram.programSchedule[i];
+            if(elapsedTime>=v.startTime&&elapsedTime<v.startTime+v.duration){
+              idx=i;
+              sec=elapsedTime-v.startTime;
+              break;
+            }
+          }
+        }
+        if(idx===-1) return;
+        if(idx!==currentVideoIndex){
+          currentVideoIndex=idx;
+          player.loadVideoById({videoId:broadcastProgram.programSchedule[currentVideoIndex].videoId,startSeconds:Math.max(0,sec),suggestedQuality:'large'});
+          statusDiv.textContent=`Видео #${currentVideoIndex+1}`;
+          highlightCurrentVideo(currentVideoIndex);
+          return;
+        }
+        const drift=player.getCurrentTime()-sec;
+        if(Math.abs(drift)>1){
+          player.setPlaybackRate(drift>0?.9:1.1);
+          statusDiv.textContent='Корректировка...';
+        }
+        else{
+          player.setPlaybackRate(1);
+          statusDiv.textContent='Синхронизировано ✓';
+        }
+      },1000);
+    }
+    function startProgressTimer(){
+      if(progressTimer) clearInterval(progressTimer);
+      progressTimer=setInterval(()=>{
+        if(player&&player.getDuration){
+          const cur=player.getCurrentTime(),dur=player.getDuration();
+          if(dur>0) progressBar.style.width=(cur/dur*100)+'%';
+        }
+      },500);
+    }
+    /* ---------- 6.  Расписание ---------- */
+    function parseVideoInfo(title, index) {
+      if (!title) {
+        return {
+          shortTitle: `Видео №${index + 1}`,
+          speakerAndDate: ''
+        };
+      }
+      
+      const parts = title.split(', ');
+      let speakerAndDate = '';
+      let shortTitle = '';
+
+      if (parts.length >= 2) {
+        const date = parts.pop();
+        const speaker = parts.pop();
+        speakerAndDate = `${speaker}, ${date}`;
+        shortTitle = parts.join(', ');
+      } else {
+        shortTitle = title;
+      }
+
+      if (shortTitle.length > 50) {
+        shortTitle = shortTitle.substring(0, 50) + '...';
+      }
+
+      return { shortTitle, speakerAndDate };
+    }
+    
+    function renderSchedule(){
+      if(!broadcastProgram) return;
+      scheduleList.innerHTML='';
+      const start=new Date(broadcastProgram.broadcastStartTime).getTime()/1000;
+      broadcastProgram.programSchedule.forEach((v,i)=>{
+        const li=document.createElement('li');
+        li.className='schedule-item';
+        li.dataset.index=i;
+        
+        const videoStartTime = new Date((start + v.startTime) * 1000);
+        const videoEndTime = new Date((start + v.startTime + v.duration) * 1000);
+
+        const { shortTitle, speakerAndDate } = parseVideoInfo(v.title, i);
+
+        li.innerHTML=`
+          <div class="schedule-item-left">
+            <strong>${shortTitle}</strong>
+            <small>${speakerAndDate}</small>
+          </div>
+          <div class="schedule-item-right">
+            <span class="time-badge">
+              ${videoStartTime.getHours().toString().padStart(2, '0')}:${videoStartTime.getMinutes().toString().padStart(2, '0')} – 
+              ${videoEndTime.getHours().toString().padStart(2, '0')}:${videoEndTime.getMinutes().toString().padStart(2, '0')}
+            </span>
+          </div>
+        `;
+        scheduleList.appendChild(li);
+      });
+    }
+    function highlightCurrentVideo(index){
+      document.querySelectorAll('.schedule-item').forEach(item=>item.classList.remove('current'));
+      const cur=document.querySelector(`.schedule-item[data-index="${index}"]`);
+      if(cur) cur.classList.add('current');
+    }
+    /* ---------- 7.  Полноэкран ---------- */
+    fullscreenToggleBtn.addEventListener('click',()=>{
+      document.body.classList.add('virtual-fullscreen');
+      setTimeout(()=>player.setSize('100%','100%'),500);
+    });
+    exitFullscreenBtn.addEventListener('click',()=>{
+      document.body.classList.remove('virtual-fullscreen');
+      setTimeout(()=>player.setSize('100%','100%'),500);
+    });
+    /* ---------- 8.  Часы ---------- */
+    setInterval(()=>realTimeStatusDiv.textContent=new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit',second:'2-digit'}),1000);
+  </script>
+</body>
+</html>
