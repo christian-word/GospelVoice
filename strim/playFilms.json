@@ -1,0 +1,36 @@
+﻿{
+  "broadcastStartTime": "2025-10-03T21:20:00+03:00",
+  "programSchedule": [
+  {
+    "url": "https://mirvera.info/films/DESIAT-ZAPOVEDEI-2006.mp4",
+    "duration": 10536,
+    "title": "Десять заповедей (2006)"
+  },
+  {
+    "url": "https://mirvera.info/films/VOSKRESENIE-KHRISTA-2016.mp4",
+    "duration": 6458,
+    "title": "Воскресение Христа (2016)"
+  },
+  {
+    "url": "https://dl.dropboxusercontent.com/scl/fi/7qvsijmlm3efc8t9w50ff/17854_720p.mp4?rlkey=kusb7s2plcmyqpmot6tm5op94&st=dp3n0let&dl=0",
+    "duration": 7649,
+    "title": "Самсон (2008)"
+  },
+  {
+    "url": "https://lumo.only.bible/720/nrt/luk/luk-01.1-56.mp4",
+    "duration": 2757,
+    "title": "Иисус: Евангелие от Луки (LUMO)"
+  },
+  {
+    "url": "https://video.only.bible/jesus/magdalena-russian.mp4",
+    "duration": 3900,
+    "title": "Магдалина: Освобождение от Позора"
+  },
+   {
+  "url": "https://mirvera.info/films/ZNAK-1-2012.mp4",
+  "duration": 5704,
+  "resolution": "",
+  "title": "Знак (2012) / The Mark"
+    }
+  ]
+}
