@@ -360,12 +360,15 @@
         <button id="playButton">▶ Смотреть</button>
         <button id="fullscreenToggleBtn">⛶ Полный экран</button>
       </div>
-      <select id="timezoneSelector">
-        <option value="0" selected>⏰ Текущее время</option>
-        <option value="3600">⏩ На час вперёд</option>
-        <option value="-3600">⏪ На час назад</option>
-        <option value="-10800">⏮ На 3 часа назад</option>
-      </select>
+<select id="timezoneSelector" disabled>
+  <option value="0" selected>⏰ Текущее время</option>
+  <option value="3600">⏩ +1 час</option>
+  <option value="7200">⏩ +2 часа</option>
+  <option value="10800">⏩ +3 часа</option>
+  <option value="-3600">⏪ -1 час</option>
+  <option value="-7200">⏪ -2 часа</option>
+  <option value="-10800">⏪ -3 часа</option>
+</select>
     </div>
   </div>
 
