@@ -325,7 +325,7 @@
     async function fetchPlaylist(){
       try{
         const r=await fetch(PLAYLIST_URL);
-        if(!r.ok) throw new Error('Не удалось загрузить плейлист');
+        if(!r.ok) throw new Error('Не удалось загрузить поток');
         const data=await r.json();
         let t=0;
         data.programSchedule.forEach(v=>{v.startTime=t;t+=v.duration;});
@@ -390,7 +390,7 @@
         highlightCurrentVideo(currentVideoIndex);
         startProgressTimer();
       }else{
-        statusDiv.textContent='Плейлист закончился';
+        statusDiv.textContent='Трансляция закончилась';
         liveIndicator.style.display='none';
       }
     }
