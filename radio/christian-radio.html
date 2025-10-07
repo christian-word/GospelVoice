@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Христианское онлайн-радио</title>
+  <title>Г•Г°ГЁГ±ГІГЁГ Г­Г±ГЄГ®ГҐ Г®Г­Г«Г Г©Г­-Г°Г Г¤ГЁГ®</title>
   <style>
     :root{
       --grad:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -220,24 +220,24 @@
 <body class="dark">
   <div class="container">
     <header>
-      <div class="theme-toggle" onclick="toggleTheme()" title="Сменить тему">
+      <div class="theme-toggle" onclick="toggleTheme()" title="Г‘Г¬ГҐГ­ГЁГІГј ГІГҐГ¬Гі">
         <span class="moon">??</span>
         <span class="sun">??</span>
       </div>
-      <h1>?? Христианское онлайн-радио</h1>
-      <h3>Сборка (церковь ЕХБ «Дом Евангелия», г.Сумы, 2025)</h3>
+      <h1>?? Г•Г°ГЁГ±ГІГЁГ Г­Г±ГЄГ®ГҐ Г®Г­Г«Г Г©Г­-Г°Г Г¤ГЁГ®</h1>
+      <h3>Г‘ГЎГ®Г°ГЄГ  (Г¶ГҐГ°ГЄГ®ГўГј Г…Г•ГЃ В«Г„Г®Г¬ Г…ГўГ Г­ГЈГҐГ«ГЁГїВ», ГЈ.Г‘ГіГ¬Г», 2025)</h3>
     </header>
 
     <main class="content-card">
       <div class="shortcut" onclick="showShortcut()">
         <button class="shortcut-btn">+</button>
-        <span>Добавить на главный экран</span>
+        <span>Г„Г®ГЎГ ГўГЁГІГј Г­Г  ГЈГ«Г ГўГ­Г»Г© ГЅГЄГ°Г Г­</span>
       </div>
 
-      <h2 class="cat-title">?? Чтение Библии</h2>
+      <h2 class="cat-title">?? Г—ГІГҐГ­ГЁГҐ ГЃГЁГЎГ«ГЁГЁ</h2>
       <ul class="station-list" id="bible"></ul>
 
-      <h2 class="cat-title">?? Музыкальное и детское служение</h2>
+      <h2 class="cat-title">?? ГЊГіГ§Г»ГЄГ Г«ГјГ­Г®ГҐ ГЁ Г¤ГҐГІГ±ГЄГ®ГҐ Г±Г«ГіГ¦ГҐГ­ГЁГҐ</h2>
       <ul class="station-list" id="music"></ul>
 
       <div class="social">
@@ -248,12 +248,12 @@
     </main>
   </div>
 
-  <!-- =====  НИЖНИЙ ПЛЕЕР  ===== -->
+  <!-- =====  ГЌГ€Г†ГЌГ€Г‰ ГЏГ‹Г…Г…Гђ  ===== -->
   <div class="player-bar">
     <div class="player-core">
       <button class="play-pause" id="playPause"></button>
       <div class="info">
-        <div class="now" id="now">Выберите станцию</div>
+        <div class="now" id="now">Г‚Г»ГЎГҐГ°ГЁГІГҐ Г±ГІГ Г­Г¶ГЁГѕ</div>
         <div class="vu" id="vu">
           <i></i><i></i><i></i><i></i>
         </div>
@@ -265,22 +265,22 @@
 
   <script>
     const stations = [
-      // Библия
-      {title:"Чтение Нового Завета",url:"https://rs.radioslovo.net:4055/stream",cat:"bible"},
-      {title:"Ветхий Завет",url:"https://rs.radioslovo.net:4165/stream",cat:"bible"},
-      {title:"Пилигрим-Библия (НЗ)",url:"https://www.liveradio.es/http://radiopiligrim.ru:8000/bible",cat:"bible"},
-      {title:"СВІТЛЕ РАДІО ЕММАНУЇЛ",url:"https://online.svitle.org:6729/fm",cat:"bible"},
-      // Музыка
-      {title:"Детское христианское радио",url:"http://live2.detskoeradio.org/radio.mp3",cat:"music"},
-      {title:"Инструментальная христ. музыка",url:"https://rt.radioslovo.net:4275/stream",cat:"music"},
-      {title:"Слово Благодати",url:"https://c13.radioboss.fm:18516/stream",cat:"music"},
-      {title:"Семейное Радио Эли",url:"https://icecast.pereraadio.ee:9000/Semeinoje",cat:"music"},
-      {title:"«Открытое Слово» авто",url:"https://rt.radioslovo.net:4145/stream",cat:"music"},
-      {title:"«Открытое Слово»",url:"https://rt.radioslovo.net:4395/radio?1714579709762",cat:"music"},
-      {title:"«Открытое Слово» укр.",url:"https://rt.radioslovo.net:5005/radio?1714621827960",cat:"music"},
-      {title:"RadioMV Музыка",url:"https://d6ee837f-fdca-4f41-81b1-cfca577979f5.pub.instances.scw.cloud:8440/russian_music.mp3",cat:"music"},
-      {title:"Новая жизнь",url:"https://nlradio.stream:8000/nlradio-low.aac",cat:"music"},
-      {title:"Радио 123",url:"https://de1.internet-radio.com/proxy/belradio123/stream",cat:"music"}
+      // ГЃГЁГЎГ«ГЁГї
+      {title:"Г—ГІГҐГ­ГЁГҐ ГЌГ®ГўГ®ГЈГ® Г‡Г ГўГҐГІГ ",url:"https://rs.radioslovo.net:4055/stream",cat:"bible"},
+      {title:"Г‚ГҐГІГµГЁГ© Г‡Г ГўГҐГІ",url:"https://rs.radioslovo.net:4165/stream",cat:"bible"},
+      {title:"ГЏГЁГ«ГЁГЈГ°ГЁГ¬-ГЃГЁГЎГ«ГЁГї (ГЌГ‡)",url:"https://www.liveradio.es/http://radiopiligrim.ru:8000/bible",cat:"bible"},
+      {title:"Г‘Г‚ВІГ’Г‹Г… ГђГЂГ„ВІГЋ Г…ГЊГЊГЂГЌГ“ВЇГ‹",url:"https://online.svitle.org:6729/fm",cat:"bible"},
+      // ГЊГіГ§Г»ГЄГ 
+      {title:"Г„ГҐГІГ±ГЄГ®ГҐ ГµГ°ГЁГ±ГІГЁГ Г­Г±ГЄГ®ГҐ Г°Г Г¤ГЁГ®",url:"http://live2.detskoeradio.org/radio.mp3",cat:"music"},
+      {title:"Г€Г­Г±ГІГ°ГіГ¬ГҐГ­ГІГ Г«ГјГ­Г Гї ГµГ°ГЁГ±ГІ. Г¬ГіГ§Г»ГЄГ ",url:"https://rt.radioslovo.net:4275/stream",cat:"music"},
+      {title:"Г‘Г«Г®ГўГ® ГЃГ«Г ГЈГ®Г¤Г ГІГЁ",url:"https://c13.radioboss.fm:18516/stream",cat:"music"},
+      {title:"Г‘ГҐГ¬ГҐГ©Г­Г®ГҐ ГђГ Г¤ГЁГ® ГќГ«ГЁ",url:"https://icecast.pereraadio.ee:9000/Semeinoje",cat:"music"},
+      {title:"В«ГЋГІГЄГ°Г»ГІГ®ГҐ Г‘Г«Г®ГўГ®В» Г ГўГІГ®",url:"https://rt.radioslovo.net:4145/stream",cat:"music"},
+      {title:"В«ГЋГІГЄГ°Г»ГІГ®ГҐ Г‘Г«Г®ГўГ®В»",url:"https://rt.radioslovo.net:4395/radio?1714579709762",cat:"music"},
+      {title:"В«ГЋГІГЄГ°Г»ГІГ®ГҐ Г‘Г«Г®ГўГ®В» ГіГЄГ°.",url:"https://rt.radioslovo.net:5005/radio?1714621827960",cat:"music"},
+      {title:"RadioMV ГЊГіГ§Г»ГЄГ ",url:"https://d6ee837f-fdca-4f41-81b1-cfca577979f5.pub.instances.scw.cloud:8440/russian_music.mp3",cat:"music"},
+      {title:"ГЌГ®ГўГ Гї Г¦ГЁГ§Г­Гј",url:"https://nlradio.stream:8000/nlradio-low.aac",cat:"music"},
+      {title:"ГђГ Г¤ГЁГ® 123",url:"https://de1.internet-radio.com/proxy/belradio123/stream",cat:"music"}
     ];
 
     let current = null;
@@ -339,10 +339,11 @@
     }
 
     function showShortcut(){
-      alert('iPhone (Safari): Поделиться ? На экран «Домой»\nAndroid (Chrome): Меню ? Добавить на главный экран');
+      alert('iPhone (Safari): ГЏГ®Г¤ГҐГ«ГЁГІГјГ±Гї ? ГЌГ  ГЅГЄГ°Г Г­ В«Г„Г®Г¬Г®Г©В»\nAndroid (Chrome): ГЊГҐГ­Гѕ ? Г„Г®ГЎГ ГўГЁГІГј Г­Г  ГЈГ«Г ГўГ­Г»Г© ГЅГЄГ°Г Г­');
     }
 
     render();
   </script>
 </body>
+
 </html>
