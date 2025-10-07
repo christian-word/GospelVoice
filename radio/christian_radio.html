@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Христианское онлайн-радио</title>
+  <style>
+    :root{
+      --grad:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --bg:#0f0c1b;
+      --card:#1e1a2a;
+      --text:#fff;
+      --sub:#a0a0c0;
+      --player:#2a243b;
+      --border:rgba(255,255,255,.08);
+    }
+    body.light{
+      --bg:#f5f7fa;
+      --card:#ffffff;
+      --text:#222;
+      --sub:#555;
+      --player:#ffffff;
+      --border:rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      padding-bottom:76px;
+      transition:background .3s;
+    }
+    .container{max-width:900px;margin:0 auto;padding:20px}
+    header{
+      background:var(--card);
+      border-radius:20px;
+      padding:30px;
+      text-align:center;
+      position:relative;
+    }
+    h1{font-size:2em;margin-bottom:6px}
+    h3{font-size:1rem;color:var(--sub);font-weight:400}
+    .theme-toggle{
+      position:absolute;
+      top:20px;
+      right:20px;
+      width:50px;
+      height:26px;
+      background:rgba(0,0,0,.15);
+      border-radius:13px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      padding:0 4px;
+    }
+    .light .theme-toggle{background:rgba(0,0,0,.08)}
+    .theme-toggle span{font-size:14px;transition:transform .3s}
+    .light .moon{transform:translateX(24px)}
+    .dark .sun{transform:translateX(24px)}
+
+    .content-card{
+      background:var(--card);
+      border-radius:20px;
+      padding:25px;
+      margin-top:20px;
+    }
+    .shortcut{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      background:var(--grad);
+      color:#fff;
+      padding:14px 18px;
+      border-radius:12px;
+      cursor:pointer;
+      margin-bottom:25px;
+    }
+    .shortcut-btn{
+      width:30px;
+      height:30px;
+      background:#fff;
+      border:none;
+      border-radius:8px;
+      font-size:18px;
+      color:#667eea;
+    }
+    .cat-title{
+      font-size:1.2em;
+      margin:25px 0 12px;
+      border-bottom:1px solid var(--border);
+      padding-bottom:8px;
+    }
+    .station-list{list-style:none}
+    .station{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      background:rgba(255,255,255,.05);
+      padding:14px 18px;
+      border-radius:12px;
+      margin-bottom:10px;
+      cursor:pointer;
+      transition:background .2s;
+    }
+    .light .station{background:rgba(0,0,0,.03)}
+    .station:hover{background:rgba(255,255,255,.09)}
+    .station.on{background:var(--grad);color:#fff}
+    .station.on .micro-vu i{animation:bar .8s infinite ease-in-out}
+    .station.on .micro-vu i:nth-child(2){animation-delay:.1s}
+    .station.on .micro-vu i:nth-child(3){animation-delay:.2s}
+    .station.on .micro-vu i:nth-child(4){animation-delay:.3s}
+    @keyframes bar{0%,100%{height:4px}50%{height:14px}}
+
+    .icon{
+      width:36px;
+      height:36px;
+      background:var(--grad);
+      border-radius:8px;
+      display:grid;
+      place-items:center;
+      flex-shrink:0;
+    }
+    .station.on .icon{background:#fff}
+    .icon svg{width:18px;height:18px;fill:#fff}
+    .station.on .icon svg{fill:#667eea;animation:pulse 1.4s infinite}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+
+    .micro-vu{
+      display:flex;
+      align-items:center;
+      gap:3px;
+      margin-left:auto;
+    }
+    .micro-vu i{
+      width:3px;
+      height:4px;
+      background:currentColor;
+      border-radius:1px;
+    }
+
+    .social{
+      display:flex;
+      gap:15px;
+      justify-content:center;
+      margin-top:30px;
+      padding-top:25px;
+      border-top:1px solid var(--border);
+    }
+    .social-link{
+      padding:8px 16px;
+      background:rgba(255,255,255,.07);
+      border-radius:10px;
+      color:var(--sub);
+      text-decoration:none;
+      font-size:.9em;
+      transition:background .2s,color .2s;
+    }
+    .social-link:hover{background:var(--grad);color:#fff}
+
+    /* =====  PLAYER BAR  ===== */
+    .player-bar{
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      height:60px;
+      background:var(--player);
+      border-top:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      padding:0 20px;
+      z-index:100;
+    }
+    .player-core{
+      width:100%;
+      display:flex;
+      align-items:center;
+      gap:15px;
+    }
+    .play-pause{
+      width:36px;
+      height:36px;
+      background:var(--grad);
+      border:none;
+      border-radius:50%;
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+    }
+    .play-pause svg{width:16px;height:16px;fill:#fff}
+    .info{flex:1;display:flex;flex-direction:column;gap:4px}
+    .now{font-size:.9em;color:var(--sub)}
+    .vu{display:flex;align-items:center;gap:3px;height:16px}
+    .vu i{width:3px;height:4px;background:var(--sub);border-radius:1px}
+    .vu.active i{animation:vu 1s infinite ease-in-out}
+    .vu.active i:nth-child(2){animation-delay:.15s}
+    .vu.active i:nth-child(3){animation-delay:.3s}
+    .vu.active i:nth-child(4){animation-delay:.45s}
+    @keyframes vu{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+    .volume{
+      width:100px;
+      -webkit-appearance:none;
+      appearance:none;
+      height:4px;
+      background:var(--border);
+      border-radius:2px;
+      outline:none;
+    }
+    .volume::-webkit-slider-thumb{
+      -webkit-appearance:none;
+      width:12px;
+      height:12px;
+      background:#667eea;
+      border-radius:50%;
+      cursor:pointer;
+    }
+    audio{display:none}
+  </style>
+</head>
+<body class="dark">
+  <div class="container">
+    <header>
+      <div class="theme-toggle" onclick="toggleTheme()" title="Сменить тему">
+        <span class="moon">??</span>
+        <span class="sun">??</span>
+      </div>
+      <h1>?? Христианское онлайн-радио</h1>
+      <h3>Сборка (церковь ЕХБ «Дом Евангелия», г.Сумы, 2025)</h3>
+    </header>
+
+    <main class="content-card">
+      <div class="shortcut" onclick="showShortcut()">
+        <button class="shortcut-btn">+</button>
+        <span>Добавить на главный экран</span>
+      </div>
+
+      <h2 class="cat-title">?? Чтение Библии</h2>
+      <ul class="station-list" id="bible"></ul>
+
+      <h2 class="cat-title">?? Музыкальное и детское служение</h2>
+      <ul class="station-list" id="music"></ul>
+
+      <div class="social">
+        <a class="social-link youtube" href="https://ruyriy.github.io/VideoYouTube/video_max.html" target="_blank">YouTube</a>
+        <a class="social-link facebook" href="https://www.facebook.com/pravdachurch" target="_blank">Facebook</a>
+        <a class="social-link instagram" href="https://www.instagram.com/pravda.church" target="_blank">Instagram</a>
+      </div>
+    </main>
+  </div>
+
+  <!-- =====  НИЖНИЙ ПЛЕЕР  ===== -->
+  <div class="player-bar">
+    <div class="player-core">
+      <button class="play-pause" id="playPause"></button>
+      <div class="info">
+        <div class="now" id="now">Выберите станцию</div>
+        <div class="vu" id="vu">
+          <i></i><i></i><i></i><i></i>
+        </div>
+      </div>
+      <input class="volume" id="volume" type="range" min="0" max="1" step="0.05" value="0.7">
+    </div>
+    <audio id="audio"></audio>
+  </div>
+
+  <script>
+    const stations = [
+      // Библия
+      {title:"Чтение Нового Завета",url:"https://rs.radioslovo.net:4055/stream",cat:"bible"},
+      {title:"Ветхий Завет",url:"https://rs.radioslovo.net:4165/stream",cat:"bible"},
+      {title:"Пилигрим-Библия (НЗ)",url:"https://www.liveradio.es/http://radiopiligrim.ru:8000/bible",cat:"bible"},
+      {title:"СВІТЛЕ РАДІО ЕММАНУЇЛ",url:"https://online.svitle.org:6729/fm",cat:"bible"},
+      // Музыка
+      {title:"Детское христианское радио",url:"http://live2.detskoeradio.org/radio.mp3",cat:"music"},
+      {title:"Инструментальная христ. музыка",url:"https://rt.radioslovo.net:4275/stream",cat:"music"},
+      {title:"Слово Благодати",url:"https://c13.radioboss.fm:18516/stream",cat:"music"},
+      {title:"Семейное Радио Эли",url:"https://icecast.pereraadio.ee:9000/Semeinoje",cat:"music"},
+      {title:"«Открытое Слово» авто",url:"https://rt.radioslovo.net:4145/stream",cat:"music"},
+      {title:"«Открытое Слово»",url:"https://rt.radioslovo.net:4395/radio?1714579709762",cat:"music"},
+      {title:"«Открытое Слово» укр.",url:"https://rt.radioslovo.net:5005/radio?1714621827960",cat:"music"},
+      {title:"RadioMV Музыка",url:"https://d6ee837f-fdca-4f41-81b1-cfca577979f5.pub.instances.scw.cloud:8440/russian_music.mp3",cat:"music"},
+      {title:"Новая жизнь",url:"https://nlradio.stream:8000/nlradio-low.aac",cat:"music"},
+      {title:"Радио 123",url:"https://de1.internet-radio.com/proxy/belradio123/stream",cat:"music"}
+    ];
+
+    let current = null;
+    const audio = document.getElementById('audio');
+    const now = document.getElementById('now');
+    const playPause = document.getElementById('playPause');
+    const vu = document.getElementById('vu');
+    const volume = document.getElementById('volume');
+
+    function render(){
+      const b = document.getElementById('bible');
+      const m = document.getElementById('music');
+      stations.forEach((s,i)=>{
+        const li = document.createElement('li');
+        li.className='station';
+        li.dataset.url = s.url;
+        li.dataset.title = s.title;
+        li.innerHTML = `
+          <div class="icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <span>${s.title}</span>
+          <div class="micro-vu"><i></i><i></i><i></i><i></i></div>
+        `;
+        li.onclick = () => select(li);
+        (s.cat==='bible'?b:m).appendChild(li);
+      });
+    }
+
+    function select(li){
+      if(current) current.classList.remove('on');
+      current = li;
+      current.classList.add('on');
+      audio.src = li.dataset.url;
+      audio.play();
+      now.textContent = li.dataset.title;
+      vu.classList.add('active');
+      updateBtn(true);
+    }
+
+    function updateBtn(playing){
+      playPause.innerHTML = playing
+        ? '<svg viewBox="0 0 24 24"><path d="M6 4h4v16H6zm8 0h4v16h-4z"/></svg>'
+        : '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+    }
+
+    playPause.onclick = () => {
+      if(!audio.src) return;
+      if(audio.paused){audio.play(); vu.classList.add('active'); updateBtn(true);}
+      else{audio.pause(); vu.classList.remove('active'); updateBtn(false);}
+    };
+
+    volume.oninput = e => audio.volume = e.target.value;
+
+    function toggleTheme(){
+      document.body.classList.toggle('light');
+      document.body.classList.toggle('dark');
+    }
+
+    function showShortcut(){
+      alert('iPhone (Safari): Поделиться ? На экран «Домой»\nAndroid (Chrome): Меню ? Добавить на главный экран');
+    }
+
+    render();
+  </script>
+</body>
+</html>
