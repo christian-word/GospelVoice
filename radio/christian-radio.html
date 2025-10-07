@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Õðèñòèàíñêîå îíëàéí-ðàäèî</title>
+  <title>Христианское онлайн-радио</title>
   <style>
     :root{
       --grad:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -220,24 +220,24 @@
 <body class="dark">
   <div class="container">
     <header>
-      <div class="theme-toggle" onclick="toggleTheme()" title="Ñìåíèòü òåìó">
+      <div class="theme-toggle" onclick="toggleTheme()" title="Сменить тему">
         <span class="moon">??</span>
         <span class="sun">??</span>
       </div>
-      <h1>?? Õðèñòèàíñêîå îíëàéí-ðàäèî</h1>
-      <h3>Ñáîðêà (öåðêîâü ÅÕÁ «Äîì Åâàíãåëèÿ», ã.Ñóìû, 2025)</h3>
+      <h1>?? Христианское онлайн-радио</h1>
+      <h3>Сборка (церковь ЕХБ «Дом Евангелия», г.Сумы, 2025)</h3>
     </header>
 
     <main class="content-card">
       <div class="shortcut" onclick="showShortcut()">
         <button class="shortcut-btn">+</button>
-        <span>Äîáàâèòü íà ãëàâíûé ýêðàí</span>
+        <span>Добавить на главный экран</span>
       </div>
 
-      <h2 class="cat-title">?? ×òåíèå Áèáëèè</h2>
+      <h2 class="cat-title">?? Чтение Библии</h2>
       <ul class="station-list" id="bible"></ul>
 
-      <h2 class="cat-title">?? Ìóçûêàëüíîå è äåòñêîå ñëóæåíèå</h2>
+      <h2 class="cat-title">?? Музыкальное и детское служение</h2>
       <ul class="station-list" id="music"></ul>
 
       <div class="social">
@@ -248,12 +248,12 @@
     </main>
   </div>
 
-  <!-- =====  ÍÈÆÍÈÉ ÏËÅÅÐ  ===== -->
+  <!-- =====  НИЖНИЙ ПЛЕЕР  ===== -->
   <div class="player-bar">
     <div class="player-core">
       <button class="play-pause" id="playPause"></button>
       <div class="info">
-        <div class="now" id="now">Âûáåðèòå ñòàíöèþ</div>
+        <div class="now" id="now">Выберите станцию</div>
         <div class="vu" id="vu">
           <i></i><i></i><i></i><i></i>
         </div>
@@ -265,22 +265,22 @@
 
   <script>
     const stations = [
-      // Áèáëèÿ
-      {title:"×òåíèå Íîâîãî Çàâåòà",url:"https://rs.radioslovo.net:4055/stream",cat:"bible"},
-      {title:"Âåòõèé Çàâåò",url:"https://rs.radioslovo.net:4165/stream",cat:"bible"},
-      {title:"Ïèëèãðèì-Áèáëèÿ (ÍÇ)",url:"https://www.liveradio.es/http://radiopiligrim.ru:8000/bible",cat:"bible"},
-      {title:"ÑÂ²ÒËÅ ÐÀÄ²Î ÅÌÌÀÍÓ¯Ë",url:"https://online.svitle.org:6729/fm",cat:"bible"},
-      // Ìóçûêà
-      {title:"Äåòñêîå õðèñòèàíñêîå ðàäèî",url:"http://live2.detskoeradio.org/radio.mp3",cat:"music"},
-      {title:"Èíñòðóìåíòàëüíàÿ õðèñò. ìóçûêà",url:"https://rt.radioslovo.net:4275/stream",cat:"music"},
-      {title:"Ñëîâî Áëàãîäàòè",url:"https://c13.radioboss.fm:18516/stream",cat:"music"},
-      {title:"Ñåìåéíîå Ðàäèî Ýëè",url:"https://icecast.pereraadio.ee:9000/Semeinoje",cat:"music"},
-      {title:"«Îòêðûòîå Ñëîâî» àâòî",url:"https://rt.radioslovo.net:4145/stream",cat:"music"},
-      {title:"«Îòêðûòîå Ñëîâî»",url:"https://rt.radioslovo.net:4395/radio?1714579709762",cat:"music"},
-      {title:"«Îòêðûòîå Ñëîâî» óêð.",url:"https://rt.radioslovo.net:5005/radio?1714621827960",cat:"music"},
-      {title:"RadioMV Ìóçûêà",url:"https://d6ee837f-fdca-4f41-81b1-cfca577979f5.pub.instances.scw.cloud:8440/russian_music.mp3",cat:"music"},
-      {title:"Íîâàÿ æèçíü",url:"https://nlradio.stream:8000/nlradio-low.aac",cat:"music"},
-      {title:"Ðàäèî 123",url:"https://de1.internet-radio.com/proxy/belradio123/stream",cat:"music"}
+      // Библия
+      {title:"Чтение Нового Завета",url:"https://rs.radioslovo.net:4055/stream",cat:"bible"},
+      {title:"Ветхий Завет",url:"https://rs.radioslovo.net:4165/stream",cat:"bible"},
+      {title:"Пилигрим-Библия (НЗ)",url:"https://www.liveradio.es/http://radiopiligrim.ru:8000/bible",cat:"bible"},
+      {title:"СВІТЛЕ РАДІО ЕММАНУЇЛ",url:"https://online.svitle.org:6729/fm",cat:"bible"},
+      // Музыка
+      {title:"Детское христианское радио",url:"http://live2.detskoeradio.org/radio.mp3",cat:"music"},
+      {title:"Инструментальная христ. музыка",url:"https://rt.radioslovo.net:4275/stream",cat:"music"},
+      {title:"Слово Благодати",url:"https://c13.radioboss.fm:18516/stream",cat:"music"},
+      {title:"Семейное Радио Эли",url:"https://icecast.pereraadio.ee:9000/Semeinoje",cat:"music"},
+      {title:"«Открытое Слово» авто",url:"https://rt.radioslovo.net:4145/stream",cat:"music"},
+      {title:"«Открытое Слово»",url:"https://rt.radioslovo.net:4395/radio?1714579709762",cat:"music"},
+      {title:"«Открытое Слово» укр.",url:"https://rt.radioslovo.net:5005/radio?1714621827960",cat:"music"},
+      {title:"RadioMV Музыка",url:"https://d6ee837f-fdca-4f41-81b1-cfca577979f5.pub.instances.scw.cloud:8440/russian_music.mp3",cat:"music"},
+      {title:"Новая жизнь",url:"https://nlradio.stream:8000/nlradio-low.aac",cat:"music"},
+      {title:"Радио 123",url:"https://de1.internet-radio.com/proxy/belradio123/stream",cat:"music"}
     ];
 
     let current = null;
@@ -339,11 +339,10 @@
     }
 
     function showShortcut(){
-      alert('iPhone (Safari): Ïîäåëèòüñÿ ? Íà ýêðàí «Äîìîé»\nAndroid (Chrome): Ìåíþ ? Äîáàâèòü íà ãëàâíûé ýêðàí');
+      alert('iPhone (Safari): Поделиться ? На экран «Домой»\nAndroid (Chrome): Меню ? Добавить на главный экран');
     }
 
     render();
   </script>
 </body>
-
 </html>
