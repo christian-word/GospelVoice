@@ -1,71 +1,86 @@
 ﻿[
     {
         "id": 1,
+        "title": "«1.Відкрите Слово» Старий Заповіт",
+        "url": "https://rt.radioslovo.net:1105/stream"
+    },
+    {
+        "id": 2,
+        "title": "«2.Відкрите Слово» Новий Заповіт",
+        "url": "https://rt.radioslovo.net:1095/stream"
+    },
+    {
+        "id": 3,
+        "title": "«3.Открытое Слово»",
+        "url": "https://rt.radioslovo.net:4395/radio"
+    },
+    {
+        "id": 4,
+        "title": "«4.Открытое Слово» инстр. муз.",
+        "url": "https://rt.radioslovo.net:4275/stream"
+    },
+    {
+        "id": 5,
         "title": "Чтение Нового Завета",
         "url": "https://rs.radioslovo.net:4055/stream"
     },
     {
-        "id": 2,
+        "id": 6,
         "title": "Ветхий Завет",
-        "url": "https://rs.radioslovo.net:4165/stream"
+        "url": "https://rt.radioslovo.net:4165/stream"
     },
     {
-        "id": 3,
-        "title": "Пилигрим-Библия Новый Завет",
-        "url": "https://www.liveradio.es/http://radiopiligrim.ru:8000/bible"
-    },
-    {
-        "id": 4,
+        "id": 7,
         "title": "СВІТЛЕ РАДІО ЕММАНУЇЛ",
         "url": "https://online.svitle.org:6729/fm"
     },
     {
-        "id": 5,
+        "id": 8,
         "title": "Детское христианское радио",
         "url": "http://live2.detskoeradio.org/radio.mp3"
     },
     {
-        "id": 6,
-        "title": "Инструментальная Христианская музыка",
+        "id": 9,
+        "title": "Инструментальная христ. музыка",
         "url": "https://rt.radioslovo.net:4275/stream"
     },
     {
-        "id": 7,
+        "id": 10,
         "title": "Слово Благодати",
         "url": "https://c13.radioboss.fm:18516/stream"
     },
     {
-        "id": 8,
+        "id": 11,
         "title": "Семейное Радио Эли",
         "url": "https://icecast.pereraadio.ee:9000/Semeinoje"
     },
     {
-        "id": 9,
-        "title": "«Открытое Слово» Авто радио",
+        "id": 12,
+        "title": "«Открытое Слово» авто",
         "url": "https://rt.radioslovo.net:4145/stream"
     },
     {
-        "id": 10,
-        "title": "«Открытое Слово» христианское радио",
-        "url": "https://rt.radioslovo.net:4395/radio?1714579709762"
+        "id": 13,
+        "title": "«Открытое Слово»",
+        "url": "https://rt.radioslovo.net:4395/radio"
     },
     {
-        "id": 11,
-        "title": "«Открытое Слово» христианское радио укр.",
-        "url": "https://rt.radioslovo.net:5005/radio?1714621827960"
+        "id": 14,
+        "title": "«Открытое Слово» укр.",
+        "url": "https://rt.radioslovo.net:5005/radio"
     },
     {
-        "id": 12,
+        "id": 15,
         "title": "RadioMV Музыка",
         "url": "https://d6ee837f-fdca-4f41-81b1-cfca577979f5.pub.instances.scw.cloud:8440/russian_music.mp3"
     },
     {
-        "id": 13,
+        "id": 16,
         "title": "Новая жизнь",
         "url": "https://nlradio.stream:8000/nlradio-low.aac"
     },
     {
-        "id": 14,
+        "id": 17,
         "title": "Радио 123",
         "url": "https://de1.internet-radio.com/proxy/belradio123/stream"
     }
