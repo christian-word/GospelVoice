@@ -1,0 +1,321 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адаптивный видео проигрыватель</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .player-container {
+            width: 100%;
+            max-width: 1200px;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-height: 70vh;
+            object-fit: contain;
+        }
+
+        .controls {
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .video-wrapper:hover .controls,
+        .controls.show {
+            opacity: 1;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 3px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .progress-filled {
+            height: 100%;
+            background: #e50914;
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        button {
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background 0.3s;
+            font-size: 18px;
+        }
+
+        button:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .time {
+            font-size: 14px;
+            margin-left: auto;
+        }
+
+
+
+        .fit-mode {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .fit-btn {
+            font-size: 14px;
+            padding: 6px 12px;
+        }
+
+        .fit-btn.active {
+            background: #e50914;
+        }
+
+        video:fullscreen,
+        video:-webkit-full-screen,
+        video:-moz-full-screen {
+            max-height: 100vh;
+            width: 100vw;
+        }
+
+        .video-wrapper:fullscreen,
+        .video-wrapper:-webkit-full-screen,
+        .video-wrapper:-moz-full-screen {
+            background: #000;
+        }
+
+        .video-wrapper:fullscreen video,
+        .video-wrapper:-webkit-full-screen video,
+        .video-wrapper:-moz-full-screen video {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="player-container">
+        <div class="video-wrapper" id="videoWrapper">
+            <video id="videoPlayer" preload="metadata">
+                <source src="online-video.mp4" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+            
+            <div class="controls" id="controls">
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-filled" id="progressFilled"></div>
+                </div>
+                
+                <div class="buttons">
+                    <button id="playBtn">▶️</button>
+                    <button id="muteBtn">🔊</button>
+                    
+                    <div class="fit-mode">
+                        <button class="fit-btn active" data-fit="contain">Вместить</button>
+                        <button class="fit-btn" data-fit="cover">Заполнить</button>
+                        <button class="fit-btn" data-fit="fill">Растянуть</button>
+                    </div>
+                    
+                    <span class="time" id="time">0:00 / 0:00</span>
+                    <button id="fullscreenBtn">⛶</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const video = document.getElementById('videoPlayer');
+        const videoWrapper = document.getElementById('videoWrapper');
+        const playBtn = document.getElementById('playBtn');
+        const muteBtn = document.getElementById('muteBtn');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressFilled = document.getElementById('progressFilled');
+        const timeDisplay = document.getElementById('time');
+        const controls = document.getElementById('controls');
+        const fitBtns = document.querySelectorAll('.fit-btn');
+
+        let hideControlsTimeout;
+
+        // Воспроизведение/пауза
+        playBtn.addEventListener('click', togglePlay);
+        video.addEventListener('click', togglePlay);
+
+        function togglePlay() {
+            if (video.paused) {
+                video.play();
+                playBtn.textContent = '⏸️';
+            } else {
+                video.pause();
+                playBtn.textContent = '▶️';
+            }
+        }
+
+        // Звук
+        muteBtn.addEventListener('click', () => {
+            video.muted = !video.muted;
+            muteBtn.textContent = video.muted ? '🔇' : '🔊';
+        });
+
+        // Полноэкранный режим
+        fullscreenBtn.addEventListener('click', toggleFullscreen);
+        video.addEventListener('dblclick', toggleFullscreen);
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                if (videoWrapper.requestFullscreen) {
+                    videoWrapper.requestFullscreen();
+                } else if (videoWrapper.webkitRequestFullscreen) {
+                    videoWrapper.webkitRequestFullscreen();
+                } else if (videoWrapper.mozRequestFullScreen) {
+                    videoWrapper.mozRequestFullScreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                }
+            }
+        }
+
+        // Автоматический переход в полноэкранный режим при воспроизведении
+        video.addEventListener('play', () => {
+            if (video.src && !document.fullscreenElement) {
+                setTimeout(() => {
+                    toggleFullscreen();
+                }, 500);
+            }
+        });
+
+        // Прогресс-бар
+        video.addEventListener('timeupdate', () => {
+            const percent = (video.currentTime / video.duration) * 100;
+            progressFilled.style.width = percent + '%';
+            
+            const current = formatTime(video.currentTime);
+            const duration = formatTime(video.duration);
+            timeDisplay.textContent = `${current} / ${duration}`;
+        });
+
+        progressBar.addEventListener('click', (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            video.currentTime = percent * video.duration;
+        });
+
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Режимы подгонки видео
+        fitBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                fitBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                video.style.objectFit = btn.dataset.fit;
+            });
+        });
+
+        // Показ/скрытие контролов
+        videoWrapper.addEventListener('mousemove', () => {
+            controls.classList.add('show');
+            clearTimeout(hideControlsTimeout);
+            hideControlsTimeout = setTimeout(() => {
+                if (!video.paused) {
+                    controls.classList.remove('show');
+                }
+            }, 3000);
+        });
+
+        videoWrapper.addEventListener('mouseleave', () => {
+            if (!video.paused) {
+                controls.classList.remove('show');
+            }
+        });
+
+        // Клавиатурное управление
+        document.addEventListener('keydown', (e) => {
+            if (!video.src) return;
+            
+            switch(e.code) {
+                case 'Space':
+                    e.preventDefault();
+                    togglePlay();
+                    break;
+                case 'KeyF':
+                    toggleFullscreen();
+                    break;
+                case 'KeyM':
+                    video.muted = !video.muted;
+                    muteBtn.textContent = video.muted ? '🔇' : '🔊';
+                    break;
+                case 'ArrowLeft':
+                    video.currentTime -= 5;
+                    break;
+                case 'ArrowRight':
+                    video.currentTime += 5;
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>
