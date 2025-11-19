@@ -6,7 +6,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Адаптивный видео проигрыватель</title>
+    <title>Видео проигрыватель</title>
     <style>
         * {
             margin: 0;
@@ -15,39 +15,34 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #1a1a1a;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            background: #000;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
         }
 
         .player-container {
             width: 100%;
-            max-width: 1200px;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
 
         .video-wrapper {
             position: relative;
             width: 100%;
-            background: #000;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
+            background: #000;
         }
 
         video {
             width: 100%;
-            height: auto;
-            display: block;
-            max-height: 70vh;
+            height: 100%;
             object-fit: contain;
         }
 
@@ -60,6 +55,7 @@
             padding: 20px;
             opacity: 0;
             transition: opacity 0.3s;
+            z-index: 10;
         }
 
         .video-wrapper:hover .controls,
@@ -96,10 +92,10 @@
             border: none;
             color: #fff;
             cursor: pointer;
-            padding: 8px;
+            padding: 10px;
             border-radius: 4px;
             transition: background 0.3s;
-            font-size: 18px;
+            font-size: 20px;
         }
 
         button:hover {
@@ -111,65 +107,18 @@
             margin-left: auto;
         }
 
-
-
-        .fit-mode {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .fit-btn {
-            font-size: 14px;
-            padding: 6px 12px;
-        }
-
-        .fit-btn.active {
-            background: #e50914;
-        }
-
-        video:fullscreen,
-        video:-webkit-full-screen,
-        video:-moz-full-screen {
-            max-height: 100vh;
-            width: 100vw;
-            object-fit: contain;
-        }
-
-        .video-wrapper:fullscreen,
-        .video-wrapper:-webkit-full-screen,
-        .video-wrapper:-moz-full-screen {
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .video-wrapper:fullscreen video,
-        .video-wrapper:-webkit-full-screen video,
-        .video-wrapper:-moz-full-screen video {
-            width: 100%;
-            height: 100%;
-            max-width: 100vw;
-            max-height: 100vh;
-        }
-
-        /* Стили для мобильных устройств */
-        @media screen and (max-width: 768px) {
-            body {
-                padding: 0;
-            }
-
+        /* Поворот на 90 градусов для мобильных устройств */
+        @media screen and (max-width: 768px) and (orientation: portrait) {
             .player-container {
-                border-radius: 0;
-                max-width: 100%;
-                height: 100vh;
-                display: flex;
-                align-items: center;
-            }
-
-            video {
-                max-height: 100vh;
+                transform: rotate(90deg);
+                transform-origin: center center;
+                width: 100vh;
+                height: 100vw;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-left: -50vh;
+                margin-top: -50vw;
             }
 
             .controls {
@@ -177,30 +126,19 @@
             }
 
             button {
-                font-size: 20px;
-                padding: 10px;
+                font-size: 22px;
+                padding: 12px;
             }
 
-            .fit-btn {
-                font-size: 12px;
-                padding: 8px 10px;
-            }
-        }
-
-        /* Поддержка поворота экрана */
-        @media screen and (orientation: landscape) and (max-width: 896px) {
-            .video-wrapper:fullscreen video,
-            .video-wrapper:-webkit-full-screen video {
-                width: 100vw;
-                height: 100vh;
+            .time {
+                font-size: 13px;
             }
         }
 
-        @media screen and (orientation: portrait) and (max-width: 768px) {
-            .video-wrapper:fullscreen video,
-            .video-wrapper:-webkit-full-screen video {
-                width: 100vw;
-                height: 100vh;
+        /* Для ландшафтной ориентации на мобильных */
+        @media screen and (max-width: 896px) and (orientation: landscape) {
+            .player-container {
+                transform: none;
             }
         }
     </style>
@@ -208,7 +146,7 @@
 <body>
     <div class="player-container">
         <div class="video-wrapper" id="videoWrapper">
-            <video id="videoPlayer" preload="metadata">
+            <video id="videoPlayer" preload="metadata" playsinline webkit-playsinline>
                 <source src="online-video.mp4" type="video/mp4">
                 Ваш браузер не поддерживает видео.
             </video>
@@ -221,15 +159,7 @@
                 <div class="buttons">
                     <button id="playBtn">▶️</button>
                     <button id="muteBtn">🔊</button>
-                    
-                    <div class="fit-mode">
-                        <button class="fit-btn active" data-fit="contain">Вместить</button>
-                        <button class="fit-btn" data-fit="cover">Заполнить</button>
-                        <button class="fit-btn" data-fit="fill">Растянуть</button>
-                    </div>
-                    
                     <span class="time" id="time">0:00 / 0:00</span>
-                    <button id="fullscreenBtn">⛶</button>
                 </div>
             </div>
         </div>
@@ -240,12 +170,10 @@
         const videoWrapper = document.getElementById('videoWrapper');
         const playBtn = document.getElementById('playBtn');
         const muteBtn = document.getElementById('muteBtn');
-        const fullscreenBtn = document.getElementById('fullscreenBtn');
         const progressBar = document.getElementById('progressBar');
         const progressFilled = document.getElementById('progressFilled');
         const timeDisplay = document.getElementById('time');
         const controls = document.getElementById('controls');
-        const fitBtns = document.querySelectorAll('.fit-btn');
 
         let hideControlsTimeout;
 
@@ -267,57 +195,6 @@
         muteBtn.addEventListener('click', () => {
             video.muted = !video.muted;
             muteBtn.textContent = video.muted ? '🔇' : '🔊';
-        });
-
-        // Полноэкранный режим
-        fullscreenBtn.addEventListener('click', toggleFullscreen);
-        video.addEventListener('dblclick', toggleFullscreen);
-
-        function toggleFullscreen() {
-            if (!document.fullscreenElement) {
-                if (videoWrapper.requestFullscreen) {
-                    videoWrapper.requestFullscreen();
-                } else if (videoWrapper.webkitRequestFullscreen) {
-                    videoWrapper.webkitRequestFullscreen();
-                } else if (videoWrapper.mozRequestFullScreen) {
-                    videoWrapper.mozRequestFullScreen();
-                }
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                }
-            }
-        }
-
-        // Автоматический переход в полноэкранный режим при воспроизведении
-        video.addEventListener('play', () => {
-            if (video.src && !document.fullscreenElement) {
-                setTimeout(() => {
-                    toggleFullscreen();
-                    // Попытка заблокировать ориентацию для мобильных
-                    if (screen.orientation && screen.orientation.lock) {
-                        // Определяем ориентацию видео
-                        video.addEventListener('loadedmetadata', () => {
-                            const isPortrait = video.videoHeight > video.videoWidth;
-                            const orientation = isPortrait ? 'portrait' : 'landscape';
-                            screen.orientation.lock(orientation).catch(err => {
-                                console.log('Ориентация не может быть заблокирована:', err);
-                            });
-                        }, { once: true });
-                    }
-                }, 500);
-            }
-        });
-
-        // Разблокировка ориентации при выходе из полноэкранного режима
-        document.addEventListener('fullscreenchange', () => {
-            if (!document.fullscreenElement && screen.orientation && screen.orientation.unlock) {
-                screen.orientation.unlock();
-            }
         });
 
         // Прогресс-бар
@@ -343,17 +220,18 @@
             return `${mins}:${secs.toString().padStart(2, '0')}`;
         }
 
-        // Режимы подгонки видео
-        fitBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                fitBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                video.style.objectFit = btn.dataset.fit;
-            });
-        });
-
         // Показ/скрытие контролов
         videoWrapper.addEventListener('mousemove', () => {
+            controls.classList.add('show');
+            clearTimeout(hideControlsTimeout);
+            hideControlsTimeout = setTimeout(() => {
+                if (!video.paused) {
+                    controls.classList.remove('show');
+                }
+            }, 3000);
+        });
+
+        videoWrapper.addEventListener('touchstart', () => {
             controls.classList.add('show');
             clearTimeout(hideControlsTimeout);
             hideControlsTimeout = setTimeout(() => {
@@ -378,9 +256,6 @@
                     e.preventDefault();
                     togglePlay();
                     break;
-                case 'KeyF':
-                    toggleFullscreen();
-                    break;
                 case 'KeyM':
                     video.muted = !video.muted;
                     muteBtn.textContent = video.muted ? '🔇' : '🔊';
@@ -393,6 +268,25 @@
                     break;
             }
         });
+
+        // Предотвращение блокировки экрана на мобильных
+        if ('wakeLock' in navigator) {
+            let wakeLock = null;
+            video.addEventListener('play', async () => {
+                try {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                } catch (err) {
+                    console.log('Wake Lock не поддерживается');
+                }
+            });
+            
+            video.addEventListener('pause', () => {
+                if (wakeLock) {
+                    wakeLock.release();
+                    wakeLock = null;
+                }
+            });
+        }
     </script>
 </body>
 </html>
