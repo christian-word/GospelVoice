@@ -46,6 +46,56 @@
             object-fit: contain;
         }
 
+        /* Большая кнопка Play по центру */
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 5;
+            cursor: pointer;
+            opacity: 1;
+            transition: opacity 0.3s;
+        }
+
+        .play-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .big-play-btn {
+            width: 80px;
+            height: 80px;
+            background: rgba(230, 9, 20, 0.9);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .big-play-btn:hover {
+            background: rgba(230, 9, 20, 1);
+            transform: scale(1.1);
+        }
+
+        .big-play-btn::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 25px solid #fff;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            margin-left: 5px;
+        }
+
         .controls {
             background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
             position: absolute;
@@ -53,14 +103,13 @@
             left: 0;
             right: 0;
             padding: 20px;
-            opacity: 0;
+            opacity: 1;
             transition: opacity 0.3s;
             z-index: 10;
         }
 
-        .video-wrapper:hover .controls,
-        .controls.show {
-            opacity: 1;
+        .controls.hide {
+            opacity: 0;
         }
 
         .progress-bar {
@@ -150,6 +199,11 @@
                 <source src="online-video.mp4" type="video/mp4">
                 Ваш браузер не поддерживает видео.
             </video>
+
+            <!-- Большая кнопка Play -->
+            <div class="play-overlay" id="playOverlay">
+                <div class="big-play-btn" id="bigPlayBtn"></div>
+            </div>
             
             <div class="controls" id="controls">
                 <div class="progress-bar" id="progressBar">
@@ -174,27 +228,91 @@
         const progressFilled = document.getElementById('progressFilled');
         const timeDisplay = document.getElementById('time');
         const controls = document.getElementById('controls');
+        const playOverlay = document.getElementById('playOverlay');
+        const bigPlayBtn = document.getElementById('bigPlayBtn');
 
         let hideControlsTimeout;
 
+        // Показываем контролы при загрузке
+        controls.classList.add('show');
+
+        // Большая кнопка Play
+        bigPlayBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            video.play();
+            playBtn.textContent = '⏸️';
+            playOverlay.classList.add('hidden');
+            startHideControlsTimer();
+        });
+
+        playOverlay.addEventListener('click', (e) => {
+            if (e.target === playOverlay) {
+                bigPlayBtn.click();
+            }
+        });
+
         // Воспроизведение/пауза
-        playBtn.addEventListener('click', togglePlay);
+        playBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            togglePlay();
+        });
+        
         video.addEventListener('click', togglePlay);
 
         function togglePlay() {
             if (video.paused) {
                 video.play();
                 playBtn.textContent = '⏸️';
+                playOverlay.classList.add('hidden');
+                startHideControlsTimer();
             } else {
                 video.pause();
                 playBtn.textContent = '▶️';
+                showControls();
             }
         }
 
         // Звук
-        muteBtn.addEventListener('click', () => {
+        muteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
             video.muted = !video.muted;
             muteBtn.textContent = video.muted ? '🔇' : '🔊';
+        });
+
+        // Таймер скрытия контролов
+        function startHideControlsTimer() {
+            clearTimeout(hideControlsTimeout);
+            hideControlsTimeout = setTimeout(() => {
+                if (!video.paused) {
+                    controls.classList.add('hide');
+                }
+            }, 3000);
+        }
+
+        function showControls() {
+            controls.classList.remove('hide');
+            if (!video.paused) {
+                startHideControlsTimer();
+            }
+        }
+
+        // События воспроизведения
+        video.addEventListener('play', () => {
+            playBtn.textContent = '⏸️';
+            playOverlay.classList.add('hidden');
+            startHideControlsTimer();
+        });
+
+        video.addEventListener('pause', () => {
+            playBtn.textContent = '▶️';
+            showControls();
+            clearTimeout(hideControlsTimeout);
+        });
+
+        video.addEventListener('ended', () => {
+            playBtn.textContent = '▶️';
+            showControls();
+            playOverlay.classList.remove('hidden');
         });
 
         // Прогресс-бар
@@ -220,30 +338,26 @@
             return `${mins}:${secs.toString().padStart(2, '0')}`;
         }
 
-        // Показ/скрытие контролов
+        // Показ/скрытие контролов при движении мыши
         videoWrapper.addEventListener('mousemove', () => {
-            controls.classList.add('show');
-            clearTimeout(hideControlsTimeout);
-            hideControlsTimeout = setTimeout(() => {
-                if (!video.paused) {
-                    controls.classList.remove('show');
-                }
-            }, 3000);
+            showControls();
         });
 
-        videoWrapper.addEventListener('touchstart', () => {
-            controls.classList.add('show');
-            clearTimeout(hideControlsTimeout);
-            hideControlsTimeout = setTimeout(() => {
-                if (!video.paused) {
-                    controls.classList.remove('show');
+        videoWrapper.addEventListener('touchstart', (e) => {
+            // Если клик не по кнопкам, переключаем видимость контролов
+            if (!e.target.closest('button') && !e.target.closest('.progress-bar')) {
+                if (controls.classList.contains('hide')) {
+                    showControls();
+                } else if (!video.paused) {
+                    controls.classList.add('hide');
+                    clearTimeout(hideControlsTimeout);
                 }
-            }, 3000);
+            }
         });
 
         videoWrapper.addEventListener('mouseleave', () => {
             if (!video.paused) {
-                controls.classList.remove('show');
+                startHideControlsTimer();
             }
         });
 
