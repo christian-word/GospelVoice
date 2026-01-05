@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>фото відео колаж</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .player-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Меню выбора видео */
+        .video-menu {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 15;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 15px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            opacity: 1;
+            transition: opacity 0.3s;
+        }
+
+        .video-menu.hide {
+            opacity: 0;
+        }
+
+        .video-menu button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .video-menu button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .video-menu button.active {
+            background: #e50914;
+            border-color: #e50914;
+            box-shadow: 0 0 15px rgba(229, 9, 20, 0.5);
+        }
+
+        /* Большая кнопка Play по центру */
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 5;
+            cursor: pointer;
+            opacity: 1;
+            transition: opacity 0.3s;
+        }
+
+        .play-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .big-play-btn {
+            width: 80px;
+            height: 80px;
+            background: rgba(230, 9, 20, 0.9);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .big-play-btn:hover {
+            background: rgba(230, 9, 20, 1);
+            transform: scale(1.1);
+        }
+
+        .big-play-btn::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 25px solid #fff;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            margin-left: 5px;
+        }
+
+        .controls {
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            opacity: 1;
+            transition: opacity 0.3s;
+            z-index: 10;
+        }
+
+        .controls.hide {
+            opacity: 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 3px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .progress-filled {
+            height: 100%;
+            background: #e50914;
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .controls button {
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background 0.3s;
+            font-size: 20px;
+        }
+
+        .controls button:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .time {
+            font-size: 14px;
+            margin-left: auto;
+        }
+
+        /* Поворот на 90 градусов для мобильных устройств */
+        @media screen and (max-width: 768px) and (orientation: portrait) {
+            .player-container {
+                transform: rotate(90deg);
+                transform-origin: center center;
+                width: 100vh;
+                height: 100vw;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-left: -50vh;
+                margin-top: -50vw;
+            }
+
+            .controls {
+                padding: 15px;
+            }
+
+            .controls button {
+                font-size: 22px;
+                padding: 12px;
+            }
+
+            .time {
+                font-size: 13px;
+            }
+
+            .video-menu {
+                top: 15px;
+            }
+
+            .video-menu button {
+                font-size: 13px;
+                padding: 6px 15px;
+            }
+        }
+
+        /* Для ландшафтной ориентации на мобильных */
+        @media screen and (max-width: 896px) and (orientation: landscape) {
+            .player-container {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="player-container">
+        <div class="video-wrapper" id="videoWrapper">
+            <!-- Меню выбора видео -->
+            <div class="video-menu" id="videoMenu">
+                <button class="active" data-video="1">Частина 1</button>
+                <button data-video="2">Частина 2</button>
+            </div>
+
+            <video id="videoPlayer" preload="metadata" playsinline webkit-playsinline>
+                <source src="https://dl.dropboxusercontent.com/scl/fi/speuvcvdqmxfv7iuij2sh/001.mp4?rlkey=cf991fb3ds1kl6fh7oqzg8gpd&st=z4678tod" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+
+            <!-- Большая кнопка Play -->
+            <div class="play-overlay" id="playOverlay">
+                <div class="big-play-btn" id="bigPlayBtn"></div>
+            </div>
+            
+            <div class="controls" id="controls">
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-filled" id="progressFilled"></div>
+                </div>
+                
+                <div class="buttons">
+                    <button id="playBtn">▶️</button>
+                    <button id="muteBtn">🔊</button>
+                    <span class="time" id="time">0:00 / 0:00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const video = document.getElementById('videoPlayer');
+        const videoWrapper = document.getElementById('videoWrapper');
+        const playBtn = document.getElementById('playBtn');
+        const muteBtn = document.getElementById('muteBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressFilled = document.getElementById('progressFilled');
+        const timeDisplay = document.getElementById('time');
+        const controls = document.getElementById('controls');
+        const playOverlay = document.getElementById('playOverlay');
+        const bigPlayBtn = document.getElementById('bigPlayBtn');
+        const videoMenu = document.getElementById('videoMenu');
+        const menuButtons = videoMenu.querySelectorAll('button');
+
+        // Список видео
+        const videos = {
+            1: 'https://dl.dropboxusercontent.com/scl/fi/speuvcvdqmxfv7iuij2sh/001.mp4?rlkey=cf991fb3ds1kl6fh7oqzg8gpd&st=z4678tod',
+            2: 'https://dl.dropboxusercontent.com/scl/fi/3awq89hwemwv00rvimhl1/002.mp4?rlkey=gbuavg69ia4u7xbnuernn6eb4&st=va858ls2'
+        };
+
+        let hideControlsTimeout;
+        let currentVideo = 1;
+
+        // Показываем контролы при загрузке
+        controls.classList.add('show');
+
+        // Переключение видео
+        menuButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const videoNum = parseInt(button.dataset.video);
+                
+                if (videoNum !== currentVideo) {
+                    // Сохраняем состояние громкости
+                    const wasMuted = video.muted;
+                    const wasPlaying = !video.paused;
+                    
+                    // Меняем активную кнопку
+                    menuButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    // Меняем источник видео
+                    currentVideo = videoNum;
+                    video.src = videos[videoNum];
+                    video.load();
+                    
+                    // Восстанавливаем состояние
+                    video.muted = wasMuted;
+                    
+                    // Показываем оверлей для нового видео
+                    playOverlay.classList.remove('hidden');
+                    video.pause();
+                    playBtn.textContent = '▶️';
+                    showControls();
+                    
+                    // Автоплей если видео было в процессе воспроизведения
+                    if (wasPlaying) {
+                        video.play().catch(() => {
+                            // Если автоплей не сработал, показываем оверлей
+                            playOverlay.classList.remove('hidden');
+                        });
+                    }
+                }
+            });
+        });
+
+        // Большая кнопка Play
+        bigPlayBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            video.play();
+            playBtn.textContent = '⏸️';
+            playOverlay.classList.add('hidden');
+            startHideControlsTimer();
+        });
+
+        playOverlay.addEventListener('click', (e) => {
+            if (e.target === playOverlay) {
+                bigPlayBtn.click();
+            }
+        });
+
+        // Воспроизведение/пауза
+        playBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            togglePlay();
+        });
+        
+        video.addEventListener('click', togglePlay);
+
+        function togglePlay() {
+            if (video.paused) {
+                video.play();
+                playBtn.textContent = '⏸️';
+                playOverlay.classList.add('hidden');
+                startHideControlsTimer();
+            } else {
+                video.pause();
+                playBtn.textContent = '▶️';
+                showControls();
+            }
+        }
+
+        // Звук
+        muteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            video.muted = !video.muted;
+            muteBtn.textContent = video.muted ? '🔇' : '🔊';
+        });
+
+        // Таймер скрытия контролов
+        function startHideControlsTimer() {
+            clearTimeout(hideControlsTimeout);
+            hideControlsTimeout = setTimeout(() => {
+                if (!video.paused) {
+                    controls.classList.add('hide');
+                    videoMenu.classList.add('hide');
+                }
+            }, 3000);
+        }
+
+        function showControls() {
+            controls.classList.remove('hide');
+            videoMenu.classList.remove('hide');
+            if (!video.paused) {
+                startHideControlsTimer();
+            }
+        }
+
+        // События воспроизведения
+        video.addEventListener('play', () => {
+            playBtn.textContent = '⏸️';
+            playOverlay.classList.add('hidden');
+            startHideControlsTimer();
+        });
+
+        video.addEventListener('pause', () => {
+            playBtn.textContent = '▶️';
+            showControls();
+            clearTimeout(hideControlsTimeout);
+        });
+
+        video.addEventListener('ended', () => {
+            // Если закончилось первое видео, автоматически запускаем второе
+            if (currentVideo === 1) {
+                menuButtons[1].click(); // Переключаемся на второе видео
+                setTimeout(() => {
+                    video.play().catch(() => {
+                        // Если автоплей не сработал, показываем кнопку play
+                        playOverlay.classList.remove('hidden');
+                    });
+                }, 500);
+            } else {
+                // Если закончилось второе видео, просто останавливаемся
+                playBtn.textContent = '▶️';
+                showControls();
+                playOverlay.classList.remove('hidden');
+            }
+        });
+
+        // Прогресс-бар
+        video.addEventListener('timeupdate', () => {
+            const percent = (video.currentTime / video.duration) * 100;
+            progressFilled.style.width = percent + '%';
+            
+            const current = formatTime(video.currentTime);
+            const duration = formatTime(video.duration);
+            timeDisplay.textContent = `${current} / ${duration}`;
+        });
+
+        progressBar.addEventListener('click', (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            video.currentTime = percent * video.duration;
+        });
+
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Показ/скрытие контролов при движении мыши
+        videoWrapper.addEventListener('mousemove', () => {
+            showControls();
+        });
+
+        videoWrapper.addEventListener('touchstart', (e) => {
+            // Если клик не по кнопкам, переключаем видимость контролов
+            if (!e.target.closest('button') && !e.target.closest('.progress-bar')) {
+                if (controls.classList.contains('hide')) {
+                    showControls();
+                } else if (!video.paused) {
+                    controls.classList.add('hide');
+                    videoMenu.classList.add('hide');
+                    clearTimeout(hideControlsTimeout);
+                }
+            }
+        });
+
+        videoWrapper.addEventListener('mouseleave', () => {
+            if (!video.paused) {
+                startHideControlsTimer();
+            }
+        });
+
+        // Клавиатурное управление
+        document.addEventListener('keydown', (e) => {
+            if (!video.src) return;
+            
+            switch(e.code) {
+                case 'Space':
+                    e.preventDefault();
+                    togglePlay();
+                    break;
+                case 'KeyM':
+                    video.muted = !video.muted;
+                    muteBtn.textContent = video.muted ? '🔇' : '🔊';
+                    break;
+                case 'ArrowLeft':
+                    video.currentTime -= 5;
+                    break;
+                case 'ArrowRight':
+                    video.currentTime += 5;
+                    break;
+                case 'Digit1':
+                    menuButtons[0].click();
+                    break;
+                case 'Digit2':
+                    menuButtons[1].click();
+                    break;
+            }
+        });
+
+        // Предотвращение блокировки экрана на мобильных
+        if ('wakeLock' in navigator) {
+            let wakeLock = null;
+            video.addEventListener('play', async () => {
+                try {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                } catch (err) {
+                    console.log('Wake Lock не поддерживается');
+                }
+            });
+            
+            video.addEventListener('pause', () => {
+                if (wakeLock) {
+                    wakeLock.release();
+                    wakeLock = null;
+                }
+            });
+        }
+    </script>
+</body>
+</html>
