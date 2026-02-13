@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <meta property="og:image" content="https://raw.githubusercontent.com/christian-word/GospelVoice/main/ICO/crisradio2.jpg" />
+  
+  <!-- Preconnect for faster streaming -->
+  <link rel="preconnect" href="https://rt.radioslovo.net" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+  <!-- Modern font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <title>Gospel Voice — запись эфира</title>
+  <style>
+    /* СБРОС И ПЕРЕМЕННЫЕ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      
+      --spacer: 24px;
+      
+      --glass-dark: rgba(18, 22, 33, 0.75);
+      --glass-border-dark: rgba(255, 255, 255, 0.08);
+      --glass-light: rgba(255, 255, 255, 0.7);
+      --glass-border-light: rgba(0, 0, 0, 0.04);
+      
+      --accent: #6C5CE7;
+      --accent-soft: #8F7EFF;
+      --accent-glow: rgba(108, 92, 231, 0.4);
+      --accent-gradient: linear-gradient(145deg, #6C5CE7, #A463F5);
+      
+      --rec: #FF4757;
+      --rec-dark: #E03B4A;
+      --rec-glow: rgba(255, 71, 87, 0.6);
+      --rec-gradient: linear-gradient(145deg, #FF4757, #FF6B81);
+      --rec-soft: rgba(255, 71, 87, 0.15);
+      
+      --bg-dark: #0A0C12;
+      --surface-dark: #14181F;
+      --text-dark: #FFFFFF;
+      --text-dim-dark: #A0A8B8;
+      
+      --bg-light: #F6F9FC;
+      --surface-light: #FFFFFF;
+      --text-light: #0F1419;
+      --text-dim-light: #5B6874;
+      
+      --shadow-heavy: 0 20px 35px -8px rgba(0,0,0,0.4);
+      --shadow-soft: 0 8px 20px rgba(0,0,0,0.08);
+      --shadow-glow: 0 0 0 2px rgba(108, 92, 231, 0.2);
+      
+      --transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.3s ease, color 0.2s ease;
+    }
+
+    body.light-theme {
+      --bg-dark: var(--bg-light);
+      --surface-dark: var(--surface-light);
+      --text-dark: var(--text-light);
+      --text-dim-dark: var(--text-dim-light);
+      --glass-dark: var(--glass-light);
+      --glass-border-dark: var(--glass-border-light);
+      background-color: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    body {
+      background: radial-gradient(circle at 20% 30%, rgba(108,92,231,0.08) 0%, transparent 40%),
+                  radial-gradient(circle at 90% 70%, rgba(164,99,245,0.06) 0%, transparent 40%),
+                  var(--bg-dark);
+      min-height: 100vh;
+      padding-bottom: 100px;
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: var(--spacer);
+    }
+
+    /* ТЕМНЫЙ/СВЕТЛЫЙ ПЕРЕКЛЮЧАТЕЛЬ */
+    .theme-switch {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      z-index: 20;
+    }
+
+    .theme-toggle-btn {
+      background: var(--glass-dark);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border-dark);
+      border-radius: 40px;
+      padding: 6px;
+      width: 64px;
+      display: flex;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .theme-toggle-btn span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 30px;
+      font-size: 18px;
+      transition: var(--transition);
+    }
+
+    .dark .theme-toggle-btn span:first-child,
+    .light-theme .theme-toggle-btn span:last-child {
+      background: var(--accent-gradient);
+      color: white;
+      box-shadow: 0 2px 8px var(--accent-glow);
+    }
+
+    .dark .theme-toggle-btn span:last-child,
+    .light-theme .theme-toggle-btn span:first-child {
+      color: var(--text-dim-dark);
+    }
+
+    /* ХЕДЕР */
+    .glass-header {
+      background: var(--glass-dark);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--glass-border-dark);
+      border-radius: var(--radius-xl);
+      padding: 28px 24px;
+      margin-bottom: 20px;
+      position: relative;
+      box-shadow: 0 15px 35px -10px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h1 span {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subhead {
+      color: var(--text-dim-dark);
+      font-size: 15px;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .subhead i {
+      font-style: normal;
+      background: rgba(108,92,231,0.16);
+      padding: 4px 10px;
+      border-radius: 40px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 0.5px solid rgba(108,92,231,0.3);
+    }
+
+    /* ШОРТКАТ */
+    .shortcut-card {
+      background: linear-gradient(105deg, rgba(108,92,231,0.12) 0%, rgba(164,99,245,0.06) 100%);
+      border: 1px solid rgba(108,92,231,0.25);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .shortcut-card:hover {
+      background: rgba(108,92,231,0.18);
+      border-color: var(--accent);
+    }
+
+    .shortcut-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .shortcut-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--accent-gradient);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: white;
+      box-shadow: 0 6px 14px var(--accent-glow);
+    }
+
+    .shortcut-text {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .shortcut-hint {
+      color: var(--text-dim-dark);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* СЕКЦИИ */
+    .section-title {
+      display: flex;
+      align-items: baseline;
+      margin: 28px 0 12px 8px;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      color: var(--text-dim-dark);
+    }
+
+    .section-title span {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-right: 8px;
+    }
+
+    /* СЕТКА СТАНЦИЙ */
+    .station-grid {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .station-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--glass-dark);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border-dark);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .station-item:hover {
+      border-color: rgba(108,92,231,0.5);
+      background: rgba(30, 35, 48, 0.8);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 18px -6px rgba(0,0,0,0.3);
+    }
+
+    body.light-theme .station-item:hover {
+      background: white;
+      border-color: var(--accent-soft);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.04);
+    }
+
+    .station-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--accent-gradient);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 6px 14px rgba(108,92,231,0.3);
+    }
+
+    .station-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: white;
+    }
+
+    .station-info {
+      flex: 1;
+    }
+
+    .station-title {
+      font-weight: 600;
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+
+    .station-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim-dark);
+      font-size: 13px;
+    }
+
+    .live-badge {
+      background: rgba(255, 80, 100, 0.16);
+      color: #FF6B7E;
+      padding: 3px 8px;
+      border-radius: 30px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 0.5px solid rgba(255, 107, 126, 0.3);
+    }
+
+    /* АКТИВНАЯ СТАНЦИЯ */
+    .station-item.active {
+      background: var(--accent-gradient);
+      border-color: transparent;
+      box-shadow: 0 12px 24px var(--accent-glow);
+    }
+
+    .station-item.active .station-title,
+    .station-item.active .station-meta,
+    .station-item.active .live-badge {
+      color: white;
+    }
+
+    .station-item.active .station-icon {
+      background: white;
+    }
+
+    .station-item.active .station-icon svg {
+      fill: var(--accent);
+    }
+
+    .station-item.active .live-badge {
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.3);
+      color: white;
+    }
+
+    /* Визуализатор звука */
+    .vu-meter {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: 10px;
+    }
+
+    .vu-meter i {
+      width: 4px;
+      height: 12px;
+      background: currentColor;
+      border-radius: 2px;
+      opacity: 0.6;
+    }
+
+    .station-item.active .vu-meter i {
+      background: white;
+      animation: soundwave 1.2s infinite ease-in-out;
+    }
+
+    .station-item.active .vu-meter i:nth-child(2) { animation-delay: 0.1s; }
+    .station-item.active .vu-meter i:nth-child(3) { animation-delay: 0.2s; }
+    .station-item.active .vu-meter i:nth-child(4) { animation-delay: 0.3s; }
+
+    @keyframes soundwave {
+      0%, 100% { transform: scaleY(0.4); height: 12px; }
+      50% { transform: scaleY(1.2); height: 20px; }
+    }
+
+    /* СОЦСЕТИ */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--glass-border-dark);
+    }
+
+    .social-link {
+      padding: 10px 18px;
+      background: var(--glass-dark);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border-dark);
+      border-radius: 40px;
+      color: var(--text-dim-dark);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+
+    .social-link:hover {
+      background: var(--accent-gradient);
+      color: white;
+      border-color: transparent;
+      transform: scale(1.05);
+    }
+
+    /* ПЛЕЕР БАР С ЯРКОЙ КНОПКОЙ ЗАПИСИ */
+    .player-bar-fixed {
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      padding: 0 20px;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .neo-player {
+      background: var(--glass-dark);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border-dark);
+      border-radius: 60px;
+      padding: 8px 18px 8px 12px;
+      width: 100%;
+      max-width: 820px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 20px 40px -8px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+      pointer-events: auto;
+    }
+
+    .play-btn {
+      width: 48px;
+      height: 48px;
+      background: var(--accent-gradient);
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 16px var(--accent-glow);
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.06);
+    }
+
+    .play-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+
+    .player-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .player-title {
+      font-weight: 650;
+      font-size: 16px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .player-wave {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .player-wave i {
+      width: 3px;
+      height: 12px;
+      background: var(--accent-soft);
+      border-radius: 2px;
+    }
+
+    .player-wave.active i {
+      animation: wave 1s infinite ease;
+      background: var(--accent);
+    }
+
+    .player-wave.active i:nth-child(2) { animation-delay: 0.1s; }
+    .player-wave.active i:nth-child(3) { animation-delay: 0.2s; }
+    .player-wave.active i:nth-child(4) { animation-delay: 0.3s; }
+
+    @keyframes wave {
+      0%, 100% { transform: scaleY(0.4); }
+      50% { transform: scaleY(1.3); }
+    }
+
+    /* === КНОПКА ЗАПИСИ — С ТЕКСТОМ === */
+    .record-wrapper {
+      display: flex;
+      align-items: center;
+      background: var(--rec-soft);
+      border-radius: 40px;
+      padding: 4px;
+      border: 1px solid rgba(255,71,87,0.2);
+      transition: var(--transition);
+      margin-right: 4px;
+    }
+
+    .record-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px 8px 14px;
+      background: transparent;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--text-dim-dark);
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .record-btn:hover {
+      background: rgba(255,71,87,0.2);
+      color: var(--rec);
+    }
+
+    .record-btn.recording {
+      background: var(--rec-gradient);
+      color: white;
+      box-shadow: 0 4px 15px var(--rec-glow);
+    }
+
+    .record-btn.recording:hover {
+      background: linear-gradient(145deg, #FF3B4A, #FF5A6E);
+    }
+
+    .record-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .record-icon svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    .record-text {
+      white-space: nowrap;
+    }
+
+    /* Индикатор записи (красная точка) */
+    .recording-indicator {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: white;
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: blink 1.4s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.9); }
+    }
+
+    /* === УМНЫЙ РЕГУЛЯТОР ГРОМКОСТИ === */
+    .volume-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .volume-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-dim-dark);
+      transition: var(--transition);
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .volume-icon:hover {
+      background: var(--accent-soft);
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .volume-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .volume-slider-container {
+      position: absolute;
+      right: 45px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: width 0.3s ease, opacity 0.2s ease, margin 0.3s ease;
+      background: var(--glass-dark);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border-dark);
+      border-radius: 40px;
+      padding: 8px 0;
+      display: flex;
+      align-items: center;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .volume-slider-container.visible {
+      width: 130px;
+      opacity: 1;
+      margin-right: 10px;
+      padding: 8px 16px;
+      pointer-events: auto;
+    }
+
+    .volume-slider {
+      width: 100%;
+      height: 5px;
+      -webkit-appearance: none;
+      background: rgba(255,255,255,0.14);
+      border-radius: 10px;
+      outline: none;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px black;
+      cursor: pointer;
+      border: 2px solid var(--accent);
+      transition: 0.08s;
+    }
+
+    .volume-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+      background: var(--accent);
+    }
+
+    body.light-theme .volume-slider::-webkit-slider-thumb {
+      border-color: var(--accent);
+      background: white;
+    }
+
+    .volume-percent {
+      margin-left: 8px;
+      font-size: 12px;
+      color: var(--text-dim-dark);
+      min-width: 35px;
+    }
+
+    audio { display: none; }
+
+    @media (max-width: 700px) {
+      .neo-player {
+        padding: 6px 14px;
+        gap: 10px;
+      }
+      .record-btn { padding: 6px 12px; }
+      .volume-slider-container.visible { width: 110px; }
+    }
+
+    @media (max-width: 600px) {
+      .record-text {
+        display: none; /* На мобильных скрываем текст, оставляем только иконку */
+      }
+      .record-btn {
+        padding: 8px 12px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .container { padding: 16px; }
+      h1 { font-size: 28px; }
+      .shortcut-hint { display: none; }
+      .volume-slider-container.visible { width: 100px; }
+    }
+  </style>
+</head>
+<body class="dark">
+  <div class="container">
+    <!-- Хедер -->
+    <header class="glass-header">
+      <div class="theme-switch">
+        <div class="theme-toggle-btn" onclick="toggleTheme()">
+          <span>🌙</span>
+          <span>☀️</span>
+        </div>
+      </div>
+      <h1>
+        <span>Gospel</span> Voice
+      </h1>
+      <div class="subhead">
+        Христианское онлайн-радио
+        <i>EXB «Дом Евангелия»</i>
+      </div>
+    </header>
+
+    <!-- Добавить на экран -->
+    <div class="shortcut-card" onclick="showShortcut()">
+      <div class="shortcut-left">
+        <div class="shortcut-icon">⬇️</div>
+        <div>
+          <div class="shortcut-text">Добавить на главный экран</div>
+          <div class="shortcut-hint">
+            ⚡ Быстрый доступ одним касанием
+            <span style="opacity:0.6;">→</span>
+          </div>
+        </div>
+      </div>
+      <div style="color: var(--accent-soft); font-size: 24px;">+</div>
+    </div>
+
+    <!-- КАТЕГОРИЯ: БИБЛИЯ -->
+    <div class="section-title">
+      <span>📖</span> Чтение Библии · Разное
+    </div>
+    <ul class="station-grid" id="bible-list"></ul>
+
+    <!-- КАТЕГОРИЯ: МУЗЫКА -->
+    <div class="section-title">
+      <span>🎶</span> Музыкальное · Детское служение
+    </div>
+    <ul class="station-grid" id="music-list"></ul>
+
+    <!-- Социальные сети -->
+    <div class="social-links">
+      <a href="https://ruyriy.github.io/VideoYouTube/video_max.html" target="_blank" class="social-link">📺 YouTube</a>
+      <a href="https://www.facebook.com/pravdachurch" target="_blank" class="social-link">📘 Facebook</a>
+      <a href="https://www.instagram.com/pravda.church" target="_blank" class="social-link">📸 Instagram</a>
+    </div>
+  </div>
+
+  <!-- ФИКСИРОВАННЫЙ ПЛЕЕР С УМНЫМ РЕГУЛЯТОРОМ ГРОМКОСТИ -->
+  <div class="player-bar-fixed">
+    <div class="neo-player">
+      <button class="play-btn" id="playPauseBtn">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      
+      <div class="player-meta">
+        <div class="player-title" id="nowPlaying">Выберите станцию</div>
+        <div class="player-wave" id="waveBox">
+          <i></i><i></i><i></i><i></i>
+        </div>
+      </div>
+
+      <!-- КНОПКА ЗАПИСИ — С ТЕКСТОМ -->
+      <div class="record-wrapper">
+        <button class="record-btn" id="recordBtn">
+          <span class="record-icon">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="8"/>
+            </svg>
+          </span>
+          <span class="record-text" id="recordText">Записать</span>
+        </button>
+      </div>
+
+      <!-- УМНЫЙ РЕГУЛЯТОР ГРОМКОСТИ: иконка + выезжающий слайдер -->
+      <div class="volume-wrapper">
+        <div class="volume-icon" id="volumeIcon">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 9v6h4l5 5V4L7 9H3z"/>
+            <path d="M16 7c1.5 1.5 2 3 2 5s-0.5 3.5-2 5" stroke="currentColor" fill="none" stroke-width="1.5"/>
+            <path d="M19 4c2.5 2.5 3 6 3 10s-0.5 7.5-3 10" stroke="currentColor" fill="none" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="volume-slider-container" id="volumeSliderContainer">
+          <input type="range" min="0" max="1" step="0.01" value="0.7" class="volume-slider" id="volumeSlider">
+          <span class="volume-percent" id="volumePercent">70%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- АУДИО ЭЛЕМЕНТ С crossorigin (ВАЖНО ДЛЯ ЗАПИСИ) -->
+  <audio id="globalAudio" crossorigin="anonymous" preload="metadata"></audio>
+
+  <script>
+    (function() {
+      "use strict";
+
+      // === УНИВЕРСАЛЬНЫЙ КЛАСС ДЛЯ ЗАПИСИ (StreamRecorder) ===
+      class StreamRecorder {
+        constructor(audioElement) {
+          this.audio = audioElement;
+          this.mediaRecorder = null;
+          this.chunks = [];
+          this.isRecording = false;
+        }
+
+        async start() {
+          if (!this.audio.src || this.audio.paused) {
+            console.error("Нет активного потока для записи");
+            alert("Сначала выберите и запустите радиостанцию");
+            return false;
+          }
+
+          try {
+            // Захватываем поток из тега audio
+            const stream = this.audio.captureStream 
+              ? this.audio.captureStream() 
+              : this.audio.mozCaptureStream();
+
+            this.chunks = [];
+            this.mediaRecorder = new MediaRecorder(stream, {
+              mimeType: 'audio/webm;codecs=opus'
+            });
+
+            this.mediaRecorder.ondataavailable = (e) => {
+              if (e.data.size > 0) this.chunks.push(e.data);
+            };
+
+            this.mediaRecorder.onstop = () => {
+              this.saveFile();
+            };
+
+            this.mediaRecorder.start();
+            this.isRecording = true;
+            return true;
+          } catch (err) {
+            console.error("Ошибка при инициализации записи:", err);
+            alert("Не удалось начать запись. Возможно, браузер не поддерживает captureStream()");
+            return false;
+          }
+        }
+
+        stop() {
+          if (this.mediaRecorder && this.isRecording) {
+            this.mediaRecorder.stop();
+            this.isRecording = false;
+          }
+        }
+
+        saveFile() {
+          const blob = new Blob(this.chunks, { type: 'audio/webm' });
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          
+          // Красивое имя файла с датой и названием станции
+          let stationName = "radio";
+          if (window.currentStationTitle) {
+            stationName = window.currentStationTitle.replace(/[^a-zа-яё0-9]/gi, '_').substring(0, 30);
+          }
+          const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+          link.href = url;
+          link.download = `${stationName}_${timestamp}.webm`;
+          
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+          
+          console.log("✅ Запись сохранена:", link.download);
+        }
+      }
+
+      // === ИНИЦИАЛИЗАЦИЯ ПЛЕЕРА ===
+      const audio = document.getElementById('globalAudio');
+      const nowEl = document.getElementById('nowPlaying');
+      const playBtn = document.getElementById('playPauseBtn');
+      const waveBox = document.getElementById('waveBox');
+      
+      // Элементы управления громкостью
+      const volumeIcon = document.getElementById('volumeIcon');
+      const volumeSliderContainer = document.getElementById('volumeSliderContainer');
+      const volumeSlider = document.getElementById('volumeSlider');
+      const volumePercent = document.getElementById('volumePercent');
+      
+      // Элементы записи
+      const recordBtn = document.getElementById('recordBtn');
+      const recordText = document.getElementById('recordText');
+      
+      // Храним текущее название станции для имени файла
+      window.currentStationTitle = null;
+      
+      let currentStationItem = null;
+      let isPlaying = false;
+      let volumeTimeout = null;
+
+      // Создаем экземпляр рекордера
+      const recorder = new StreamRecorder(audio);
+
+      // === СПИСОК СТАНЦИЙ ===
+      const stations = [
+        // Библия
+        { title: "Відкрите Слово — Старий Заповіт", url: "https://rt.radioslovo.net:1105/stream", cat: "bible" },
+        { title: "Відкрите Слово — Новий Заповіт", url: "https://rt.radioslovo.net:1095/stream", cat: "bible" },
+        { title: "Открытое Слово (рус.)", url: "https://rt.radioslovo.net:4395/radio", cat: "bible" },
+        { title: "Открытое Слово (инстр.)", url: "https://rt.radioslovo.net:4275/stream", cat: "bible" },
+        { title: "Чтение Нового Завета", url: "https://rs.radioslovo.net:4055/stream", cat: "bible" },
+        { title: "Ветхий Завет", url: "https://rt.radioslovo.net:4165/stream", cat: "bible" },
+        { title: "СВІТЛЕ РАДІО ЕММАНУЇЛ", url: "https://online.svitle.org:6729/fm", cat: "bible" },
+        // Музыка/детское
+        { title: "Детское христианское радио", url: "http://live2.detskoeradio.org/radio.mp3", cat: "music" },
+        { title: "Инструментальная христ. музыка", url: "https://rt.radioslovo.net:4275/stream", cat: "music" },
+        { title: "Слово Благодати", url: "https://c13.radioboss.fm:18516/stream", cat: "music" },
+        { title: "Семейное Радио Эли", url: "https://icecast.pereraadio.ee:9000/Semeinoje", cat: "music" },
+        { title: "Открытое Слово (авто)", url: "https://rt.radioslovo.net:4145/stream", cat: "music" },
+        { title: "Открытое Слово (укр.)", url: "https://rt.radioslovo.net:5005/radio", cat: "music" },
+        { title: "RadioMV Музыка", url: "https://d6ee837f-fdca-4f41-81b1-cfca577979f5.pub.instances.scw.cloud:8440/russian_music.mp3", cat: "music" },
+        { title: "Новая жизнь", url: "https://nlradio.stream:8000/nlradio-low.aac", cat: "music" },
+        { title: "Радио 123", url: "https://de1.internet-radio.com/proxy/belradio123/stream", cat: "music" }
+      ];
+
+      // === РЕНДЕР ===
+      function renderStations() {
+        const bibleContainer = document.getElementById('bible-list');
+        const musicContainer = document.getElementById('music-list');
+        bibleContainer.innerHTML = '';
+        musicContainer.innerHTML = '';
+
+        stations.forEach((s) => {
+          const li = document.createElement('li');
+          li.className = 'station-item';
+          li.dataset.url = s.url;
+          li.dataset.title = s.title;
+
+          li.innerHTML = `
+            <div class="station-icon">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="station-info">
+              <div class="station-title">${s.title}</div>
+              <div class="station-meta">
+                <span class="live-badge">LIVE</span>
+                <span>христианское</span>
+              </div>
+            </div>
+            <div class="vu-meter">
+              <i></i><i></i><i></i><i></i>
+            </div>
+          `;
+
+          li.addEventListener('click', () => selectStation(li));
+
+          if (s.cat === 'bible') bibleContainer.appendChild(li);
+          else musicContainer.appendChild(li);
+        });
+      }
+
+      // === ВЫБОР СТАНЦИИ ===
+      function selectStation(stationElement) {
+        if (currentStationItem) {
+          currentStationItem.classList.remove('active');
+        }
+        stationElement.classList.add('active');
+        currentStationItem = stationElement;
+
+        const url = stationElement.dataset.url;
+        const title = stationElement.dataset.title;
+        
+        window.currentStationTitle = title; // для имени файла
+        nowEl.textContent = title;
+        audio.src = url;
+
+        audio.play()
+          .then(() => {
+            isPlaying = true;
+            updatePlayButton(true);
+            waveBox.classList.add('active');
+          })
+          .catch(err => {
+            console.warn('Playback failed:', err);
+            isPlaying = false;
+            updatePlayButton(false);
+            waveBox.classList.remove('active');
+          });
+      }
+
+      function updatePlayButton(playState) {
+        if (playState) {
+          playBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M6 4h4v16H6zm8 0h4v16h-4z"/></svg>';
+        } else {
+          playBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+        }
+      }
+
+      // === УМНЫЙ РЕГУЛЯТОР ГРОМКОСТИ ===
+      function showVolumeSlider() {
+        // Очищаем предыдущий таймаут
+        if (volumeTimeout) {
+          clearTimeout(volumeTimeout);
+        }
+        
+        // Показываем слайдер
+        volumeSliderContainer.classList.add('visible');
+        
+        // Устанавливаем таймаут на скрытие через 3 секунды
+        volumeTimeout = setTimeout(() => {
+          volumeSliderContainer.classList.remove('visible');
+        }, 3000);
+      }
+
+      // Обработчик клика по иконке динамика
+      volumeIcon.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showVolumeSlider();
+      });
+
+      // Обновление процента громкости и значения audio
+      function updateVolume(value) {
+        audio.volume = value;
+        const percent = Math.round(value * 100);
+        volumePercent.textContent = `${percent}%`;
+        
+        // Меняем иконку в зависимости от уровня громкости
+        // (можно расширить для разных иконок)
+      }
+
+      volumeSlider.addEventListener('input', (e) => {
+        updateVolume(e.target.value);
+        // При движении ползунка сбрасываем таймер и показываем заново
+        showVolumeSlider();
+      });
+
+      // Инициализация громкости
+      audio.volume = 0.7;
+      volumeSlider.value = 0.7;
+      volumePercent.textContent = '70%';
+
+      // Клик вне области слайдера не закрывает его (только таймер)
+      volumeSliderContainer.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showVolumeSlider();
+      });
+
+      // === СОБЫТИЯ ПЛЕЕРА ===
+      playBtn.addEventListener('click', () => {
+        if (!audio.src) {
+          alert('Сначала выберите станцию');
+          return;
+        }
+        if (audio.paused) {
+          audio.play().catch(() => {});
+        } else {
+          audio.pause();
+        }
+      });
+
+      audio.addEventListener('pause', () => {
+        isPlaying = false;
+        waveBox.classList.remove('active');
+        updatePlayButton(false);
+      });
+
+      audio.addEventListener('play', () => {
+        isPlaying = true;
+        waveBox.classList.add('active');
+        updatePlayButton(true);
+      });
+
+      // === КНОПКА ЗАПИСИ ===
+      recordBtn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        
+        if (!audio.src || audio.paused) {
+          alert('Сначала запустите радиостанцию');
+          return;
+        }
+
+        if (!recorder.isRecording) {
+          // Начинаем запись
+          const success = await recorder.start();
+          if (success) {
+            recordBtn.classList.add('recording');
+            recordText.innerHTML = '<span class="recording-indicator"></span>Запись...';
+          }
+        } else {
+          // Останавливаем запись
+          recorder.stop();
+          recordBtn.classList.remove('recording');
+          recordText.textContent = 'Записать';
+        }
+      });
+
+      // === ТЕМА ===
+      window.toggleTheme = function() {
+        document.body.classList.toggle('light-theme');
+        localStorage.setItem('gospelTheme', 
+          document.body.classList.contains('light-theme') ? 'light' : 'dark');
+      };
+
+      window.showShortcut = function() {
+        alert('iPhone (Safari): Поделиться → На экран «Домой»\nAndroid (Chrome): Меню → Добавить на главный экран');
+      };
+
+      function loadTheme() {
+        const saved = localStorage.getItem('gospelTheme');
+        if (saved === 'light') {
+          document.body.classList.add('light-theme');
+        }
+      }
+
+      // СТАРТ
+      renderStations();
+      loadTheme();
+    })();
+  </script>
+</body>
+</html>
