@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Плеер с индикатором прогресса</title>
+    <title>Плеер с динамическим цветом</title>
     <script src="https://unpkg.com/wavesurfer.js"></script>
     <style>
         body { 
@@ -26,7 +26,8 @@
             max-width: 850px; 
         }
 
-        h2 { color: #ae5f9d; margin-top: 0; font-weight: 400; font-size: 1.6rem; margin-bottom: 25px; }
+        h2 { color: #ae5f9d; margin-top: 0; font-weight: 400; font-size: 1.6rem; margin-bottom: 5px; }
+        .artist { color: #888; display: block; margin-bottom: 25px; font-size: 0.9rem; }
 
         .waveform-container {
             position: relative; 
@@ -36,7 +37,6 @@
 
         #waveform { height: 100px; }
 
-        /* ЧЕРНЫЙ КВАДРАТИК ПРОГРЕССА */
         #progress-tip {
             position: absolute;
             z-index: 15;
@@ -53,7 +53,6 @@
             transition: left 0.1s linear; 
         }
 
-        /* Тонкая вертикальная линия прогресса */
         #progress-line {
             position: absolute;
             z-index: 14;
@@ -65,7 +64,6 @@
             transition: left 0.1s linear;
         }
 
-        /* КУРСОР ПРИ НАВЕДЕНИИ */
         #hover-time {
             position: absolute;
             z-index: 20;
@@ -95,6 +93,7 @@
             border-radius: 4px; 
             cursor: pointer; 
             font-size: 14px;
+            min-width: 130px;
         }
 
         .time-box { color: #888; font-family: monospace; font-size: 14px; }
@@ -126,9 +125,8 @@
         container: '#waveform',
         waveColor: '#e0e0e0',
         progressColor: '#ae5f9d',
-        // Изменения здесь:
-        barWidth: 1,    // Сделали рыски максимально тонкими (1 пиксель)
-        barGap: 1,      // Уменьшили расстояние между ними до минимума для плотности
+        barWidth: 1,    
+        barGap: 1,      
         height: 100,
         responsive: true,
         normalize: true,
@@ -141,12 +139,56 @@
     const progressLine = document.getElementById('progress-line');
     const hoverTime = document.getElementById('hover-time');
     const outer = document.getElementById('waveform-outer');
+    const btn = document.getElementById('playPause');
 
-    const formatTime = (s) => {
-        if (isNaN(s)) return "00:00";
-        return new Date(s * 1000).toISOString().substr(14, 5);
+    const formatTime = (s) => isNaN(s) ? "00:00" : new Date(s * 1000).toISOString().substr(14, 5);
+
+    // --- ЛОГИКА АНАЛИЗА ЗВУКА ---
+    let audioContext, analyser, dataArray;
+
+    const initAudioAnalysis = () => {
+        if (audioContext) return; // Чтобы не инициализировать дважды
+        
+        audioContext = wavesurfer.backend.getAudioContext();
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 32; // Маленький размер для быстрой реакции
+        
+        const source = wavesurfer.backend.source;
+        if (source) {
+            source.connect(analyser);
+        }
+
+        dataArray = new Uint8Array(analyser.frequencyBinCount);
+        animateColor();
     };
 
+    const animateColor = () => {
+        if (!wavesurfer.isPlaying()) {
+            requestAnimationFrame(animateColor);
+            return;
+        }
+
+        analyser.getByteFrequencyData(dataArray);
+        
+        // Считаем среднюю громкость
+        let sum = 0;
+        for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
+        let average = sum / dataArray.length;
+
+        // Вычисляем цвет: от фиолетового (#ae5f9d) до ярко-розового или красного
+        // Чем выше громкость, тем больше смещение в сторону яркости
+        const intensity = Math.min(average / 128, 1); 
+        const r = Math.floor(174 + (81 * intensity)); // Изменяем каналы
+        const g = Math.floor(95 - (50 * intensity));
+        const b = Math.floor(157 + (50 * intensity));
+
+        const newColor = `rgb(${r}, ${g}, ${b})`;
+        wavesurfer.setOptions({ progressColor: newColor });
+
+        requestAnimationFrame(animateColor);
+    };
+
+    // --- ОСНОВНЫЕ СОБЫТИЯ ---
     const updateProgressUI = () => {
         const currentTime = wavesurfer.getCurrentTime();
         const duration = wavesurfer.getDuration();
@@ -161,11 +203,16 @@
 
     wavesurfer.on('audioprocess', updateProgressUI);
     wavesurfer.on('seek', updateProgressUI);
-
     wavesurfer.on('ready', () => {
         document.getElementById('totalDuration').textContent = formatTime(wavesurfer.getDuration());
-        updateProgressUI();
     });
+
+    wavesurfer.on('play', () => {
+        initAudioAnalysis();
+        btn.textContent = 'Пауза';
+    });
+    
+    wavesurfer.on('pause', () => btn.textContent = 'Воспроизвести');
 
     outer.onmousemove = (e) => {
         const rect = outer.getBoundingClientRect();
@@ -173,19 +220,14 @@
         const ratio = x / rect.width;
         const duration = wavesurfer.getDuration();
         if (duration > 0) {
-            const time = duration * ratio;
             hoverTime.style.display = 'block';
             hoverTime.style.left = `${x - (hoverTime.offsetWidth / 2)}px`;
-            hoverTime.textContent = formatTime(time);
+            hoverTime.textContent = formatTime(duration * ratio);
         }
     };
 
     outer.onmouseleave = () => hoverTime.style.display = 'none';
-
-    const btn = document.getElementById('playPause');
     btn.onclick = () => wavesurfer.playPause();
-    wavesurfer.on('play', () => btn.textContent = 'Пауза');
-    wavesurfer.on('pause', () => btn.textContent = 'Воспроизвести');
 </script>
 
 </body>
