@@ -123,25 +123,36 @@
         container: '#waveform',
         waveColor: '#dcdcdc',
         progressColor: '#ae5f9d',
-        
-        // Настройки плотности (как просили)
-        barWidth: 1,  /* Толщина полоски 1 пиксель */
-        barGap: 1,    /* Расстояние 1 пиксель */
-        
+        barWidth: 1,
+        barGap: 1,
         height: 120,
         responsive: true,
         normalize: true,
         cursorWidth: 0,
-        backend: 'WebAudio'
+        // Используем MediaElement для более стабильной работы на смартфонах
+        backend: 'MediaElement' 
     });
 
     wavesurfer.load('2023100117595272.mp3');
+
+    const btn = document.getElementById('playPause');
+    
+    btn.onclick = () => {
+        // РАЗБЛОКИРОВКА ЗВУКА: Принудительно запускаем аудио-контекст браузера
+        if (wavesurfer.backend.getAudioContext) {
+            const context = wavesurfer.backend.getAudioContext();
+            if (context.state === 'suspended') {
+                context.resume();
+            }
+        }
+        wavesurfer.playPause();
+    };
 
     const progressTip = document.getElementById('progress-tip');
     const progressLine = document.getElementById('progress-line');
 
     const formatTime = (s) => {
-        if (isNaN(s)) return "00:00";
+        if (isNaN(s) || s < 0) return "00:00";
         const mins = Math.floor(s / 60);
         const secs = Math.floor(s % 60);
         return mins.toString().padStart(2, '0') + ':' + secs.toString().padStart(2, '0');
@@ -153,25 +164,23 @@
         if (duration > 0) {
             const pos = (current / duration) * 100;
             progressLine.style.left = pos + '%';
-            // Смещение плашки, чтобы она была по центру линии
             progressTip.style.left = `calc(${pos}% - ${progressTip.offsetWidth / 2}px)`;
             progressTip.textContent = formatTime(current);
             document.getElementById('currentTime').textContent = formatTime(current);
         }
     };
 
-    wavesurfer.on('audioprocess', updateUI);
+    // Событие timeupdate для MediaElement работает надежнее
+    wavesurfer.on('timeupdate', updateUI);
     wavesurfer.on('seek', updateUI);
+    
     wavesurfer.on('ready', () => {
         document.getElementById('totalDuration').textContent = formatTime(wavesurfer.getDuration());
         updateUI();
     });
 
-    const btn = document.getElementById('playPause');
-    btn.onclick = () => wavesurfer.playPause();
     wavesurfer.on('play', () => btn.textContent = 'Пауза');
     wavesurfer.on('pause', () => btn.textContent = 'Воспроизвести');
 </script>
-
 </body>
 </html>
