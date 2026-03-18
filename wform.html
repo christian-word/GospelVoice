@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Плеер с динамическим цветом</title>
+    <title>Плеер с живой волной</title>
     <script src="https://unpkg.com/wavesurfer.js"></script>
     <style>
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: #f8f9fa; 
+            background: #f0f2f5; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
@@ -20,23 +20,26 @@
         .player-card { 
             background: white; 
             padding: 30px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+            border-radius: 16px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
             width: 100%; 
             max-width: 850px; 
         }
 
-        h2 { color: #ae5f9d; margin-top: 0; font-weight: 400; font-size: 1.6rem; margin-bottom: 5px; }
-        .artist { color: #888; display: block; margin-bottom: 25px; font-size: 0.9rem; }
+        h2 { color: #333; margin: 0 0 5px 0; font-weight: 600; font-size: 1.5rem; }
+        .artist { color: #ae5f9d; display: block; margin-bottom: 25px; font-weight: 500; }
 
         .waveform-container {
             position: relative; 
             margin-bottom: 30px; 
-            background: #fafafa;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
-        #waveform { height: 100px; }
+        #waveform { height: 120px; }
 
+        /* ИНДИКАТОР ТЕКУЩЕЙ ПОЗИЦИИ */
         #progress-tip {
             position: absolute;
             z-index: 15;
@@ -44,10 +47,10 @@
             transform: translateY(-50%);
             background: #333; 
             color: white;
-            padding: 3px 8px;
-            border-radius: 3px;
-            font-family: monospace;
-            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
             pointer-events: none;
             left: 0; 
             transition: left 0.1s linear; 
@@ -64,14 +67,15 @@
             transition: left 0.1s linear;
         }
 
+        /* ПОДСКАЗКА ПРИ НАВЕДЕНИИ */
         #hover-time {
             position: absolute;
             z-index: 20;
-            top: 20px;
-            background: rgba(174, 95, 157, 0.8); 
+            top: 10px;
+            background: rgba(51, 51, 51, 0.8); 
             color: white;
-            padding: 2px 6px;
-            border-radius: 3px;
+            padding: 2px 8px;
+            border-radius: 4px;
             font-size: 11px;
             display: none;
             pointer-events: none;
@@ -82,21 +86,24 @@
             align-items: center; 
             justify-content: space-between;
             gap: 20px;
-            flex-wrap: wrap;
         }
 
         button { 
-            background: #ae5f9d; 
+            background: #333; 
             color: white; 
             border: none; 
-            padding: 10px 25px; 
-            border-radius: 4px; 
+            padding: 12px 30px; 
+            border-radius: 8px; 
             cursor: pointer; 
             font-size: 14px;
-            min-width: 130px;
+            font-weight: 600;
+            transition: background 0.2s;
+            min-width: 150px;
         }
 
-        .time-box { color: #888; font-family: monospace; font-size: 14px; }
+        button:hover { background: #ae5f9d; }
+
+        .time-box { color: #666; font-family: monospace; font-size: 15px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -123,11 +130,11 @@
 <script>
     const wavesurfer = WaveSurfer.create({
         container: '#waveform',
-        waveColor: '#e0e0e0',
+        waveColor: '#d1d1d1',
         progressColor: '#ae5f9d',
         barWidth: 1,    
         barGap: 1,      
-        height: 100,
+        height: 120,
         responsive: true,
         normalize: true,
         cursorWidth: 0 
@@ -143,52 +150,53 @@
 
     const formatTime = (s) => isNaN(s) ? "00:00" : new Date(s * 1000).toISOString().substr(14, 5);
 
-    // --- ЛОГИКА АНАЛИЗА ЗВУКА ---
+    // --- АНАЛИЗАТОР И ПУЛЬСАЦИЯ ЦВЕТА ---
     let audioContext, analyser, dataArray;
 
     const initAudioAnalysis = () => {
-        if (audioContext) return; // Чтобы не инициализировать дважды
+        if (audioContext) return;
         
         audioContext = wavesurfer.backend.getAudioContext();
         analyser = audioContext.createAnalyser();
-        analyser.fftSize = 32; // Маленький размер для быстрой реакции
+        analyser.fftSize = 64; 
         
         const source = wavesurfer.backend.source;
-        if (source) {
-            source.connect(analyser);
-        }
+        if (source) source.connect(analyser);
 
         dataArray = new Uint8Array(analyser.frequencyBinCount);
-        animateColor();
+        animateWave();
     };
 
-    const animateColor = () => {
-        if (!wavesurfer.isPlaying()) {
-            requestAnimationFrame(animateColor);
-            return;
+    const animateWave = () => {
+        if (wavesurfer.isPlaying()) {
+            analyser.getByteFrequencyData(dataArray);
+            
+            let sum = 0;
+            for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
+            let average = sum / dataArray.length;
+
+            // Интенсивность (0.0 - 1.0)
+            const v = Math.min(average / 100, 1); 
+
+            // Цвета для "пройденной" части (от фиолетового до яркого неона)
+            const pr = Math.floor(174 + (81 * v));
+            const pg = Math.floor(95 + (160 * v));
+            const pb = Math.floor(157 + (98 * v));
+
+            // Цвета для "будущей" части (от серого до светло-фиолетового)
+            const wr = Math.floor(200 - (50 * v));
+            const wg = Math.floor(200 - (100 * v));
+            const wb = Math.floor(200 + (55 * v));
+
+            wavesurfer.setOptions({ 
+                progressColor: `rgb(${pr}, ${pg}, ${pb})`,
+                waveColor: `rgb(${wr}, ${wg}, ${wb})`
+            });
         }
-
-        analyser.getByteFrequencyData(dataArray);
-        
-        // Считаем среднюю громкость
-        let sum = 0;
-        for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
-        let average = sum / dataArray.length;
-
-        // Вычисляем цвет: от фиолетового (#ae5f9d) до ярко-розового или красного
-        // Чем выше громкость, тем больше смещение в сторону яркости
-        const intensity = Math.min(average / 128, 1); 
-        const r = Math.floor(174 + (81 * intensity)); // Изменяем каналы
-        const g = Math.floor(95 - (50 * intensity));
-        const b = Math.floor(157 + (50 * intensity));
-
-        const newColor = `rgb(${r}, ${g}, ${b})`;
-        wavesurfer.setOptions({ progressColor: newColor });
-
-        requestAnimationFrame(animateColor);
+        requestAnimationFrame(animateWave);
     };
 
-    // --- ОСНОВНЫЕ СОБЫТИЯ ---
+    // --- ЛОГИКА ИНТЕРФЕЙСА ---
     const updateProgressUI = () => {
         const currentTime = wavesurfer.getCurrentTime();
         const duration = wavesurfer.getDuration();
@@ -211,7 +219,6 @@
         initAudioAnalysis();
         btn.textContent = 'Пауза';
     });
-    
     wavesurfer.on('pause', () => btn.textContent = 'Воспроизвести');
 
     outer.onmousemove = (e) => {
