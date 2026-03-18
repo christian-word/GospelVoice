@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Плеер с живой волной</title>
+    <title>Плеер с активной цветовой индикацией</title>
     <script src="https://unpkg.com/wavesurfer.js"></script>
     <style>
         body { 
@@ -34,12 +34,10 @@
             margin-bottom: 30px; 
             background: #fff;
             border-radius: 8px;
-            overflow: hidden;
         }
 
         #waveform { height: 120px; }
 
-        /* ИНДИКАТОР ТЕКУЩЕЙ ПОЗИЦИИ */
         #progress-tip {
             position: absolute;
             z-index: 15;
@@ -49,11 +47,10 @@
             color: white;
             padding: 4px 10px;
             border-radius: 4px;
-            font-family: 'Courier New', monospace;
+            font-family: monospace;
             font-size: 13px;
             pointer-events: none;
             left: 0; 
-            transition: left 0.1s linear; 
         }
 
         #progress-line {
@@ -64,21 +61,6 @@
             width: 1px;
             background: #333;
             left: 0;
-            transition: left 0.1s linear;
-        }
-
-        /* ПОДСКАЗКА ПРИ НАВЕДЕНИИ */
-        #hover-time {
-            position: absolute;
-            z-index: 20;
-            top: 10px;
-            background: rgba(51, 51, 51, 0.8); 
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            display: none;
-            pointer-events: none;
         }
 
         .controls { 
@@ -97,13 +79,10 @@
             cursor: pointer; 
             font-size: 14px;
             font-weight: 600;
-            transition: background 0.2s;
             min-width: 150px;
         }
 
-        button:hover { background: #ae5f9d; }
-
-        .time-box { color: #666; font-family: monospace; font-size: 15px; font-weight: bold; }
+        .time-box { color: #666; font-family: monospace; font-size: 15px; }
     </style>
 </head>
 <body>
@@ -116,7 +95,6 @@
         <div id="waveform"></div>
         <div id="progress-line"></div>
         <div id="progress-tip">00:00</div>
-        <div id="hover-time">00:00</div>
     </div>
     
     <div class="controls">
@@ -137,103 +115,95 @@
         height: 120,
         responsive: true,
         normalize: true,
-        cursorWidth: 0 
+        cursorWidth: 0,
+        backend: 'WebAudio' // Принудительно используем WebAudio для анализа
     });
 
     wavesurfer.load('2023100117595272.mp3');
 
     const progressTip = document.getElementById('progress-tip');
     const progressLine = document.getElementById('progress-line');
-    const hoverTime = document.getElementById('hover-time');
-    const outer = document.getElementById('waveform-outer');
     const btn = document.getElementById('playPause');
 
-    const formatTime = (s) => isNaN(s) ? "00:00" : new Date(s * 1000).toISOString().substr(14, 5);
+    let analyser, dataArray;
 
-    // --- АНАЛИЗАТОР И ПУЛЬСАЦИЯ ЦВЕТА ---
-    let audioContext, analyser, dataArray;
-
-    const initAudioAnalysis = () => {
-        if (audioContext) return;
+    const setupAnalyser = () => {
+        const audioContext = wavesurfer.backend.getAudioContext();
         
-        audioContext = wavesurfer.backend.getAudioContext();
-        analyser = audioContext.createAnalyser();
-        analyser.fftSize = 64; 
-        
-        const source = wavesurfer.backend.source;
-        if (source) source.connect(analyser);
+        // Разблокировка аудио-контекста для Chrome
+        if (audioContext.state === 'suspended') {
+            audioContext.resume();
+        }
 
-        dataArray = new Uint8Array(analyser.frequencyBinCount);
-        animateWave();
+        if (!analyser) {
+            analyser = audioContext.createAnalyser();
+            analyser.fftSize = 32;
+            wavesurfer.backend.analyze(analyser); // Подключаем анализатор напрямую
+            dataArray = new Uint8Array(analyser.frequencyBinCount);
+            renderLoop();
+        }
     };
 
-    const animateWave = () => {
+    const renderLoop = () => {
         if (wavesurfer.isPlaying()) {
             analyser.getByteFrequencyData(dataArray);
             
             let sum = 0;
             for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
-            let average = sum / dataArray.length;
+            let level = sum / dataArray.length;
 
-            // Интенсивность (0.0 - 1.0)
-            const v = Math.min(average / 100, 1); 
+            // Вычисляем яркость (0-1)
+            let v = Math.min(level / 100, 1);
 
-            // Цвета для "пройденной" части (от фиолетового до яркого неона)
+            // Меняем цвета: 
+            // Progress: от фиолетового до ярко-малинового
             const pr = Math.floor(174 + (81 * v));
-            const pg = Math.floor(95 + (160 * v));
+            const pg = Math.floor(95 - (40 * v));
             const pb = Math.floor(157 + (98 * v));
 
-            // Цвета для "будущей" части (от серого до светло-фиолетового)
-            const wr = Math.floor(200 - (50 * v));
-            const wg = Math.floor(200 - (100 * v));
-            const wb = Math.floor(200 + (55 * v));
+            // Wave: от светло-серого до синеватого
+            const wr = Math.floor(209 - (50 * v));
+            const wg = Math.floor(209 - (50 * v));
+            const wb = Math.floor(209 + (46 * v));
 
-            wavesurfer.setOptions({ 
+            // Применяем настройки
+            wavesurfer.setOptions({
                 progressColor: `rgb(${pr}, ${pg}, ${pb})`,
                 waveColor: `rgb(${wr}, ${wg}, ${wb})`
             });
         }
-        requestAnimationFrame(animateWave);
+        requestAnimationFrame(renderLoop);
     };
-
-    // --- ЛОГИКА ИНТЕРФЕЙСА ---
-    const updateProgressUI = () => {
-        const currentTime = wavesurfer.getCurrentTime();
-        const duration = wavesurfer.getDuration();
-        if (duration > 0) {
-            const progress = (currentTime / duration) * 100;
-            progressTip.style.left = `calc(${progress}% - ${progressTip.offsetWidth / 2}px)`;
-            progressLine.style.left = `${progress}%`;
-            progressTip.textContent = formatTime(currentTime);
-            document.getElementById('currentTime').textContent = formatTime(currentTime);
-        }
-    };
-
-    wavesurfer.on('audioprocess', updateProgressUI);
-    wavesurfer.on('seek', updateProgressUI);
-    wavesurfer.on('ready', () => {
-        document.getElementById('totalDuration').textContent = formatTime(wavesurfer.getDuration());
-    });
 
     wavesurfer.on('play', () => {
-        initAudioAnalysis();
+        setupAnalyser();
         btn.textContent = 'Пауза';
     });
+    
     wavesurfer.on('pause', () => btn.textContent = 'Воспроизвести');
 
-    outer.onmousemove = (e) => {
-        const rect = outer.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const ratio = x / rect.width;
+    // Обновление позиции плашки
+    const updateUI = () => {
+        const time = wavesurfer.getCurrentTime();
         const duration = wavesurfer.getDuration();
         if (duration > 0) {
-            hoverTime.style.display = 'block';
-            hoverTime.style.left = `${x - (hoverTime.offsetWidth / 2)}px`;
-            hoverTime.textContent = formatTime(duration * ratio);
+            const pos = (time / duration) * 100;
+            progressLine.style.left = pos + '%';
+            progressTip.style.left = `calc(${pos}% - ${progressTip.offsetWidth / 2}px)`;
+            
+            const fmt = (s) => new Date(s * 1000).toISOString().substr(14, 5);
+            progressTip.textContent = fmt(time);
+            document.getElementById('currentTime').textContent = fmt(time);
         }
     };
 
-    outer.onmouseleave = () => hoverTime.style.display = 'none';
+    wavesurfer.on('audioprocess', updateUI);
+    wavesurfer.on('seek', updateUI);
+    wavesurfer.on('ready', () => {
+        const fmt = (s) => new Date(s * 1000).toISOString().substr(14, 5);
+        document.getElementById('totalDuration').textContent = fmt(wavesurfer.getDuration());
+    });
+
     btn.onclick = () => wavesurfer.playPause();
 </script>
 
