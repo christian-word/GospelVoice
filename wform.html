@@ -36,21 +36,21 @@
 
         #waveform { height: 100px; }
 
-        /* ЧЕРНЫЙ КВАДРАТИК ПРОГРЕССА (КАК НА ФОТО) */
+        /* ЧЕРНЫЙ КВАДРАТИК ПРОГРЕССА */
         #progress-tip {
             position: absolute;
             z-index: 15;
             top: 50%;
             transform: translateY(-50%);
-            background: #333; /* Темный цвет как на фото */
+            background: #333; 
             color: white;
             padding: 3px 8px;
             border-radius: 3px;
             font-family: monospace;
             font-size: 12px;
             pointer-events: none;
-            left: 0; /* Будет меняться через JS */
-            transition: left 0.1s linear; /* Плавность хода */
+            left: 0; 
+            transition: left 0.1s linear; 
         }
 
         /* Тонкая вертикальная линия прогресса */
@@ -65,12 +65,12 @@
             transition: left 0.1s linear;
         }
 
-        /* КУРСОР ПРИ НАВЕДЕНИИ (ПОДСКАЗКА) */
+        /* КУРСОР ПРИ НАВЕДЕНИИ */
         #hover-time {
             position: absolute;
             z-index: 20;
             top: 20px;
-            background: rgba(174, 95, 157, 0.8); /* Сделал чуть светлее для отличия */
+            background: rgba(174, 95, 157, 0.8); 
             color: white;
             padding: 2px 6px;
             border-radius: 3px;
@@ -108,10 +108,8 @@
     
     <div class="waveform-container" id="waveform-outer">
         <div id="waveform"></div>
-        
         <div id="progress-line"></div>
         <div id="progress-tip">00:00</div>
-        
         <div id="hover-time">00:00</div>
     </div>
     
@@ -128,12 +126,13 @@
         container: '#waveform',
         waveColor: '#e0e0e0',
         progressColor: '#ae5f9d',
-        barWidth: 2,
-        barGap: 3,
+        // Изменения здесь:
+        barWidth: 1,    // Сделали рыски максимально тонкими (1 пиксель)
+        barGap: 1,      // Уменьшили расстояние между ними до минимума для плотности
         height: 100,
         responsive: true,
         normalize: true,
-        cursorWidth: 0 // Скрываем стандартный курсор
+        cursorWidth: 0 
     });
 
     wavesurfer.load('2023100117595272.mp3');
@@ -143,26 +142,24 @@
     const hoverTime = document.getElementById('hover-time');
     const outer = document.getElementById('waveform-outer');
 
-    const formatTime = (s) => new Date(s * 1000).toISOString().substr(14, 5);
+    const formatTime = (s) => {
+        if (isNaN(s)) return "00:00";
+        return new Date(s * 1000).toISOString().substr(14, 5);
+    };
 
-    // Функция обновления положения черного квадратика
     const updateProgressUI = () => {
         const currentTime = wavesurfer.getCurrentTime();
         const duration = wavesurfer.getDuration();
         if (duration > 0) {
             const progress = (currentTime / duration) * 100;
-            
-            // Двигаем линию и плашку
             progressTip.style.left = `calc(${progress}% - ${progressTip.offsetWidth / 2}px)`;
             progressLine.style.left = `${progress}%`;
             progressTip.textContent = formatTime(currentTime);
+            document.getElementById('currentTime').textContent = formatTime(currentTime);
         }
     };
 
-    // Обновляем при проигрывании
     wavesurfer.on('audioprocess', updateProgressUI);
-    
-    // Обновляем при клике (перемотке)
     wavesurfer.on('seek', updateProgressUI);
 
     wavesurfer.on('ready', () => {
@@ -170,21 +167,21 @@
         updateProgressUI();
     });
 
-    // Логика наведения (hover)
     outer.onmousemove = (e) => {
         const rect = outer.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const ratio = x / rect.width;
-        const time = wavesurfer.getDuration() * ratio;
-
-        hoverTime.style.display = 'block';
-        hoverTime.style.left = `${x - (hoverTime.offsetWidth / 2)}px`;
-        hoverTime.textContent = formatTime(time);
+        const duration = wavesurfer.getDuration();
+        if (duration > 0) {
+            const time = duration * ratio;
+            hoverTime.style.display = 'block';
+            hoverTime.style.left = `${x - (hoverTime.offsetWidth / 2)}px`;
+            hoverTime.textContent = formatTime(time);
+        }
     };
 
     outer.onmouseleave = () => hoverTime.style.display = 'none';
 
-    // Кнопка
     const btn = document.getElementById('playPause');
     btn.onclick = () => wavesurfer.playPause();
     wavesurfer.on('play', () => btn.textContent = 'Пауза');
