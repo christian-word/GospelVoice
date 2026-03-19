@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Плеєр - Такий великий Бог!</title>
     <script src="https://unpkg.com/wavesurfer.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
@@ -24,24 +25,11 @@
             width: 100%; 
             max-width: 950px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            position: relative;
         }
 
-        /* Обновленный заголовок в стиле скриншота */
-        h2 { 
-            color: #ae5f9d; 
-            margin: 0; 
-            font-weight: 300; 
-            font-size: 2.2rem; 
-            letter-spacing: -0.5px;
-        }
-        
-        #current-artist { 
-            color: #999; 
-            font-size: 0.95rem; 
-            display: block; 
-            margin-bottom: 25px; 
-            font-weight: 400;
-        }
+        h2 { color: #ae5f9d; margin: 0; font-weight: 300; font-size: 2.2rem; letter-spacing: -0.5px; }
+        #current-artist { color: #999; font-size: 0.95rem; display: block; margin-bottom: 25px; font-weight: 400; }
 
         .main-row {
             display: flex;
@@ -51,176 +39,114 @@
             border-top: 1px solid #f0f0f0;
         }
 
-        /* Обновленная обложка в стиле скриншота */
         .cover-wrapper {
-            position: relative;
-            width: 85px;
-            height: 85px;
-            flex-shrink: 0;
-            border-radius: 10px;
-            overflow: hidden;
-            background: linear-gradient(135deg, #7e57c2, #ff7043); /* Градиент как на скрине */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative; width: 85px; height: 85px; flex-shrink: 0; border-radius: 10px;
+            background: linear-gradient(135deg, #7e57c2, #ff7043);
+            display: flex; justify-content: center; align-items: center; cursor: pointer;
+            transition: transform 0.2s ease;
         }
+        .cover-wrapper:hover { transform: scale(1.03); }
+        .cover-wrapper::before { content: '🎤'; font-size: 36px; opacity: 0.5; color: white; }
 
-        .cover-wrapper:hover {
-            transform: scale(1.03);
-            box-shadow: 0 5px 15px rgba(126, 87, 194, 0.3);
-        }
-
-        /* Иконка микрофона */
-        .cover-wrapper::before {
-            content: '🎤';
-            font-size: 36px;
-            opacity: 0.5;
-            color: white;
-        }
-
-        /* Кнопка Play/Pause внутри обложки */
         #playPause {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.3);
-            border: 2px solid white;
-            color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 18px;
-            z-index: 5;
-            outline: none;
+            position: absolute; background: rgba(255, 255, 255, 0.3); border: 2px solid white;
+            color: white; width: 45px; height: 45px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; font-size: 18px; z-index: 5; outline: none;
         }
 
-        #playPause:hover { background: rgba(255, 255, 255, 0.5); }
+        .waveform-container { flex-grow: 1; position: relative; height: 100px; background: #fbfbfb; border-radius: 6px; }
+        #waveform { height: 100px; }
 
-        /* Контейнер для волны (с запасом под отражение) */
-        .waveform-container {
-            flex-grow: 1;
-            position: relative;
-            height: 120px; /* Увеличил высоту для отражения */
-            background: #fbfbfb;
-            border-radius: 6px;
-        }
-
-        #waveform { height: 120px; }
-
-        /* Обновленный "progress-tip" в стиле скриншота */
         #progress-tip {
-            position: absolute;
-            z-index: 15;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.8); /* Черный, полупрозрачный */
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px; /* Скругление */
-            font-family: monospace;
-            font-size: 12px;
-            pointer-events: none;
-            left: 0;
-            transition: left 0.1s linear;
+            position: absolute; z-index: 15; top: 50%; transform: translateY(-50%);
+            background: rgba(0,0,0,0.8); color: white; padding: 4px 8px;
+            border-radius: 4px; font-family: monospace; font-size: 12px; pointer-events: none;
         }
 
-        #progress-line {
-            position: absolute;
-            z-index: 14;
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            background: #333;
-            left: 0;
-            transition: left 0.1s linear;
+        #progress-line { position: absolute; z-index: 14; top: 0; bottom: 0; width: 1px; background: #333; }
+
+        /* КНОПКИ ДЕЙСТВИЙ */
+        .action-bar { display: flex; gap: 10px; margin-top: 15px; justify-content: flex-start; }
+        .action-btn {
+            background: #f8f9fa; border: 1px solid #eee; padding: 6px 12px; border-radius: 8px;
+            font-size: 13px; color: #666; cursor: pointer; transition: 0.2s;
+            display: flex; align-items: center; gap: 6px; text-decoration: none;
         }
+        .action-btn:hover { background: #ae5f9d; color: white; border-color: #ae5f9d; }
 
         /* СПИСОК ТРЕКОВ */
-        .playlist {
-            margin-top: 30px;
-            border-top: 1px dashed #eee;
-            padding-top: 20px;
-        }
-
+        .playlist { margin-top: 25px; border-top: 1px dashed #eee; padding-top: 20px; }
         .track-item {
-            padding: 12px 15px;
-            margin: 6px 0;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            color: #555;
-            display: flex;
-            justify-content: space-between;
-            transition: background 0.2s, color 0.2s;
+            padding: 12px; margin: 5px 0; border-radius: 6px; cursor: pointer;
+            font-size: 14px; color: #555; display: flex; justify-content: space-between; transition: 0.2s;
         }
-
         .track-item:hover { background: #fcfcfc; }
-        .track-item.active { 
-            background: #fdf5f9; 
-            color: #ae5f9d; 
-            font-weight: 600; 
-            border-left: 4px solid #ae5f9d;
-        }
+        .track-item.active { background: #fdf5f9; color: #ae5f9d; font-weight: 600; border-left: 4px solid #ae5f9d; }
 
-        /* ОБНОВЛЕННЫЕ МЕТАДАННЫЕ В СТИЛЕ СКРИНШОТА */
         .footer-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-            flex-wrap: wrap;
-            gap: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #f0f0f0;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 20px; padding-top: 15px; border-top: 1px solid #f0f0f0;
         }
-
-        .meta-info {
-            display: flex;
-            gap: 25px;
-            font-size: 13px;
-            color: #999;
-            align-items: center;
-        }
-
-        .meta-item { display: flex; align-items: center; gap: 7px; }
-        .meta-item span.icon { font-size: 16px; opacity: 0.7; }
-
+        .meta-info { display: flex; gap: 20px; font-size: 13px; color: #999; }
+        
+        /* СТИЛИ ДЛЯ ЛОГОТИПА FONKI */
         .source-link {
             display: flex;
             align-items: center;
             text-decoration: none;
             transition: transform 0.2s ease;
         }
+        .source-link:hover {
+            transform: translateY(-2px);
+        }
+        .source-link img {
+            height: 24px; /* Чуть увеличил для наглядности */
+            margin-right: 10px;
+            display: block;
+        }
+        .source-link span {
+            font-size: 14px;
+            color: #333;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
 
-        .source-link:hover { transform: translateY(-2px); }
-        .source-link img { height: 26px; margin-right: 12px; display: block; }
-        .source-link span { font-size: 15px; color: #333; font-weight: 700; letter-spacing: 0.5px; }
+        /* TOAST (Уведомление) */
+        .toast {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-20px);
+            background: #333; color: white; padding: 10px 20px; border-radius: 30px;
+            font-size: 14px; opacity: 0; transition: 0.3s; z-index: 1000;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
     </style>
 </head>
 <body>
 
+<div id="toast" class="toast">🔗 Посилання скопійовано!</div>
+
 <div class="player-card">
     <h2 id="current-title">Фонограма - Такий великий Бог!</h2>
-    <span id="current-artist" class="artist">Християнська музика</span>
+    <span id="current-artist">Християнська музика</span>
     
     <div class="main-row">
         <div class="cover-wrapper" id="coverBtn">
             <button id="playPause">▶</button>
         </div>
-
-        <div class="waveform-container" id="waveform-outer">
+        <div class="waveform-container">
             <div id="waveform"></div>
             <div id="progress-line"></div>
             <div id="progress-tip">00:00</div>
         </div>
     </div>
 
-    <div class="playlist" id="playlist">
+    <div class="action-bar">
+        <button class="action-btn" onclick="downloadCurrent()"><i class="fas fa-download"></i> Скачати</button>
+        <button class="action-btn" onclick="shareTG()"><i class="fab fa-telegram-plane"></i> Telegram</button>
+        <button class="action-btn" onclick="copyLink()"><i class="fas fa-link"></i> Посилання</button>
+    </div>
+
+    <div class="playlist">
         <div class="track-item active" data-src="2023100117595272.mp3" data-title="Фонограма - Такий великий Бог!" data-artist="Християнська музика">
             <span>1. Ярина Вислоцька (мінус)</span>
             <span>6.13 MB</span>
@@ -233,11 +159,9 @@
 
     <div class="footer-row">
         <div class="meta-info">
-            <div class="meta-item"><span class="icon">〰</span>мінус</div>
-            <div class="meta-item"><span class="icon">💾</span>6.13 MB / 192 кбіт/с</div>
-            <div class="meta-item"><span class="icon">👤</span>Yuriy</div>
+            <span>〰 мінус</span>
+            <span>💾 Yuriy</span>
         </div>
-
         <a href="https://fonki.pro/minus/9718" target="_blank" class="source-link">
             <img src="https://fonki.pro/assets/img/logo.png" alt="FONKI.PRO">
             <span>FONKI.PRO</span>
@@ -246,75 +170,72 @@
 </div>
 
 <script>
-    // Обновленные настройки Wavesurfer для стиля скриншота
     const wavesurfer = WaveSurfer.create({
         container: '#waveform',
-        waveColor: '#e0e0e0', // Светло-серый для неактивной части
-        progressColor: '#ae5f9d', // Твой фиолетовый
-        barWidth: 3,          // Столбцы шире
-        barRadius: 2,         // Скругленные углы столбцов
-        barGap: 1,            // Небольшой отступ
-        height: 80,           // Основная высота волны
+        waveColor: '#e0e0e0',
+        progressColor: '#ae5f9d',
+        barWidth: 0.5, 
+        barGap: 0,     
+        height: 100,
         responsive: true,
         normalize: true,
         cursorWidth: 0,
-        reflection: true,     // ВКЛЮЧАЕМ ОТРАЖЕНИЕ
-        reflectionOpacity: 0.3 // Прозрачность отражения
+        barAlign: 'bottom'
     });
+
+    let currentFileUrl = "2023100117595272.mp3";
+    wavesurfer.load(currentFileUrl);
 
     const progressTip = document.getElementById('progress-tip');
     const progressLine = document.getElementById('progress-line');
-    const titleEl = document.getElementById('current-title');
-    const artistEl = document.getElementById('current-artist');
     const formatTime = (s) => new Date(s * 1000).toISOString().substr(14, 5);
 
-    const updateUI = () => {
+    wavesurfer.on('audioprocess', () => {
         const currentTime = wavesurfer.getCurrentTime();
-        const duration = wavesurfer.getDuration();
-        if (duration > 0) {
-            const progress = (currentTime / duration) * 100;
-            progressTip.style.left = `calc(${progress}% - ${progressTip.offsetWidth / 2}px)`;
-            progressLine.style.left = `${progress}%`;
-            progressTip.textContent = formatTime(currentTime);
-        }
-    };
-
-    wavesurfer.on('audioprocess', updateUI);
-    wavesurfer.on('seek', updateUI);
-    wavesurfer.on('ready', updateUI);
+        const progress = (currentTime / wavesurfer.getDuration()) * 100;
+        progressTip.style.left = `calc(${progress}% - ${progressTip.offsetWidth / 2}px)`;
+        progressLine.style.left = `${progress}%`;
+        progressTip.textContent = formatTime(currentTime);
+    });
 
     const btn = document.getElementById('playPause');
-    const cover = document.getElementById('coverBtn');
-
     const togglePlay = () => wavesurfer.playPause();
-    btn.onclick = (e) => { e.stopPropagation(); togglePlay(); };
-    cover.onclick = togglePlay;
-
+    btn.onclick = togglePlay;
     wavesurfer.on('play', () => btn.innerHTML = '▌▌'); 
     wavesurfer.on('pause', () => btn.innerHTML = '▶');
 
     // Логика плейлиста
-    const trackItems = document.querySelectorAll('.track-item');
-    
-    trackItems.forEach(item => {
+    document.querySelectorAll('.track-item').forEach(item => {
         item.onclick = () => {
-            // Убираем активный класс у всех
-            trackItems.forEach(i => i.classList.remove('active'));
-            // Добавляем текущему
+            document.querySelectorAll('.track-item').forEach(i => i.classList.remove('active'));
             item.classList.add('active');
-            
-            // Меняем текст в плеере
-            titleEl.textContent = item.getAttribute('data-title');
-            artistEl.textContent = item.getAttribute('data-artist');
-            
-            // Загружаем новый трек
-            wavesurfer.load(item.getAttribute('data-src'));
+            document.getElementById('current-title').textContent = item.getAttribute('data-title');
+            currentFileUrl = item.getAttribute('data-src');
+            wavesurfer.load(currentFileUrl);
             wavesurfer.once('ready', () => wavesurfer.play());
         };
     });
 
-    // Загрузка первого трека при старте
-    wavesurfer.load('2023100117595272.mp3');
+    // ФУНКЦИИ КНОПОК
+    function downloadCurrent() {
+        const a = document.createElement('a');
+        a.href = currentFileUrl;
+        a.download = document.getElementById('current-title').innerText + ".mp3";
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    }
+
+    function shareTG() {
+        const text = encodeURIComponent(`🎵 Послухайте: ${document.getElementById('current-title').innerText}\n\n${window.location.href}`);
+        window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${text}`, '_blank');
+    }
+
+    function copyLink() {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        });
+    }
 </script>
 
 </body>
