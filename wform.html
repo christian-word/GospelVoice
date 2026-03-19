@@ -1,14 +1,14 @@
 ﻿<!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Плеер - Такий великий Бог!</title>
+    <title>Плеєр - Такий великий Бог!</title>
     <script src="https://unpkg.com/wavesurfer.js"></script>
     <style>
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: #fdfdfd; 
+            background: #fafafa; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
@@ -18,86 +18,112 @@
 
         .player-card { 
             background: white; 
-            padding: 25px; 
-            border: 1px solid #eee;
-            border-radius: 8px; 
+            padding: 30px; 
+            border: 1px solid #eaeaea;
+            border-radius: 12px; 
             width: 100%; 
-            max-width: 900px; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            max-width: 950px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
         }
 
-        h2 { color: #ae5f9d; margin: 0; font-weight: 300; font-size: 1.6rem; }
-        .artist { color: #888; font-size: 0.9rem; display: block; margin-bottom: 20px; }
+        /* Обновленный заголовок в стиле скриншота */
+        h2 { 
+            color: #ae5f9d; 
+            margin: 0; 
+            font-weight: 300; 
+            font-size: 2.2rem; 
+            letter-spacing: -0.5px;
+        }
+        
+        #current-artist { 
+            color: #999; 
+            font-size: 0.95rem; 
+            display: block; 
+            margin-bottom: 25px; 
+            font-weight: 400;
+        }
 
         .main-row {
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding-top: 10px;
+            gap: 25px;
+            padding-top: 15px;
             border-top: 1px solid #f0f0f0;
         }
 
+        /* Обновленная обложка в стиле скриншота */
         .cover-wrapper {
             position: relative;
-            width: 80px;
-            height: 80px;
+            width: 85px;
+            height: 85px;
             flex-shrink: 0;
-            border-radius: 6px;
+            border-radius: 10px;
             overflow: hidden;
-            background: linear-gradient(135deg, #5b507a, #ae5f9d);
+            background: linear-gradient(135deg, #7e57c2, #ff7043); /* Градиент как на скрине */
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
+        .cover-wrapper:hover {
+            transform: scale(1.03);
+            box-shadow: 0 5px 15px rgba(126, 87, 194, 0.3);
+        }
+
+        /* Иконка микрофона */
         .cover-wrapper::before {
             content: '🎤';
-            font-size: 30px;
-            opacity: 0.3;
+            font-size: 36px;
+            opacity: 0.5;
+            color: white;
         }
 
+        /* Кнопка Play/Pause внутри обложки */
         #playPause {
             position: absolute;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.3);
             border: 2px solid white;
             color: white;
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-size: 16px;
+            font-size: 18px;
             z-index: 5;
             outline: none;
         }
 
-        #playPause:hover { background: rgba(255, 255, 255, 0.4); transform: scale(1.05); }
+        #playPause:hover { background: rgba(255, 255, 255, 0.5); }
 
+        /* Контейнер для волны (с запасом под отражение) */
         .waveform-container {
             flex-grow: 1;
             position: relative;
-            height: 100px;
-            background: #fafafa;
-            border-radius: 4px;
+            height: 120px; /* Увеличил высоту для отражения */
+            background: #fbfbfb;
+            border-radius: 6px;
         }
 
-        #waveform { height: 100px; }
+        #waveform { height: 120px; }
 
+        /* Обновленный "progress-tip" в стиле скриншота */
         #progress-tip {
             position: absolute;
             z-index: 15;
             top: 50%;
             transform: translateY(-50%);
-            background: #333;
+            background: rgba(0,0,0,0.8); /* Черный, полупрозрачный */
             color: white;
-            padding: 2px 6px;
-            border-radius: 2px;
+            padding: 4px 8px;
+            border-radius: 4px; /* Скругление */
             font-family: monospace;
-            font-size: 11px;
+            font-size: 12px;
             pointer-events: none;
             left: 0;
             transition: left 0.1s linear;
@@ -114,25 +140,56 @@
             transition: left 0.1s linear;
         }
 
+        /* СПИСОК ТРЕКОВ */
+        .playlist {
+            margin-top: 30px;
+            border-top: 1px dashed #eee;
+            padding-top: 20px;
+        }
+
+        .track-item {
+            padding: 12px 15px;
+            margin: 6px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .track-item:hover { background: #fcfcfc; }
+        .track-item.active { 
+            background: #fdf5f9; 
+            color: #ae5f9d; 
+            font-weight: 600; 
+            border-left: 4px solid #ae5f9d;
+        }
+
+        /* ОБНОВЛЕННЫЕ МЕТАДАННЫЕ В СТИЛЕ СКРИНШОТА */
         .footer-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 15px;
+            margin-top: 20px;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
         }
 
         .meta-info {
             display: flex;
-            gap: 20px;
-            font-size: 12px;
-            color: #aaa;
+            gap: 25px;
+            font-size: 13px;
+            color: #999;
+            align-items: center;
         }
 
-        .meta-item { display: flex; align-items: center; gap: 5px; }
+        .meta-item { display: flex; align-items: center; gap: 7px; }
+        .meta-item span.icon { font-size: 16px; opacity: 0.7; }
 
-        /* АКТИВНЫЙ ЛОГОТИП */
         .source-link {
             display: flex;
             align-items: center;
@@ -140,29 +197,16 @@
             transition: transform 0.2s ease;
         }
 
-        .source-link:hover {
-            transform: translateY(-2px);
-        }
-
-        .source-link img {
-            height: 24px; /* Чуть увеличил для наглядности */
-            margin-right: 10px;
-            display: block;
-        }
-
-        .source-link span {
-            font-size: 14px;
-            color: #333;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
+        .source-link:hover { transform: translateY(-2px); }
+        .source-link img { height: 26px; margin-right: 12px; display: block; }
+        .source-link span { font-size: 15px; color: #333; font-weight: 700; letter-spacing: 0.5px; }
     </style>
 </head>
 <body>
 
 <div class="player-card">
-    <h2>Фонограма - Такий великий Бог!</h2>
-    <span class="artist">Ярина Вислоцька</span>
+    <h2 id="current-title">Фонограма - Такий великий Бог!</h2>
+    <span id="current-artist" class="artist">Християнська музика</span>
     
     <div class="main-row">
         <div class="cover-wrapper" id="coverBtn">
@@ -176,11 +220,22 @@
         </div>
     </div>
 
+    <div class="playlist" id="playlist">
+        <div class="track-item active" data-src="2023100117595272.mp3" data-title="Фонограма - Такий великий Бог!" data-artist="Християнська музика">
+            <span>1. Ярина Вислоцька (мінус)</span>
+            <span>6.13 MB</span>
+        </div>
+        <div class="track-item" data-src="RGDyHUJ2mf0xNfWK9HyjQhi5NCy4QpvlvHZETsxO.mp3" data-title="Такий великий Бог!" data-artist="Християнська музика">
+            <span>2. Сім'я Денисюків</span>
+            <span>MP3</span>
+        </div>
+    </div>
+
     <div class="footer-row">
         <div class="meta-info">
-            <div class="meta-item">〰 минус</div>
-            <div class="meta-item">💾 6.13 MB / 192 кбит/с</div>
-            <div class="meta-item">👤 Yuriy</div>
+            <div class="meta-item"><span class="icon">〰</span>мінус</div>
+            <div class="meta-item"><span class="icon">💾</span>6.13 MB / 192 кбіт/с</div>
+            <div class="meta-item"><span class="icon">👤</span>Yuriy</div>
         </div>
 
         <a href="https://fonki.pro/minus/9718" target="_blank" class="source-link">
@@ -191,23 +246,26 @@
 </div>
 
 <script>
+    // Обновленные настройки Wavesurfer для стиля скриншота
     const wavesurfer = WaveSurfer.create({
         container: '#waveform',
-        waveColor: '#e0e0e0',
-        progressColor: '#ae5f9d',
-        barWidth: 0.5, 
-        barGap: 0,     
-        height: 100,
+        waveColor: '#e0e0e0', // Светло-серый для неактивной части
+        progressColor: '#ae5f9d', // Твой фиолетовый
+        barWidth: 3,          // Столбцы шире
+        barRadius: 2,         // Скругленные углы столбцов
+        barGap: 1,            // Небольшой отступ
+        height: 80,           // Основная высота волны
         responsive: true,
         normalize: true,
         cursorWidth: 0,
-        barAlign: 'bottom'
+        reflection: true,     // ВКЛЮЧАЕМ ОТРАЖЕНИЕ
+        reflectionOpacity: 0.3 // Прозрачность отражения
     });
-
-    wavesurfer.load('2023100117595272.mp3');
 
     const progressTip = document.getElementById('progress-tip');
     const progressLine = document.getElementById('progress-line');
+    const titleEl = document.getElementById('current-title');
+    const artistEl = document.getElementById('current-artist');
     const formatTime = (s) => new Date(s * 1000).toISOString().substr(14, 5);
 
     const updateUI = () => {
@@ -234,6 +292,29 @@
 
     wavesurfer.on('play', () => btn.innerHTML = '▌▌'); 
     wavesurfer.on('pause', () => btn.innerHTML = '▶');
+
+    // Логика плейлиста
+    const trackItems = document.querySelectorAll('.track-item');
+    
+    trackItems.forEach(item => {
+        item.onclick = () => {
+            // Убираем активный класс у всех
+            trackItems.forEach(i => i.classList.remove('active'));
+            // Добавляем текущему
+            item.classList.add('active');
+            
+            // Меняем текст в плеере
+            titleEl.textContent = item.getAttribute('data-title');
+            artistEl.textContent = item.getAttribute('data-artist');
+            
+            // Загружаем новый трек
+            wavesurfer.load(item.getAttribute('data-src'));
+            wavesurfer.once('ready', () => wavesurfer.play());
+        };
+    });
+
+    // Загрузка первого трека при старте
+    wavesurfer.load('2023100117595272.mp3');
 </script>
 
 </body>
