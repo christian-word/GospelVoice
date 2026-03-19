@@ -26,7 +26,6 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.03);
         }
 
-        /* Заголовок и исполнитель */
         h2 { color: #ae5f9d; margin: 0; font-weight: 300; font-size: 1.6rem; }
         .artist { color: #888; font-size: 0.9rem; display: block; margin-bottom: 20px; }
 
@@ -38,7 +37,6 @@
             border-top: 1px solid #f0f0f0;
         }
 
-        /* Блок обложки с кнопкой Play */
         .cover-wrapper {
             position: relative;
             width: 80px;
@@ -79,7 +77,6 @@
 
         #playPause:hover { background: rgba(255, 255, 255, 0.4); transform: scale(1.05); }
 
-        /* Контейнер волны */
         .waveform-container {
             flex-grow: 1;
             position: relative;
@@ -90,7 +87,6 @@
 
         #waveform { height: 100px; }
 
-        /* Черный индикатор прогресса */
         #progress-tip {
             position: absolute;
             z-index: 15;
@@ -118,16 +114,48 @@
             transition: left 0.1s linear;
         }
 
-        /* Мета-инфо внизу */
+        .footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
         .meta-info {
             display: flex;
             gap: 20px;
             font-size: 12px;
             color: #aaa;
-            margin-top: 15px;
         }
 
         .meta-item { display: flex; align-items: center; gap: 5px; }
+
+        /* АКТИВНЫЙ ЛОГОТИП */
+        .source-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+
+        .source-link:hover {
+            transform: translateY(-2px);
+        }
+
+        .source-link img {
+            height: 24px; /* Чуть увеличил для наглядности */
+            margin-right: 10px;
+            display: block;
+        }
+
+        .source-link span {
+            font-size: 14px;
+            color: #333;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
     </style>
 </head>
 <body>
@@ -148,10 +176,17 @@
         </div>
     </div>
 
-    <div class="meta-info">
-        <div class="meta-item">〰 минус</div>
-        <div class="meta-item">💾 6.13 MB / 192 кбит/с</div>
-        <div class="meta-item">👤 Yuriy</div>
+    <div class="footer-row">
+        <div class="meta-info">
+            <div class="meta-item">〰 минус</div>
+            <div class="meta-item">💾 6.13 MB / 192 кбит/с</div>
+            <div class="meta-item">👤 Yuriy</div>
+        </div>
+
+        <a href="https://fonki.pro/minus/9718" target="_blank" class="source-link">
+            <img src="https://fonki.pro/assets/img/logo.png" alt="FONKI.PRO">
+            <span>FONKI.PRO</span>
+        </a>
     </div>
 </div>
 
@@ -165,11 +200,11 @@
         height: 100,
         responsive: true,
         normalize: true,
-        cursorWidth: 0
+        cursorWidth: 0,
+        barAlign: 'bottom'
     });
 
-    // Загрузка трека
-    wavesurfer.load('2023100117595272.mp3');
+    wavesurfer.load('https://dl.dropboxusercontent.com/scl/fi/r95s6v91f4izxej1iexyx/Cesc-Vila-Aulina-Suns-And-Stars.mp3?rlkey=n1hrnh6wtwotgxthemiq89r23');
 
     const progressTip = document.getElementById('progress-tip');
     const progressLine = document.getElementById('progress-line');
@@ -194,11 +229,10 @@
     const cover = document.getElementById('coverBtn');
 
     const togglePlay = () => wavesurfer.playPause();
-
     btn.onclick = (e) => { e.stopPropagation(); togglePlay(); };
     cover.onclick = togglePlay;
 
-    wavesurfer.on('play', () => btn.innerHTML = '▌▌'); // Символ паузы
+    wavesurfer.on('play', () => btn.innerHTML = '▌▌'); 
     wavesurfer.on('pause', () => btn.innerHTML = '▶');
 </script>
 
