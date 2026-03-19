@@ -3,57 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Плеер с индикатором прогресса</title>
+    <title>Плеер - Такий великий Бог!</title>
     <script src="https://unpkg.com/wavesurfer.js"></script>
     <style>
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: #f8f9fa; 
+            background: #fdfdfd; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
             margin: 0; 
-            padding: 15px;
         }
 
         .player-card { 
             background: white; 
-            padding: 30px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+            padding: 25px; 
+            border: 1px solid #eee;
+            border-radius: 8px; 
             width: 100%; 
-            max-width: 850px; 
+            max-width: 900px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
         }
 
-        h2 { color: #ae5f9d; margin-top: 0; font-weight: 400; font-size: 1.6rem; margin-bottom: 25px; }
+        /* Заголовок и исполнитель */
+        h2 { color: #ae5f9d; margin: 0; font-weight: 300; font-size: 1.6rem; }
+        .artist { color: #888; font-size: 0.9rem; display: block; margin-bottom: 20px; }
 
+        .main-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        /* Блок обложки с кнопкой Play */
+        .cover-wrapper {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            border-radius: 6px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #5b507a, #ae5f9d);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .cover-wrapper::before {
+            content: '🎤';
+            font-size: 30px;
+            opacity: 0.3;
+        }
+
+        #playPause {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 16px;
+            z-index: 5;
+            outline: none;
+        }
+
+        #playPause:hover { background: rgba(255, 255, 255, 0.4); transform: scale(1.05); }
+
+        /* Контейнер волны */
         .waveform-container {
-            position: relative; 
-            margin-bottom: 30px; 
+            flex-grow: 1;
+            position: relative;
+            height: 100px;
             background: #fafafa;
+            border-radius: 4px;
         }
 
         #waveform { height: 100px; }
 
-        /* ЧЕРНЫЙ КВАДРАТИК ПРОГРЕССА (КАК НА ФОТО) */
+        /* Черный индикатор прогресса */
         #progress-tip {
             position: absolute;
             z-index: 15;
             top: 50%;
             transform: translateY(-50%);
-            background: #333; /* Темный цвет как на фото */
+            background: #333;
             color: white;
-            padding: 3px 8px;
-            border-radius: 3px;
+            padding: 2px 6px;
+            border-radius: 2px;
             font-family: monospace;
-            font-size: 12px;
+            font-size: 11px;
             pointer-events: none;
-            left: 0; /* Будет меняться через JS */
-            transition: left 0.1s linear; /* Плавность хода */
+            left: 0;
+            transition: left 0.1s linear;
         }
 
-        /* Тонкая вертикальная линия прогресса */
         #progress-line {
             position: absolute;
             z-index: 14;
@@ -65,39 +118,16 @@
             transition: left 0.1s linear;
         }
 
-        /* КУРСОР ПРИ НАВЕДЕНИИ (ПОДСКАЗКА) */
-        #hover-time {
-            position: absolute;
-            z-index: 20;
-            top: 20px;
-            background: rgba(174, 95, 157, 0.8); /* Сделал чуть светлее для отличия */
-            color: white;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 11px;
-            display: none;
-            pointer-events: none;
-        }
-
-        .controls { 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between;
+        /* Мета-инфо внизу */
+        .meta-info {
+            display: flex;
             gap: 20px;
-            flex-wrap: wrap;
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 15px;
         }
 
-        button { 
-            background: #ae5f9d; 
-            color: white; 
-            border: none; 
-            padding: 10px 25px; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            font-size: 14px;
-        }
-
-        .time-box { color: #888; font-family: monospace; font-size: 14px; }
+        .meta-item { display: flex; align-items: center; gap: 5px; }
     </style>
 </head>
 <body>
@@ -106,20 +136,22 @@
     <h2>Фонограма - Такий великий Бог!</h2>
     <span class="artist">Ярина Вислоцька</span>
     
-    <div class="waveform-container" id="waveform-outer">
-        <div id="waveform"></div>
-        
-        <div id="progress-line"></div>
-        <div id="progress-tip">00:00</div>
-        
-        <div id="hover-time">00:00</div>
-    </div>
-    
-    <div class="controls">
-        <button id="playPause">Воспроизвести</button>
-        <div class="time-box">
-            <span id="currentTime">00:00</span> / <span id="totalDuration">00:00</span>
+    <div class="main-row">
+        <div class="cover-wrapper" id="coverBtn">
+            <button id="playPause">▶</button>
         </div>
+
+        <div class="waveform-container" id="waveform-outer">
+            <div id="waveform"></div>
+            <div id="progress-line"></div>
+            <div id="progress-tip">00:00</div>
+        </div>
+    </div>
+
+    <div class="meta-info">
+        <div class="meta-item">〰 минус</div>
+        <div class="meta-item">💾 6.13 MB / 192 кбит/с</div>
+        <div class="meta-item">👤 Yuriy</div>
     </div>
 </div>
 
@@ -128,67 +160,46 @@
         container: '#waveform',
         waveColor: '#e0e0e0',
         progressColor: '#ae5f9d',
-        barWidth: 2,
-        barGap: 3,
+        barWidth: 0.5, 
+        barGap: 0,     
         height: 100,
         responsive: true,
         normalize: true,
-        cursorWidth: 0 // Скрываем стандартный курсор
+        cursorWidth: 0
     });
 
+    // Загрузка трека
     wavesurfer.load('2023100117595272.mp3');
 
     const progressTip = document.getElementById('progress-tip');
     const progressLine = document.getElementById('progress-line');
-    const hoverTime = document.getElementById('hover-time');
-    const outer = document.getElementById('waveform-outer');
-
     const formatTime = (s) => new Date(s * 1000).toISOString().substr(14, 5);
 
-    // Функция обновления положения черного квадратика
-    const updateProgressUI = () => {
+    const updateUI = () => {
         const currentTime = wavesurfer.getCurrentTime();
         const duration = wavesurfer.getDuration();
         if (duration > 0) {
             const progress = (currentTime / duration) * 100;
-            
-            // Двигаем линию и плашку
             progressTip.style.left = `calc(${progress}% - ${progressTip.offsetWidth / 2}px)`;
             progressLine.style.left = `${progress}%`;
             progressTip.textContent = formatTime(currentTime);
         }
     };
 
-    // Обновляем при проигрывании
-    wavesurfer.on('audioprocess', updateProgressUI);
-    
-    // Обновляем при клике (перемотке)
-    wavesurfer.on('seek', updateProgressUI);
+    wavesurfer.on('audioprocess', updateUI);
+    wavesurfer.on('seek', updateUI);
+    wavesurfer.on('ready', updateUI);
 
-    wavesurfer.on('ready', () => {
-        document.getElementById('totalDuration').textContent = formatTime(wavesurfer.getDuration());
-        updateProgressUI();
-    });
-
-    // Логика наведения (hover)
-    outer.onmousemove = (e) => {
-        const rect = outer.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const ratio = x / rect.width;
-        const time = wavesurfer.getDuration() * ratio;
-
-        hoverTime.style.display = 'block';
-        hoverTime.style.left = `${x - (hoverTime.offsetWidth / 2)}px`;
-        hoverTime.textContent = formatTime(time);
-    };
-
-    outer.onmouseleave = () => hoverTime.style.display = 'none';
-
-    // Кнопка
     const btn = document.getElementById('playPause');
-    btn.onclick = () => wavesurfer.playPause();
-    wavesurfer.on('play', () => btn.textContent = 'Пауза');
-    wavesurfer.on('pause', () => btn.textContent = 'Воспроизвести');
+    const cover = document.getElementById('coverBtn');
+
+    const togglePlay = () => wavesurfer.playPause();
+
+    btn.onclick = (e) => { e.stopPropagation(); togglePlay(); };
+    cover.onclick = togglePlay;
+
+    wavesurfer.on('play', () => btn.innerHTML = '▌▌'); // Символ паузы
+    wavesurfer.on('pause', () => btn.innerHTML = '▶');
 </script>
 
 </body>
