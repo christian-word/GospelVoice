@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Плеєр - Такий великий Бог! (2)</title>
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: #fafafa; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+        }
+
+        .player-card { 
+            background: white; 
+            padding: 30px; 
+            border: 1px solid #eaeaea;
+            border-radius: 12px; 
+            width: 100%; 
+            max-width: 950px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            position: relative;
+        }
+
+        h2 { color: #ae5f9d; margin: 0; font-weight: 300; font-size: 2.2rem; letter-spacing: -0.5px; }
+        #current-artist { color: #999; font-size: 0.95rem; display: block; margin-bottom: 25px; font-weight: 400; }
+
+        .main-row {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .cover-wrapper {
+            position: relative; width: 85px; height: 85px; flex-shrink: 0; border-radius: 10px;
+            background: linear-gradient(135deg, #7e57c2, #ff7043);
+            display: flex; justify-content: center; align-items: center; cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .cover-wrapper:hover { transform: scale(1.03); }
+        .cover-wrapper::before { content: '🎤'; font-size: 36px; opacity: 0.5; color: white; }
+
+        #playPause {
+            position: absolute; background: rgba(255, 255, 255, 0.3); border: 2px solid white;
+            color: white; width: 45px; height: 45px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; font-size: 18px; z-index: 5; outline: none;
+        }
+
+        .waveform-container { flex-grow: 1; position: relative; height: 100px; background: #fbfbfb; border-radius: 6px; }
+        #waveform { height: 100px; }
+
+        #progress-tip {
+            position: absolute; z-index: 15; top: 50%; transform: translateY(-50%);
+            background: rgba(0,0,0,0.8); color: white; padding: 4px 8px;
+            border-radius: 4px; font-family: monospace; font-size: 12px; pointer-events: none;
+        }
+
+        #progress-line { position: absolute; z-index: 14; top: 0; bottom: 0; width: 1px; background: #333; }
+
+        .action-bar { display: flex; gap: 10px; margin-top: 15px; justify-content: flex-start; }
+        .action-btn {
+            background: #f8f9fa; border: 1px solid #eee; padding: 6px 12px; border-radius: 8px;
+            font-size: 13px; color: #666; cursor: pointer; transition: 0.2s;
+            display: flex; align-items: center; gap: 6px; text-decoration: none;
+        }
+        .action-btn:hover { background: #ae5f9d; color: white; border-color: #ae5f9d; }
+
+        .playlist { margin-top: 25px; border-top: 1px dashed #eee; padding-top: 20px; }
+        .track-item {
+            padding: 12px; margin: 5px 0; border-radius: 6px; cursor: pointer;
+            font-size: 14px; color: #555; display: flex; justify-content: space-between; transition: 0.2s;
+        }
+        .track-item:hover { background: #fcfcfc; }
+        .track-item.active { background: #fdf5f9; color: #ae5f9d; font-weight: 600; border-left: 4px solid #ae5f9d; }
+
+        .footer-row {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 20px; padding-top: 15px; border-top: 1px solid #f0f0f0;
+        }
+        .meta-info { display: flex; gap: 20px; font-size: 13px; color: #999; }
+        
+        .source-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+        .source-link:hover { transform: translateY(-2px); }
+        .source-link img { height: 24px; margin-right: 10px; display: block; }
+        .source-link span { font-size: 14px; color: #333; font-weight: 700; }
+
+        .toast {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-20px);
+            background: #333; color: white; padding: 10px 20px; border-radius: 30px;
+            font-size: 14px; opacity: 0; transition: 0.3s; z-index: 1000;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    </style>
+</head>
+<body>
+
+<div id="toast" class="toast">🔗 Посилання скопійовано!</div>
+
+<div class="player-card">
+    <h2 id="current-title">Такий великий Бог! (альтернативна версія)</h2>
+    <span id="current-artist">Християнська музика</span>
+    
+    <div class="main-row">
+        <div class="cover-wrapper" id="coverBtn">
+            <button id="playPause">▶</button>
+        </div>
+        <div class="waveform-container">
+            <div id="waveform"></div>
+            <div id="progress-line"></div>
+            <div id="progress-tip">00:00</div>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <button class="action-btn" onclick="downloadCurrent()"><i class="fas fa-download"></i> Скачати</button>
+        <button class="action-btn" onclick="shareTG()"><i class="fab fa-telegram-plane"></i> Telegram</button>
+        <button class="action-btn" onclick="copyLink()"><i class="fas fa-link"></i> Посилання</button>
+    </div>
+
+    <div class="playlist">
+        <div class="track-item active"
+            data-src="https://christian-word.github.io/test/%D0%A2%D0%B0%D0%BA%D0%B8%D0%B9%20%D0%B2%D0%B5%D0%BB%D0%B8%D0%BA%D0%B8%D0%B9%20%D0%91%D0%BE%D0%B3(2).mp3"
+            data-title="Фонограма - Такий великий Бог!"
+            data-artist="Християнська музика">
+            <span>1. Ярина Вислоцька (мінус)</span>
+            <span>MP3</span>
+        </div>
+
+        <div class="track-item"
+            data-src="https://christian-word.github.io/test/%D0%9D%D0%B5%D0%B1%D0%BE_%D0%9F%D1%80%D0%BE%D1%81%D1%82%D1%8F%D0%B3%D0%BD%D1%83%D0%B2_Nebo_Prostyagnuv_.mp3"
+            data-title="Небо Простягнув"
+            data-artist="Християнська музика">
+            <span>2. Небо Простягнув</span>
+            <span>MP3</span>
+        </div>
+    </div>
+
+    <div class="footer-row">
+        <div class="meta-info">
+            <span>〰 мінус</span>
+            <span>💾 Yuriy</span>
+        </div>
+        <a href="https://fonki.pro/minus/9718" target="_blank" class="source-link">
+            <img src="https://fonki.pro/assets/img/logo.png" alt="FONKI.PRO">
+            <span>FONKI.PRO</span>
+        </a>
+    </div>
+</div>
+
+<script>
+    const wavesurfer = WaveSurfer.create({
+        container: '#waveform',
+        waveColor: '#e0e0e0',
+        progressColor: '#ae5f9d',
+        barWidth: 0.5, 
+        barGap: 0,     
+        height: 100,
+        responsive: true,
+        normalize: true,
+        cursorWidth: 0,
+        barAlign: 'bottom'
+    });
+
+    let currentFileUrl = document.querySelector('.track-item.active').dataset.src;
+    wavesurfer.load(currentFileUrl);
+
+    const progressTip = document.getElementById('progress-tip');
+    const progressLine = document.getElementById('progress-line');
+    const formatTime = (s) => new Date(s * 1000).toISOString().substr(14, 5);
+
+    wavesurfer.on('audioprocess', () => {
+        const currentTime = wavesurfer.getCurrentTime();
+        const progress = (currentTime / wavesurfer.getDuration()) * 100;
+        progressTip.style.left = `calc(${progress}% - ${progressTip.offsetWidth / 2}px)`;
+        progressLine.style.left = `${progress}%`;
+        progressTip.textContent = formatTime(currentTime);
+    });
+
+    const btn = document.getElementById('playPause');
+    btn.onclick = () => wavesurfer.playPause();
+    wavesurfer.on('play', () => btn.innerHTML = '▌▌'); 
+    wavesurfer.on('pause', () => btn.innerHTML = '▶');
+
+    document.querySelectorAll('.track-item').forEach(item => {
+        item.onclick = () => {
+            document.querySelectorAll('.track-item').forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+            document.getElementById('current-title').textContent = item.getAttribute('data-title');
+            currentFileUrl = item.getAttribute('data-src');
+            wavesurfer.load(currentFileUrl);
+            wavesurfer.once('ready', () => wavesurfer.play());
+        };
+    });
+
+    function downloadCurrent() {
+        const a = document.createElement('a');
+        a.href = currentFileUrl;
+        a.download = document.getElementById('current-title').innerText + ".mp3";
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    }
+
+    function shareTG() {
+        const text = encodeURIComponent(`🎵 Послухайте: ${document.getElementById('current-title').innerText}\n\n${window.location.href}`);
+        window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${text}`, '_blank');
+    }
+
+    function copyLink() {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        });
+    }
+</script>
+
+</body>
+</html>
