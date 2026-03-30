@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Full Screen Video</title>
+    <meta property="og:image" content="img2.JPG">
+    <style>
+        /* Полная очистка отступов */
+        * { box-sizing: border-box; }
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Адаптивный плеер */
+        video {
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            /* 'contain' оставит черные полосы, но сохранит всё видео. 
+               'cover' растянет видео на весь экран, но обрежет края. */
+            object-fit: contain; 
+        }
+
+        /* Скрываем полосу прокрутки на iOS */
+        video::-webkit-media-controls-panel {
+            background-image: linear-gradient(transparent, rgba(0,0,0,0.5));
+        }
+    </style>
+</head>
+<body>
+
+    <video 
+        id="bgvideo"
+        controls 
+        playsinline 
+        webkit-playsinline
+        preload="auto"
+        poster="">
+        <source src="https://christian-word.github.io/GospelVoice/Video/%D0%91%D0%B0%D1%87%D1%83_%D0%91%D0%BE%D0%B3%D0%B0_%D0%BA%D0%BE%D0%B6%D0%B5%D0%BD_%D0%B4%D0%B5%D0%BD%D1%8C_(%D1%85%D1%80%D0%B8%D1%81%D1%82%D0%B8%D1%8F%D0%BD%D1%81%D1%8C%D0%BA%D0%B0_%D0%BF%D1%96%D1%81%D0%BD%D1%8F).mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+
+    <script>
+        // Небольшой скрипт для автоматического разворота (если нужно)
+        const video = document.getElementById('bgvideo');
+        
+        // Попытка автоплея при загрузке (часто требует mute)
+        window.addEventListener('load', () => {
+            video.play().catch(() => {
+                console.log("Автоплей заблокирован браузером. Нажмите Play вручную.");
+            });
+        });
+    </script>
+</body>
+</html>
