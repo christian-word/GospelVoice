@@ -268,6 +268,15 @@ canvas#previewCanvas{
 }
 .btn-render:hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 10px 30px rgba(110,181,255,0.4)}
 .btn-render:disabled{background:rgba(255,255,255,0.08);color:var(--text-muted);cursor:not-allowed;box-shadow:none;transform:none}
+.btn-stop{
+  background:rgba(248,113,113,0.12);
+  color:#f87171;border:1px solid rgba(248,113,113,0.35);
+  padding:14px 28px;font-size:14px;font-weight:700;
+  letter-spacing:.5px;border-radius:12px;cursor:pointer;
+  transition:all .2s;
+}
+.btn-stop:hover:not(:disabled){background:rgba(248,113,113,0.22);border-color:#f87171}
+.btn-stop:disabled{opacity:.3;cursor:not-allowed}
 
 .hint{font-size:11.5px;color:var(--text-muted);margin-top:10px;line-height:1.65}
 .sep{border:none;border-top:1px solid var(--border);margin:14px 0}
@@ -371,16 +380,16 @@ canvas#previewCanvas{
     <hr class="sep">
     <div class="text-style-row">
       <label>Размер текста:
-        <input type="range" class="small" id="textSize" min="18" max="72" value="36">
-        <span id="textSizeVal">36</span>px
+        <input type="range" class="small" id="textSize" min="18" max="72" value="22">
+        <span id="textSizeVal">22</span>px
       </label>
       <label>Тень:
-        <input type="checkbox" id="textShadow" checked>
+        <input type="checkbox" id="textShadow">
       </label>
       <label>Позиция:
         <select id="textPos" style="width:auto;padding:5px 8px">
           <option value="bottom">Низ</option>
-          <option value="center">Центр</option>
+          <option value="center" selected>Центр</option>
           <option value="top">Верх</option>
         </select>
       </label>
@@ -402,8 +411,9 @@ canvas#previewCanvas{
 <div class="panel">
   <div class="panel-header"><div class="panel-num">7</div><div class="panel-title">Создание видео</div></div>
   <canvas id="previewCanvas" width="1280" height="720"></canvas>
-  <div style="text-align:center;margin-top:18px">
+  <div style="text-align:center;margin-top:18px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
     <button class="btn-render" id="renderBtn" disabled>▶ Создать видео</button>
+    <button class="btn-stop" id="stopBtn" disabled>■ Стоп</button>
   </div>
   <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
   <div class="status" id="statusText">Загрузите аудио и хотя бы одно изображение.</div>
@@ -428,6 +438,8 @@ const thumbsEl      = document.getElementById('thumbs');
 const transitionSelect = document.getElementById('transitionSelect');
 const qualitySelect = document.getElementById('qualitySelect');
 const renderBtn     = document.getElementById('renderBtn');
+const stopBtn       = document.getElementById('stopBtn');
+let renderStopped   = false;
 const previewCanvas = document.getElementById('previewCanvas');
 const ctx           = previewCanvas.getContext('2d');
 const progressBar   = document.getElementById('progressBar');
@@ -890,11 +902,15 @@ function startLivePreview(){
 }
 
 // ─── Render ───────────────────────────────────────────────────────────────────
+stopBtn.addEventListener('click', () => { renderStopped = true; });
+
 renderBtn.addEventListener('click', async () => {
   if(previewRAF) cancelAnimationFrame(previewRAF);
-  renderBtn.disabled=true;
-  resultEl.innerHTML='';
-  progressBar.style.width='0%';
+  renderStopped = false;
+  renderBtn.disabled = true;
+  stopBtn.disabled = false;
+  resultEl.innerHTML = '';
+  progressBar.style.width = '0%';
 
   const duration  = audioBuffer.duration;
   const slideDur  = duration/images.length;
@@ -902,62 +918,76 @@ renderBtn.addEventListener('click', async () => {
   const bitrate   = parseInt(qualitySelect.value,10);
   const fx        = getFX();
 
-  statusText.textContent='Подготовка аудио...';
+  statusText.textContent = 'Подготовка аудио...';
 
-  // audio setup for render
-  const ac=new (window.AudioContext||window.webkitAudioContext)();
-  const audioEl=document.createElement('audio');
-  audioEl.src=audioPreview.src;
-  audioEl.crossOrigin='anonymous';
+  const ac = new (window.AudioContext||window.webkitAudioContext)();
+  const audioEl = document.createElement('audio');
+  audioEl.src = audioPreview.src;
+  audioEl.crossOrigin = 'anonymous';
   await new Promise(res=>{ audioEl.addEventListener('canplaythrough',res,{once:true}); audioEl.load(); });
 
-  const sourceNode=ac.createMediaElementSource(audioEl);
-  const analyserNode=ac.createAnalyser();
-  analyserNode.fftSize=256;
-  const dest=ac.createMediaStreamDestination();
+  const sourceNode  = ac.createMediaElementSource(audioEl);
+  const analyserNode= ac.createAnalyser();
+  analyserNode.fftSize = 256;
+  const dest = ac.createMediaStreamDestination();
   sourceNode.connect(analyserNode);
   analyserNode.connect(dest);
 
-  const combined=new MediaStream([...previewCanvas.captureStream(30).getVideoTracks(),...dest.stream.getAudioTracks()]);
-  let mime='video/webm;codecs=vp9,opus';
-  if(!MediaRecorder.isTypeSupported(mime)) mime='video/webm;codecs=vp8,opus';
-  if(!MediaRecorder.isTypeSupported(mime)) mime='video/webm';
+  const combined = new MediaStream([...previewCanvas.captureStream(30).getVideoTracks(), ...dest.stream.getAudioTracks()]);
+  let mime = 'video/webm;codecs=vp9,opus';
+  if(!MediaRecorder.isTypeSupported(mime)) mime = 'video/webm;codecs=vp8,opus';
+  if(!MediaRecorder.isTypeSupported(mime)) mime = 'video/webm';
 
-  const recorder=new MediaRecorder(combined,{mimeType:mime,videoBitsPerSecond:bitrate});
-  const chunks=[];
-  recorder.ondataavailable=e=>{ if(e.data.size>0) chunks.push(e.data); };
-  const finished=new Promise(res=>{ recorder.onstop=res; });
+  const recorder = new MediaRecorder(combined, {mimeType:mime, videoBitsPerSecond:bitrate});
+  const chunks = [];
+  recorder.ondataavailable = e => { if(e.data.size>0) chunks.push(e.data); };
+  const finished = new Promise(res => { recorder.onstop = res; });
 
-  particles=null;
-  statusText.textContent='Рендеринг... не закрывайте страницу.';
+  particles = null;
+  statusText.textContent = 'Рендеринг... нажмите ■ Стоп чтобы прервать.';
   recorder.start();
-  audioEl.currentTime=0;
+  audioEl.currentTime = 0;
   await audioEl.play();
 
-  const startT=performance.now();
+  const startT = performance.now();
   function drawLoop(){
-    const elapsed=(performance.now()-startT)/1000;
-    const t=Math.min(elapsed,duration-.001);
-    const renderAnalyser=fx.waveform ? analyserNode : null;
-    drawFrame(ctx,t,slideDur,transition,fx,renderAnalyser,duration);
-    progressBar.style.width=Math.min(100,(elapsed/duration)*100)+'%';
-    if(elapsed<duration&&!audioEl.ended) requestAnimationFrame(drawLoop);
+    if(renderStopped){
+      recorder.stop();
+      audioEl.pause();
+      return;
+    }
+    const elapsed = (performance.now()-startT)/1000;
+    const t = Math.min(elapsed, duration-.001);
+    const renderAnalyser = fx.waveform ? analyserNode : null;
+    drawFrame(ctx, t, slideDur, transition, fx, renderAnalyser, duration);
+    progressBar.style.width = Math.min(100,(elapsed/duration)*100)+'%';
+    if(elapsed < duration && !audioEl.ended) requestAnimationFrame(drawLoop);
     else { recorder.stop(); audioEl.pause(); }
   }
   requestAnimationFrame(drawLoop);
   await finished;
 
-  progressBar.style.width='100%';
-  statusText.textContent='✅ Готово!';
-  const blob=new Blob(chunks,{type:'video/webm'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url; a.download='video-collage.webm';
-  a.innerHTML='⬇ Скачать видео (.webm)';
+  stopBtn.disabled = true;
+  renderBtn.disabled = false;
+
+  if(renderStopped){
+    progressBar.style.width = '0%';
+    statusText.textContent = '⛔ Рендеринг остановлен.';
+    ac.close();
+    startLivePreview();
+    return;
+  }
+
+  progressBar.style.width = '100%';
+  statusText.textContent = '✅ Готово!';
+  const blob = new Blob(chunks, {type:'video/webm'});
+  const url  = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'video-collage.webm';
+  a.innerHTML = '⬇ Скачать видео (.webm)';
   resultEl.appendChild(a);
 
   ac.close();
-  renderBtn.disabled=false;
   startLivePreview();
 });
 </script>
