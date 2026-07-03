@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Видео-коллаж</title>
+<style>
+:root{
+  --bg: #0a0c14;
+  --bg2: #0f1220;
+  --panel: rgba(255,255,255,0.055);
+  --panel-hover: rgba(255,255,255,0.08);
+  --border: rgba(255,255,255,0.10);
+  --accent: #6eb5ff;
+  --accent2: #a78bfa;
+  --accent3: #34d399;
+  --text: #eef2ff;
+  --text-dim: rgba(238,242,255,0.55);
+  --text-muted: rgba(238,242,255,0.35);
+  --danger: #f87171;
+  --input-bg: rgba(255,255,255,0.05);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px}
+body{
+  font-family:'Inter','Segoe UI',system-ui,sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height:100vh;
+  padding:28px 16px 70px;
+  line-height:1.5;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 10% 5%, rgba(110,181,255,0.13) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 90% 10%, rgba(167,139,250,0.13) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 50% 95%, rgba(52,211,153,0.08) 0%, transparent 55%);
+  background-attachment:fixed;
+}
+.wrap{max-width:900px;margin:0 auto}
+
+/* Header */
+.header{
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:28px;
+  padding-bottom:20px;
+  border-bottom:1px solid var(--border);
+}
+.header-icon{
+  width:44px;height:44px;border-radius:12px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;flex-shrink:0;
+  box-shadow:0 4px 16px rgba(110,181,255,0.3);
+}
+h1{font-size:24px;font-weight:700;letter-spacing:-.3px;line-height:1.2}
+h1 small{display:block;font-size:13px;font-weight:400;color:var(--text-dim);margin-top:2px;letter-spacing:0}
+
+/* Panels */
+.panel{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:16px;
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  box-shadow:0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+  transition:background .2s;
+}
+.panel:hover{background:var(--panel-hover)}
+.panel-header{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:14px;
+}
+.panel-num{
+  width:24px;height:24px;border-radius:7px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  font-size:12px;font-weight:700;color:#0a0c14;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.panel-title{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--accent)}
+
+/* Drop zones */
+.drop{
+  border:1.5px dashed rgba(255,255,255,0.20);
+  border-radius:12px;
+  padding:26px 20px;
+  text-align:center;
+  cursor:pointer;
+  transition:all .2s;
+  font-size:13px;
+  color:var(--text-dim);
+  background:rgba(255,255,255,0.02);
+  user-select:none;
+}
+.drop:hover,.drop.drag{
+  border-color:var(--accent);
+  background:rgba(110,181,255,0.07);
+  color:var(--text);
+}
+.drop-icon{font-size:26px;margin-bottom:8px;display:block}
+input[type=file]{display:none}
+.audio-info{margin-top:10px;font-size:12px;color:var(--text-dim)}
+audio{width:100%;margin-top:10px;border-radius:8px;height:36px}
+
+/* Thumbs */
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;margin-top:14px}
+.thumb{
+  position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;
+  border:1px solid var(--border);background:#000;cursor:grab;
+  transition:transform .15s,box-shadow .15s;
+}
+.thumb:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.4)}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb .num{
+  position:absolute;top:4px;left:4px;
+  background:rgba(10,12,20,0.7);backdrop-filter:blur(4px);
+  color:var(--accent);font-size:10px;font-weight:700;
+  padding:2px 6px;border-radius:5px;
+}
+.thumb .rm{
+  position:absolute;top:4px;right:4px;
+  background:rgba(10,12,20,0.7);backdrop-filter:blur(4px);
+  color:var(--text-dim);border:none;width:20px;height:20px;border-radius:5px;
+  cursor:pointer;font-size:12px;line-height:1;transition:all .15s;display:flex;align-items:center;justify-content:center;
+}
+.thumb .rm:hover{background:var(--danger);color:#fff}
+.thumb.dragging{opacity:.3;transform:scale(.95)}
+
+/* Controls grid */
+.ctrl-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+@media(max-width:600px){.ctrl-grid{grid-template-columns:1fr}}
+.ctrl-group{display:flex;flex-direction:column;gap:5px}
+.ctrl-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted)}
+select,textarea{
+  background:var(--input-bg);
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:8px 10px;
+  font-size:13px;
+  font-family:inherit;
+  width:100%;
+  transition:border-color .2s;
+}
+select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+select option{background:#12141f}
+textarea{resize:vertical;min-height:90px;line-height:1.6}
+
+/* FX checkboxes */
+.fx-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:7px;
+  margin-top:10px;
+}
+.fx-item{
+  display:flex;align-items:center;gap:9px;
+  padding:9px 12px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  background:var(--input-bg);
+  cursor:pointer;
+  transition:all .15s;
+  font-size:13px;
+  color:var(--text-dim);
+  user-select:none;
+}
+.fx-item:hover{border-color:var(--accent);color:var(--text);background:rgba(110,181,255,0.06)}
+.fx-item input[type=checkbox]{
+  width:15px;height:15px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;
+}
+.fx-icon{font-size:16px;flex-shrink:0}
+
+/* Waveform position select */
+.wf-options{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.wf-opt{
+  padding:5px 12px;border:1px solid var(--border);border-radius:7px;
+  font-size:12px;cursor:pointer;background:var(--input-bg);color:var(--text-dim);
+  transition:all .15s;
+}
+.wf-opt.active{border-color:var(--accent);background:rgba(110,181,255,0.10);color:var(--accent)}
+
+/* Text editor */
+.text-blocks{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.text-block{
+  display:flex;gap:8px;align-items:flex-start;
+}
+.text-block textarea{min-height:60px}
+.text-block .block-num{
+  flex-shrink:0;width:24px;height:24px;margin-top:8px;
+  border-radius:6px;background:rgba(110,181,255,0.12);
+  color:var(--accent);font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+.text-block .rm-block{
+  flex-shrink:0;width:28px;height:28px;margin-top:6px;
+  background:rgba(255,255,255,0.05);border:1px solid var(--border);
+  color:var(--text-dim);border-radius:7px;cursor:pointer;
+  font-size:13px;display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
+}
+.text-block .rm-block:hover{background:var(--danger);color:#fff;border-color:var(--danger)}
+.add-block{
+  display:flex;align-items:center;gap:7px;
+  padding:8px 14px;border:1px dashed rgba(255,255,255,0.15);
+  border-radius:9px;background:transparent;color:var(--text-dim);
+  cursor:pointer;font-size:13px;font-family:inherit;
+  transition:all .2s;width:100%;justify-content:center;
+}
+.add-block:hover{border-color:var(--accent3);color:var(--accent3)}
+
+/* Text style controls */
+.text-style-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.text-style-row label{font-size:12px;color:var(--text-dim);display:flex;align-items:center;gap:6px}
+.color-swatch{
+  display:flex;gap:5px;align-items:center;
+}
+.swatch{
+  width:20px;height:20px;border-radius:50%;cursor:pointer;border:2px solid transparent;
+  transition:border-color .15s,transform .15s;flex-shrink:0;
+}
+.swatch.active{border-color:var(--text);transform:scale(1.15)}
+input[type=range].small{width:90px;height:4px;accent-color:var(--accent)}
+
+/* Canvas */
+canvas#previewCanvas{
+  width:100%;max-width:100%;aspect-ratio:16/9;
+  background:#000;border-radius:12px;
+  border:1px solid var(--border);display:block;
+  box-shadow:0 8px 40px rgba(0,0,0,0.5);
+}
+
+/* Progress */
+.progress-wrap{
+  margin-top:14px;height:6px;background:rgba(255,255,255,0.05);
+  border-radius:10px;overflow:hidden;border:1px solid var(--border);
+}
+.progress-bar{
+  height:100%;width:0%;transition:width .15s linear;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  box-shadow:0 0 10px var(--accent);
+}
+.status{font-size:12px;color:var(--text-dim);margin-top:8px;text-align:center;min-height:16px}
+
+/* Result */
+.result{margin-top:14px;text-align:center}
+.result a{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--text);text-decoration:none;
+  border:1px solid rgba(52,211,153,0.4);
+  background:rgba(52,211,153,0.10);
+  padding:11px 24px;border-radius:10px;
+  font-size:14px;font-weight:600;
+  backdrop-filter:blur(6px);
+  transition:all .2s;
+}
+.result a:hover{background:rgba(52,211,153,0.18);transform:translateY(-1px)}
+
+/* Main button */
+.btn-render{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#08090f;border:none;
+  padding:14px 36px;font-size:14px;font-weight:700;
+  letter-spacing:.5px;border-radius:12px;cursor:pointer;
+  transition:filter .2s,transform .15s,box-shadow .2s;
+  box-shadow:0 6px 24px rgba(110,181,255,0.3);
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-render:hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 10px 30px rgba(110,181,255,0.4)}
+.btn-render:disabled{background:rgba(255,255,255,0.08);color:var(--text-muted);cursor:not-allowed;box-shadow:none;transform:none}
+
+.hint{font-size:11.5px;color:var(--text-muted);margin-top:10px;line-height:1.65}
+.sep{border:none;border-top:1px solid var(--border);margin:14px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="header">
+  <div class="header-icon">🎬</div>
+  <h1>Видео-коллаж <small>Фото + Аудио → Видео · в браузере, без сервера</small></h1>
+</div>
+
+<!-- 1. AUDIO -->
+<div class="panel">
+  <div class="panel-header"><div class="panel-num">1</div><div class="panel-title">Аудио</div></div>
+  <div class="drop" id="audioDrop"><span class="drop-icon">🎵</span>Нажмите или перетащите аудиофайл<br><span style="font-size:11px;opacity:.6">mp3 · wav · m4a · ogg · flac</span></div>
+  <input type="file" id="audioInput" accept="audio/*">
+  <div class="audio-info" id="audioInfo"></div>
+  <audio id="audioPreview" controls style="display:none"></audio>
+</div>
+
+<!-- 2. IMAGES -->
+<div class="panel">
+  <div class="panel-header"><div class="panel-num">2</div><div class="panel-title">Изображения</div></div>
+  <div class="drop" id="imgDrop"><span class="drop-icon">🖼</span>Нажмите или перетащите изображения<br><span style="font-size:11px;opacity:.6">jpg · png · webp · gif — можно несколько</span></div>
+  <input type="file" id="imgInput" accept="image/*" multiple>
+  <div class="thumbs" id="thumbs"></div>
+  <div class="hint" style="margin-top:10px">Перетаскивайте миниатюры мышью, чтобы изменить порядок.</div>
+</div>
+
+<!-- 3. SETTINGS -->
+<div class="panel">
+  <div class="panel-header"><div class="panel-num">3</div><div class="panel-title">Переходы и качество</div></div>
+  <div class="ctrl-grid">
+    <div class="ctrl-group">
+      <div class="ctrl-label">Эффект перехода</div>
+      <select id="transitionSelect">
+        <option value="fade">Плавное затухание</option>
+        <option value="slide">Сдвиг влево</option>
+        <option value="zoom">Ken Burns (приближение)</option>
+        <option value="none">Без перехода</option>
+      </select>
+    </div>
+    <div class="ctrl-group">
+      <div class="ctrl-label">Качество</div>
+      <select id="qualitySelect">
+        <option value="2500000">Среднее (2.5 Mbps)</option>
+        <option value="5000000" selected>Высокое (5 Mbps)</option>
+        <option value="8000000">Очень высокое (8 Mbps)</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- 4. LIVE FX -->
+<div class="panel">
+  <div class="panel-header"><div class="panel-num">4</div><div class="panel-title">Живые эффекты</div></div>
+  <div class="fx-grid">
+    <label class="fx-item"><input type="checkbox" id="fxBreathing"><span class="fx-icon">🫁</span>Дыхание (пульс масштаба)</label>
+    <label class="fx-item"><input type="checkbox" id="fxDrift"><span class="fx-icon">🌊</span>Лёгкий дрейф камеры</label>
+    <label class="fx-item"><input type="checkbox" id="fxGrain"><span class="fx-icon">📽</span>Плёночное зерно</label>
+    <label class="fx-item"><input type="checkbox" id="fxFlicker"><span class="fx-icon">🕯</span>Мерцание света</label>
+    <label class="fx-item"><input type="checkbox" id="fxParticles"><span class="fx-icon">✨</span>Парящие частицы</label>
+  </div>
+</div>
+
+<!-- 5. WAVEFORM -->
+<div class="panel">
+  <div class="panel-header"><div class="panel-num">5</div><div class="panel-title">Волноформа на видео</div></div>
+  <label class="fx-item" style="display:inline-flex;width:auto">
+    <input type="checkbox" id="fxWaveform">
+    <span class="fx-icon">〰️</span>Показывать живую волноформу
+  </label>
+  <div id="waveformOptions" style="display:none;margin-top:12px">
+    <div class="ctrl-label" style="margin-bottom:6px">Стиль</div>
+    <div style="display:flex;gap:8px;margin-bottom:10px">
+      <label class="fx-item" style="flex:1"><input type="radio" name="wfStyle" value="bars" checked> Bars</label>
+      <label class="fx-item" style="flex:1"><input type="radio" name="wfStyle" value="wave"> Wave</label>
+    </div>
+    <div class="ctrl-label" style="margin-bottom:6px">Позиция</div>
+    <div class="wf-options" id="wfPosOptions">
+      <div class="wf-opt active" data-pos="bottom-left">↙ Низ-лево</div>
+      <div class="wf-opt" data-pos="bottom-right">↘ Низ-право</div>
+      <div class="wf-opt" data-pos="bottom-center">↓ Низ-центр</div>
+      <div class="wf-opt" data-pos="top-left">↖ Верх-лево</div>
+    </div>
+  </div>
+</div>
+
+<!-- 6. TEXT BLOCKS -->
+<div class="panel">
+  <div class="panel-header"><div class="panel-num">6</div><div class="panel-title">Динамический текст</div></div>
+  <label class="fx-item" style="display:inline-flex;width:auto;margin-bottom:12px">
+    <input type="checkbox" id="fxText">
+    <span class="fx-icon">📖</span>Показывать текстовые блоки на видео
+  </label>
+  <div id="textOptions" style="display:none">
+    <div class="text-blocks" id="textBlocks"></div>
+    <button class="add-block" id="addBlockBtn">＋ Добавить блок текста</button>
+    <hr class="sep">
+    <div class="text-style-row">
+      <label>Размер текста:
+        <input type="range" class="small" id="textSize" min="18" max="72" value="36">
+        <span id="textSizeVal">36</span>px
+      </label>
+      <label>Тень:
+        <input type="checkbox" id="textShadow" checked>
+      </label>
+      <label>Позиция:
+        <select id="textPos" style="width:auto;padding:5px 8px">
+          <option value="bottom">Низ</option>
+          <option value="center">Центр</option>
+          <option value="top">Верх</option>
+        </select>
+      </label>
+      <label>Цвет:
+        <div class="color-swatch">
+          <div class="swatch active" style="background:#ffffff" data-color="#ffffff"></div>
+          <div class="swatch" style="background:#ffe58a" data-color="#ffe58a"></div>
+          <div class="swatch" style="background:#a0d8ff" data-color="#a0d8ff"></div>
+          <div class="swatch" style="background:#c8f5c5" data-color="#c8f5c5"></div>
+          <div class="swatch" style="background:#ffb3b3" data-color="#ffb3b3"></div>
+        </div>
+      </label>
+    </div>
+    <div class="hint">Блоки автоматически распределяются по времени всего видео. Каждый блок плавно появляется и исчезает.</div>
+  </div>
+</div>
+
+<!-- 7. RENDER -->
+<div class="panel">
+  <div class="panel-header"><div class="panel-num">7</div><div class="panel-title">Создание видео</div></div>
+  <canvas id="previewCanvas" width="1280" height="720"></canvas>
+  <div style="text-align:center;margin-top:18px">
+    <button class="btn-render" id="renderBtn" disabled>▶ Создать видео</button>
+  </div>
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="status" id="statusText">Загрузите аудио и хотя бы одно изображение.</div>
+  <div class="result" id="result"></div>
+  <div class="hint" style="margin-top:14px">
+    Всё происходит в браузере — Canvas + MediaRecorder. Результат: файл <b>.webm</b> (VP9/Opus).
+    Для конвертации в MP4 можно использовать VLC или Handbrake.
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+// ─── DOM refs ────────────────────────────────────────────────────────────────
+const audioInput    = document.getElementById('audioInput');
+const audioDrop     = document.getElementById('audioDrop');
+const audioInfo     = document.getElementById('audioInfo');
+const audioPreview  = document.getElementById('audioPreview');
+const imgInput      = document.getElementById('imgInput');
+const imgDrop       = document.getElementById('imgDrop');
+const thumbsEl      = document.getElementById('thumbs');
+const transitionSelect = document.getElementById('transitionSelect');
+const qualitySelect = document.getElementById('qualitySelect');
+const renderBtn     = document.getElementById('renderBtn');
+const previewCanvas = document.getElementById('previewCanvas');
+const ctx           = previewCanvas.getContext('2d');
+const progressBar   = document.getElementById('progressBar');
+const statusText    = document.getElementById('statusText');
+const resultEl      = document.getElementById('result');
+
+// ─── State ────────────────────────────────────────────────────────────────────
+let audioBuffer = null;
+let images = [];
+let dragSrcIndex = null;
+let previewRAF = null;
+let liveAnalyser = null;   // for preview waveform
+let liveAudioCtx = null;
+let liveSource = null;
+let previewAudioEl = null;
+
+// ─── WAVEFORM controls ───────────────────────────────────────────────────────
+const fxWaveform = document.getElementById('fxWaveform');
+const waveformOptions = document.getElementById('waveformOptions');
+let wfPos = 'bottom-left';
+
+fxWaveform.addEventListener('change', () => {
+  waveformOptions.style.display = fxWaveform.checked ? 'block' : 'none';
+  if(fxWaveform.checked) setupLiveAnalyser();
+  else teardownLiveAnalyser();
+});
+
+document.querySelectorAll('.wf-opt').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('.wf-opt').forEach(o => o.classList.remove('active'));
+    el.classList.add('active');
+    wfPos = el.dataset.pos;
+  });
+});
+
+function setupLiveAnalyser(){
+  teardownLiveAnalyser();
+  if(!audioPreview.src) return;
+  try{
+    liveAudioCtx = new (window.AudioContext||window.webkitAudioContext)();
+    liveAnalyser = liveAudioCtx.createAnalyser();
+    liveAnalyser.fftSize = 256;
+    previewAudioEl = audioPreview;
+    liveSource = liveAudioCtx.createMediaElementSource(audioPreview);
+    liveSource.connect(liveAnalyser);
+    liveAnalyser.connect(liveAudioCtx.destination);
+  } catch(e){ liveAnalyser = null; }
+}
+function teardownLiveAnalyser(){
+  if(liveSource){ try{ liveSource.disconnect(); } catch(e){} liveSource = null; }
+  if(liveAudioCtx){ try{ liveAudioCtx.close(); } catch(e){} liveAudioCtx = null; }
+  liveAnalyser = null;
+}
+
+// ─── TEXT BLOCKS controls ────────────────────────────────────────────────────
+const fxText        = document.getElementById('fxText');
+const textOptions   = document.getElementById('textOptions');
+const textBlocksEl  = document.getElementById('textBlocks');
+const addBlockBtn   = document.getElementById('addBlockBtn');
+const textSizeSlider= document.getElementById('textSize');
+const textSizeVal   = document.getElementById('textSizeVal');
+const textShadowChk = document.getElementById('textShadow');
+const textPosSelect = document.getElementById('textPos');
+let textColor = '#ffffff';
+let textBlocks = []; // {text}
+
+fxText.addEventListener('change', () => {
+  textOptions.style.display = fxText.checked ? 'block' : 'none';
+  if(fxText.checked && textBlocks.length === 0) addTextBlock();
+});
+addBlockBtn.addEventListener('click', addTextBlock);
+textSizeSlider.addEventListener('input', () => textSizeVal.textContent = textSizeSlider.value);
+document.querySelectorAll('.swatch').forEach(s => {
+  s.addEventListener('click', () => {
+    document.querySelectorAll('.swatch').forEach(o => o.classList.remove('active'));
+    s.classList.add('active');
+    textColor = s.dataset.color;
+  });
+});
+
+function addTextBlock(text=''){
+  textBlocks.push({text});
+  renderTextBlocks();
+}
+function renderTextBlocks(){
+  textBlocksEl.innerHTML = '';
+  textBlocks.forEach((block, i) => {
+    const row = document.createElement('div');
+    row.className = 'text-block';
+
+    const num = document.createElement('div');
+    num.className = 'block-num';
+    num.textContent = i+1;
+
+    const ta = document.createElement('textarea');
+    ta.placeholder = `Блок ${i+1}: введите текст (стих, цитата, строфа...)`;
+    ta.value = block.text;
+    ta.addEventListener('input', () => { textBlocks[i].text = ta.value; });
+
+    const rm = document.createElement('button');
+    rm.className = 'rm-block';
+    rm.textContent = '✕';
+    rm.title = 'Удалить блок';
+    rm.onclick = () => { textBlocks.splice(i,1); renderTextBlocks(); };
+
+    row.appendChild(num);
+    row.appendChild(ta);
+    row.appendChild(rm);
+    textBlocksEl.appendChild(row);
+  });
+}
+
+// ─── Audio ───────────────────────────────────────────────────────────────────
+function setupDrop(zone, input, handler){
+  zone.addEventListener('click', () => input.click());
+  ['dragover','dragleave','drop'].forEach(ev => {
+    zone.addEventListener(ev, e => {
+      e.preventDefault();
+      if(ev==='dragover') zone.classList.add('drag');
+      else zone.classList.remove('drag');
+    });
+  });
+  zone.addEventListener('drop', e => { if(e.dataTransfer.files.length) handler(e.dataTransfer.files); });
+  input.addEventListener('change', e => { if(e.target.files.length) handler(e.target.files); });
+}
+
+setupDrop(audioDrop, audioInput, files => handleAudioFile(files[0]));
+setupDrop(imgDrop,   imgInput,   files => handleImageFiles(files));
+
+async function handleAudioFile(file){
+  const url = URL.createObjectURL(file);
+  audioPreview.src = url;
+  audioPreview.style.display = 'block';
+
+  const buf = await file.arrayBuffer();
+  const ac  = new (window.AudioContext||window.webkitAudioContext)();
+  audioBuffer = await ac.decodeAudioData(buf);
+  ac.close();
+
+  audioInfo.textContent = `${file.name}  ·  ${formatTime(audioBuffer.duration)}`;
+  if(fxWaveform.checked) setupLiveAnalyser();
+  checkReady();
+}
+
+// ─── Images ──────────────────────────────────────────────────────────────────
+function handleImageFiles(fileList){
+  for(const file of fileList){
+    if(!file.type.startsWith('image/')) continue;
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.src = url;
+    images.push({file, img, url});
+    img.onload = () => renderThumbs();
+  }
+  renderThumbs();
+  checkReady();
+}
+
+function renderThumbs(){
+  thumbsEl.innerHTML = '';
+  images.forEach((entry, idx) => {
+    const div = document.createElement('div');
+    div.className = 'thumb';
+    div.draggable = true;
+
+    const im = document.createElement('img');
+    im.src = entry.url;
+    div.appendChild(im);
+
+    const num = document.createElement('div');
+    num.className = 'num';
+    num.textContent = idx+1;
+    div.appendChild(num);
+
+    const rm = document.createElement('button');
+    rm.className = 'rm';
+    rm.innerHTML = '✕';
+    rm.onclick = e => { e.stopPropagation(); images.splice(idx,1); renderThumbs(); checkReady(); };
+    div.appendChild(rm);
+
+    div.addEventListener('dragstart', () => { dragSrcIndex=idx; div.classList.add('dragging'); });
+    div.addEventListener('dragend',   () => div.classList.remove('dragging'));
+    div.addEventListener('dragover',  e => e.preventDefault());
+    div.addEventListener('drop', e => {
+      e.preventDefault();
+      if(dragSrcIndex===null||dragSrcIndex===idx) return;
+      const moved = images.splice(dragSrcIndex,1)[0];
+      images.splice(idx,0,moved);
+      renderThumbs();
+    });
+    thumbsEl.appendChild(div);
+  });
+  startLivePreview();
+}
+
+function checkReady(){
+  const ok = audioBuffer && images.length > 0;
+  renderBtn.disabled = !ok;
+  statusText.textContent = ok
+    ? `Готово к рендеру: ${images.length} изображ., аудио ${formatTime(audioBuffer.duration)}.`
+    : 'Загрузите аудио и хотя бы одно изображение.';
+}
+function formatTime(s){ return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}` }
+
+// ─── Canvas constants ─────────────────────────────────────────────────────────
+const W = previewCanvas.width;
+const H = previewCanvas.height;
+
+// ─── Particles ───────────────────────────────────────────────────────────────
+let particles = null;
+function initParticles(){
+  particles = [];
+  for(let i=0;i<60;i++) particles.push({
+    x:Math.random()*W, y:Math.random()*H,
+    r:1+Math.random()*2.5,
+    speedX:(Math.random()-.5)*8, speedY:-5-Math.random()*10,
+    alpha:.12+Math.random()*.3, phase:Math.random()*Math.PI*2
+  });
+}
+function drawParticles(c, t){
+  if(!particles) initParticles();
+  c.save();
+  for(const p of particles){
+    const x=((p.x+p.speedX*t)%(W+40)+(W+40))%(W+40)-20;
+    const y=((p.y+p.speedY*t)%(H+40)+(H+40))%(H+40)-20;
+    const fl=.7+.3*Math.sin(t*2+p.phase);
+    c.globalAlpha=p.alpha*fl;
+    c.fillStyle='#fff';
+    c.beginPath(); c.arc(x,y,p.r,0,Math.PI*2); c.fill();
+  }
+  c.restore();
+}
+
+// ─── Grain ───────────────────────────────────────────────────────────────────
+let grainCv=null, grainCx=null;
+function drawGrain(c){
+  if(!grainCv){ grainCv=document.createElement('canvas'); grainCv.width=W; grainCv.height=H; grainCx=grainCv.getContext('2d'); }
+  const id=grainCx.createImageData(W,H); const d=id.data;
+  for(let i=0;i<d.length;i+=4){ const v=Math.random()*255|0; d[i]=v; d[i+1]=v; d[i+2]=v; d[i+3]=20; }
+  grainCx.putImageData(id,0,0);
+  c.save(); c.globalAlpha=1; c.globalCompositeOperation='overlay'; c.drawImage(grainCv,0,0); c.restore();
+}
+
+// ─── Waveform on canvas ───────────────────────────────────────────────────────
+function drawWaveform(c, analyser, pos, style){
+  if(!analyser) return;
+  const bufLen = analyser.frequencyBinCount;
+  const data   = new Uint8Array(bufLen);
+  if(style==='bars'){ analyser.getByteFrequencyData(data); }
+  else              { analyser.getByteTimeDomainData(data); }
+
+  const ww=300, wh=64, pad=16;
+  let wx, wy;
+  if(pos==='bottom-left')  { wx=pad;      wy=H-wh-pad; }
+  if(pos==='bottom-right') { wx=W-ww-pad; wy=H-wh-pad; }
+  if(pos==='bottom-center'){ wx=(W-ww)/2; wy=H-wh-pad; }
+  if(pos==='top-left')     { wx=pad;      wy=pad; }
+
+  c.save();
+  if(style==='bars'){
+    const barW = 4;
+    const gap  = 2;
+    const count= Math.floor(ww/(barW+gap));
+    for(let i=0;i<count;i++){
+      const v = data[Math.floor(i*bufLen/count)]/255;
+      const bh = Math.max(3, v*wh);
+      const bx = wx + i*(barW+gap);
+      const by = wy + wh - bh;
+      const grad = c.createLinearGradient(bx,by,bx,by+bh);
+      grad.addColorStop(0,'rgba(110,181,255,0.95)');
+      grad.addColorStop(1,'rgba(167,139,250,0.70)');
+      c.fillStyle=grad;
+      c.shadowColor='#6eb5ff';
+      c.shadowBlur=8;
+      c.globalAlpha=0.9;
+      // rounded top
+      c.beginPath();
+      c.roundRect(bx,by,barW,bh,2);
+      c.fill();
+    }
+  } else {
+    c.beginPath();
+    const sliceW = ww/bufLen;
+    for(let i=0;i<bufLen;i++){
+      const v = data[i]/128;
+      const x = wx + i*sliceW;
+      const y = wy + wh/2 + (v-1)*(wh/2);
+      if(i===0) c.moveTo(x,y); else c.lineTo(x,y);
+    }
+    c.strokeStyle='rgba(110,181,255,0.95)';
+    c.lineWidth=2.5;
+    c.globalAlpha=1;
+    c.shadowColor='#6eb5ff';
+    c.shadowBlur=10;
+    c.lineJoin='round';
+    c.stroke();
+  }
+  c.restore();
+}
+
+// ─── Text overlay ─────────────────────────────────────────────────────────────
+function drawTextOverlay(c, t, duration, blocks, opts){
+  const active = blocks.filter(b => b.text.trim());
+  if(active.length===0) return;
+
+  const blockDur = duration / active.length;
+  const idx = Math.min(Math.floor(t/blockDur), active.length-1);
+  const localT = t - idx*blockDur;
+  const fadeDur = Math.min(0.7, blockDur*0.25);
+
+  let alpha;
+  if(localT < fadeDur)            alpha = localT/fadeDur;
+  else if(localT > blockDur-fadeDur) alpha = (blockDur-localT)/fadeDur;
+  else                             alpha = 1;
+  alpha = Math.max(0, Math.min(1, alpha));
+  if(alpha <= 0) return;
+
+  const text = active[idx].text.trim();
+  const lines = text.split('\n').filter(l=>l.trim());
+  const fontSize = parseInt(opts.size)||36;
+
+  const lineH = fontSize * 1.4;
+  const totalH = lines.length * lineH;
+
+  let baseY;
+  if(opts.pos==='center') baseY = H/2 - totalH/2 + lineH/2;
+  else if(opts.pos==='top') baseY = 80 + lineH/2;
+  else baseY = H - 80 - totalH + lineH/2;
+
+  c.save();
+  c.globalAlpha = alpha;
+  c.font = `${fontSize}px 'Georgia', 'Times New Roman', serif`;
+  c.textAlign = 'center';
+  c.textBaseline = 'middle';
+  c.fillStyle = opts.color || '#ffffff';
+
+  // draw each line with layered shadow for depth — no background needed
+  lines.forEach((line, i) => {
+    const y = baseY + i * lineH;
+    c.save();
+    // outer glow
+    c.shadowColor = 'rgba(0,0,0,1)';
+    c.shadowBlur = 24;
+    c.shadowOffsetX = 0;
+    c.shadowOffsetY = 0;
+    c.fillText(line, W/2, y);
+    // second pass: tighter shadow for crispness
+    c.shadowBlur = 10;
+    c.shadowOffsetX = 1;
+    c.shadowOffsetY = 2;
+    c.fillText(line, W/2, y);
+    // third pass: clean fill on top (no shadow)
+    c.shadowColor = 'transparent';
+    c.shadowBlur = 0;
+    c.shadowOffsetX = 0;
+    c.shadowOffsetY = 0;
+    c.fillText(line, W/2, y);
+    c.restore();
+  });
+  c.restore();
+}
+
+// ─── Draw image cover ─────────────────────────────────────────────────────────
+function drawImageCover(c, img, alpha, scale, ox, oy){
+  oy = oy||0;
+  const ir = img.naturalWidth/img.naturalHeight;
+  const cr = W/H;
+  let dw,dh;
+  if(ir>cr){ dh=H*scale; dw=dh*ir; } else { dw=W*scale; dh=dw/ir; }
+  c.save();
+  c.globalAlpha=alpha;
+  c.drawImage(img,(W-dw)/2+ox*W,(H-dh)/2+oy*H,dw,dh);
+  c.restore();
+}
+
+// ─── getFX ────────────────────────────────────────────────────────────────────
+function getFX(){
+  return {
+    breathing: document.getElementById('fxBreathing').checked,
+    drift:     document.getElementById('fxDrift').checked,
+    grain:     document.getElementById('fxGrain').checked,
+    flicker:   document.getElementById('fxFlicker').checked,
+    particles: document.getElementById('fxParticles').checked,
+    waveform:  fxWaveform.checked,
+    wfPos,
+    wfStyle:   document.querySelector('input[name=wfStyle]:checked')?.value || 'bars',
+    text:      fxText.checked,
+    textBlocks:[...textBlocks],
+    textOpts:{
+      size:   textSizeSlider.value,
+      pos:    textPosSelect.value,
+      color:  textColor,
+      shadow: textShadowChk.checked
+    }
+  };
+}
+
+// ─── Draw frame ───────────────────────────────────────────────────────────────
+function drawFrame(c, t, slideDur, transition, fx, analyser, totalDur){
+  c.fillStyle='#000'; c.fillRect(0,0,W,H);
+  const n=images.length; if(!n) return;
+
+  let idx=Math.floor(t/slideDur); idx=Math.max(0,Math.min(n-1,idx));
+  const localT=t-idx*slideDur;
+  const progress=Math.min(localT/slideDur,1);
+  const cur=images[idx].img;
+  const nxt=images[Math.min(idx+1,n-1)].img;
+  const hasNext=idx<n-1;
+  const tDur=Math.min(0.8,slideDur*0.3);
+
+  let bs=1, dx=0, dy=0;
+  if(fx.breathing) bs=1+0.012*Math.sin(t*0.6);
+  if(fx.drift)   { dx=0.012*Math.sin(t*0.25); dy=0.008*Math.cos(t*0.18); }
+  if(fx.flicker) c.filter=`brightness(${1+0.02*Math.sin(t*3.1)+0.01*Math.sin(t*7.7)})`;
+  else c.filter='none';
+
+  if(transition==='none'){
+    drawImageCover(c,cur,1,bs,dx,dy);
+  } else if(transition==='zoom'){
+    drawImageCover(c,cur,1,(1+0.08*progress)*bs,dx,dy);
+  } else if(transition==='fade'){
+    if(hasNext && localT>slideDur-tDur){
+      const fp=(localT-(slideDur-tDur))/tDur;
+      drawImageCover(c,cur,1,bs,dx,dy);
+      drawImageCover(c,nxt,fp,bs,dx,dy);
+    } else drawImageCover(c,cur,1,bs,dx,dy);
+  } else if(transition==='slide'){
+    if(hasNext && localT>slideDur-tDur){
+      const sp=(localT-(slideDur-tDur))/tDur;
+      drawImageCover(c,cur,1,bs,dx-sp,dy);
+      drawImageCover(c,nxt,1,bs,dx+1-sp,dy);
+    } else drawImageCover(c,cur,1,bs,dx,dy);
+  }
+
+  c.filter='none';
+
+  if(fx.particles) drawParticles(c,t);
+  if(fx.grain)     drawGrain(c);
+  if(fx.waveform)  drawWaveform(c, analyser, fx.wfPos, fx.wfStyle);
+  if(fx.text && fx.textBlocks && totalDur){
+    drawTextOverlay(c, t, totalDur, fx.textBlocks, fx.textOpts);
+  }
+}
+
+// ─── Live preview ─────────────────────────────────────────────────────────────
+function startLivePreview(){
+  if(previewRAF) cancelAnimationFrame(previewRAF);
+  if(!images.length) return;
+  const start=performance.now();
+  const slideDur=3;
+  const totalDur=slideDur*images.length;
+  function loop(){
+    const t=((performance.now()-start)/1000)%totalDur;
+    const fx=getFX();
+    const analyser=fx.waveform ? liveAnalyser : null;
+    drawFrame(ctx,t,slideDur,transitionSelect.value,fx,analyser,totalDur);
+    previewRAF=requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+// ─── Render ───────────────────────────────────────────────────────────────────
+renderBtn.addEventListener('click', async () => {
+  if(previewRAF) cancelAnimationFrame(previewRAF);
+  renderBtn.disabled=true;
+  resultEl.innerHTML='';
+  progressBar.style.width='0%';
+
+  const duration  = audioBuffer.duration;
+  const slideDur  = duration/images.length;
+  const transition= transitionSelect.value;
+  const bitrate   = parseInt(qualitySelect.value,10);
+  const fx        = getFX();
+
+  statusText.textContent='Подготовка аудио...';
+
+  // audio setup for render
+  const ac=new (window.AudioContext||window.webkitAudioContext)();
+  const audioEl=document.createElement('audio');
+  audioEl.src=audioPreview.src;
+  audioEl.crossOrigin='anonymous';
+  await new Promise(res=>{ audioEl.addEventListener('canplaythrough',res,{once:true}); audioEl.load(); });
+
+  const sourceNode=ac.createMediaElementSource(audioEl);
+  const analyserNode=ac.createAnalyser();
+  analyserNode.fftSize=256;
+  const dest=ac.createMediaStreamDestination();
+  sourceNode.connect(analyserNode);
+  analyserNode.connect(dest);
+
+  const combined=new MediaStream([...previewCanvas.captureStream(30).getVideoTracks(),...dest.stream.getAudioTracks()]);
+  let mime='video/webm;codecs=vp9,opus';
+  if(!MediaRecorder.isTypeSupported(mime)) mime='video/webm;codecs=vp8,opus';
+  if(!MediaRecorder.isTypeSupported(mime)) mime='video/webm';
+
+  const recorder=new MediaRecorder(combined,{mimeType:mime,videoBitsPerSecond:bitrate});
+  const chunks=[];
+  recorder.ondataavailable=e=>{ if(e.data.size>0) chunks.push(e.data); };
+  const finished=new Promise(res=>{ recorder.onstop=res; });
+
+  particles=null;
+  statusText.textContent='Рендеринг... не закрывайте страницу.';
+  recorder.start();
+  audioEl.currentTime=0;
+  await audioEl.play();
+
+  const startT=performance.now();
+  function drawLoop(){
+    const elapsed=(performance.now()-startT)/1000;
+    const t=Math.min(elapsed,duration-.001);
+    const renderAnalyser=fx.waveform ? analyserNode : null;
+    drawFrame(ctx,t,slideDur,transition,fx,renderAnalyser,duration);
+    progressBar.style.width=Math.min(100,(elapsed/duration)*100)+'%';
+    if(elapsed<duration&&!audioEl.ended) requestAnimationFrame(drawLoop);
+    else { recorder.stop(); audioEl.pause(); }
+  }
+  requestAnimationFrame(drawLoop);
+  await finished;
+
+  progressBar.style.width='100%';
+  statusText.textContent='✅ Готово!';
+  const blob=new Blob(chunks,{type:'video/webm'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download='video-collage.webm';
+  a.innerHTML='⬇ Скачать видео (.webm)';
+  resultEl.appendChild(a);
+
+  ac.close();
+  renderBtn.disabled=false;
+  startLivePreview();
+});
+</script>
+</body>
+</html>
