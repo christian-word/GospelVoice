@@ -341,6 +341,19 @@ canvas#previewCanvas{
     <label class="fx-item"><input type="checkbox" id="fxGrain"><span class="fx-icon">📽</span>Плёночное зерно</label>
     <label class="fx-item"><input type="checkbox" id="fxFlicker"><span class="fx-icon">🕯</span>Мерцание света</label>
     <label class="fx-item"><input type="checkbox" id="fxParticles"><span class="fx-icon">✨</span>Парящие частицы</label>
+    <label class="fx-item"><input type="checkbox" id="fxVignette" checked><span class="fx-icon">🔲</span>Виньетка</label>
+    <label class="fx-item"><input type="checkbox" id="fxLightLeak"><span class="fx-icon">🌅</span>Light leak (засветка)</label>
+    <label class="fx-item"><input type="checkbox" id="fxBokeh"><span class="fx-icon">🔮</span>Боке (расфокус)</label>
+  </div>
+  <hr class="sep">
+  <div class="ctrl-label" style="margin-bottom:8px">Цветовая градация</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <label class="fx-item" style="flex:1;min-width:120px"><input type="radio" name="grading" value="none" checked> Без градации</label>
+    <label class="fx-item" style="flex:1;min-width:120px"><input type="radio" name="grading" value="warm"> 🌇 Тёплый</label>
+    <label class="fx-item" style="flex:1;min-width:120px"><input type="radio" name="grading" value="cold"> 🌌 Холодный</label>
+    <label class="fx-item" style="flex:1;min-width:120px"><input type="radio" name="grading" value="sepia"> 📜 Сепия</label>
+    <label class="fx-item" style="flex:1;min-width:120px"><input type="radio" name="grading" value="teal"> 🎬 Teal-Orange</label>
+    <label class="fx-item" style="flex:1;min-width:120px"><input type="radio" name="grading" value="bw"> ⬛ Ч/Б</label>
   </div>
 </div>
 
@@ -427,44 +440,140 @@ canvas#previewCanvas{
 </div><!-- /wrap -->
 
 <script>
-// ─── DOM refs ────────────────────────────────────────────────────────────────
-const audioInput    = document.getElementById('audioInput');
+'use strict';
+// ─── DOM ─────────────────────────────────────────────────────────────────────
 const audioDrop     = document.getElementById('audioDrop');
+const audioInput    = document.getElementById('audioInput');
 const audioInfo     = document.getElementById('audioInfo');
 const audioPreview  = document.getElementById('audioPreview');
-const imgInput      = document.getElementById('imgInput');
 const imgDrop       = document.getElementById('imgDrop');
+const imgInput      = document.getElementById('imgInput');
 const thumbsEl      = document.getElementById('thumbs');
-const transitionSelect = document.getElementById('transitionSelect');
-const qualitySelect = document.getElementById('qualitySelect');
+const transitionSel = document.getElementById('transitionSelect');
+const qualitySel    = document.getElementById('qualitySelect');
 const renderBtn     = document.getElementById('renderBtn');
 const stopBtn       = document.getElementById('stopBtn');
-let renderStopped   = false;
 const previewCanvas = document.getElementById('previewCanvas');
 const ctx           = previewCanvas.getContext('2d');
 const progressBar   = document.getElementById('progressBar');
 const statusText    = document.getElementById('statusText');
 const resultEl      = document.getElementById('result');
+const fxWaveform    = document.getElementById('fxWaveform');
+const waveformOpts  = document.getElementById('waveformOptions');
+const fxText        = document.getElementById('fxText');
+const textOptsEl    = document.getElementById('textOptions');
+const textBlocksEl  = document.getElementById('textBlocks');
+const addBlockBtn   = document.getElementById('addBlockBtn');
+const textSizeSlider= document.getElementById('textSize');
+const textSizeVal   = document.getElementById('textSizeVal');
+const textShadowChk = document.getElementById('textShadow');
+const textPosSel    = document.getElementById('textPos');
 
-// ─── State ────────────────────────────────────────────────────────────────────
+// ─── State ───────────────────────────────────────────────────────────────────
 let audioBuffer = null;
-let images = [];
-let dragSrcIndex = null;
-let previewRAF = null;
-let liveAnalyser = null;   // for preview waveform
-let liveAudioCtx = null;
-let liveSource = null;
-let previewAudioEl = null;
+let images      = [];
+let dragSrcIdx  = null;
+let rafId       = null;
+let renderStop  = false;
+let wfPos       = 'bottom-left';
+let textColor   = '#ffffff';
+let textBlocks  = [];
+let liveAC = null, liveAnalyser = null, liveSource = null;
 
-// ─── WAVEFORM controls ───────────────────────────────────────────────────────
-const fxWaveform = document.getElementById('fxWaveform');
-const waveformOptions = document.getElementById('waveformOptions');
-let wfPos = 'bottom-left';
+const W = previewCanvas.width;   // 1280
+const H = previewCanvas.height;  // 720
 
+// offscreen canvas for grain composite
+const offCv = document.createElement('canvas');
+offCv.width = W; offCv.height = H;
+const offCx = offCv.getContext('2d');
+
+// ─── Utilities ───────────────────────────────────────────────────────────────
+function fmt(s){ return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'); }
+
+function setupDrop(zone, input, cb){
+  zone.addEventListener('click', () => input.click());
+  zone.addEventListener('dragover',  e => { e.preventDefault(); zone.classList.add('drag'); });
+  zone.addEventListener('dragleave', ()  => zone.classList.remove('drag'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault(); zone.classList.remove('drag');
+    if(e.dataTransfer.files.length) cb(e.dataTransfer.files);
+  });
+  input.addEventListener('change', e => { if(e.target.files.length) cb(e.target.files); });
+}
+
+// ─── Audio ───────────────────────────────────────────────────────────────────
+setupDrop(audioDrop, audioInput, files => loadAudio(files[0]));
+
+async function loadAudio(file){
+  const url = URL.createObjectURL(file);
+  audioPreview.src = url;
+  audioPreview.style.display = 'block';
+  const buf = await file.arrayBuffer();
+  const ac  = new AudioContext();
+  audioBuffer = await ac.decodeAudioData(buf);
+  ac.close();
+  audioInfo.textContent = file.name + '  ·  ' + fmt(audioBuffer.duration);
+  if(fxWaveform.checked) buildLiveAnalyser();
+  checkReady();
+}
+
+// ─── Images ──────────────────────────────────────────────────────────────────
+setupDrop(imgDrop, imgInput, files => loadImages(files));
+
+function loadImages(files){
+  for(const f of files){
+    if(!f.type.startsWith('image/')) continue;
+    const url = URL.createObjectURL(f);
+    const img = new Image();
+    img.src = url;
+    images.push({ img, url });
+    img.onload = renderThumbs;
+  }
+  renderThumbs();
+  checkReady();
+}
+
+function renderThumbs(){
+  thumbsEl.innerHTML = '';
+  images.forEach((entry, i) => {
+    const div = document.createElement('div');
+    div.className = 'thumb';
+    div.draggable = true;
+
+    const im  = document.createElement('img');   im.src = entry.url;
+    const num = document.createElement('div');   num.className = 'num'; num.textContent = i+1;
+    const rm  = document.createElement('button');rm.className = 'rm'; rm.textContent = '✕';
+    rm.onclick = e => { e.stopPropagation(); images.splice(i,1); renderThumbs(); checkReady(); };
+
+    div.append(im, num, rm);
+    div.addEventListener('dragstart', () => { dragSrcIdx = i; div.classList.add('dragging'); });
+    div.addEventListener('dragend',   () => div.classList.remove('dragging'));
+    div.addEventListener('dragover',  e  => e.preventDefault());
+    div.addEventListener('drop', e => {
+      e.preventDefault();
+      if(dragSrcIdx === null || dragSrcIdx === i) return;
+      const moved = images.splice(dragSrcIdx, 1)[0];
+      images.splice(i, 0, moved);
+      renderThumbs();
+    });
+    thumbsEl.appendChild(div);
+  });
+  startPreview();
+}
+
+function checkReady(){
+  const ok = !!(audioBuffer && images.length);
+  renderBtn.disabled = !ok;
+  statusText.textContent = ok
+    ? 'Готово: ' + images.length + ' изображ., аудио ' + fmt(audioBuffer.duration) + '.'
+    : 'Загрузите аудио и хотя бы одно изображение.';
+}
+
+// ─── Waveform UI ─────────────────────────────────────────────────────────────
 fxWaveform.addEventListener('change', () => {
-  waveformOptions.style.display = fxWaveform.checked ? 'block' : 'none';
-  if(fxWaveform.checked) setupLiveAnalyser();
-  else teardownLiveAnalyser();
+  waveformOpts.style.display = fxWaveform.checked ? 'block' : 'none';
+  fxWaveform.checked ? buildLiveAnalyser() : tearLiveAnalyser();
 });
 
 document.querySelectorAll('.wf-opt').forEach(el => {
@@ -475,43 +584,32 @@ document.querySelectorAll('.wf-opt').forEach(el => {
   });
 });
 
-function setupLiveAnalyser(){
-  teardownLiveAnalyser();
+function buildLiveAnalyser(){
+  tearLiveAnalyser();
   if(!audioPreview.src) return;
-  try{
-    liveAudioCtx = new (window.AudioContext||window.webkitAudioContext)();
-    liveAnalyser = liveAudioCtx.createAnalyser();
-    liveAnalyser.fftSize = 256;
-    previewAudioEl = audioPreview;
-    liveSource = liveAudioCtx.createMediaElementSource(audioPreview);
+  try {
+    liveAC = new AudioContext();
+    liveAnalyser = liveAC.createAnalyser();
+    liveAnalyser.fftSize = 512;
+    liveSource = liveAC.createMediaElementSource(audioPreview);
     liveSource.connect(liveAnalyser);
-    liveAnalyser.connect(liveAudioCtx.destination);
+    liveAnalyser.connect(liveAC.destination);
   } catch(e){ liveAnalyser = null; }
 }
-function teardownLiveAnalyser(){
-  if(liveSource){ try{ liveSource.disconnect(); } catch(e){} liveSource = null; }
-  if(liveAudioCtx){ try{ liveAudioCtx.close(); } catch(e){} liveAudioCtx = null; }
-  liveAnalyser = null;
+function tearLiveAnalyser(){
+  try { if(liveSource)   liveSource.disconnect();  } catch(e){}
+  try { if(liveAC)       liveAC.close();           } catch(e){}
+  liveAC = liveAnalyser = liveSource = null;
 }
 
-// ─── TEXT BLOCKS controls ────────────────────────────────────────────────────
-const fxText        = document.getElementById('fxText');
-const textOptions   = document.getElementById('textOptions');
-const textBlocksEl  = document.getElementById('textBlocks');
-const addBlockBtn   = document.getElementById('addBlockBtn');
-const textSizeSlider= document.getElementById('textSize');
-const textSizeVal   = document.getElementById('textSizeVal');
-const textShadowChk = document.getElementById('textShadow');
-const textPosSelect = document.getElementById('textPos');
-let textColor = '#ffffff';
-let textBlocks = []; // {text}
-
+// ─── Text blocks UI ──────────────────────────────────────────────────────────
 fxText.addEventListener('change', () => {
-  textOptions.style.display = fxText.checked ? 'block' : 'none';
-  if(fxText.checked && textBlocks.length === 0) addTextBlock();
+  textOptsEl.style.display = fxText.checked ? 'block' : 'none';
+  if(fxText.checked && textBlocks.length === 0) addBlock();
 });
-addBlockBtn.addEventListener('click', addTextBlock);
+addBlockBtn.addEventListener('click', () => addBlock());
 textSizeSlider.addEventListener('input', () => textSizeVal.textContent = textSizeSlider.value);
+
 document.querySelectorAll('.swatch').forEach(s => {
   s.addEventListener('click', () => {
     document.querySelectorAll('.swatch').forEach(o => o.classList.remove('active'));
@@ -520,302 +618,30 @@ document.querySelectorAll('.swatch').forEach(s => {
   });
 });
 
-function addTextBlock(text=''){
-  textBlocks.push({text});
-  renderTextBlocks();
+function addBlock(text){
+  textBlocks.push({ text: text || '' });
+  renderBlockUI();
 }
-function renderTextBlocks(){
+function renderBlockUI(){
   textBlocksEl.innerHTML = '';
-  textBlocks.forEach((block, i) => {
-    const row = document.createElement('div');
-    row.className = 'text-block';
-
-    const num = document.createElement('div');
-    num.className = 'block-num';
-    num.textContent = i+1;
-
-    const ta = document.createElement('textarea');
-    ta.placeholder = `Блок ${i+1}: введите текст (стих, цитата, строфа...)`;
-    ta.value = block.text;
-    ta.addEventListener('input', () => { textBlocks[i].text = ta.value; });
-
-    const rm = document.createElement('button');
-    rm.className = 'rm-block';
-    rm.textContent = '✕';
-    rm.title = 'Удалить блок';
-    rm.onclick = () => { textBlocks.splice(i,1); renderTextBlocks(); };
-
-    row.appendChild(num);
-    row.appendChild(ta);
-    row.appendChild(rm);
+  textBlocks.forEach((b, i) => {
+    const row = document.createElement('div');  row.className = 'text-block';
+    const num = document.createElement('div');  num.className = 'block-num'; num.textContent = i+1;
+    const ta  = document.createElement('textarea');
+    ta.placeholder = 'Блок ' + (i+1) + ': стих, цитата...';
+    ta.value = b.text;
+    ta.addEventListener('input', () => textBlocks[i].text = ta.value);
+    const rm = document.createElement('button'); rm.className = 'rm-block'; rm.textContent = '✕';
+    rm.onclick = () => { textBlocks.splice(i,1); renderBlockUI(); };
+    row.append(num, ta, rm);
     textBlocksEl.appendChild(row);
   });
 }
 
-// ─── Audio ───────────────────────────────────────────────────────────────────
-function setupDrop(zone, input, handler){
-  zone.addEventListener('click', () => input.click());
-  ['dragover','dragleave','drop'].forEach(ev => {
-    zone.addEventListener(ev, e => {
-      e.preventDefault();
-      if(ev==='dragover') zone.classList.add('drag');
-      else zone.classList.remove('drag');
-    });
-  });
-  zone.addEventListener('drop', e => { if(e.dataTransfer.files.length) handler(e.dataTransfer.files); });
-  input.addEventListener('change', e => { if(e.target.files.length) handler(e.target.files); });
-}
+// ─── Stop ────────────────────────────────────────────────────────────────────
+stopBtn.addEventListener('click', () => { renderStop = true; });
 
-setupDrop(audioDrop, audioInput, files => handleAudioFile(files[0]));
-setupDrop(imgDrop,   imgInput,   files => handleImageFiles(files));
-
-async function handleAudioFile(file){
-  const url = URL.createObjectURL(file);
-  audioPreview.src = url;
-  audioPreview.style.display = 'block';
-
-  const buf = await file.arrayBuffer();
-  const ac  = new (window.AudioContext||window.webkitAudioContext)();
-  audioBuffer = await ac.decodeAudioData(buf);
-  ac.close();
-
-  audioInfo.textContent = `${file.name}  ·  ${formatTime(audioBuffer.duration)}`;
-  if(fxWaveform.checked) setupLiveAnalyser();
-  checkReady();
-}
-
-// ─── Images ──────────────────────────────────────────────────────────────────
-function handleImageFiles(fileList){
-  for(const file of fileList){
-    if(!file.type.startsWith('image/')) continue;
-    const url = URL.createObjectURL(file);
-    const img = new Image();
-    img.src = url;
-    images.push({file, img, url});
-    img.onload = () => renderThumbs();
-  }
-  renderThumbs();
-  checkReady();
-}
-
-function renderThumbs(){
-  thumbsEl.innerHTML = '';
-  images.forEach((entry, idx) => {
-    const div = document.createElement('div');
-    div.className = 'thumb';
-    div.draggable = true;
-
-    const im = document.createElement('img');
-    im.src = entry.url;
-    div.appendChild(im);
-
-    const num = document.createElement('div');
-    num.className = 'num';
-    num.textContent = idx+1;
-    div.appendChild(num);
-
-    const rm = document.createElement('button');
-    rm.className = 'rm';
-    rm.innerHTML = '✕';
-    rm.onclick = e => { e.stopPropagation(); images.splice(idx,1); renderThumbs(); checkReady(); };
-    div.appendChild(rm);
-
-    div.addEventListener('dragstart', () => { dragSrcIndex=idx; div.classList.add('dragging'); });
-    div.addEventListener('dragend',   () => div.classList.remove('dragging'));
-    div.addEventListener('dragover',  e => e.preventDefault());
-    div.addEventListener('drop', e => {
-      e.preventDefault();
-      if(dragSrcIndex===null||dragSrcIndex===idx) return;
-      const moved = images.splice(dragSrcIndex,1)[0];
-      images.splice(idx,0,moved);
-      renderThumbs();
-    });
-    thumbsEl.appendChild(div);
-  });
-  startLivePreview();
-}
-
-function checkReady(){
-  const ok = audioBuffer && images.length > 0;
-  renderBtn.disabled = !ok;
-  statusText.textContent = ok
-    ? `Готово к рендеру: ${images.length} изображ., аудио ${formatTime(audioBuffer.duration)}.`
-    : 'Загрузите аудио и хотя бы одно изображение.';
-}
-function formatTime(s){ return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}` }
-
-// ─── Canvas constants ─────────────────────────────────────────────────────────
-const W = previewCanvas.width;
-const H = previewCanvas.height;
-
-// ─── Particles ───────────────────────────────────────────────────────────────
-let particles = null;
-function initParticles(){
-  particles = [];
-  for(let i=0;i<60;i++) particles.push({
-    x:Math.random()*W, y:Math.random()*H,
-    r:1+Math.random()*2.5,
-    speedX:(Math.random()-.5)*8, speedY:-5-Math.random()*10,
-    alpha:.12+Math.random()*.3, phase:Math.random()*Math.PI*2
-  });
-}
-function drawParticles(c, t){
-  if(!particles) initParticles();
-  c.save();
-  for(const p of particles){
-    const x=((p.x+p.speedX*t)%(W+40)+(W+40))%(W+40)-20;
-    const y=((p.y+p.speedY*t)%(H+40)+(H+40))%(H+40)-20;
-    const fl=.7+.3*Math.sin(t*2+p.phase);
-    c.globalAlpha=p.alpha*fl;
-    c.fillStyle='#fff';
-    c.beginPath(); c.arc(x,y,p.r,0,Math.PI*2); c.fill();
-  }
-  c.restore();
-}
-
-// ─── Grain ───────────────────────────────────────────────────────────────────
-let grainCv=null, grainCx=null;
-function drawGrain(c){
-  if(!grainCv){ grainCv=document.createElement('canvas'); grainCv.width=W; grainCv.height=H; grainCx=grainCv.getContext('2d'); }
-  const id=grainCx.createImageData(W,H); const d=id.data;
-  for(let i=0;i<d.length;i+=4){ const v=Math.random()*255|0; d[i]=v; d[i+1]=v; d[i+2]=v; d[i+3]=20; }
-  grainCx.putImageData(id,0,0);
-  c.save(); c.globalAlpha=1; c.globalCompositeOperation='overlay'; c.drawImage(grainCv,0,0); c.restore();
-}
-
-// ─── Waveform on canvas ───────────────────────────────────────────────────────
-function drawWaveform(c, analyser, pos, style){
-  if(!analyser) return;
-  const bufLen = analyser.frequencyBinCount;
-  const data   = new Uint8Array(bufLen);
-  if(style==='bars'){ analyser.getByteFrequencyData(data); }
-  else              { analyser.getByteTimeDomainData(data); }
-
-  const ww=300, wh=64, pad=16;
-  let wx, wy;
-  if(pos==='bottom-left')  { wx=pad;      wy=H-wh-pad; }
-  if(pos==='bottom-right') { wx=W-ww-pad; wy=H-wh-pad; }
-  if(pos==='bottom-center'){ wx=(W-ww)/2; wy=H-wh-pad; }
-  if(pos==='top-left')     { wx=pad;      wy=pad; }
-
-  c.save();
-  if(style==='bars'){
-    const barW = 4;
-    const gap  = 2;
-    const count= Math.floor(ww/(barW+gap));
-    for(let i=0;i<count;i++){
-      const v = data[Math.floor(i*bufLen/count)]/255;
-      const bh = Math.max(3, v*wh);
-      const bx = wx + i*(barW+gap);
-      const by = wy + wh - bh;
-      const grad = c.createLinearGradient(bx,by,bx,by+bh);
-      grad.addColorStop(0,'rgba(110,181,255,0.95)');
-      grad.addColorStop(1,'rgba(167,139,250,0.70)');
-      c.fillStyle=grad;
-      c.shadowColor='#6eb5ff';
-      c.shadowBlur=8;
-      c.globalAlpha=0.9;
-      // rounded top
-      c.beginPath();
-      c.roundRect(bx,by,barW,bh,2);
-      c.fill();
-    }
-  } else {
-    c.beginPath();
-    const sliceW = ww/bufLen;
-    for(let i=0;i<bufLen;i++){
-      const v = data[i]/128;
-      const x = wx + i*sliceW;
-      const y = wy + wh/2 + (v-1)*(wh/2);
-      if(i===0) c.moveTo(x,y); else c.lineTo(x,y);
-    }
-    c.strokeStyle='rgba(110,181,255,0.95)';
-    c.lineWidth=2.5;
-    c.globalAlpha=1;
-    c.shadowColor='#6eb5ff';
-    c.shadowBlur=10;
-    c.lineJoin='round';
-    c.stroke();
-  }
-  c.restore();
-}
-
-// ─── Text overlay ─────────────────────────────────────────────────────────────
-function drawTextOverlay(c, t, duration, blocks, opts){
-  const active = blocks.filter(b => b.text.trim());
-  if(active.length===0) return;
-
-  const blockDur = duration / active.length;
-  const idx = Math.min(Math.floor(t/blockDur), active.length-1);
-  const localT = t - idx*blockDur;
-  const fadeDur = Math.min(0.7, blockDur*0.25);
-
-  let alpha;
-  if(localT < fadeDur)            alpha = localT/fadeDur;
-  else if(localT > blockDur-fadeDur) alpha = (blockDur-localT)/fadeDur;
-  else                             alpha = 1;
-  alpha = Math.max(0, Math.min(1, alpha));
-  if(alpha <= 0) return;
-
-  const text = active[idx].text.trim();
-  const lines = text.split('\n').filter(l=>l.trim());
-  const fontSize = parseInt(opts.size)||36;
-
-  const lineH = fontSize * 1.4;
-  const totalH = lines.length * lineH;
-
-  let baseY;
-  if(opts.pos==='center') baseY = H/2 - totalH/2 + lineH/2;
-  else if(opts.pos==='top') baseY = 80 + lineH/2;
-  else baseY = H - 80 - totalH + lineH/2;
-
-  c.save();
-  c.globalAlpha = alpha;
-  c.font = `${fontSize}px 'Georgia', 'Times New Roman', serif`;
-  c.textAlign = 'center';
-  c.textBaseline = 'middle';
-  c.fillStyle = opts.color || '#ffffff';
-
-  // draw each line with layered shadow for depth — no background needed
-  lines.forEach((line, i) => {
-    const y = baseY + i * lineH;
-    c.save();
-    // outer glow
-    c.shadowColor = 'rgba(0,0,0,1)';
-    c.shadowBlur = 24;
-    c.shadowOffsetX = 0;
-    c.shadowOffsetY = 0;
-    c.fillText(line, W/2, y);
-    // second pass: tighter shadow for crispness
-    c.shadowBlur = 10;
-    c.shadowOffsetX = 1;
-    c.shadowOffsetY = 2;
-    c.fillText(line, W/2, y);
-    // third pass: clean fill on top (no shadow)
-    c.shadowColor = 'transparent';
-    c.shadowBlur = 0;
-    c.shadowOffsetX = 0;
-    c.shadowOffsetY = 0;
-    c.fillText(line, W/2, y);
-    c.restore();
-  });
-  c.restore();
-}
-
-// ─── Draw image cover ─────────────────────────────────────────────────────────
-function drawImageCover(c, img, alpha, scale, ox, oy){
-  oy = oy||0;
-  const ir = img.naturalWidth/img.naturalHeight;
-  const cr = W/H;
-  let dw,dh;
-  if(ir>cr){ dh=H*scale; dw=dh*ir; } else { dw=W*scale; dh=dw/ir; }
-  c.save();
-  c.globalAlpha=alpha;
-  c.drawImage(img,(W-dw)/2+ox*W,(H-dh)/2+oy*H,dw,dh);
-  c.restore();
-}
-
-// ─── getFX ────────────────────────────────────────────────────────────────────
+// ─── getFX ───────────────────────────────────────────────────────────────────
 function getFX(){
   return {
     breathing: document.getElementById('fxBreathing').checked,
@@ -823,172 +649,471 @@ function getFX(){
     grain:     document.getElementById('fxGrain').checked,
     flicker:   document.getElementById('fxFlicker').checked,
     particles: document.getElementById('fxParticles').checked,
+    vignette:  document.getElementById('fxVignette').checked,
+    lightLeak: document.getElementById('fxLightLeak').checked,
+    bokeh:     document.getElementById('fxBokeh').checked,
+    grading:   (document.querySelector('input[name=grading]:checked') || {value:'none'}).value,
     waveform:  fxWaveform.checked,
-    wfPos,
-    wfStyle:   document.querySelector('input[name=wfStyle]:checked')?.value || 'bars',
+    wfPos:     wfPos,
+    wfStyle:   (document.querySelector('input[name=wfStyle]:checked') || {value:'bars'}).value,
     text:      fxText.checked,
-    textBlocks:[...textBlocks],
+    textBlocks: textBlocks.map(b => ({ text: b.text })),
     textOpts:{
-      size:   textSizeSlider.value,
-      pos:    textPosSelect.value,
+      size:   parseInt(textSizeSlider.value) || 22,
+      pos:    textPosSel.value,
       color:  textColor,
       shadow: textShadowChk.checked
     }
   };
 }
 
-// ─── Draw frame ───────────────────────────────────────────────────────────────
+// ═════════════════════════════════════════════════════════════════════════════
+//  DRAW PRIMITIVES  — every function uses save/restore, no state leaks
+// ═════════════════════════════════════════════════════════════════════════════
+
+// ── Cover image ──────────────────────────────────────────────────────────────
+function drawCover(c, img, alpha, scale, ox, oy){
+  const ir = img.naturalWidth / img.naturalHeight;
+  const cr = W / H;
+  let dw, dh;
+  if(ir > cr){ dh = H * scale; dw = dh * ir; }
+  else        { dw = W * scale; dh = dw / ir; }
+  c.save();
+  c.globalAlpha = alpha;
+  c.drawImage(img, (W-dw)/2 + ox*W, (H-dh)/2 + oy*H, dw, dh);
+  c.restore();
+}
+
+// ── Color grading ────────────────────────────────────────────────────────────
+function drawGrading(c, grade){
+  if(!grade || grade === 'none') return;
+  c.save();
+  if(grade === 'bw'){
+    // desaturate via luminosity
+    c.globalCompositeOperation = 'saturation';
+    c.globalAlpha = 1;
+    c.fillStyle = 'hsl(0,0%,50%)';
+    c.fillRect(0,0,W,H);
+    c.restore();
+    // add slight warm tint back
+    c.save();
+    c.globalCompositeOperation = 'multiply';
+    c.globalAlpha = 0.18;
+    c.fillStyle = '#d4b896';
+    c.fillRect(0,0,W,H);
+  } else {
+    c.globalCompositeOperation = 'multiply';
+    let g;
+    if(grade === 'warm'){
+      g = c.createLinearGradient(0,0,W,H);
+      g.addColorStop(0,'rgba(255,195,110,0.28)');
+      g.addColorStop(1,'rgba(255,155,70,0.22)');
+    } else if(grade === 'cold'){
+      g = c.createLinearGradient(0,0,W,H);
+      g.addColorStop(0,'rgba(90,150,255,0.25)');
+      g.addColorStop(1,'rgba(110,190,255,0.18)');
+    } else if(grade === 'sepia'){
+      g = c.createLinearGradient(0,0,W,H);
+      g.addColorStop(0,'rgba(200,155,90,0.55)');
+      g.addColorStop(1,'rgba(180,130,70,0.45)');
+    } else if(grade === 'teal'){
+      g = c.createLinearGradient(0,0,W,H);
+      g.addColorStop(0,'rgba(0,210,190,0.18)');
+      g.addColorStop(1,'rgba(255,145,0,0.16)');
+    }
+    c.fillStyle = g;
+    c.fillRect(0,0,W,H);
+  }
+  c.restore();
+}
+
+// ── Vignette ─────────────────────────────────────────────────────────────────
+function drawVignette(c){
+  c.save();
+  c.globalCompositeOperation = 'source-over';
+  const g = c.createRadialGradient(W/2,H/2, H*0.22, W/2,H/2, H*0.88);
+  g.addColorStop(0,'rgba(0,0,0,0)');
+  g.addColorStop(0.65,'rgba(0,0,0,0.18)');
+  g.addColorStop(1,'rgba(0,0,0,0.72)');
+  c.fillStyle = g;
+  c.fillRect(0,0,W,H);
+  c.restore();
+}
+
+// ── Light leak ───────────────────────────────────────────────────────────────
+function drawLightLeak(c, t){
+  const period = 9;
+  const phase  = (t % period) / period;
+  const inA = phase < 0.18;
+  const inB = phase > 0.52 && phase < 0.70;
+  if(!inA && !inB) return;
+  const raw = inA ? phase/0.18 : (phase-0.52)/0.18;
+  const ea  = Math.sin(raw * Math.PI);  // 0→1→0
+  c.save();
+  c.globalCompositeOperation = 'screen';
+  c.globalAlpha = ea * 0.52;
+  const side = (Math.floor(t / period) % 2 === 0);
+  const g = c.createLinearGradient(side ? 0 : W, 0, side ? W*0.55 : W*0.45, H);
+  g.addColorStop(0,   'rgba(255,210,90,0.90)');
+  g.addColorStop(0.35,'rgba(255,100,40,0.55)');
+  g.addColorStop(1,   'rgba(180,50,130,0)');
+  c.fillStyle = g;
+  c.fillRect(0,0,W,H);
+  c.restore();
+}
+
+// ── Film grain ───────────────────────────────────────────────────────────────
+function drawGrain(c){
+  const id = offCx.createImageData(W, H);
+  const d  = id.data;
+  for(let i = 0; i < d.length; i += 4){
+    const v = (Math.random()*255)|0;
+    d[i]=v; d[i+1]=v; d[i+2]=v; d[i+3]=24;
+  }
+  offCx.putImageData(id, 0, 0);
+  c.save();
+  c.globalCompositeOperation = 'overlay';
+  c.globalAlpha = 1;
+  c.drawImage(offCv, 0, 0);
+  c.restore();
+}
+
+// ── Particles ────────────────────────────────────────────────────────────────
+let parts = null;
+function initParts(){
+  parts = Array.from({length:55}, () => ({
+    x:  Math.random()*W,   y:  Math.random()*H,
+    r:  0.8+Math.random()*2.2,
+    vx: (Math.random()-0.5)*10, vy: -4-Math.random()*12,
+    a:  0.08+Math.random()*0.25, ph: Math.random()*Math.PI*2
+  }));
+}
+function drawParticles(c, t){
+  if(!parts) initParts();
+  c.save();
+  c.globalCompositeOperation = 'screen';
+  for(const p of parts){
+    const x  = ((p.x+p.vx*t)%(W+40)+W+40)%(W+40)-20;
+    const y  = ((p.y+p.vy*t)%(H+40)+H+40)%(H+40)-20;
+    const fl = 0.55 + 0.45*Math.sin(t*1.9+p.ph);
+    c.globalAlpha = p.a*fl;
+    c.fillStyle = '#ffffff';
+    c.beginPath(); c.arc(x,y,p.r,0,Math.PI*2); c.fill();
+  }
+  c.restore();
+}
+
+// ── Bokeh ────────────────────────────────────────────────────────────────────
+let bokehList = null;
+function initBokeh(){
+  bokehList = Array.from({length:16}, () => ({
+    x:   Math.random()*W, y:   Math.random()*H,
+    r:   28+Math.random()*75,
+    vx:  (Math.random()-0.5)*3.5, vy: (Math.random()-0.5)*2.5,
+    a:   0.035+Math.random()*0.08,
+    ph:  Math.random()*Math.PI*2,
+    hue: Math.random()*60+20      // 20-80 warm golden/amber
+  }));
+}
+function drawBokeh(c, t){
+  if(!bokehList) initBokeh();
+  c.save();
+  c.globalCompositeOperation = 'screen';
+  for(const b of bokehList){
+    const x  = ((b.x+b.vx*t)%(W+b.r*2)+W+b.r*2)%(W+b.r*2)-b.r;
+    const y  = ((b.y+b.vy*t)%(H+b.r*2)+H+b.r*2)%(H+b.r*2)-b.r;
+    const pulse = 0.45+0.55*Math.sin(t*0.38+b.ph);
+    const a = b.a*pulse;
+    const g = c.createRadialGradient(x,y,0,x,y,b.r);
+    g.addColorStop(0,   'hsla('+b.hue+',75%,82%,'+a+')');
+    g.addColorStop(0.45,'hsla('+b.hue+',60%,60%,'+(a*0.5)+')');
+    g.addColorStop(1,   'hsla('+b.hue+',40%,40%,0)');
+    c.fillStyle = g;
+    c.beginPath(); c.arc(x,y,b.r,0,Math.PI*2); c.fill();
+  }
+  c.restore();
+}
+
+// ── Waveform / EQ ────────────────────────────────────────────────────────────
+function drawWaveform(c, analyser, pos, style){
+  if(!analyser) return;
+  const bufLen = analyser.frequencyBinCount;
+  const data   = new Uint8Array(bufLen);
+  if(style === 'bars') analyser.getByteFrequencyData(data);
+  else                 analyser.getByteTimeDomainData(data);
+
+  const ww=280, wh=60, pad=20;
+  let wx=pad, wy=H-wh-pad;
+  if(pos==='bottom-right')  { wx=W-ww-pad; }
+  if(pos==='bottom-center') { wx=(W-ww)/2; }
+  if(pos==='top-left')      { wy=pad; }
+
+  c.save();
+  c.globalCompositeOperation = 'source-over';
+
+  if(style === 'bars'){
+    const barW=5, gap=2;
+    const count=Math.floor(ww/(barW+gap));
+    for(let i=0;i<count;i++){
+      const v  = data[Math.floor(i*bufLen/count)]/255;
+      const bh = Math.max(3, v*wh);
+      const bx = wx+i*(barW+gap);
+      const by = wy+wh-bh;
+      c.save();
+      c.shadowColor='rgba(110,181,255,0.7)'; c.shadowBlur=7;
+      const g = c.createLinearGradient(0,by,0,by+bh);
+      g.addColorStop(0,'rgba(160,215,255,0.96)');
+      g.addColorStop(1,'rgba(167,139,250,0.78)');
+      c.fillStyle=g; c.globalAlpha=0.92;
+      c.beginPath(); c.roundRect(bx,by,barW,bh,[2,2,0,0]); c.fill();
+      c.restore();
+    }
+  } else {
+    c.save();
+    c.beginPath();
+    const sw=ww/bufLen;
+    for(let i=0;i<bufLen;i++){
+      const v=data[i]/128;
+      const x=wx+i*sw, y=wy+wh/2+(v-1)*(wh/2);
+      i===0 ? c.moveTo(x,y) : c.lineTo(x,y);
+    }
+    c.strokeStyle='rgba(110,181,255,0.94)';
+    c.lineWidth=2.2; c.lineJoin='round';
+    c.shadowColor='rgba(110,181,255,0.8)'; c.shadowBlur=9;
+    c.globalAlpha=1; c.stroke();
+    c.restore();
+  }
+  c.restore();
+}
+
+// ── Text overlay ─────────────────────────────────────────────────────────────
+function drawText(c, t, totalDur, blocks, opts){
+  const active = blocks.filter(b => b.text && b.text.trim());
+  if(!active.length) return;
+
+  const blockDur = totalDur / active.length;
+  const idx      = Math.min(Math.floor(t/blockDur), active.length-1);
+  const localT   = t - idx*blockDur;
+  const fadeDur  = Math.min(0.9, blockDur*0.22);
+
+  let alpha = 1;
+  if(localT < fadeDur)              alpha = localT/fadeDur;
+  else if(localT > blockDur-fadeDur) alpha = (blockDur-localT)/fadeDur;
+  alpha = Math.max(0, Math.min(1, alpha));
+  if(alpha <= 0) return;
+
+  const lines    = active[idx].text.trim().split('\n').filter(l => l.trim());
+  const fontSize = opts.size || 22;
+  const lineH    = fontSize * 1.48;
+  const totalH   = lines.length * lineH;
+
+  let baseY;
+  if(opts.pos === 'top')         baseY = 68 + lineH/2;
+  else if(opts.pos === 'center') baseY = H/2 - totalH/2 + lineH/2;
+  else                           baseY = H - 68 - totalH + lineH/2;
+
+  c.save();
+  c.globalAlpha  = alpha;
+  c.font         = fontSize + "px 'Georgia', serif";
+  c.textAlign    = 'center';
+  c.textBaseline = 'middle';
+
+  lines.forEach((line, i) => {
+    const y = baseY + i*lineH;
+    // Pass 1 — wide outer glow shadow
+    c.save();
+    c.fillStyle     = opts.color || '#fff';
+    c.shadowColor   = 'rgba(0,0,0,0.98)';
+    c.shadowBlur    = 22;
+    c.shadowOffsetX = 0; c.shadowOffsetY = 0;
+    c.fillText(line, W/2, y);
+    c.restore();
+    // Pass 2 — tight drop shadow
+    c.save();
+    c.fillStyle     = opts.color || '#fff';
+    c.shadowColor   = 'rgba(0,0,0,0.85)';
+    c.shadowBlur    = 5;
+    c.shadowOffsetX = 1; c.shadowOffsetY = 2;
+    c.fillText(line, W/2, y);
+    c.restore();
+    // Pass 3 — clean crisp text, no shadow
+    c.save();
+    c.fillStyle = opts.color || '#fff';
+    c.fillText(line, W/2, y);
+    c.restore();
+  });
+  c.restore();
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  MAIN DRAW FRAME
+// ═════════════════════════════════════════════════════════════════════════════
 function drawFrame(c, t, slideDur, transition, fx, analyser, totalDur){
-  c.fillStyle='#000'; c.fillRect(0,0,W,H);
-  const n=images.length; if(!n) return;
+  // 1. black base
+  c.save(); c.fillStyle='#000'; c.fillRect(0,0,W,H); c.restore();
 
-  let idx=Math.floor(t/slideDur); idx=Math.max(0,Math.min(n-1,idx));
-  const localT=t-idx*slideDur;
-  const progress=Math.min(localT/slideDur,1);
-  const cur=images[idx].img;
-  const nxt=images[Math.min(idx+1,n-1)].img;
-  const hasNext=idx<n-1;
-  const tDur=Math.min(0.8,slideDur*0.3);
+  const n = images.length;
+  if(!n) return;
 
-  let bs=1, dx=0, dy=0;
-  if(fx.breathing) bs=1+0.012*Math.sin(t*0.6);
-  if(fx.drift)   { dx=0.012*Math.sin(t*0.25); dy=0.008*Math.cos(t*0.18); }
-  if(fx.flicker) c.filter=`brightness(${1+0.02*Math.sin(t*3.1)+0.01*Math.sin(t*7.7)})`;
-  else c.filter='none';
+  // 2. slide index & timing
+  const idx    = Math.min(Math.max(Math.floor(t/slideDur), 0), n-1);
+  const localT = t - idx*slideDur;
+  const prog   = Math.min(localT/slideDur, 1);
+  const cur    = images[idx].img;
+  const nxt    = images[Math.min(idx+1, n-1)].img;
+  const hasNxt = idx < n-1;
+  const tDur   = Math.min(0.9, slideDur*0.28);
 
-  if(transition==='none'){
-    drawImageCover(c,cur,1,bs,dx,dy);
-  } else if(transition==='zoom'){
-    drawImageCover(c,cur,1,(1+0.08*progress)*bs,dx,dy);
-  } else if(transition==='fade'){
-    if(hasNext && localT>slideDur-tDur){
-      const fp=(localT-(slideDur-tDur))/tDur;
-      drawImageCover(c,cur,1,bs,dx,dy);
-      drawImageCover(c,nxt,fp,bs,dx,dy);
-    } else drawImageCover(c,cur,1,bs,dx,dy);
-  } else if(transition==='slide'){
-    if(hasNext && localT>slideDur-tDur){
-      const sp=(localT-(slideDur-tDur))/tDur;
-      drawImageCover(c,cur,1,bs,dx-sp,dy);
-      drawImageCover(c,nxt,1,bs,dx+1-sp,dy);
-    } else drawImageCover(c,cur,1,bs,dx,dy);
+  // 3. motion modifiers (pure numbers, no canvas state)
+  let scale = 1, ox = 0, oy = 0;
+  if(fx.breathing) scale += 0.013 * Math.sin(t * 0.55);
+  if(fx.drift)   { ox = 0.012 * Math.sin(t*0.22); oy = 0.008 * Math.cos(t*0.17); }
+
+  // 4. flicker — apply only to image draw via filter, then reset immediately
+  if(fx.flicker){
+    const b = 1 + 0.022*Math.sin(t*3.4) + 0.012*Math.sin(t*8.3);
+    c.filter = 'brightness(' + b.toFixed(4) + ')';
   }
 
-  c.filter='none';
-
-  if(fx.particles) drawParticles(c,t);
-  if(fx.grain)     drawGrain(c);
-  if(fx.waveform)  drawWaveform(c, analyser, fx.wfPos, fx.wfStyle);
-  if(fx.text && fx.textBlocks && totalDur){
-    drawTextOverlay(c, t, totalDur, fx.textBlocks, fx.textOpts);
+  // 5. draw image layer
+  if(transition === 'none'){
+    drawCover(c, cur, 1, scale, ox, oy);
+  } else if(transition === 'zoom'){
+    drawCover(c, cur, 1, scale*(1+0.08*prog), ox, oy);
+  } else if(transition === 'fade'){
+    if(hasNxt && localT > slideDur-tDur){
+      const fp = (localT-(slideDur-tDur))/tDur;
+      drawCover(c, cur, 1,    scale, ox, oy);
+      drawCover(c, nxt, fp,   scale, ox, oy);
+    } else {
+      drawCover(c, cur, 1, scale, ox, oy);
+    }
+  } else if(transition === 'slide'){
+    if(hasNxt && localT > slideDur-tDur){
+      const raw = (localT-(slideDur-tDur))/tDur;
+      const sp  = raw<0.5 ? 2*raw*raw : -1+(4-2*raw)*raw; // ease in-out
+      drawCover(c, cur, 1, scale, ox-sp,   oy);
+      drawCover(c, nxt, 1, scale, ox+1-sp, oy);
+    } else {
+      drawCover(c, cur, 1, scale, ox, oy);
+    }
   }
+
+  // 6. IMPORTANT: reset filter before any compositing effects
+  c.filter = 'none';
+
+  // 7. post-process stack (order matters)
+  if(fx.grading !== 'none') drawGrading(c, fx.grading);
+  if(fx.vignette)           drawVignette(c);
+  if(fx.lightLeak)          drawLightLeak(c, t);
+  if(fx.bokeh)              drawBokeh(c, t);
+  if(fx.particles)          drawParticles(c, t);
+  if(fx.grain)              drawGrain(c);
+
+  // 8. HUD & text (always on top, compositeOperation = source-over)
+  if(fx.waveform)           drawWaveform(c, analyser, fx.wfPos, fx.wfStyle);
+  if(fx.text)               drawText(c, t, totalDur, fx.textBlocks, fx.textOpts);
 }
 
 // ─── Live preview ─────────────────────────────────────────────────────────────
-function startLivePreview(){
-  if(previewRAF) cancelAnimationFrame(previewRAF);
+function startPreview(){
+  if(rafId) cancelAnimationFrame(rafId);
   if(!images.length) return;
-  const start=performance.now();
-  const slideDur=3;
-  const totalDur=slideDur*images.length;
+  const start    = performance.now();
+  const slideDur = 3.5;
+  const totalDur = slideDur * images.length;
   function loop(){
-    const t=((performance.now()-start)/1000)%totalDur;
-    const fx=getFX();
-    const analyser=fx.waveform ? liveAnalyser : null;
-    drawFrame(ctx,t,slideDur,transitionSelect.value,fx,analyser,totalDur);
-    previewRAF=requestAnimationFrame(loop);
+    const t  = ((performance.now()-start)/1000) % totalDur;
+    const fx = getFX();
+    drawFrame(ctx, t, slideDur, transitionSel.value, fx, fx.waveform ? liveAnalyser : null, totalDur);
+    rafId = requestAnimationFrame(loop);
   }
   loop();
 }
 
-// ─── Render ───────────────────────────────────────────────────────────────────
-stopBtn.addEventListener('click', () => { renderStopped = true; });
-
+// ─── Render ──────────────────────────────────────────────────────────────────
 renderBtn.addEventListener('click', async () => {
-  if(previewRAF) cancelAnimationFrame(previewRAF);
-  renderStopped = false;
+  if(rafId) cancelAnimationFrame(rafId);
+  renderStop = false;
   renderBtn.disabled = true;
-  stopBtn.disabled = false;
+  stopBtn.disabled   = false;
   resultEl.innerHTML = '';
   progressBar.style.width = '0%';
 
-  const duration  = audioBuffer.duration;
-  const slideDur  = duration/images.length;
-  const transition= transitionSelect.value;
-  const bitrate   = parseInt(qualitySelect.value,10);
-  const fx        = getFX();
+  const duration   = audioBuffer.duration;
+  const slideDur   = duration / images.length;
+  const transition = transitionSel.value;
+  const bitrate    = parseInt(qualitySel.value, 10);
+  const fx         = getFX();
 
-  statusText.textContent = 'Подготовка аудио...';
+  statusText.textContent = 'Подготовка...';
 
-  const ac = new (window.AudioContext||window.webkitAudioContext)();
-  const audioEl = document.createElement('audio');
-  audioEl.src = audioPreview.src;
-  audioEl.crossOrigin = 'anonymous';
-  await new Promise(res=>{ audioEl.addEventListener('canplaythrough',res,{once:true}); audioEl.load(); });
+  const ac = new AudioContext();
+  const ael = document.createElement('audio');
+  ael.src = audioPreview.src;
+  await new Promise(res => { ael.addEventListener('canplaythrough', res, {once:true}); ael.load(); });
 
-  const sourceNode  = ac.createMediaElementSource(audioEl);
-  const analyserNode= ac.createAnalyser();
-  analyserNode.fftSize = 256;
-  const dest = ac.createMediaStreamDestination();
-  sourceNode.connect(analyserNode);
-  analyserNode.connect(dest);
+  const src      = ac.createMediaElementSource(ael);
+  const analyser = ac.createAnalyser(); analyser.fftSize = 512;
+  const dest     = ac.createMediaStreamDestination();
+  src.connect(analyser); analyser.connect(dest);
 
-  const combined = new MediaStream([...previewCanvas.captureStream(30).getVideoTracks(), ...dest.stream.getAudioTracks()]);
+  const combined = new MediaStream([
+    ...previewCanvas.captureStream(30).getVideoTracks(),
+    ...dest.stream.getAudioTracks()
+  ]);
+
   let mime = 'video/webm;codecs=vp9,opus';
   if(!MediaRecorder.isTypeSupported(mime)) mime = 'video/webm;codecs=vp8,opus';
   if(!MediaRecorder.isTypeSupported(mime)) mime = 'video/webm';
 
-  const recorder = new MediaRecorder(combined, {mimeType:mime, videoBitsPerSecond:bitrate});
-  const chunks = [];
-  recorder.ondataavailable = e => { if(e.data.size>0) chunks.push(e.data); };
-  const finished = new Promise(res => { recorder.onstop = res; });
+  const recorder = new MediaRecorder(combined, { mimeType: mime, videoBitsPerSecond: bitrate });
+  const chunks   = [];
+  recorder.ondataavailable = e => { if(e.data.size > 0) chunks.push(e.data); };
+  const done = new Promise(res => { recorder.onstop = res; });
 
-  particles = null;
+  // reset animated state for clean deterministic render
+  parts      = null;
+  bokehList  = null;
+
+  recorder.start(100);
+  ael.currentTime = 0;
+  await ael.play();
   statusText.textContent = 'Рендеринг... нажмите ■ Стоп чтобы прервать.';
-  recorder.start();
-  audioEl.currentTime = 0;
-  await audioEl.play();
 
-  const startT = performance.now();
-  function drawLoop(){
-    if(renderStopped){
-      recorder.stop();
-      audioEl.pause();
-      return;
-    }
-    const elapsed = (performance.now()-startT)/1000;
-    const t = Math.min(elapsed, duration-.001);
-    const renderAnalyser = fx.waveform ? analyserNode : null;
-    drawFrame(ctx, t, slideDur, transition, fx, renderAnalyser, duration);
-    progressBar.style.width = Math.min(100,(elapsed/duration)*100)+'%';
-    if(elapsed < duration && !audioEl.ended) requestAnimationFrame(drawLoop);
-    else { recorder.stop(); audioEl.pause(); }
+  const t0 = performance.now();
+  function loop(){
+    if(renderStop){ recorder.stop(); ael.pause(); return; }
+    const elapsed = (performance.now()-t0)/1000;
+    drawFrame(ctx, Math.min(elapsed, duration-0.001), slideDur, transition, fx, fx.waveform ? analyser : null, duration);
+    progressBar.style.width = Math.min(100, (elapsed/duration)*100).toFixed(1) + '%';
+    if(elapsed < duration && !ael.ended) requestAnimationFrame(loop);
+    else { recorder.stop(); ael.pause(); }
   }
-  requestAnimationFrame(drawLoop);
-  await finished;
+  requestAnimationFrame(loop);
+  await done;
 
-  stopBtn.disabled = true;
+  stopBtn.disabled   = true;
   renderBtn.disabled = false;
 
-  if(renderStopped){
+  if(renderStop){
     progressBar.style.width = '0%';
-    statusText.textContent = '⛔ Рендеринг остановлен.';
-    ac.close();
-    startLivePreview();
+    statusText.textContent  = '⛔ Остановлено.';
+    ac.close(); parts = null; bokehList = null;
+    startPreview();
     return;
   }
 
   progressBar.style.width = '100%';
-  statusText.textContent = '✅ Готово!';
-  const blob = new Blob(chunks, {type:'video/webm'});
+  statusText.textContent  = '✅ Готово!';
+  const blob = new Blob(chunks, { type: 'video/webm' });
   const url  = URL.createObjectURL(blob);
-  const a = document.createElement('a');
+  const a    = document.createElement('a');
   a.href = url; a.download = 'video-collage.webm';
-  a.innerHTML = '⬇ Скачать видео (.webm)';
+  a.textContent = '⬇ Скачать видео (.webm)';
   resultEl.appendChild(a);
-
   ac.close();
-  startLivePreview();
+  startPreview();
 });
 </script>
 </body>
