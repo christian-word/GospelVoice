@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta property="og:image" content="https://raw.githubusercontent.com/christian-word/GospelVoice/main/ICO/crisradio3.png" />
+<title>Gospel Voice — христианское радио</title>
+
+<link rel="preconnect" href="https://rt.radioslovo.net" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;600;700&family=Onest:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<script>
+  try {
+    var t = localStorage.getItem('gospelTheme');
+    if (!t && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+    document.documentElement.dataset.theme = t === 'dark' ? 'dark' : 'light';
+  } catch (e) { document.documentElement.dataset.theme = 'light'; }
+</script>
+
+<style>
+  :root {
+    --font-ui: 'Onest', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-serif: 'Alegreya', Georgia, 'Times New Roman', serif;
+    --gold: #F2B544;
+    --navy: #0F2238;
+    --hero: #12294A;
+    --rec: #E5484D;
+
+    --bg: #E8EDF2;
+    --ink: #0F2238;
+    --muted: #566779;
+    --line: rgba(15, 34, 56, 0.16);
+    --chip: #FFFFFF;
+    --chip-on: #0F2238;
+    --chip-on-text: #FFFFFF;
+    --row-active: rgba(242, 181, 68, 0.22);
+    --focus: #2F6FED;
+  }
+  :root[data-theme="dark"] {
+    --bg: #0A1424;
+    --ink: #E9EFF6;
+    --muted: #93A3B6;
+    --line: rgba(233, 239, 246, 0.16);
+    --chip: #14233A;
+    --chip-on: #F2B544;
+    --chip-on-text: #0A1424;
+    --row-active: rgba(242, 181, 68, 0.14);
+    --focus: #7DAAFF;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-ui);
+    font-size: 16px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+  button { font: inherit; color: inherit; }
+  svg { fill: currentColor; }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 20px 20px calc(120px + env(safe-area-inset-bottom));
+  }
+
+  /* ШАПКА */
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  h1 {
+    font-family: var(--font-serif);
+    font-size: 30px;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .sub { color: var(--muted); font-size: 14px; margin-top: 2px; }
+  .icon-btn {
+    flex: none;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--chip);
+    display: grid; place-items: center;
+    cursor: pointer;
+  }
+  .icon-btn svg { width: 22px; height: 22px; }
+  .icon-btn .sun { display: none; }
+  :root[data-theme="dark"] .icon-btn .sun { display: block; }
+  :root[data-theme="dark"] .icon-btn .moon { display: none; }
+
+  /* ГЛАВНЫЙ ПЛЕЕР */
+  .hero {
+    margin: 20px 0 28px;
+    padding: 22px;
+    border-radius: 24px;
+    background-color: var(--hero);
+    background-image: repeating-radial-gradient(circle at calc(100% - 64px) 64px, transparent 0 30px, rgba(255, 255, 255, 0.05) 30px 31px);
+    color: #EAF0F7;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 14px 18px;
+    align-items: center;
+  }
+  .status { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #A9BBD0; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #5F7390; }
+  .hero[data-state="live"] .dot { background: var(--gold); }
+  .hero[data-state="busy"] .dot { background: #A9BBD0; }
+  .hero[data-state="error"] .dot { background: var(--rec); }
+  .now {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: clamp(27px, 6.5vw, 38px);
+    line-height: 1.08;
+    margin: 8px 0 6px;
+    overflow-wrap: anywhere;
+  }
+  .now-meta { font-size: 14px; color: #A9BBD0; min-height: 1.4em; }
+
+  .dial { position: relative; width: 88px; height: 88px; }
+  .dial::before, .dial::after {
+    content: "";
+    position: absolute; inset: 0;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .hero.playing .dial::before { animation: ring 2.6s ease-out infinite; }
+  .hero.playing .dial::after { animation: ring 2.6s ease-out 1.3s infinite; }
+  @keyframes ring {
+    0% { transform: scale(1); opacity: 0.55; }
+    100% { transform: scale(1.8); opacity: 0; }
+  }
+  .play-big {
+    position: relative; z-index: 1;
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    border: 0;
+    background: var(--gold);
+    color: var(--navy);
+    display: grid; place-items: center;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .play-big:active { transform: scale(0.96); }
+  .play-big svg { width: 40px; height: 40px; }
+
+  .controls {
+    grid-column: 1 / -1;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+  }
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: transparent;
+    color: #EAF0F7;
+    font-size: 15px; font-weight: 500;
+    cursor: pointer;
+  }
+  .pill svg { width: 18px; height: 18px; }
+  .pill.recording { background: var(--rec); border-color: var(--rec); color: #fff; }
+  .pill.recording .rec-dot { animation: blink 1.1s steps(2, start) infinite; }
+  @keyframes blink { to { opacity: 0.25; } }
+  .vol { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+  .vol .mute { width: 44px; height: 44px; border: 0; background: none; display: grid; place-items: center; cursor: pointer; color: #EAF0F7; }
+  .vol .mute svg { width: 24px; height: 24px; }
+  .vol .mute .off { display: none; }
+  .vol.muted .mute .on { display: none; }
+  .vol.muted .mute .off { display: block; }
+  .vol input { width: 120px; accent-color: var(--gold); }
+
+  /* ФИЛЬТРЫ */
+  .tabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 2px 0 6px; margin: 0 -20px; padding-inline: 20px; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    flex: none;
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--chip);
+    font-size: 15px; font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .tab .n { margin-left: 6px; font-size: 13px; opacity: 0.6; }
+  .tab[aria-pressed="true"] { background: var(--chip-on); color: var(--chip-on-text); border-color: var(--chip-on); }
+  .langs { display: flex; align-items: center; gap: 2px; margin-top: 8px; color: var(--muted); font-size: 14px; }
+  .langs span { margin-right: 6px; }
+  .lang {
+    min-height: 40px;
+    padding: 0 10px;
+    background: none; border: 0;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .lang[aria-pressed="true"] { color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px 0 var(--gold); }
+
+  /* СПИСОК */
+  .group { margin-top: 28px; }
+  .group h2 { font-family: var(--font-serif); font-size: 26px; line-height: 1.15; font-weight: 700; margin: 0; }
+  .group .note { margin: 2px 0 10px; font-size: 14px; color: var(--muted); }
+  ul.list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .row { display: flex; align-items: center; border-bottom: 1px solid var(--line); }
+  .row.active { background: var(--row-active); box-shadow: inset 3px 0 0 var(--gold); }
+  .row-main {
+    flex: 1; min-width: 0;
+    display: flex; align-items: center; gap: 14px;
+    padding: 13px 4px 13px 14px;
+    background: none; border: 0;
+    text-align: left;
+    cursor: pointer;
+  }
+  .art {
+    position: relative; flex: none;
+    width: 52px; height: 52px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--c, #3B5B8C);
+    color: #fff;
+    display: grid; place-items: center;
+  }
+  .art b { font-family: var(--font-serif); font-size: 24px; font-weight: 700; }
+  .art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #fff; padding: 3px; }
+  .art.big { width: 60px; height: 60px; border-radius: 14px; }
+  .art.sm { width: 44px; height: 44px; border-radius: 10px; }
+  .art-eq {
+    position: absolute; right: 3px; bottom: 3px;
+    display: none; align-items: flex-end; gap: 2px;
+    height: 18px; padding: 4px 5px;
+    border-radius: 6px;
+    background: var(--gold); color: var(--navy);
+  }
+  .art-eq i { width: 3px; height: 100%; background: currentColor; border-radius: 1px; transform-origin: bottom; animation: eq 0.9s ease-in-out infinite; }
+  .art-eq i:nth-child(2) { animation-delay: 0.3s; }
+  .art-eq i:nth-child(3) { animation-delay: 0.6s; }
+  @keyframes eq { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
+  .row.playing .art-eq { display: flex; }
+  .art.big .art-eq, .art.sm .art-eq { display: none !important; }
+  .hero-art { margin-bottom: 12px; }
+  .hero-art:empty { display: none; }
+  .row-text { min-width: 0; }
+  .row-title { font-family: var(--font-serif); font-size: 20px; font-weight: 600; line-height: 1.2; overflow-wrap: anywhere; }
+  .row-meta { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .fav { flex: none; width: 48px; height: 48px; background: none; border: 0; display: grid; place-items: center; cursor: pointer; color: var(--muted); }
+  .fav svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linejoin: round; }
+  .fav[aria-pressed="true"] { color: #D9962A; }
+  .fav[aria-pressed="true"] svg { fill: currentColor; }
+  .empty { margin: 36px 0; color: var(--muted); max-width: 40ch; }
+
+  /* ПОДВАЛ */
+  .foot { margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+  .foot .links { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 10px 0; }
+  .foot a, .foot button.link { color: var(--ink); background: none; border: 0; padding: 8px 0; font-size: 14px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+  /* МИНИ-ПЛЕЕР */
+  .mini {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+    background: var(--navy);
+    color: #EAF0F7;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    transform: translateY(110%);
+    transition: transform 0.25s ease;
+  }
+  .mini.show { transform: none; }
+  .mini-in {
+    max-width: 720px; margin: 0 auto;
+    display: flex; align-items: center; gap: 14px;
+    padding: 10px 20px calc(10px + env(safe-area-inset-bottom));
+  }
+  .mini-text { flex: 1; min-width: 0; }
+  .mini-title { font-family: var(--font-serif); font-size: 18px; font-weight: 600; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mini-status { font-size: 13px; color: #A9BBD0; display: flex; align-items: center; gap: 6px; }
+  .mini-rec { display: none; width: 8px; height: 8px; border-radius: 50%; background: var(--rec); animation: blink 1.1s steps(2, start) infinite; }
+  .mini.recording .mini-rec { display: inline-block; }
+  .mini-play { flex: none; width: 48px; height: 48px; border-radius: 50%; border: 0; background: var(--gold); color: var(--navy); display: grid; place-items: center; cursor: pointer; }
+  .mini-play svg { width: 24px; height: 24px; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: calc(86px + env(safe-area-inset-bottom)); z-index: 40;
+    transform: translate(-50%, 12px);
+    max-width: min(92vw, 460px);
+    padding: 12px 18px;
+    border-radius: 14px;
+    background: #0F2238; color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    font-size: 15px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  dialog {
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: var(--bg);
+    color: var(--ink);
+    padding: 24px;
+    max-width: min(92vw, 420px);
+  }
+  dialog::backdrop { background: rgba(5, 10, 20, 0.6); }
+  dialog h3 { font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px; }
+  dialog p { margin: 0 0 12px; }
+  dialog .pill { color: var(--ink); border-color: var(--line); margin-top: 6px; }
+
+  @media (max-width: 480px) {
+    .hero { padding: 18px; }
+    .dial, .play-big { width: 76px; height: 76px; }
+    .vol { margin-left: 0; width: 100%; }
+    .vol input { flex: 1; width: auto; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <h1>Gospel Voice</h1>
+      <div class="sub">Христианское радио · «Дом Евангелия»</div>
+    </div>
+    <button class="icon-btn" id="themeBtn" aria-label="Сменить тему">
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M11 1h2v3h-2zM11 20h2v3h-2zM1 11h3v2H1zM20 11h3v2h-3zM4.2 5.6l1.4-1.4 2.1 2.1-1.4 1.4zM16.3 17.7l1.4-1.4 2.1 2.1-1.4 1.4zM4.2 18.4l2.1-2.1 1.4 1.4-2.1 2.1zM16.3 6.3l2.1-2.1 1.4 1.4-2.1 2.1z"/></svg>
+    </button>
+  </header>
+
+  <!-- ГЛАВНЫЙ ПЛЕЕР -->
+  <section class="hero" id="hero" data-state="idle" aria-label="Плеер">
+    <div>
+      <div class="hero-art" id="heroArt"></div>
+      <div class="status"><span class="dot"></span><span id="status">Выберите станцию</span></div>
+      <div class="now" id="nowTitle">Что послушаем?</div>
+      <div class="now-meta" id="nowMeta">Выберите станцию из списка ниже</div>
+    </div>
+    <div class="dial">
+      <button class="play-big" id="playBig" aria-label="Слушать"></button>
+    </div>
+
+    <div class="controls">
+      <button class="pill" id="recBtn" aria-pressed="false">
+        <svg class="rec-dot" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/></svg>
+        <span id="recLabel">Записать</span>
+      </button>
+      <button class="pill" id="sleepBtn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm-1 3v6l4.5 2.7 1-1.7-3.5-2V7z"/></svg>
+        <span id="sleepLabel">Таймер сна</span>
+      </button>
+      <div class="vol" id="vol">
+        <button class="mute" id="muteBtn" aria-label="Выключить звук">
+          <svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16 9l5 6M21 9l-5 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <input type="range" id="volume" min="0" max="1" step="0.01" value="0.7" aria-label="Громкость" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ФИЛЬТРЫ -->
+  <div class="tabs" id="tabs" role="group" aria-label="Разделы"></div>
+  <div class="langs" role="group" aria-label="Язык">
+    <span>Язык:</span>
+    <button class="lang" data-lang="all" aria-pressed="true">Все</button>
+    <button class="lang" data-lang="ru" aria-pressed="false">Русский</button>
+    <button class="lang" data-lang="ua" aria-pressed="false">Украинский</button>
+    <button class="lang" data-lang="other" aria-pressed="false">Другие</button>
+  </div>
+
+  <!-- СПИСОК СТАНЦИЙ -->
+  <main id="list"></main>
+
+  <footer class="foot">
+    <div>EXB «Дом Евангелия»</div>
+    <div class="links">
+      <a href="https://ruyriy.github.io/VideoYouTube/video_max.html" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/pravdachurch" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/pravda.church" target="_blank" rel="noopener">Instagram</a>
+      <button class="link" id="shortcutBtn">Добавить на главный экран</button>
+    </div>
+  </footer>
+</div>
+
+<!-- МИНИ-ПЛЕЕР (появляется, когда основной плеер ушёл за экран) -->
+<div class="mini" id="mini">
+  <div class="mini-in">
+    <div id="miniArt"></div>
+    <div class="mini-text">
+      <div class="mini-title" id="miniTitle"></div>
+      <div class="mini-status"><span class="mini-rec"></span><span id="miniStatus"></span></div>
+    </div>
+    <button class="mini-play" id="miniPlay" aria-label="Слушать"></button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<dialog id="shortcutDialog">
+  <h3>Быстрый доступ</h3>
+  <p><b>iPhone (Safari):</b> «Поделиться» → «На экран Домой».</p>
+  <p><b>Android (Chrome):</b> меню ⋮ → «Добавить на главный экран».</p>
+  <form method="dialog"><button class="pill">Понятно</button></form>
+</dialog>
+
+<audio id="audio" crossorigin="anonymous" preload="none"></audio>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ===== ДАННЫЕ: группы и станции. Меняйте здесь. ===== */
+  const GROUPS = [
+    { id: 'bible', name: 'Библия', note: 'Чтение Писания вслух' },
+    { id: 'music', name: 'Музыка', note: 'Песни и инструментальная музыка' },
+    { id: 'live',  name: 'Эфир',   note: 'Передачи, проповеди и общий эфир' }
+  ];
+  const LANGS = { ru: 'Русский', ua: 'Украинский', other: 'Другие языки' };
+
+  /* Список станций лежит в файле stations.json рядом с этой страницей */
+  let STATIONS = [];
+
+  /* ===== УТИЛИТЫ ===== */
+  const $ = (id) => document.getElementById(id);
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+  const ICON_PLAY  = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+  const ICON_PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4v16H6zm8 0h4v16h-4z"/></svg>';
+  const ICON_STAR  = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg>';
+  const pad = (n) => String(n).padStart(2, '0');
+  const ART_COLORS = ['#3B5B8C', '#6B4E9B', '#2F7A6E', '#9B5B3B', '#8C3B5B'];
+  function artHTML(s, size) {
+    let h = 0;
+    for (let i = 0; i < s.title.length; i++) h += s.title.charCodeAt(i);
+    const letter = s.title.replace(/[^A-Za-zА-Яа-яЁёІіЇїЄєҐґ]/g, '').charAt(0).toUpperCase();
+    const img = s.icon
+      ? '<img src="' + s.icon + '" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">'
+      : '';
+    return '<span class="art ' + (size || '') + '" style="--c:' + ART_COLORS[h % ART_COLORS.length] + '">' +
+           '<b>' + letter + '</b>' + img + '<span class="art-eq"><i></i><i></i><i></i></span></span>';
+  }
+
+  const audio = $('audio');
+  const hero = $('hero');
+  const mini = $('mini');
+  let toastTimer = null;
+  function toast(msg) {
+    const el = $('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 3800);
+  }
+
+  /* ===== ЗАПИСЬ ЭФИРА ===== */
+  class StreamRecorder {
+    constructor(audioEl) {
+      this.audio = audioEl;
+      this.mediaRecorder = null;
+      this.chunks = [];
+      this.isRecording = false;
+      this.getName = () => 'radio';
+    }
+    start() {
+      try {
+        const capture = this.audio.captureStream || this.audio.mozCaptureStream;
+        if (!capture || !window.MediaRecorder) throw new Error('unsupported');
+        const stream = capture.call(this.audio);
+        const type = 'audio/webm;codecs=opus';
+        this.chunks = [];
+        this.mediaRecorder = new MediaRecorder(stream, MediaRecorder.isTypeSupported(type) ? { mimeType: type } : undefined);
+        this.mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) this.chunks.push(e.data); };
+        this.mediaRecorder.onstop = () => this.save();
+        this.mediaRecorder.start();
+        this.isRecording = true;
+        return true;
+      } catch (err) {
+        console.error('Ошибка записи:', err);
+        return false;
+      }
+    }
+    stop() {
+      if (this.mediaRecorder && this.isRecording) {
+        this.mediaRecorder.stop();
+        this.isRecording = false;
+      }
+    }
+    save() {
+      const blob = new Blob(this.chunks, { type: 'audio/webm' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const name = this.getName().replace(/[^a-zа-яёіїєґ0-9]/gi, '_').substring(0, 30) || 'radio';
+      const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+      a.href = url;
+      a.download = name + '_' + stamp + '.webm';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+  }
+  const recorder = new StreamRecorder(audio);
+
+  /* ===== СОСТОЯНИЕ ===== */
+  let current = null;       // выбранная станция
+  let live = false;         // звук реально идёт
+  let artFor = null;        // для какой станции нарисован логотип в плеере
+  let filter = 'all';       // all | bible | music | live | fav
+  let langFilter = 'all';   // all | ru | ua
+  let favs = [];
+  try { favs = JSON.parse(store.get('gospelFavs') || '[]'); } catch (e) { favs = []; }
+  const isFav = (s) => favs.indexOf(s.url) !== -1;
+  const byUrl = (u) => STATIONS.find((s) => s.url === u);
+
+  /* ===== ВЕРХНИЙ ПЛЕЕР ===== */
+  function setStatus(kind, text) {
+    hero.dataset.state = kind;
+    $('status').textContent = text;
+    $('miniStatus').textContent = text;
+  }
+
+  function syncUI() {
+    const playing = live && !audio.paused;
+    hero.classList.toggle('playing', playing);
+    const icon = (!audio.paused && current) ? ICON_PAUSE : ICON_PLAY;
+    const label = (!audio.paused && current) ? 'Пауза' : 'Слушать';
+    ['playBig', 'miniPlay'].forEach((id) => { $(id).innerHTML = icon; $(id).setAttribute('aria-label', label); });
+
+    if (artFor !== (current && current.url)) {
+      artFor = current && current.url;
+      $('heroArt').innerHTML = current ? artHTML(current, 'big') : '';
+      $('miniArt').innerHTML = current ? artHTML(current, 'sm') : '';
+    }
+    if (current) {
+      $('nowTitle').textContent = current.title;
+      $('nowMeta').textContent = LANGS[current.lang] + ' · ' + GROUPS.find((g) => g.id === current.group).name;
+      $('miniTitle').textContent = current.title;
+    } else {
+      $('nowTitle').textContent = 'Что послушаем?';
+      $('nowMeta').textContent = 'Выберите станцию из списка ниже';
+    }
+    document.querySelectorAll('.row').forEach((li) => {
+      const active = !!current && li.dataset.url === current.url;
+      li.classList.toggle('active', active);
+      li.classList.toggle('playing', active && playing);
+    });
+    updateMini();
+  }
+
+  function startStation(st) {
+    if (recorder.isRecording && current && current.url !== st.url) stopRecording();
+    current = st;
+    store.set('gospelLast', st.url);
+    audio.src = st.url;          // для прямого эфира всегда подключаемся заново
+    setStatus('busy', 'Подключаемся…');
+    syncUI();
+    audio.play().catch((err) => {
+      if (err && err.name === 'AbortError') return;
+      setStatus('paused', 'Нажмите ▶, чтобы начать');
+      syncUI();
+    });
+    if ('mediaSession' in navigator) {
+      navigator.mediaSession.metadata = new MediaMetadata({ title: st.title, artist: 'Gospel Voice' });
+    }
+  }
+
+  function togglePlay() {
+    if (!current) { toast('Выберите станцию из списка'); return; }
+    if (audio.paused) startStation(current);
+    else audio.pause();
+  }
+  $('playBig').addEventListener('click', togglePlay);
+  $('miniPlay').addEventListener('click', togglePlay);
+  if ('mediaSession' in navigator) {
+    navigator.mediaSession.setActionHandler('play', togglePlay);
+    navigator.mediaSession.setActionHandler('pause', () => audio.pause());
+  }
+
+  audio.addEventListener('playing', () => { live = true; setStatus('live', 'В эфире'); syncUI(); });
+  audio.addEventListener('waiting', () => { if (!audio.paused) setStatus('busy', 'Подключаемся…'); });
+  audio.addEventListener('stalled', () => { if (!audio.paused) setStatus('busy', 'Подключаемся…'); });
+  audio.addEventListener('pause', () => {
+    live = false;
+    if (current) setStatus('paused', 'Пауза');
+    if (recorder.isRecording) stopRecording();
+    syncUI();
+  });
+  audio.addEventListener('error', () => {
+    if (!audio.src || !current) return;
+    live = false;
+    setStatus('error', 'Нет связи со станцией');
+    toast('Станция не отвечает. Попробуйте другую или повторите позже.');
+    syncUI();
+  });
+
+  /* ===== ГРОМКОСТЬ ===== */
+  const vol = $('volume');
+  const savedVol = parseFloat(store.get('gospelVol'));
+  vol.value = isNaN(savedVol) ? 0.7 : savedVol;
+  audio.volume = parseFloat(vol.value);
+  vol.addEventListener('input', () => {
+    audio.volume = parseFloat(vol.value);
+    audio.muted = false;
+    $('vol').classList.remove('muted');
+    store.set('gospelVol', vol.value);
+  });
+  $('muteBtn').addEventListener('click', () => {
+    audio.muted = !audio.muted;
+    $('vol').classList.toggle('muted', audio.muted);
+  });
+
+  /* ===== ЗАПИСЬ: кнопка и таймер ===== */
+  let recStart = 0, recTimer = null;
+  recorder.getName = () => (current ? current.title : 'radio');
+
+  function stopRecording() {
+    recorder.stop();
+    clearInterval(recTimer);
+    $('recBtn').classList.remove('recording');
+    $('recBtn').setAttribute('aria-pressed', 'false');
+    $('recLabel').textContent = 'Записать';
+    mini.classList.remove('recording');
+    toast('Запись сохранена в загрузки');
+  }
+  $('recBtn').addEventListener('click', () => {
+    if (recorder.isRecording) { stopRecording(); return; }
+    if (!current || audio.paused) { toast('Сначала включите станцию'); return; }
+    if (!recorder.start()) { toast('Этот браузер не умеет записывать эфир. Попробуйте Chrome на компьютере или Android.'); return; }
+    recStart = Date.now();
+    $('recBtn').classList.add('recording');
+    $('recBtn').setAttribute('aria-pressed', 'true');
+    mini.classList.add('recording');
+    const tick = () => {
+      const s = Math.floor((Date.now() - recStart) / 1000);
+      $('recLabel').textContent = 'Стоп · ' + pad(Math.floor(s / 60)) + ':' + pad(s % 60);
+    };
+    tick();
+    recTimer = setInterval(tick, 1000);
+  });
+
+  /* ===== ТАЙМЕР СНА ===== */
+  const SLEEP_STEPS = [0, 15, 30, 60];
+  let sleepIdx = 0, sleepEnd = 0, sleepTimer = null;
+  $('sleepBtn').addEventListener('click', () => {
+    sleepIdx = (sleepIdx + 1) % SLEEP_STEPS.length;
+    clearInterval(sleepTimer);
+    if (SLEEP_STEPS[sleepIdx] === 0) { $('sleepLabel').textContent = 'Таймер сна'; return; }
+    sleepEnd = Date.now() + SLEEP_STEPS[sleepIdx] * 60000;
+    const tick = () => {
+      const left = sleepEnd - Date.now();
+      if (left <= 0) {
+        clearInterval(sleepTimer);
+        sleepIdx = 0;
+        $('sleepLabel').textContent = 'Таймер сна';
+        audio.pause();
+        toast('Радио выключено по таймеру сна');
+        return;
+      }
+      $('sleepLabel').textContent = 'Выключится через ' + Math.ceil(left / 60000) + ' мин';
+    };
+    tick();
+    sleepTimer = setInterval(tick, 1000);
+  });
+
+  /* ===== ФИЛЬТРЫ И СПИСОК ===== */
+  const tabsEl = $('tabs');
+  const TABS = [{ id: 'all', name: 'Все' }]
+    .concat(GROUPS.map((g) => ({ id: g.id, name: g.name })))
+    .concat([{ id: 'fav', name: 'Избранное' }]);
+  tabsEl.innerHTML = TABS.map((t) =>
+    '<button class="tab" data-tab="' + t.id + '" aria-pressed="false">' + t.name + '<span class="n" id="n-' + t.id + '"></span></button>'
+  ).join('');
+
+  function inLang(s) { return langFilter === 'all' || s.lang === langFilter; }
+
+  function updateTabs() {
+    const base = STATIONS.filter(inLang);
+    TABS.forEach((t) => {
+      let n = base.length;
+      if (t.id === 'fav') n = base.filter(isFav).length;
+      else if (t.id !== 'all') n = base.filter((s) => s.group === t.id).length;
+      $('n-' + t.id).textContent = n;
+    });
+    tabsEl.querySelectorAll('.tab').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tab === filter)));
+    document.querySelectorAll('.lang').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === langFilter)));
+  }
+
+  function rowHTML(s, showGroup) {
+    const meta = LANGS[s.lang] + (showGroup ? ' · ' + GROUPS.find((g) => g.id === s.group).name : '');
+    return '<li class="row" data-url="' + s.url + '">' +
+      '<button class="row-main" data-play="' + s.url + '">' +
+        artHTML(s) +
+        '<span class="row-text"><span class="row-title">' + s.title + '</span><span class="row-meta" style="display:block">' + meta + '</span></span>' +
+      '</button>' +
+      '<button class="fav" data-fav="' + s.url + '" aria-pressed="' + isFav(s) + '" aria-label="В избранное: ' + s.title + '">' + ICON_STAR + '</button>' +
+    '</li>';
+  }
+
+  function renderList() {
+    const base = STATIONS.filter(inLang);
+    let html = '';
+    if (filter === 'fav') {
+      const list = base.filter(isFav);
+      html = list.length
+        ? '<section class="group"><ul class="list">' + list.map((s) => rowHTML(s, true)).join('') + '</ul></section>'
+        : '<p class="empty">В избранном пока пусто. Нажмите звёздочку рядом со станцией, и она появится здесь.</p>';
+    } else {
+      GROUPS.filter((g) => filter === 'all' || g.id === filter).forEach((g) => {
+        const list = base.filter((s) => s.group === g.id);
+        if (!list.length) return;
+        html += '<section class="group"><h2>' + g.name + '</h2><p class="note">' + g.note + '</p>' +
+                '<ul class="list">' + list.map((s) => rowHTML(s, false)).join('') + '</ul></section>';
+      });
+      if (!html) html = '<p class="empty">В этом разделе нет станций на выбранном языке. Выберите «Все» в строке «Язык».</p>';
+    }
+    $('list').innerHTML = html;
+    updateTabs();
+    syncUI();
+  }
+
+  tabsEl.addEventListener('click', (e) => {
+    const b = e.target.closest('.tab');
+    if (!b) return;
+    filter = b.dataset.tab;
+    renderList();
+  });
+  document.querySelector('.langs').addEventListener('click', (e) => {
+    const b = e.target.closest('.lang');
+    if (!b) return;
+    langFilter = b.dataset.lang;
+    renderList();
+  });
+  $('list').addEventListener('click', (e) => {
+    const favBtn = e.target.closest('[data-fav]');
+    if (favBtn) {
+      const url = favBtn.dataset.fav;
+      const i = favs.indexOf(url);
+      if (i === -1) favs.push(url); else favs.splice(i, 1);
+      store.set('gospelFavs', JSON.stringify(favs));
+      if (filter === 'fav') renderList();
+      else { favBtn.setAttribute('aria-pressed', String(i === -1)); updateTabs(); }
+      return;
+    }
+    const playBtn = e.target.closest('[data-play]');
+    if (playBtn) {
+      const st = byUrl(playBtn.dataset.play);
+      if (!st) return;
+      if (current && current.url === st.url && !audio.paused) audio.pause();
+      else startStation(st);
+    }
+  });
+
+  /* ===== МИНИ-ПЛЕЕР: показываем, когда основной ушёл за экран ===== */
+  let heroVisible = true;
+  function updateMini() { mini.classList.toggle('show', !!current && !heroVisible); }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((entries) => {
+      heroVisible = entries[0].isIntersecting;
+      updateMini();
+    }).observe(hero);
+  }
+
+  /* ===== ТЕМА И ЯРЛЫК ===== */
+  $('themeBtn').addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    store.set('gospelTheme', next);
+  });
+  $('shortcutBtn').addEventListener('click', () => {
+    const d = $('shortcutDialog');
+    if (d.showModal) d.showModal();
+    else alert('iPhone (Safari): Поделиться → На экран «Домой»\nAndroid (Chrome): Меню → Добавить на главный экран');
+  });
+
+  /* ===== ЗАГРУЗКА СПИСКА СТАНЦИЙ ===== */
+  // Файл может быть массивом или объектом { "stations": [...] } (как плей-лист из сборщика).
+  async function loadStations() {
+    const r = await fetch('stations.json', { cache: 'no-cache' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const data = await r.json();
+    const arr = Array.isArray(data) ? data : (data.stations || []);
+    const seen = new Set();
+    STATIONS = arr
+      .filter((x) => x && x.title && /^https?:\/\//.test(x.url) && !seen.has(x.url) && seen.add(x.url))
+      .map((x) => ({
+        title: String(x.title).trim(),
+        url: x.url,
+        group: GROUPS.some((g) => g.id === x.group) ? x.group : 'live',
+        lang: LANGS[x.lang] ? x.lang : 'ru',
+        icon: x.icon || ''
+      }));
+    if (!STATIONS.length) throw new Error('empty');
+  }
+
+  /* ===== СТАРТ ===== */
+  $('list').innerHTML = '<p class="empty">Загружаем список станций…</p>';
+  loadStations().then(() => {
+    const last = byUrl(store.get('gospelLast'));
+    if (last) { current = last; setStatus('paused', 'Последняя станция. Нажмите ▶'); }
+    renderList();
+  }).catch(() => {
+    const local = location.protocol === 'file:'
+      ? ' Из локального файла браузер не даёт читать stations.json: откройте страницу по адресу на GitHub Pages.'
+      : '';
+    $('list').innerHTML = '<p class="empty">Не удалось загрузить список станций. Проверьте, что файл stations.json лежит рядом с этой страницей.' + local + '</p>';
+    updateTabs();
+  });
+})();
+</script>
+</body>
+</html>

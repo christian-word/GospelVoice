@@ -1,0 +1,237 @@
+{
+  "stations": [
+    {
+      "title": "Відкрите Слово — Старий Заповіт",
+      "url": "https://rt.radioslovo.net:1105/stream",
+      "group": "bible",
+      "lang": "ua",
+      "icon": "https://holyradio.live/uploads/posts/2020-05/1590176529_radioslovo_logo.png"
+    },
+    {
+      "title": "Відкрите Слово — Новий Заповіт",
+      "url": "https://rt.radioslovo.net:1095/stream",
+      "group": "bible",
+      "lang": "ua",
+      "icon": "https://holyradio.live/uploads/posts/2020-05/1590176529_radioslovo_logo.png"
+    },
+    {
+      "title": "Открытое Слово (рус.)",
+      "url": "https://rt.radioslovo.net:4395/radio",
+      "group": "bible",
+      "lang": "ru",
+      "icon": "https://holyradio.live/uploads/posts/2020-01/1579702258_microphone-1.png"
+    },
+    {
+      "title": "Чтение Нового Завета",
+      "url": "https://rt.radioslovo.net:4055/stream",
+      "group": "bible",
+      "lang": "ru",
+      "icon": "https://holyradio.live/uploads/posts/2020-05/1590176529_radioslovo_logo.png"
+    },
+    {
+      "title": "Ветхий Завет",
+      "url": "https://rt.radioslovo.net:4165/stream",
+      "group": "bible",
+      "lang": "ru",
+      "icon": "https://holyradio.live/uploads/posts/2020-05/1590176529_radioslovo_logo.png"
+    },
+    {
+      "title": "Инструментальная христ. музыка",
+      "url": "https://rt.radioslovo.net:4275/stream",
+      "group": "music",
+      "lang": "ru",
+      "icon": "https://holyradio.live/uploads/posts/2020-05/1590176529_radioslovo_logo.png"
+    },
+    {
+      "title": "RadioMV Музыка",
+      "url": "https://ice.radiomv.co:8440/russian_music.mp3",
+      "group": "music",
+      "lang": "ru",
+      "icon": "https://holyradio.live/uploads/posts/2020-05/1590537826_mv_logo.jpg"
+    },
+    {
+      "title": "Радио 123",
+      "url": "https://de1.internet-radio.com/proxy/belradio123/stream",
+      "group": "music",
+      "lang": "ru",
+      "icon": "https://holyradio.live/uploads/posts/2022-06/kontakt1.gif"
+    },
+    {
+      "title": "Світле радіо Еммануїл",
+      "url": "https://online.svitle.org:6729/fm",
+      "group": "live",
+      "lang": "ua"
+    },
+    {
+      "title": "Открытое Слово (укр.)",
+      "url": "https://rt.radioslovo.net:5005/radio",
+      "group": "live",
+      "lang": "ua",
+      "icon": "https://holyradio.live/uploads/posts/2020-05/1590176529_radioslovo_logo.png"
+    },
+    {
+      "title": "Открытое Слово (авто)",
+      "url": "https://rt.radioslovo.net:4145/stream",
+      "group": "live",
+      "lang": "ru",
+      "icon": "https://holyradio.live/uploads/posts/2020-05/1590176529_radioslovo_logo.png"
+    },
+    {
+      "title": "Слово Благодати",
+      "url": "https://c13.radioboss.fm:18516/stream",
+      "group": "live",
+      "lang": "ru"
+    },
+    {
+      "title": "Новая жизнь",
+      "url": "https://nlradio.stream:8000/nlradio-low.aac",
+      "group": "live",
+      "lang": "ru"
+    },
+    {
+      "title": "Семейное Радио Эли",
+      "url": "https://icecast.pereraadio.ee:9000/Semeinoje",
+      "group": "live",
+      "lang": "ru",
+      "icon": "https://holyradio.live/uploads/posts/2024-06/thumbs/eli.jpg"
+    },
+    {
+      "title": "Три Ангела",
+      "url": "https://radio.3angels.ru/live",
+      "group": "live",
+      "lang": "ru",
+      "icon": "https://holyradio.live/uploads/posts/2020-11/1604721228_ozbnksvswjm.jpg"
+    },
+    {
+      "title": "Братские встречи",
+      "url": "https://rt.radioslovo.net:4135/stream",
+      "group": "music",
+      "lang": "ru",
+      "icon": "https://holyradio.live/uploads/posts/2020-05/1590176529_radioslovo_logo.png"
+    },
+    {
+      "title": "Чистая волна",
+      "url": "https://stream.purewave.ru:8443/live128.mp3",
+      "group": "music",
+      "lang": "ru",
+      "icon": "https://holyradio.live/uploads/posts/2024-06/thumbs/pw.png"
+    },
+    {
+      "title": "Детское христианское радио",
+      "url": "https://c18.radioboss.fm:8475/stream",
+      "group": "music",
+      "lang": "ru",
+      "icon": "https://holyradio.live/uploads/posts/2020-10/1602555329_dhr.jpg"
+    },
+    {
+      "title": "Детский час: RadioMV",
+      "url": "https://stream.radiomv.com/stream/slavic-kids.m3u8",
+      "group": "music",
+      "lang": "ru",
+      "icon": "https://holyradio.live/uploads/posts/2025-11/thumbs/radiomv.jpg"
+    },
+    {
+      "title": "Славянское RadioMV",
+      "url": "https://stream.radiomv.com/stream/slavic.m3u8",
+      "group": "live",
+      "lang": "ru",
+      "icon": "https://holyradio.live/uploads/posts/2025-10/thumbs/radiomv.jpg"
+    },
+    {
+      "title": "BBN Сеть Библейского Вещания",
+      "url": "https://audio-edge-cmc51.fra.h.radiomast.io/1f7e18dd-42dc-4869-9785-a9800456b9e3",
+      "group": "bible",
+      "lang": "ru",
+      "icon": "https://holyradio.live/uploads/posts/2026-06/thumbs/bbn.webp"
+    },
+    {
+      "title": "Пилигрим — онлайн вещание",
+      "url": "https://cast4.asurahosting.com/proxy/pilgrim1/stream",
+      "group": "music",
+      "lang": "ru"
+    },
+    {
+      "title": "Волна счастья",
+      "url": "https://listen.radioking.com/radio/562580/stream/622265",
+      "group": "live",
+      "lang": "ru"
+    },
+    {
+      "title": "Radio EL-HI",
+      "url": "https://c13.radioboss.fm:18516/europe",
+      "group": "music",
+      "lang": "ru"
+    },
+    {
+      "title": "Нове Життя",
+      "url": "https://online.novezhitya.net:8000/nlradio_ua-mid.aac",
+      "group": "music",
+      "lang": "ua"
+    },
+    {
+      "title": "RadioM",
+      "url": "https://live.radiom.ua/stream_mp3",
+      "group": "music",
+      "lang": "ua"
+    },
+    {
+      "title": "Новы Запавет на беларускай мове",
+      "url": "https://rt.radioslovo.net:1115/stream",
+      "group": "bible",
+      "lang": "other",
+      "icon": "https://holyradio.live/uploads/posts/2020-05/1590176529_radioslovo_logo.png"
+    },
+    {
+      "title": "Nuevo Testamento — Biblia en español",
+      "url": "https://rt.radioslovo.net:1085/radio",
+      "group": "bible",
+      "lang": "other",
+      "icon": "https://holyradio.live/uploads/posts/2025-11/thumbs/otkrytoe-slovo.png"
+    },
+    {
+      "title": "New Testament — English",
+      "url": "https://rt.radioslovo.net:4895/stream",
+      "group": "bible",
+      "lang": "other",
+      "icon": "https://holyradio.live/uploads/posts/2020-05/1590176529_radioslovo_logo.png"
+    },
+    {
+      "title": "ChristianRock NET: Rock",
+      "url": "https://rocket.christianrock.net/stream/1/",
+      "group": "music",
+      "lang": "other",
+      "icon": "https://holyradio.live/uploads/posts/2025-10/thumbs/christianrock.png"
+    },
+    {
+      "title": "Christian Smooth Jazz",
+      "url": "https://radio.wanderingsheep.net:8021/christianjazz",
+      "group": "music",
+      "lang": "other"
+    },
+    {
+      "title": "Family Radio",
+      "url": "https://ais-sa3.cdnstream1.com/2641_64.aac",
+      "group": "music",
+      "lang": "other"
+    },
+    {
+      "title": "The Light FM",
+      "url": "https://ais-sa8.cdnstream1.com/2815_96.aac",
+      "group": "music",
+      "lang": "other"
+    },
+    {
+      "title": "Power of the Cross",
+      "url": "https://stream.aiir.com/tnv6zhfls5ctv?_=440101",
+      "group": "live",
+      "lang": "other"
+    },
+    {
+      "title": "Radio Maanaim",
+      "url": "https://65492b4a9e231.streamlock.net/liverm/rmaac/playlist.m3u8",
+      "group": "live",
+      "lang": "other",
+      "icon": "https://holyradio.live/uploads/posts/2025-11/thumbs/maanaim.png"
+    }
+  ]
+}
